@@ -34,7 +34,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("db_project.View.App")
+    mainClass.set("db_project.view.App")
 }
 
 javafx {
