@@ -81,7 +81,9 @@ parent = [-1] * len(stIds)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python pathFind.py <srcStationName> <dstStationName>")
+        print("Usage: python pathFind.py <srcStationName> <dstStationName> \
+            \nnote: all station names has to be in caps lock and wrapped in single/double quotes if \
+            \nthe name contains a space. All stations' names are in route_data/statID.json")
         sys.exit(0)
 
     src = sys.argv[1]
