@@ -1,3 +1,5 @@
+# note, TRENTO, TREVISO and UDINE actually are unreacheable, it seems
+# that something is wrong when decoding the JSON, need to do some debug
 import json
 import math
 from queue import PriorityQueue
