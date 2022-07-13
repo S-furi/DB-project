@@ -304,7 +304,7 @@
             "changes": 0
         }
     },
-    "TREVISO C.": {
+    "TREVISO": {
         "UDINE": {
             "duration": "00:47",
             "distance": 119.0,
@@ -313,6 +313,13 @@
         "VENEZIA SANTA LUCIA": {
             "duration": "00:16",
             "distance": 41.3,
+            "changes": 0
+        }
+    },
+    "TRIESTE" : {
+        "VENEZIA SANTA LUCIA": {
+            "duration": "01:55",
+            "distance": 156.8,
             "changes": 0
         }
     },
