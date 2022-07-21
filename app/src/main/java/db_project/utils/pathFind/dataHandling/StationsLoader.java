@@ -48,20 +48,20 @@ public class StationsLoader {
     public void cacheDistancesData() {
         final var jsonData = this.getFileData(STATION_DISTANCES_FILEPATH);
         final var stations = this.getStations();
-        for(final var data : jsonData) {
-            JSONObject src = (JSONObject)data;
-            for(final String srcStation : stations) {
-                try {
-                    JSONArray tripSolutions = (JSONArray)src.get(srcStation);
-                    for(final var trip : tripSolutions) {
-                        ((JSONObject)trip).forEach((k,v) -> {
-                            double distance = (double)((JSONObject)v).get("distance");
-                            this.addStationData(srcStation, k.toString(), distance);
-                        });
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println("Error with " + srcStation);
+        final var data = jsonData.get(0);
+
+        JSONObject src = (JSONObject)data;
+        for(final String srcStation : stations) {
+            try {
+                JSONArray tripSolutions = (JSONArray)src.get(srcStation);
+                for(final var trip : tripSolutions) {
+                    ((JSONObject)trip).forEach((k,v) -> {
+                        double distance = (double)((JSONObject)v).get("distance");
+                        this.addStationData(srcStation, k.toString(), distance);
+                    });
                 }
+            } catch (NullPointerException e) {
+                System.out.println("Error with " + srcStation);
             }
         }
         this.isRouteComputed = true;
