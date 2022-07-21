@@ -1,8 +1,11 @@
 package db_project.utils.pathFind;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sound.midi.SoundbankResource;
 
 import org.checkerframework.checker.units.qual.K;
 
@@ -31,28 +34,28 @@ public class RoutePathFinder {
     }
 
     public List<Pair<String, String>> getPathFromSourceToDestination(String source, String destination) {
-        double[] distances = this.pathFinder.getMinDistance(this.getStationAlias(source));
+        int[] routes = this.pathFinder.getMinDistance(this.getStationAlias(source));
         return null;
     }
 
     public double getTotalDistance(String source, String destination) {
         return this.pathFinder
-                .getMinDistance(this.getStationAlias(source))[this.getStationAlias(destination)];
+            .getMinDistance(this.getStationAlias(source))[this.getStationAlias(destination)];
     }
 
     private void generateStationAliases() {
-        this.stationLoader.getStations().forEach(t -> {
-            for (var i = 0; i < this.numOfStations; i++) {
-                this.stationAliases.put(t, i);
-            }
-        });
+        int i = 0;
+        for (final var station : this.stationLoader.getStations()) {
+            this.stationAliases.put(station, i);
+            i++;
+        }
     }
     
     private void initializeGraph() {
         this.stationLoader.getRouteInfo().forEach((k,v) -> {
                 v.forEach(edge -> this.graph.addEdge(this.getStationAlias(k), 
                                                     this.getStationAlias(edge.getKey()), 
-                                                    edge.getValue()));
+                                                    (int)Math.ceil(edge.getValue())));
         });
     }
 
