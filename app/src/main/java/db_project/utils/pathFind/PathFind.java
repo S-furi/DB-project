@@ -27,7 +27,7 @@ public class PathFind {
         int[] distance = new int[this.numOfVertices];
 
         //Initialize all the vertices to INF (MAX_INT)
-        for(var i = 0; i < this.numOfVertices; i++) {
+        for (var i = 0; i < this.numOfVertices; i++) {
             distance[i] = Integer.MAX_VALUE;
         }
 
@@ -45,12 +45,12 @@ public class PathFind {
             spt[extractedVertex] = true;
             final var edges = this.graph.getAdjList()[extractedVertex];
             
-            for(final var edge : edges) {
-                if(spt[edge.getDestination()]) { continue; }
+            for (final var edge : edges) {
+                if (spt[edge.getDestination()]) { continue; }
 
                 var newKey = distance[extractedVertex] + edge.getWeight();
                 var currentKey = distance[edge.getDestination()];
-                if(currentKey > newKey) {
+                if (currentKey > newKey) {
                     var p = new Pair<Integer, Integer>(newKey, edge.getDestination());
                     pq.offer(p);
                     distance[edge.getDestination()] = newKey;
