@@ -37,7 +37,7 @@ public class StationsLoader {
         var jsonData = this.getFileData(STATION_IDS_FILEPATH);
         final LinkedList<String> stations = new LinkedList<>();
         
-        for(final var data : jsonData) {
+        for (final var data : jsonData) {
             JSONObject station = (JSONObject)data;
             station.forEach((k,v) -> stations.addFirst((String)k));
         }
@@ -50,10 +50,10 @@ public class StationsLoader {
         final var stations = this.getStations();
 
         JSONObject src = (JSONObject)data;
-        for(final String srcStation : stations) {
+        for (final String srcStation : stations) {
             try {
                 JSONArray tripSolutions = (JSONArray)src.get(srcStation);
-                for(final var trip : tripSolutions) {
+                for (final var trip : tripSolutions) {
                     ((JSONObject)trip).forEach((k,v) -> {
                         double distance = (double)((JSONObject)v).get("distance");
                         this.addStationData(srcStation, k.toString(), distance);
@@ -67,7 +67,7 @@ public class StationsLoader {
     }
 
     private void addStationData(String src, String dst, double distance) {
-        if(!this.stationsRouteInfo.containsKey(src)) {
+        if (!this.stationsRouteInfo.containsKey(src)) {
             List<Pair<String, Double>> list = new LinkedList<>();
             list.add(new Pair<String, Double>(dst, distance));
             this.stationsRouteInfo.put(src, list);
