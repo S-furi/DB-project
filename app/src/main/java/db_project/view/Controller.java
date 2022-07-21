@@ -55,7 +55,7 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.createTableView();
-
+        this.resetSqlTable();
         register_button.disableProperty().bind(
             Bindings.isEmpty(firstname_field.textProperty())
             .or(Bindings.isEmpty(lastname_field.textProperty()))
