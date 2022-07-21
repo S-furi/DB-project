@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,10 +24,12 @@ public class StationsLoader {
     
     private final JSONParser parser;
     private final Map<String, List<Pair<String, Double>>> stationsRouteInfo;
+    private boolean isRouteComputed;
 
     public StationsLoader() {
         this.parser = new JSONParser();
         this.stationsRouteInfo = new HashMap<>();
+        this.isRouteComputed = false;
     }
 
     @SuppressWarnings ("unchecked")
@@ -43,31 +44,27 @@ public class StationsLoader {
         return stations;
     }
 
-    public Map<String, List<Pair<String, Double>>> getDistancesData() {
+    @SuppressWarnings ("unchecked")
+    public void cacheDistancesData() {
         final var jsonData = this.getFileData(STATION_DISTANCES_FILEPATH);
         final var stations = this.getStations();
         for(final var data : jsonData) {
-
             JSONObject src = (JSONObject)data;
             for(final String srcStation : stations) {
-                System.out.println(srcStation);
-                JSONArray tripSolutions = (JSONArray)src.get(srcStation);
-                tripSolutions.forEach(t -> System.out.println(((JSONObject)t).toJSONString()));
-                break;
+                try {
+                    JSONArray tripSolutions = (JSONArray)src.get(srcStation);
+                    for(final var trip : tripSolutions) {
+                        ((JSONObject)trip).forEach((k,v) -> {
+                            double distance = (double)((JSONObject)v).get("distance");
+                            this.addStationData(srcStation, k.toString(), distance);
+                        });
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Error with " + srcStation);
+                }
             }
         }
-        // for(final var data : jsonData) {
-        //     JSONObject stat = (JSONObject) data;
-        //     JSONArray res = (JSONArray)stat.get("VENEZIA SANTA LUCIA");
-
-        //     // for(final var dst : res) {
-        //     //     double distance = (double)((JSONObject)((JSONObject)dst).get("PADOVA")).get("distance");
-        //     //     System.out.println(distance);
-        //     // }
-            
-        //     //stat.forEach((k,v) -> this.statId.put((String)k, (String)v));
-        // }
-        return null;
+        this.isRouteComputed = true;
     }
 
     private void addStationData(String src, String dst, double distance) {
@@ -101,5 +98,12 @@ public class StationsLoader {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = Objects.requireNonNull(classLoader.getResource(filename));
         return new File(resource.toURI());
+    }
+
+    public Map<String, List<Pair<String, Double>>> getRouteInfo() {
+        if (!this.isRouteComputed) {
+            throw new IllegalAccessError();
+        }
+        return this.stationsRouteInfo;
     }
 }
