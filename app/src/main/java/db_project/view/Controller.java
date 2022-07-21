@@ -46,14 +46,11 @@ public class Controller implements Initializable{
 
     private ObservableList<User> users = FXCollections.observableArrayList();
 
-    private static final String username = "root";
-    private static final String password = "123Test123";
-    private static final String dbName = "users";
+    final static ConnectionProvider connectionProvider =  ConnectionController.getConnectionProvider();
 
-    final static ConnectionProvider connectionProvider =  new ConnectionProvider(username, password, dbName);;
     final static UserTable users_table = new UserTable(connectionProvider.getMySQLConnection());
     
-    final SampleLoader sample = new SampleLoader("data_generation/db_data.json");
+    final SampleLoader sample = new SampleLoader("data_generation/users/user_data/db_data.json");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
