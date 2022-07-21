@@ -60,7 +60,7 @@ public class StationsLoader {
                     });
                 }
             } catch (NullPointerException e) {
-                System.out.println("Error with " + srcStation);
+                //System.out.println("Error with " + srcStation);
             }
         }
         this.isRouteComputed = true;
