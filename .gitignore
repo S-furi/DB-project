@@ -26,3 +26,6 @@ gradle-app.setting
 
 # MacOS CrossOver file
 .~lock*
+
+# Connection file
+ConnectionController.java
