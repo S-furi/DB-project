@@ -1,12 +1,12 @@
-{
-    "BARI CENTRALE": {
+[{
+    "BARI CENTRALE": [{
         "BARLETTA": {
             "duration": "00:24",
             "distance": 62.2,
             "changes": 0
         }
-    },
-    "BARLETTA": {
+    }],
+    "BARLETTA": [{
         "FOGGIA": {
             "duration": "00:31",
             "distance": 80.1,
@@ -17,8 +17,8 @@
             "distance": 66.2,
             "changes": 0
         }
-    },
-    "BENEVENTO": {
+    }],
+    "BENEVENTO": [{
         "CASERTA": {
             "duration": "00:24",
             "distance": 61.8,
@@ -29,8 +29,8 @@
             "distance": 114.0,
             "changes": 0
         }
-    },
-    "BERGAMO": {
+    }],
+    "BERGAMO": [{
         "BRESCIA": {
             "duration": "00:20",
             "distance": 52.5,
@@ -41,8 +41,8 @@
             "distance": 53.6,
             "changes": 0
         }
-    },
-    "BOLOGNA C.LE": {
+    }],
+    "BOLOGNA C.LE": [{
         "REGGIO EMILIA": {
             "duration": "00:31",
             "distance": 79.7,
@@ -63,15 +63,15 @@
             "distance": 49.8,
             "changes": 0
         }
-    },
-    "BOLZANO": {
+    }],
+    "BOLZANO": [{
         "TRENTO": {
             "duration": "00:23",
             "distance": 58.8,
             "changes": 0
         }
-    },
-    "BRESCIA": {
+    }],
+    "BRESCIA": [{
         "DESENZANO": {
             "duration": "00:13",
             "distance": 33.0,
@@ -82,8 +82,8 @@
             "distance": 53.3,
             "changes": 0
         }
-    },
-    "CASERTA": {
+    }],
+    "CASERTA": [{
         "BENEVENTO": {
             "duration": "00:24",
             "distance": 60.9,
@@ -94,8 +94,8 @@
             "distance": 199.2,
             "changes": 0
         }
-    },
-    "DESENZANO": {
+    }],
+    "DESENZANO": [{
         "PESCHIERA": {
             "duration": "00:06",
             "distance": 15.3,
@@ -106,8 +106,8 @@
             "distance": 31.8,
             "changes": 0
         }
-    },
-    "FERRARA": {
+    }],
+    "FERRARA": [{
         "BOLOGNA C.LE": {
             "duration": "00:19",
             "distance": 49.7,
@@ -118,8 +118,8 @@
             "distance": 38.4,
             "changes": 0
         }
-    },
-    "FIRENZE S.M.N.": {
+    }],
+    "FIRENZE S.M.N.": [{
         "BOLOGNA C.LE": {
             "duration": "00:46",
             "distance": 118.0,
@@ -130,8 +130,8 @@
             "distance": 277.5,
             "changes": 0
         }
-    },
-    "FOGGIA": {
+    }],
+    "FOGGIA": [{
         "BENEVENTO": {
             "duration": "00:44",
             "distance": 112.0,
@@ -142,15 +142,15 @@
             "distance": 79.5,
             "changes": 0
         }
-    },
-    "GENOVA": {
+    }],
+    "GENOVA": [{
         "MILANO CENTRALE": {
             "duration": "00:57",
             "distance": 145.8,
             "changes": 0
         }
-    },
-    "LAMEZIA": {
+    }],
+    "LAMEZIA": [{
         "REGGIO CALABRIA": {
             "duration": "00:50",
             "distance": 128.1,
@@ -161,8 +161,8 @@
             "distance": 323.0,
             "changes": 0
         }
-    },
-    "MILANO CENTRALE": {
+    }],
+    "MILANO CENTRALE": [{
         "GENOVA": {
             "duration": "00:58",
             "distance": 148.1,
@@ -183,8 +183,8 @@
             "distance": 155.3,
             "changes": 0
         }
-    },
-    "NAPOLI CENTRALE": {
+    }],
+    "NAPOLI CENTRALE": [{
         "SALERNO": {
             "duration": "00:21",
             "distance": 54.5,
@@ -195,8 +195,8 @@
             "distance": 225.4,
             "changes": 0
         }
-    },
-    "PADOVA": {
+    }],
+    "PADOVA": [{
         "ROVIGO": {
             "duration": "00:19",
             "distance": 48.3,
@@ -212,8 +212,8 @@
             "distance": 42.4,
             "changes": 0
         }
-    },
-    "PESCHIERA": {
+    }],
+    "PESCHIERA": [{
         "VERONA": {
             "duration": "00:11",
             "distance": 29.5,
@@ -224,15 +224,15 @@
             "distance": 14.7,
             "changes": 0
         }
-    },
-    "REGGIO CALABRIA": {
+    }],
+    "REGGIO CALABRIA": [{
         "LAMEZIA": {
             "duration": "00:51",
             "distance": 129.2,
             "changes": 0
         }
-    },
-    "REGGIO EMILIA": {
+    }],
+    "REGGIO EMILIA": [{
         "MILANO CENTRALE": {
             "duration": "01:00",
             "distance": 153.6,
@@ -243,8 +243,8 @@
             "distance": 72.0,
             "changes": 0
         }
-    },
-    "ROMA TERMINI": {
+    }],
+    "ROMA TERMINI": [{
         "CASERTA": {
             "duration": "01:18",
             "distance": 198.1,
@@ -260,8 +260,8 @@
             "distance": 279.8,
             "changes": 0
         }
-    },
-    "ROVIGO": {
+    }],
+    "ROVIGO": [{
         "FERRARA": {
             "duration": "00:15",
             "distance": 38.8,
@@ -272,8 +272,8 @@
             "distance": 42.7,
             "changes": 0
         }
-    },
-    "SALERNO": {
+    }],
+    "SALERNO": [{
         "LAMEZIA": {
             "duration": "02:08",
             "distance": 325.0,
@@ -284,15 +284,15 @@
             "distance": 54.1,
             "changes": 0
         }
-    },
-    "TORINO": {
+    }],
+    "TORINO": [{
         "MILANO CENTRALE": {
             "duration": "00:55",
             "distance": 141.0,
             "changes": 0
         }
-    },
-    "TRENTO": {
+    }],
+    "TRENTO": [{
         "BOLZANO": {
             "duration": "00:23",
             "distance": 59.2,
@@ -303,8 +303,8 @@
             "distance": 101.0,
             "changes": 0
         }
-    },
-    "TREVISO": {
+    }],
+    "TREVISO": [{
         "UDINE": {
             "duration": "00:47",
             "distance": 119.0,
@@ -315,22 +315,22 @@
             "distance": 41.3,
             "changes": 0
         }
-    },
-    "TRIESTE" : {
+    }],
+    "TRIESTE" : [{
         "VENEZIA SANTA LUCIA": {
             "duration": "01:55",
             "distance": 156.8,
             "changes": 0
         }
-    },
-    "UDINE": {
+    }],
+    "UDINE": [{
         "TREVISO": {
             "duration": "00:46",
             "distance": 117.0,
             "changes": 0
         }
-    },
-    "VENEZIA SANTA LUCIA": {
+    }],
+    "VENEZIA SANTA LUCIA": [{
         "TREVISO": {
             "duration": "00:16",
             "distance": 40.9,
@@ -346,8 +346,8 @@
             "distance": 41.5,
             "changes": 0
         }
-    },
-    "VERONA": {
+    }],
+    "VERONA": [{
         "TRENTO": {
             "duration": "00:39",
             "distance": 99.0,
@@ -363,8 +363,8 @@
             "distance": 143.0,
             "changes": 0
         }
-    },
-    "VICENZA": {
+    }],
+    "VICENZA": [{
         "PADOVA": {
             "duration": "00:19",
             "distance": 49.9,
@@ -375,5 +375,5 @@
             "distance": 57.8,
             "changes": 0
         }
-    }
-}
+    }]
+}]
