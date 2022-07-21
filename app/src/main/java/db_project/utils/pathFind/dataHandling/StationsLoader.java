@@ -46,9 +46,8 @@ public class StationsLoader {
 
     @SuppressWarnings ("unchecked")
     public void cacheDistancesData() {
-        final var jsonData = this.getFileData(STATION_DISTANCES_FILEPATH);
+        final var data = this.getFileData(STATION_DISTANCES_FILEPATH).get(0);
         final var stations = this.getStations();
-        final var data = jsonData.get(0);
 
         JSONObject src = (JSONObject)data;
         for(final String srcStation : stations) {
