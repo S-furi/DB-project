@@ -28,4 +28,4 @@ gradle-app.setting
 .~lock*
 
 # Connection file
-app/src/main/java/db_project/view/ConnectionController.java
+# app/src/main/java/db_project/view/ConnectionController.java
