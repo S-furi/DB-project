@@ -3,9 +3,9 @@ package db_project.utils.pathFind.dataStructure;
 public class Edge {
     private int source;
     private int destination;
-    private int weight;
+    private double weight;
 
-    public Edge(final int src, final int dst, final int weight) {
+    public Edge(final int src, final int dst, final double weight) {
         this.source = src;
         this.destination = dst;
         this.weight = weight;
@@ -27,11 +27,11 @@ public class Edge {
         this.destination = destination;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 }

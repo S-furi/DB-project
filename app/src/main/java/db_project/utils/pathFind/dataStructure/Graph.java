@@ -22,7 +22,7 @@ public class Graph {
         }
     }
 
-    public void addEdge(int source, int destination, int weight) {
+    public void addEdge(int source, int destination, double weight) {
         this.adjList[source].addFirst(new Edge(source, destination, weight));
     }
 
