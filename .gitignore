@@ -23,3 +23,6 @@ gradle-app.setting
 
 .DS_Store
 .vscode/
+
+# MacOS CrossOver file
+.~lock*
