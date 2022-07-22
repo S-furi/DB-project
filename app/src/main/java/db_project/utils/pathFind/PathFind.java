@@ -1,10 +1,7 @@
 package db_project.utils.pathFind;
 
 import java.util.PriorityQueue;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
 import db_project.utils.pathFind.dataStructure.Graph;
 import javafx.util.Pair;
