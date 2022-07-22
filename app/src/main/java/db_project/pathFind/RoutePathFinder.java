@@ -77,7 +77,7 @@ public class RoutePathFinder {
                 .getKey();
     }
 
-    public double getTotalDistance(String source, String destination) {
+    public int getTotalDistance(String source, String destination) {
         return this.pathFinder
             .getMinDistance(this.getStationAlias(source))[this.getStationAlias(destination)];
     }
