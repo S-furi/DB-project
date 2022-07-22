@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import db_project.db.ConnectionProvider;
 import db_project.db.tables.UserTable;
 import db_project.model.User;
-import db_project.pathFind.RouteHandler;
 import db_project.utils.SampleLoader;
+import db_project.view.viewUtils.StationWithCheckBox;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,52 +24,42 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller implements Initializable{
-    @FXML
-    private Button erase_button;
+    private final static ConnectionProvider connectionProvider =  ConnectionController.getConnectionProvider();
+    private final SampleLoader sample = new SampleLoader("data_generation/users/user_data/db_data.json");
 
+    /* Users */
     @FXML
-    private Button register_button;
-
+    private Button eraseButton;
+    @FXML
+    private Button registerButton = new Button();
     @FXML
     private Button columnRemover;
-
     @FXML
     private Button searchSolutionsButton;
-
     @FXML
-    private TextField email_field = new TextField();
-
+    private TextField emailField = new TextField();
     @FXML
-    private TextField firstname_field = new TextField();
-
+    private TextField firstnameField = new TextField();
     @FXML
-    private TextField lastname_field = new TextField();
-
+    private TextField lastnameField = new TextField();
     @FXML
-    private TextField tel_field = new TextField();
-
+    private TextField telField = new TextField();
     @FXML
     private TableView<User> table = new TableView<>();
-
+    private ObservableList<User> users = FXCollections.observableArrayList();
+    private final static UserTable users_table = new UserTable(connectionProvider.getMySQLConnection());
+    
+    /* Railway */
+    @FXML
+    private TableView<StationWithCheckBox> solutionsTable;
+    @FXML
+    private Button saveSolutionsButton;
     @FXML
     private ChoiceBox<String> dstChoiceBox = new ChoiceBox<>();
-
     @FXML
     private ChoiceBox<String> srcChoiceBox = new ChoiceBox<>();
 
-    
-    /* Railway Soulutions Table */
-    @FXML
-    private TableView<StationWithCheckBox> solutionsTable;
-    private ObservableList<StationWithCheckBox> stations = FXCollections.observableArrayList();
-    @FXML
-    private Button saveSolutionsButton;
-    
-    private ObservableList<User> users = FXCollections.observableArrayList();
-    private final static ConnectionProvider connectionProvider =  ConnectionController.getConnectionProvider();
-    private final static UserTable users_table = new UserTable(connectionProvider.getMySQLConnection());
-    private final SampleLoader sample = new SampleLoader("data_generation/users/user_data/db_data.json");
-    private final RouteHandler routeHandler = new RouteHandler();
+    private final RailwayController railwayController = new RailwayController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,20 +67,7 @@ public class Controller implements Initializable{
         this.createStationsTableView();
         this.resetSqlTable();
 
-        this.register_button.disableProperty().bind(
-            Bindings.isEmpty(firstname_field.textProperty())
-            .or(Bindings.isEmpty(lastname_field.textProperty()))
-            .or(Bindings.isEmpty(tel_field.textProperty()))
-            .or(Bindings.isEmpty(email_field.textProperty()))
-        );
-
-        //Doesn't work
-        this.searchSolutionsButton.disableProperty().bind(
-            this.srcChoiceBox.valueProperty().isNull()
-            .or(dstChoiceBox.valueProperty().isNull())
-        );
-
-        this.saveSolutionsButton.setDisable(true);
+        this.initialButtonsSetup();
 
         sample.getStoredPeople().forEach(t -> this.addUserToCurrentTable(t));
 
@@ -100,17 +76,33 @@ public class Controller implements Initializable{
         System.out.println("Setup completed: " + this.resetSqlTable());
     }
 
-    private void populateCheckBox() {
-        this.srcChoiceBox.getItems().setAll(this.routeHandler.getStationsNames());
-        this.dstChoiceBox.getItems().setAll(this.routeHandler.getStationsNames());
-    }
-
     /**
      * Resetting mySql table
      * @return false if the operation could not be completed
      */
     private boolean resetSqlTable() {
         return  users_table.dropTable() && users_table.createTable();
+    }
+
+    public void initialButtonsSetup() {
+        this.registerButton.disableProperty().bind(
+            Bindings.isEmpty(firstnameField.textProperty())
+            .or(Bindings.isEmpty(lastnameField.textProperty()))
+            .or(Bindings.isEmpty(telField.textProperty()))
+            .or(Bindings.isEmpty(emailField.textProperty()))
+        );
+
+        this.searchSolutionsButton.disableProperty().bind(
+            this.srcChoiceBox.valueProperty().isNull()
+            .or(dstChoiceBox.valueProperty().isNull())
+        );
+
+        this.saveSolutionsButton.setDisable(true);
+    }
+
+    private void populateCheckBox() {
+        this.srcChoiceBox.getItems().setAll(this.railwayController.getStationsNames());
+        this.dstChoiceBox.getItems().setAll(this.railwayController.getStationsNames());
     }
 
     /**
@@ -137,47 +129,29 @@ public class Controller implements Initializable{
         this.table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.table.setItems(this.users);
     }
-
-    private void createStationsTableView() {
-        this.solutionsTable.setEditable(true);
-        
-        TableColumn<StationWithCheckBox, String> stationColumn = new TableColumn<>("Station");
-        stationColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        TableColumn<StationWithCheckBox, CheckBox> checkStation = new TableColumn<>("Check");
-        checkStation.setCellValueFactory(new PropertyValueFactory<>("select"));
-
-        var columns = List.of(stationColumn, checkStation);
-        columns.forEach(t -> this.solutionsTable.getColumns().add(t));
-
-        this.solutionsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        this.solutionsTable.setItems(this.stations);
-    }
-    
     
     @FXML
     void eraseAllFields(ActionEvent event) {
-        List.of(this.email_field,
-            this.firstname_field,
-            this.lastname_field,
-            this.tel_field).forEach(t -> t.clear());;
+        List.of(this.emailField,
+            this.firstnameField,
+            this.lastnameField,
+            this.telField).forEach(t -> t.clear());;
     }
 
     @FXML
     void saveRegistration(ActionEvent event) {
         var id = User.generateId();
         
-        User user = new User(id, this.firstname_field.getText(), 
-                                 this.lastname_field.getText(),
-                                 this.tel_field.getText(),
-                                 this.email_field.getText());
+        User user = new User(id, this.firstnameField.getText(), 
+                                 this.lastnameField.getText(),
+                                 this.telField.getText(),
+                                 this.emailField.getText());
         
         System.out.println("Registration completed");
         System.out.println("New user's info: " + user.getUserInfo());
         this.eraseAllFields(event);
         this.addUserToCurrentTable(user);
     }
-
 
     private void addUserToCurrentTable(User user) {
         this.users.add(user);
@@ -186,8 +160,18 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void removeColumn(ActionEvent event) {
+    void removeLastRow(ActionEvent event) {
         this.users.remove(this.users.get(0));
+    }
+
+    private void createStationsTableView() {
+        this.solutionsTable.setEditable(true);
+        this.railwayController
+            .getTableViewColumns()
+            .forEach(t -> this.solutionsTable.getColumns().add(t));
+
+        this.solutionsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.solutionsTable.setItems(this.railwayController.getStations());
     }
 
     /**
@@ -213,8 +197,8 @@ public class Controller implements Initializable{
      * @param dstStation
      */
     private void updateSolutionsTable(String srcStation, String dstStation) {
-        List<String> path = this.routeHandler.getStationsPath(srcStation, dstStation);
-        path.forEach(t -> this.stations.add(new StationWithCheckBox(t)));
+        List<String> path = this.railwayController.computePath(srcStation, dstStation);
+        path.forEach(t -> this.railwayController.addStation(new StationWithCheckBox(t)));
         this.solutionsTable.refresh();
     }
 
@@ -227,42 +211,15 @@ public class Controller implements Initializable{
      */
     @FXML
     void computeRoute(ActionEvent event) {
-        final var stations = this.solutionsTable
+        final var selectedStations = this.solutionsTable
             .getItems()
             .stream()
             .filter(t -> t.getSelect().isSelected())
             .map(t -> t.getName())
             .collect(Collectors.toList());
-        stations.forEach(System.out::println);
+        selectedStations.forEach(System.out::println);
         this.solutionsTable.getItems().clear();
         this.srcChoiceBox.setValue(null);
         this.dstChoiceBox.setValue(null);
-    }
-
-    public class StationWithCheckBox {
-        private String name;
-        private CheckBox select;
-        
-        public StationWithCheckBox(String name) {
-            this.name = name;
-            this.select = new CheckBox();
-            this.select.setSelected(true);
-        }
-
-        public CheckBox getSelect() {
-            return this.select;
-        }
-
-        public void setSelect(CheckBox select) {
-            this.select = select;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 }
