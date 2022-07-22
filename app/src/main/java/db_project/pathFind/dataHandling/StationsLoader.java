@@ -99,6 +99,13 @@ public class StationsLoader {
         return new File(resource.toURI());
     }
 
+    /**
+     * Get routes informations contained into Json in a 
+     * java, easy-to-read, format.
+     * 
+     * @return all stations route information (as formatted into json)
+     * @throws IllegalAccessError() if the stations aren't already cached
+     */
     public Map<String, List<Pair<String, Double>>> getRouteInfo() {
         if (!this.isRouteComputed) {
             throw new IllegalAccessError();
