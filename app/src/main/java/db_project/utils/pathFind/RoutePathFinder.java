@@ -29,9 +29,32 @@ public class RoutePathFinder {
         this.pathFinder = new PathFind(this.graph);
     }
 
-    public List<Pair<String, String>> getPathFromSourceToDestination(String source, String destination) {
+    public Map<String,String> getPathFromSourceToDestination(String source, String destination) {
+        Map<String, String> fromToEntries = new HashMap<>();
         int[] routes = this.pathFinder.getMinDistance(this.getStationAlias(source));
-        return null;
+        
+        final var parent = this.pathFinder.getParent();
+        if (parent.isEmpty()) throw new IllegalAccessError();
+        final var vertexTies = parent.get();
+
+        for(var i = 0; i < this.numOfStations; i++) {
+            String src = this.getStationNameFromAlias(i);
+            if (vertexTies[i] != -1) {
+                String dst = this.getStationNameFromAlias(vertexTies[i]);
+                fromToEntries.put(src, dst);
+            }
+        }
+        return fromToEntries;
+    }
+
+    private String getStationNameFromAlias(final int i) {
+        return this.stationAliases
+                .entrySet()
+                .stream()
+                .filter(t -> t.getValue() == i)
+                .findAny()
+                .get()
+                .getKey();
     }
 
     public double getTotalDistance(String source, String destination) {
