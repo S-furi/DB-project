@@ -1,13 +1,12 @@
 package db_project.utils.pathFind;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 
 import db_project.utils.pathFind.dataHandling.StationsLoader;
 import db_project.utils.pathFind.dataStructure.Graph;
-import javafx.util.Pair;
 
 public class RoutePathFinder {
     private final PathFind pathFinder;
@@ -29,10 +28,10 @@ public class RoutePathFinder {
         this.pathFinder = new PathFind(this.graph);
     }
 
-    public Map<String,String> getPathFromSourceToDestination(String source, String destination) {
+    public LinkedList<String> getPathFromSourceToDestination(String source, String destination) {
         Map<String, String> fromToEntries = new HashMap<>();
-        int[] routes = this.pathFinder.getMinDistance(this.getStationAlias(source));
-        
+        this.pathFinder.getMinDistance(this.getStationAlias(source));
+
         final var parent = this.pathFinder.getParent();
         if (parent.isEmpty()) throw new IllegalAccessError();
         final var vertexTies = parent.get();
@@ -44,7 +43,28 @@ public class RoutePathFinder {
                 fromToEntries.put(src, dst);
             }
         }
-        return fromToEntries;
+        
+        return getOrderedPath(fromToEntries, source, destination);
+    }
+
+    /**
+     * Recursive lookup onto parent map for finding shortest route.
+     * 
+     * @param parent (child, parent) map
+     * @param arrive Destination station's name
+     * @param actual Actual station's name
+     * @return an ordered list of station's names describing a shortest path.
+     */
+    private static LinkedList<String> getOrderedPath(final Map<String, String> parent, final String arrive, final String actual) {
+        if (arrive.equals(actual)) {
+            var list = new LinkedList<String>();
+            list.addLast(actual);
+            return list;
+        } else {
+            var lst = getOrderedPath(parent, arrive, parent.get(actual));
+            lst.addLast(actual);
+            return lst;
+        }
     }
 
     private String getStationNameFromAlias(final int i) {
