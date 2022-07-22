@@ -5,7 +5,7 @@ import db_project.utils.pathFind.dataStructure.Graph;
 public class TestPathFind {
     public static void main(String[] args) {
         final int numOfVertices = 6;
-        final int sourceVertex = 0;
+        final int sourceVertex = 2;
         final var g = new Graph(numOfVertices);
 
         g.addEdge(0, 1, 4);
