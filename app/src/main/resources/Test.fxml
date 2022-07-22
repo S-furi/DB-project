@@ -27,7 +27,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <Button fx:id="columnRemover" layoutX="197.0" layoutY="77.0" mnemonicParsing="false" onAction="#removeLastColumn" prefHeight="26.0" prefWidth="204.0" text="Elimina colonna" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="77.0" />
+                              <Button fx:id="columnRemover" layoutX="197.0" layoutY="77.0" mnemonicParsing="false" onAction="#removeLastRow" prefHeight="26.0" prefWidth="204.0" text="Elimina colonna" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="77.0" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>
