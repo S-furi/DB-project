@@ -2,6 +2,7 @@ package db_project.pathFind;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import db_project.pathFind.dataHandling.StationsLoader;
@@ -100,5 +101,8 @@ public class RoutePathFinder {
     private int getStationAlias(String station) {
         return this.stationAliases.get(station);
     }
-    
+
+    public List<String> getStations() {
+        return this.stationLoader.getStations();
+    }
 }
