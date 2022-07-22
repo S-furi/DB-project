@@ -2,7 +2,7 @@ package db_project.pathFind;
 
 public class TestRoutePathFind {
     public static void main(String[] args) {
-        final String src = "NAPOLI CENTRALE";
+        final String src = "LAMEZIA";
         final String dst = "VENEZIA SANTA LUCIA";
 
         RoutePathFinder pathFinder = new RoutePathFinder();
@@ -11,6 +11,4 @@ public class TestRoutePathFind {
         pathFinder.getPathFromSourceToDestination(src, dst)
             .forEach(t -> System.out.print(t + "->")); System.out.print("🏁");
     }
-
-    
 }
