@@ -1,7 +1,10 @@
 package db_project.utils.pathFind;
 
 import java.util.PriorityQueue;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 import db_project.utils.pathFind.dataStructure.Graph;
 import javafx.util.Pair;
@@ -23,41 +26,26 @@ public class PathFind {
      * @return distances associated with every vertex
      */
     public int[] getMinDistance(int sourceVertex) {
-        boolean[] spt = new boolean[this.numOfVertices];
-        int[] distance = new int[this.numOfVertices];
+        final var pq = this.getPriorityQueue();
+        int[] dist = new int[this.numOfVertices];
+        for(var i = 0; i < this.numOfVertices; i++) 
+            dist[i] = Integer.MAX_VALUE;       
 
-        //Initialize all the vertices to INF (MAX_INT)
-        for (var i = 0; i < this.numOfVertices; i++) {
-            distance[i] = Integer.MAX_VALUE;
-        }
+        pq.add(new Pair<Integer,Integer>(0, sourceVertex));
+        dist[sourceVertex] = 0;
+        while (!pq.isEmpty()) {
+            int u = pq.poll().getValue();
+            for(final var i : this.graph.getAdjList()[u]) {
+                int v = i.getDestination();
+                int w = i.getWeight();
 
-        final var pq = this.getPriorityQueue();        
-        
-        distance[0] = 0;
-        Pair<Integer, Integer> p0 = new Pair<>(distance[0], 0);
-        pq.offer(p0);
-
-        while(!pq.isEmpty()) {
-            Pair<Integer, Integer> extracedPair = pq.poll();
-            int extractedVertex = extracedPair.getValue();
-            if (spt[extractedVertex]) { continue; }
-            
-            spt[extractedVertex] = true;
-            final var edges = this.graph.getAdjList()[extractedVertex];
-            
-            for (final var edge : edges) {
-                if (spt[edge.getDestination()]) { continue; }
-
-                var newKey = distance[extractedVertex] + edge.getWeight();
-                var currentKey = distance[edge.getDestination()];
-                if (currentKey > newKey) {
-                    var p = new Pair<Integer, Integer>(newKey, edge.getDestination());
-                    pq.offer(p);
-                    distance[edge.getDestination()] = newKey;
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                    pq.add(new Pair<Integer,Integer>(dist[v], v));
                 }
             }
         }
-        return distance;
+        return dist;
     }
 
     private PriorityQueue<Pair<Integer, Integer>> getPriorityQueue() {
