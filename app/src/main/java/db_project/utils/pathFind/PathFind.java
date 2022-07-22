@@ -2,6 +2,7 @@ package db_project.utils.pathFind;
 
 import java.util.PriorityQueue;
 import java.util.Comparator;
+import java.util.Optional;
 
 import db_project.utils.pathFind.dataStructure.Graph;
 import javafx.util.Pair;
@@ -9,10 +10,16 @@ import javafx.util.Pair;
 public class PathFind {
     private final int numOfVertices;
     private final Graph graph;
+    private final int[] parent;
+    private boolean computed;
 
     public PathFind(Graph graph) {
         this.graph = graph;
         this.numOfVertices = this.graph.getNumOfVertices();
+        this.parent = new int[this.numOfVertices];
+        for(var i = 0; i < this.numOfVertices; i++) 
+            this.parent[i] = -1;
+        this.computed = false;
     }
     
     /**
@@ -39,10 +46,19 @@ public class PathFind {
                 if (dist[v] > dist[u] + w) {
                     dist[v] = dist[u] + w;
                     pq.add(new Pair<Integer,Integer>(dist[v], v));
+                    parent[v] = u;
                 }
             }
         }
+        this.computed = true;
         return dist;
+    }
+
+    public Optional<int[]> getParent() {
+        if(!this.computed) {
+            return Optional.empty();
+        }
+        return Optional.of(this.parent);
     }
 
     private PriorityQueue<Pair<Integer, Integer>> getPriorityQueue() {
