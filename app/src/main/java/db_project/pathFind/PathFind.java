@@ -1,10 +1,10 @@
-package db_project.utils.pathFind;
+package db_project.pathFind;
 
 import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.Optional;
 
-import db_project.utils.pathFind.dataStructure.Graph;
+import db_project.pathFind.dataStructure.Graph;
 import javafx.util.Pair;
 
 public class PathFind {

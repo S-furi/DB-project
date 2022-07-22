@@ -1,4 +1,4 @@
-package db_project.utils.pathFind.dataHandling;
+package db_project.pathFind.dataHandling;
 
 import java.util.List;
 import java.util.Map;

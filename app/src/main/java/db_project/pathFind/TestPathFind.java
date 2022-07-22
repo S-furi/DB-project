@@ -1,6 +1,6 @@
-package db_project.utils.pathFind;
+package db_project.pathFind;
 
-import db_project.utils.pathFind.dataStructure.Graph;
+import db_project.pathFind.dataStructure.Graph;
 
 public class TestPathFind {
     public static void main(String[] args) {

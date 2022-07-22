@@ -1,4 +1,4 @@
-package db_project.utils.pathFind.dataStructure;
+package db_project.pathFind.dataStructure;
 
 import java.util.LinkedList;
 

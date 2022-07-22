@@ -1,12 +1,11 @@
-package db_project.utils.pathFind;
+package db_project.pathFind;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-
-import db_project.utils.pathFind.dataHandling.StationsLoader;
-import db_project.utils.pathFind.dataStructure.Graph;
+import db_project.pathFind.dataHandling.StationsLoader;
+import db_project.pathFind.dataStructure.Graph;
 
 public class RoutePathFinder {
     private final PathFind pathFinder;

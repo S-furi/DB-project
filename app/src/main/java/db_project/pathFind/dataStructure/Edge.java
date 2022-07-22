@@ -1,4 +1,4 @@
-package db_project.utils.pathFind.dataStructure;
+package db_project.pathFind.dataStructure;
 
 public class Edge {
     private int source;

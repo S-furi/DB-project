@@ -1,4 +1,4 @@
-package db_project.utils.pathFind;
+package db_project.pathFind;
 
 public class TestRoutePathFind {
     public static void main(String[] args) {
