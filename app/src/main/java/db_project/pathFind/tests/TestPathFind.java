@@ -1,5 +1,6 @@
-package db_project.pathFind;
+package db_project.pathFind.tests;
 
+import db_project.pathFind.PathFind;
 import db_project.pathFind.dataStructure.Graph;
 
 public class TestPathFind {

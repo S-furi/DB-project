@@ -1,4 +1,6 @@
-package db_project.pathFind;
+package db_project.pathFind.tests;
+
+import db_project.pathFind.RoutePathFinder;
 
 public class TestRoutePathFind {
     public static void main(String[] args) {
