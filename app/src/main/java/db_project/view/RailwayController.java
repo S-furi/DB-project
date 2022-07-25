@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class RailwayController {
     private ObservableList<StationWithCheckBox> stations;
     private final RouteHandler routeHandler = new RouteHandler();
+    private List<String> selectedStations;
+    private boolean selected = false;
     
     public RailwayController() {
         this.stations = FXCollections.observableArrayList();
@@ -31,6 +33,29 @@ public class RailwayController {
         return this.routeHandler.getStationsPath(srcStation, dstStation);
     }
 
+    public void addSelectedStations(List<String> selectedStations) {
+        this.selectedStations = selectedStations;
+        this.selected = true;
+    }
+
+    /**
+     * Compute total distance beetween last and first station in selected route
+     * 
+     * @return totale kilometers beetween the first station and the last
+     * station selected
+     * @throws IllegalAccessError if {@link db_project.view.RailwaController#addSelectedStations()}
+     */
+    public int getRouteDistance() {
+        if (!this.selected) {
+            throw new IllegalAccessError();
+        }
+
+        return this.routeHandler.getMinDistanceBetweenSrcToDst(
+            this.selectedStations.get(0), 
+            this.selectedStations.get(this.selectedStations.size() - 1)
+        );
+    }
+
     public void addStation(final StationWithCheckBox stat) {
         this.stations.add(stat);
     }
@@ -46,5 +71,4 @@ public class RailwayController {
     public RouteHandler getRouteHandler() {
         return routeHandler;
     }
-
 }
