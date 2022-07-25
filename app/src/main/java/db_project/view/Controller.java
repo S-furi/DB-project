@@ -11,17 +11,13 @@ import db_project.model.User;
 import db_project.utils.SampleLoader;
 import db_project.view.viewUtils.StationWithCheckBox;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller implements Initializable{
     private final static ConnectionProvider connectionProvider =  ConnectionController.getConnectionProvider();
@@ -46,8 +42,10 @@ public class Controller implements Initializable{
     private TextField telField = new TextField();
     @FXML
     private TableView<User> table = new TableView<>();
-    private ObservableList<User> users = FXCollections.observableArrayList();
-    private final static UserTable users_table = new UserTable(connectionProvider.getMySQLConnection());
+    
+    private final UsersController usersController = new UsersController();
+    /* Users SQL TABLE */
+    private final static UserTable usersTable = new UserTable(connectionProvider.getMySQLConnection());
     
     /* Railway */
     @FXML
@@ -81,7 +79,7 @@ public class Controller implements Initializable{
      * @return false if the operation could not be completed
      */
     private boolean resetSqlTable() {
-        return  users_table.dropTable() && users_table.createTable();
+        return  usersTable.dropTable() && usersTable.createTable();
     }
 
     public void initialButtonsSetup() {
@@ -111,23 +109,11 @@ public class Controller implements Initializable{
     public void createUsersTableView() {
         this.table.setEditable(true);
 
-        TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-
-        TableColumn<User, String> lastNameColumn = new TableColumn<>("Last Name");
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-
-        TableColumn<User, String> telColumn = new TableColumn<>("Tel");
-        telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
-
-        TableColumn<User, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        var columns = List.of(firstNameColumn, lastNameColumn, telColumn, emailColumn);
-        columns.forEach(t -> this.table.getColumns().add(t));
+        this.usersController.getTableViewColumns()
+            .forEach(t -> this.table.getColumns().add(t));
 
         this.table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        this.table.setItems(this.users);
+        this.table.setItems(this.usersController.getUsers());
     }
     
     @FXML
@@ -135,7 +121,7 @@ public class Controller implements Initializable{
         List.of(this.emailField,
             this.firstnameField,
             this.lastnameField,
-            this.telField).forEach(t -> t.clear());;
+            this.telField).forEach(t -> t.clear());
     }
 
     @FXML
@@ -154,14 +140,16 @@ public class Controller implements Initializable{
     }
 
     private void addUserToCurrentTable(User user) {
-        this.users.add(user);
-        users_table.save(user);
+        if (!this.usersController.addUser(user)) {
+            System.out.println("FAILED LOADING USER!");
+        }
+        usersTable.save(user);
         this.table.refresh();
     }
 
     @FXML
     void removeLastRow(ActionEvent event) {
-        this.users.remove(this.users.get(0));
+        this.usersController.removeUser(this.usersController.getUsers().get(0));
     }
 
     private void createStationsTableView() {
