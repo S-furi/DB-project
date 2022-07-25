@@ -38,36 +38,36 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="firstname_field" layoutX="29.0" layoutY="63.0" prefHeight="26.0" prefWidth="160.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.0">
+                  <TextField fx:id="firstnameField" layoutX="29.0" layoutY="63.0" prefHeight="26.0" prefWidth="160.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
                   <Text layoutX="34.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" wrappingWidth="139.40185546875" />
-                  <TextField fx:id="lastname_field" layoutX="29.0" layoutY="121.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
+                  <TextField fx:id="lastnameField" layoutX="29.0" layoutY="121.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
                   <Text layoutX="34.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cognome" wrappingWidth="139.40185546875" />
-                  <TextField fx:id="tel_field" layoutX="29.0" layoutY="180.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
+                  <TextField fx:id="telField" layoutX="29.0" layoutY="180.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
                   <Text layoutX="34.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" wrappingWidth="139.40185546875" />
-                  <TextField fx:id="email_field" layoutX="29.0" layoutY="236.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
+                  <TextField fx:id="emailField" layoutX="29.0" layoutY="236.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="411.5">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
                   <Text layoutX="34.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="139.40185546875" />
-                  <Button fx:id="register_button" layoutX="378.0" layoutY="300.0" mnemonicParsing="false" onAction="#saveRegistration" prefHeight="25.0" prefWidth="104.0" text="Registra" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="378.0">
+                  <Button fx:id="registerButton" layoutX="378.0" layoutY="300.0" mnemonicParsing="false" onAction="#saveRegistration" prefHeight="25.0" prefWidth="104.0" text="Registra" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="378.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="erase_button" cancelButton="true" layoutX="249.0" layoutY="299.0" mnemonicParsing="false" onAction="#eraseAllFields" prefHeight="25.0" prefWidth="102.0" text="Cancella" textAlignment="CENTER" AnchorPane.leftAnchor="249.0">
+                  <Button fx:id="eraseButton" cancelButton="true" layoutX="249.0" layoutY="299.0" mnemonicParsing="false" onAction="#eraseAllFields" prefHeight="25.0" prefWidth="102.0" text="Cancella" textAlignment="CENTER" AnchorPane.leftAnchor="249.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
