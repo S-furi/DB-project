@@ -26,7 +26,7 @@ Robe da far subito:
   - Write their purpose down.
   - Check complexity
   - Write *SQL* query
-  - [ ] Implement a function that can easy compute a new query (MODEL PART) given a query as a String.
+  - [x] _WIP_ Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
 
 ---
 ### **SCHEMA**
