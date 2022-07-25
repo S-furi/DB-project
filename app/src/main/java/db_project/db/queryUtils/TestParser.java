@@ -9,9 +9,11 @@ public class TestParser {
         var tableName = "Employees";
         Objects.requireNonNull(parser.select("*", "")
             .from(tableName)
-            .where("EmployeeID = ?", 1)
-            .getQueryResult()).forEach(t -> {
-               System.out.println(String.format("(%s, %s)", t.getKey(), t.getValue()));
+            .getQueryResult()).forEach(v -> {
+                System.out.println("----------------");
+                v.forEach(t -> {
+                    System.out.println(String.format("\t(%s, %s)", t.getKey(), t.getValue()));
+                });
             });
     }
 

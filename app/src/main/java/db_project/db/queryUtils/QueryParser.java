@@ -67,7 +67,7 @@ public class QueryParser {
      * where key is the name of the column, and value is the value of 
      * the i-th row of the result.
      */
-    public List<Pair<String, Object>> getQueryResult() {
+    public List<List<Pair<String, Object>>> getQueryResult() {
 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println(this.finalQuery.toString());
@@ -89,20 +89,22 @@ public class QueryParser {
      * where key is the name of the column, and value is the value of 
      * the i-th row of the result.
      */
-    private List<Pair<String, Object>> generateResultFromResultSet(ResultSet res) {
-        List<Pair<String, Object>> results = new ArrayList<>();
+    private List<List<Pair<String, Object>>> generateResultFromResultSet(ResultSet res) {
+        List<List<Pair<String, Object>>> results = new ArrayList<>();
         try {
             var md = res.getMetaData();
             System.out.println(md.getColumnCount());
             while(res.next()) {
+                final List<Pair<String, Object>> lst = new ArrayList<>();
                 for (var i = 1; i <= md.getColumnCount(); i++) {
-                    String colName = md.getColumnName(i);
+                    final String colName = md.getColumnName(i);
                     if (md.getColumnType(i) == java.sql.Types.VARCHAR) {
-                        results.add(new Pair<String, Object>(colName, res.getString(i)));
+                        lst.add(new Pair<String, Object>(colName, res.getString(i)));
                     } else if (md.getColumnType(i) == java.sql.Types.INTEGER) {
-                        results.add(new Pair<String, Object>(colName, Objects.requireNonNull(res.getInt(i))));
+                        lst.add(new Pair<String, Object>(colName, Objects.requireNonNull(res.getInt(i))));
                     }
                 }
+                results.add(lst);
             }
             return results;
         } catch (SQLException e) {
