@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <TextField layoutX="80.0" layoutY="140.0" prefHeight="25.0" prefWidth="136.0" />
+            <TextField layoutX="80.0" layoutY="209.0" prefHeight="25.0" prefWidth="136.0" />
+            <Button layoutX="119.0" layoutY="241.0" mnemonicParsing="false" text="Log In" />
+            <Button layoutX="107.0" layoutY="358.0" mnemonicParsing="false" text="Registrati" />
+            <Text layoutX="132.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+            <Text layoutX="119.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+            <Text layoutX="67.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Non ancora registrato?" wrappingWidth="165.7294921875" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
