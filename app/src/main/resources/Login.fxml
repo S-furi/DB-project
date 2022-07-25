@@ -5,18 +5,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<SplitPane dividerPositions="0.5, 0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.LogInController">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="295.0" />
+    <AnchorPane fx:id="pannelloLog" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <TextField layoutX="80.0" layoutY="140.0" prefHeight="25.0" prefWidth="136.0" />
-            <TextField layoutX="80.0" layoutY="209.0" prefHeight="25.0" prefWidth="136.0" />
-            <Button layoutX="119.0" layoutY="241.0" mnemonicParsing="false" text="Log In" />
-            <Button layoutX="107.0" layoutY="358.0" mnemonicParsing="false" text="Registrati" />
+            <TextField fx:id="mailEntry" layoutX="80.0" layoutY="140.0" prefHeight="25.0" prefWidth="136.0" />
+            <TextField fx:id="passwordEntry" layoutX="80.0" layoutY="209.0" prefHeight="25.0" prefWidth="136.0" />
+            <Button fx:id="logInButton" layoutX="119.0" layoutY="241.0" mnemonicParsing="false" onAction="#logIn" text="Log In" />
+            <Button fx:id="registerButton" layoutX="107.0" layoutY="358.0" mnemonicParsing="false" onAction="#registerUser" text="Registrati" />
             <Text layoutX="132.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
             <Text layoutX="119.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
             <Text layoutX="67.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Non ancora registrato?" wrappingWidth="165.7294921875" />
          </children></AnchorPane>
+      <AnchorPane fx:id="pannelloReg" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TextField layoutX="61.0" layoutY="34.0" />
+            <TextField layoutX="61.0" layoutY="87.0" />
+            <TextField layoutX="61.0" layoutY="140.0" />
+            <TextField layoutX="61.0" layoutY="196.0" />
+            <Text layoutX="129.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
+            <Text layoutX="119.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cognome" />
+            <Text layoutX="129.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+            <Text layoutX="79.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero di Telefono" />
+            <Text layoutX="116.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Indirizzo" />
+            <Text layoutX="14.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Regione" />
+            <Text layoutX="11.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provincia" />
+            <Text layoutX="26.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Citta'" />
+            <Text layoutX="29.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Via" />
+            <ChoiceBox fx:id="regLabel" layoutX="91.0" layoutY="256.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="provLabel" layoutX="91.0" layoutY="293.0" prefWidth="150.0" />
+            <ChoiceBox layoutX="91.0" layoutY="329.0" prefWidth="150.0" />
+            <ChoiceBox layoutX="91.0" layoutY="363.0" prefWidth="150.0" />
+         </children>
+      </AnchorPane>
   </items>
 </SplitPane>
