@@ -11,6 +11,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class RailwayController {
+    private final static double KM_FEE = 0.09;
+
     private ObservableList<StationWithCheckBox> stations;
     private final RouteHandler routeHandler = new RouteHandler();
     private List<String> selectedStations;
@@ -54,6 +56,10 @@ public class RailwayController {
             this.selectedStations.get(0), 
             this.selectedStations.get(this.selectedStations.size() - 1)
         );
+    }
+
+    public double getPriceForSelectedRoute() {
+        return this.getRouteDistance() * KM_FEE;
     }
 
     public void addStation(final StationWithCheckBox stat) {
