@@ -15,7 +15,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -206,8 +208,19 @@ public class Controller implements Initializable{
             .map(t -> t.getName())
             .collect(Collectors.toList());
         selectedStations.forEach(System.out::println);
+        this.railwayController.addSelectedStations(selectedStations);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Route Distance");
+        dialog.show();
+        dialog.setContentText(String.format(
+            "The selected trip is %d km long", 
+            this.railwayController.getRouteDistance())
+        );
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+        dialog.setHeight(dialog.getHeight() + 30);
         this.solutionsTable.getItems().clear();
         this.srcChoiceBox.setValue(null);
         this.dstChoiceBox.setValue(null);
+        this.saveSolutionsButton.setDisable(true);
     }
 }
