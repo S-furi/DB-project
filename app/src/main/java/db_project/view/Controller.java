@@ -209,18 +209,25 @@ public class Controller implements Initializable{
             .collect(Collectors.toList());
         selectedStations.forEach(System.out::println);
         this.railwayController.addSelectedStations(selectedStations);
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Route Distance");
-        dialog.show();
-        dialog.setContentText(String.format(
-            "The selected trip is %d km long", 
-            this.railwayController.getRouteDistance())
-        );
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-        dialog.setHeight(dialog.getHeight() + 30);
+
+        this.showDialog(String.format(
+            "The selected trip is %d km at a price of %.2f$", 
+            this.railwayController.getRouteDistance(),
+            this.railwayController.getPriceForSelectedRoute()
+        ));
+
         this.solutionsTable.getItems().clear();
         this.srcChoiceBox.setValue(null);
         this.dstChoiceBox.setValue(null);
         this.saveSolutionsButton.setDisable(true);
+    }
+
+    private void showDialog(String msg) {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Route Distance");
+        dialog.show();
+        dialog.setContentText(msg);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+        dialog.setHeight(dialog.getHeight() + 30);
     }
 }
