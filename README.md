@@ -7,7 +7,7 @@ Database Project for Database course, University of Bologna
 
 Robe da far subito:
 - [ ] Decidere come e con cosa disegnare per il [Report](#report) schemi e tabelle
-- [ ] Tradurre tutto il codice python in java (? serve ?)
+- [x] Tradurre tutto il codice python in java (? serve ?)
 ### **CODING**
 - [x] Implement pathfind for railways  
 - [ ] Choose number/which stations to put into JSONs
