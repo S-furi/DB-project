@@ -17,17 +17,17 @@ public class RailwayController {
     private final RouteHandler routeHandler = new RouteHandler();
     private List<String> selectedStations;
     private boolean selected = false;
-    
+
     public RailwayController() {
         this.stations = FXCollections.observableArrayList();
     }
-    
+
     public List<TableColumn<StationWithCheckBox, ?>> getTableViewColumns() {
         TableColumn<StationWithCheckBox, String> stationColumn = new TableColumn<>("Station");
         stationColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<StationWithCheckBox, CheckBox> checkStation = new TableColumn<>("Check");
         checkStation.setCellValueFactory(new PropertyValueFactory<>("select"));
-        
+
         return List.of(stationColumn, checkStation);
     }
 
@@ -44,8 +44,9 @@ public class RailwayController {
      * Compute total distance beetween last and first station in selected route
      * 
      * @return totale kilometers beetween the first station and the last
-     * station selected
-     * @throws IllegalAccessError if {@link db_project.view.RailwaController#addSelectedStations()}
+     *         station selected
+     * @throws IllegalAccessError if
+     *                            {@link db_project.view.RailwaController#addSelectedStations()}
      */
     public int getRouteDistance() {
         if (!this.selected) {
@@ -53,9 +54,8 @@ public class RailwayController {
         }
 
         return this.routeHandler.getMinDistanceBetweenSrcToDst(
-            this.selectedStations.get(0), 
-            this.selectedStations.get(this.selectedStations.size() - 1)
-        );
+                this.selectedStations.get(0),
+                this.selectedStations.get(this.selectedStations.size() - 1));
     }
 
     public double getPriceForSelectedRoute() {

@@ -21,8 +21,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class Controller implements Initializable{
-    private final static ConnectionProvider connectionProvider =  ConnectionController.getConnectionProvider();
+public class Controller implements Initializable {
+    private final static ConnectionProvider connectionProvider = ConnectionController.getConnectionProvider();
     private final SampleLoader sample = new SampleLoader("data_generation/users/user_data/db_data.json");
 
     /* Users */
@@ -44,11 +44,11 @@ public class Controller implements Initializable{
     private TextField telField = new TextField();
     @FXML
     private TableView<User> table = new TableView<>();
-    
+
     private final UsersController usersController = new UsersController();
     /* Users SQL TABLE */
     private final static UserTable usersTable = new UserTable(connectionProvider.getMySQLConnection());
-    
+
     /* Railway */
     @FXML
     private TableView<StationWithCheckBox> solutionsTable;
@@ -72,30 +72,29 @@ public class Controller implements Initializable{
         sample.getStoredPeople().forEach(t -> this.addUserToCurrentTable(t));
 
         this.populateCheckBox();
-        
+
         System.out.println("Setup completed: " + this.resetSqlTable());
     }
 
     /**
      * Resetting mySql table
+     * 
      * @return false if the operation could not be completed
      */
     private boolean resetSqlTable() {
-        return  usersTable.dropTable() && usersTable.createTable();
+        return usersTable.dropTable() && usersTable.createTable();
     }
 
     public void initialButtonsSetup() {
         this.registerButton.disableProperty().bind(
-            Bindings.isEmpty(firstnameField.textProperty())
-            .or(Bindings.isEmpty(lastnameField.textProperty()))
-            .or(Bindings.isEmpty(telField.textProperty()))
-            .or(Bindings.isEmpty(emailField.textProperty()))
-        );
+                Bindings.isEmpty(firstnameField.textProperty())
+                        .or(Bindings.isEmpty(lastnameField.textProperty()))
+                        .or(Bindings.isEmpty(telField.textProperty()))
+                        .or(Bindings.isEmpty(emailField.textProperty())));
 
         this.searchSolutionsButton.disableProperty().bind(
-            this.srcChoiceBox.valueProperty().isNull()
-            .or(dstChoiceBox.valueProperty().isNull())
-        );
+                this.srcChoiceBox.valueProperty().isNull()
+                        .or(dstChoiceBox.valueProperty().isNull()));
 
         this.saveSolutionsButton.setDisable(true);
     }
@@ -106,35 +105,35 @@ public class Controller implements Initializable{
     }
 
     /**
-     * Creates table view with 4 coulumns. 
+     * Creates table view with 4 coulumns.
      */
     public void createUsersTableView() {
         this.table.setEditable(true);
 
         this.usersController.getTableViewColumns()
-            .forEach(t -> this.table.getColumns().add(t));
+                .forEach(t -> this.table.getColumns().add(t));
 
         this.table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.table.setItems(this.usersController.getUsers());
     }
-    
+
     @FXML
     void eraseAllFields(ActionEvent event) {
         List.of(this.emailField,
-            this.firstnameField,
-            this.lastnameField,
-            this.telField).forEach(t -> t.clear());
+                this.firstnameField,
+                this.lastnameField,
+                this.telField).forEach(t -> t.clear());
     }
 
     @FXML
     void saveRegistration(ActionEvent event) {
         var id = User.generateId();
-        
-        User user = new User(id, this.firstnameField.getText(), 
-                                 this.lastnameField.getText(),
-                                 this.telField.getText(),
-                                 this.emailField.getText());
-        
+
+        User user = new User(id, this.firstnameField.getText(),
+                this.lastnameField.getText(),
+                this.telField.getText(),
+                this.emailField.getText());
+
         System.out.println("Registration completed");
         System.out.println("New user's info: " + user.getUserInfo());
         this.eraseAllFields(event);
@@ -157,8 +156,8 @@ public class Controller implements Initializable{
     private void createStationsTableView() {
         this.solutionsTable.setEditable(true);
         this.railwayController
-            .getTableViewColumns()
-            .forEach(t -> this.solutionsTable.getColumns().add(t));
+                .getTableViewColumns()
+                .forEach(t -> this.solutionsTable.getColumns().add(t));
 
         this.solutionsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.solutionsTable.setItems(this.railwayController.getStations());
@@ -193,8 +192,8 @@ public class Controller implements Initializable{
     }
 
     /**
-     * Once the user has selected wich stations to include 
-     * in the route, this method clears the table and the 
+     * Once the user has selected wich stations to include
+     * in the route, this method clears the table and the
      * dropdown boxes and saves the result.
      * 
      * @param event pressing confirm button
@@ -202,19 +201,18 @@ public class Controller implements Initializable{
     @FXML
     void computeRoute(ActionEvent event) {
         final var selectedStations = this.solutionsTable
-            .getItems()
-            .stream()
-            .filter(t -> t.getSelect().isSelected())
-            .map(t -> t.getName())
-            .collect(Collectors.toList());
+                .getItems()
+                .stream()
+                .filter(t -> t.getSelect().isSelected())
+                .map(t -> t.getName())
+                .collect(Collectors.toList());
         selectedStations.forEach(System.out::println);
         this.railwayController.addSelectedStations(selectedStations);
 
         this.showDialog(String.format(
-            "The selected trip is %d km at a price of %.2f$", 
-            this.railwayController.getRouteDistance(),
-            this.railwayController.getPriceForSelectedRoute()
-        ));
+                "The selected trip is %d km at a price of %.2f$",
+                this.railwayController.getRouteDistance(),
+                this.railwayController.getPriceForSelectedRoute()));
 
         this.solutionsTable.getItems().clear();
         this.srcChoiceBox.setValue(null);
