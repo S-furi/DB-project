@@ -4,7 +4,7 @@ import db_project.db.ConnectionProvider;
 import junit.framework.Assert;
 
 public class TestParser {
-    private final static String TABLE_NAME = "Students";
+    private final static String TABLE_NAME = "users";
 
     public static void main(String[] args) {
         final var parser = new ArrayQueryParser(getConnection().getMySQLConnection());
@@ -24,11 +24,7 @@ public class TestParser {
         boolean res = parser.computeSqlQuery(query, params);
         if (!parser.getQueryResult().getResult().isEmpty()) {
             parser.getQueryResult().getResult().get().forEach(t -> {
-                t.forEach(k -> {
-                    System.out.println(
-                        String.format("%s => %s", k.getKey(), k.getValue())
-                    );
-                });
+                t.forEach(System.out::println);
             });
         }
         return res;
@@ -37,9 +33,9 @@ public class TestParser {
     private static boolean testInsert(final QueryParser parser) {
         parser.resetQuery();
         String query = String.format(
-            "INSERT INTO %s (id, firstName, lastName) VALUES (?, ?, ?)", 
+            "INSERT INTO %s (id, firstName, lastName, telephone, email) VALUES (?, ?, ?, ?, ?)", 
             TABLE_NAME);
-        Object[] params = {1111, "Merda", "Dio"};
+        Object[] params = {1111, "Merda", "Dio", "1209849812", "merda@dio.paradise.org"};
 
         return parser.computeSqlQuery(query, params) 
                 == selectAll(parser) 
@@ -70,7 +66,7 @@ public class TestParser {
     private static ConnectionProvider getConnection() {
         String username = "root";
         String password = "123Test123";
-        String dbName = "labjdbc";
+        String dbName = "users";
         return new ConnectionProvider(username, password, dbName);
     }
 }
