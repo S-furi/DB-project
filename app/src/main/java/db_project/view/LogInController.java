@@ -1,62 +1,64 @@
 package db_project.view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class LogInController implements Initializable {
 
     @FXML
-    private TextField mailEntry;
+    private TextField usernameField;
 
     @FXML
-    private Button registerButton;
-
-    @FXML
-    private ChoiceBox<?> cityLabel;
-
-    @FXML
-    private ChoiceBox<?> streetLabel;
-
-    @FXML
-    private AnchorPane pannelloLog;
-
-    @FXML
-    private ChoiceBox<?> provLabel;
-
-    @FXML
-    private ChoiceBox<?> regLabel;
+    private PasswordField passField;
 
     @FXML
     private Button logInButton;
 
     @FXML
-    private AnchorPane pannelloReg;
+    private CheckBox cartArrowReg;
+
 
     @FXML
-    private TextField passwordEntry;
-    @FXML
-    void logIn(ActionEvent event) {
-        System.out.println(this.mailEntry.getText());
+    void validateData(ActionEvent event) {
+
     }
 
     @FXML
-    void registerUser(ActionEvent event) {
-        this.pannelloLog.setVisible(false);
-        this.pannelloReg.setVisible(true);
+    void switchToRegister(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/NormalUserRegistration.fxml"));
+            var stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+
+            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.pannelloReg.setVisible(false);
-        this.pannelloLog.setVisible(true);
+
+
+        
     }
 
 }
