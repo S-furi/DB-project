@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.RegistrationController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="254.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrazione " />
+            <ChoiceBox fx:id="accountTypes" layoutX="288.0" layoutY="48.0" prefWidth="150.0" />
+            <Text layoutX="149.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipologia Account" />
+            <TextField fx:id="nameReg" layoutX="215.0" layoutY="89.0" promptText="Nome" />
+            <TextField fx:id="surnameReg" layoutX="215.0" layoutY="128.0" promptText="Cognome" />
+            <TextField fx:id="phoneNumReg" layoutX="215.0" layoutY="169.0" promptText="Numero di Telefono" />
+            <TextField fx:id="emailReg" layoutX="215.0" layoutY="209.0" promptText="Email" />
+            <CheckBox fx:id="cartArrowReg" layoutX="200.0" layoutY="350.0" mnemonicParsing="false" text="Voglio aderire alla cartArrow" />
+            <ChoiceBox fx:id="regReg" layoutX="51.0" layoutY="289.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="provReg" layoutX="226.0" layoutY="289.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="cittReg" layoutX="404.0" layoutY="289.0" prefWidth="150.0" />
+            <TextField fx:id="licId" layoutX="216.0" layoutY="247.0" promptText="Numero Patente" visible="false" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
