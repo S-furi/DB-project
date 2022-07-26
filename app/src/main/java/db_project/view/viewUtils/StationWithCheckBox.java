@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 public class StationWithCheckBox {
     private String name;
     private CheckBox select;
-    
+
     public StationWithCheckBox(String name) {
         this.name = name;
         this.select = new CheckBox();

@@ -7,18 +7,19 @@ import javafx.util.Pair;
 
 public class LoaderTest {
     private static StationsLoader stLoad;
+
     public static void main(String[] args) {
         stLoad = new StationsLoader();
         stLoad.cacheDistancesData();
         printRouteInfo(stLoad.getRouteInfo());
     }
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings("unused")
     private static void printStations() {
         stLoad.getStations().forEach(System.out::println);
     }
 
-    //@SuppressWarnings ("unused")
+    // @SuppressWarnings ("unused")
     private static void printRouteInfo(final Map<String, List<Pair<String, Double>>> routeInfo) {
         routeInfo.forEach((k, v) -> {
             v.forEach(t -> {

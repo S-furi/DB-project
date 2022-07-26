@@ -7,20 +7,11 @@ Database Project for Database course, University of Bologna
 
 Robe da far subito:
 - [ ] Decidere come e con cosa disegnare per il [Report](#report) schemi e tabelle
-- [ ] Tradurre tutto il codice python in java (? serve ?)
+- [x] Tradurre tutto il codice python in java (? serve ?)
 ### **CODING**
 - [x] Implement pathfind for railways  
 - [ ] Choose number/which stations to put into JSONs
-- [ ] Clean **local code** for calculating time and routes:
-  - [ ] Merge all various operation in one single file in order to accomplish these requirements:
-  - running the executable with a name of two stations does:
-     - Taken two station  names as parameter:
-     - Retreive stations id's from trenitalia's APIs (if they're not already into `/railway/route_data/statID.json`)
-     - Find the shortest route from Trenitalia's solutions
-     - Add the new entries into routes file (`/railway/route_data/routes_distances_diff.json`).
-     - (*optional*): use Google APIs to get stations' distances.
-     - Save and push changes (maybe a github action for all of this?)
-     - Make it easy to use and interact
+- [x] Clean **local code** for calculating time and routes:
 - [ ] Make DB code more robust and generic as possible
 - [ ] Model all **Tables** that will be needed:
   - [ ] Logically (Progettazione Logica, teoricamente)
@@ -35,7 +26,7 @@ Robe da far subito:
   - Write their purpose down.
   - Check complexity
   - Write *SQL* query
-  - [ ] Implement a function that can easy compute a new query (MODEL PART) given a query as a String.
+  - [x] _WIP_ Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
 
 ---
 ### **SCHEMA**
