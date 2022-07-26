@@ -1,6 +1,5 @@
 package db_project.db.queryUtils;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +32,9 @@ public class ArrayQueryParser implements QueryParser{
 
     @Override
     public List<List<Pair<String, Object>>> getQueryResult() {
+        if (this.params == null) {
+            return this.basicQuery();
+        } 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println(this.finalQuery.toString());
             for (var i = 0; i < this.params.length; i++) {
@@ -40,6 +42,31 @@ public class ArrayQueryParser implements QueryParser{
             }
             ResultSet rs = statement.executeQuery();
             return generateResultFromResultSet(rs);
+
+        } catch (final SQLException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private List<List<Pair<String, Object>>> basicQuery() {
+        try(final var statement = connection.createStatement()) {
+            System.out.println(this.finalQuery.toString());
+            ResultSet rs = statement.executeQuery(this.finalQuery.toString());
+            return generateResultFromResultSet(rs);
+
+        } catch (final SQLException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    public boolean executeQuery() {
+        try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
+            System.out.println(this.finalQuery.toString());
+            for (var i = 0; i < this.params.length; i++) {
+                this.setTypeStatement(statement, this.params[i], i + 1);
+            }
+            statement.executeUpdate();
+            return true;
 
         } catch (final SQLException e) {
             throw new IllegalStateException(e);
