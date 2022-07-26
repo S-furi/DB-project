@@ -50,7 +50,7 @@ public class ArrayQueryParser implements QueryParser {
             return true;
         } 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
-            System.out.println(this.finalQuery.toString());
+            System.out.println("----" + this.finalQuery.toString() + "----");
             for (var i = 0; i < this.params.length; i++) {
                 this.setTypeStatement(statement, this.params[i], i + 1);
             }
@@ -64,7 +64,7 @@ public class ArrayQueryParser implements QueryParser {
 
     private List<List<Pair<String, Object>>> basicStatementQuery() {
         try(final var statement = connection.createStatement()) {
-            System.out.println(this.finalQuery.toString());
+            System.out.println("----" + this.finalQuery.toString() + "----");
             ResultSet rs = statement.executeQuery(this.finalQuery.toString());
             return generateResultFromResultSet(rs);
 
@@ -75,7 +75,7 @@ public class ArrayQueryParser implements QueryParser {
 
     private boolean executeUpdate() {
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
-            System.out.println(this.finalQuery.toString());
+            System.out.println("----" + this.finalQuery.toString() + "----");
             for (var i = 0; i < this.params.length; i++) {
                 this.setTypeStatement(statement, this.params[i], i + 1);
             }
