@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.util.Pair;
 
@@ -14,26 +15,40 @@ public class ArrayQueryParser implements QueryParser{
     private final Connection connection;
     private StringBuilder finalQuery;
     private Object[] params;
+    private Optional<List<List<Pair<String, Object>>>> result;
 
     public ArrayQueryParser(final Connection connection) {
         this.connection = connection;
         this.finalQuery = new StringBuilder();
     }
 
-    /**
-     * @param query
-     * @param params
-     */
-    public ArrayQueryParser insertQuery(final String query, final Object[] params) {
+    @Override
+    public boolean computeSqlQuery(final String query, final Object[] params) {
+        this.insertQuery(query, params);
+        return this.parseAndExecuteQuery();
+    }
+
+    private boolean parseAndExecuteQuery() {
+        if (this.finalQuery.toString().startsWith("SELECT")) {
+            return this.preparedStatementQuery();
+        } else if (this.finalQuery.toString().startsWith("DELETE")
+                    || this.finalQuery.toString().startsWith("UPDATE")
+                    || this.finalQuery.toString().startsWith("INSERT")) {
+            return this.executeUpdate();
+        }
+        return false;
+    }
+
+    private ArrayQueryParser insertQuery(final String query, final Object[] params) {
         this.finalQuery.append(query);
         this.params = params;
         return this;
     }
 
-    @Override
-    public List<List<Pair<String, Object>>> getQueryResult() {
+    private boolean preparedStatementQuery() {
         if (this.params == null) {
-            return this.basicQuery();
+            this.result =  Optional.of(this.basicStatementQuery());
+            return true;
         } 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println(this.finalQuery.toString());
@@ -41,14 +56,14 @@ public class ArrayQueryParser implements QueryParser{
                 this.setTypeStatement(statement, this.params[i], i + 1);
             }
             ResultSet rs = statement.executeQuery();
-            return generateResultFromResultSet(rs);
-
+            this.result =  Optional.of(generateResultFromResultSet(rs));
+            return true;
         } catch (final SQLException e) {
             throw new IllegalStateException(e);
         }
     }
 
-    private List<List<Pair<String, Object>>> basicQuery() {
+    private List<List<Pair<String, Object>>> basicStatementQuery() {
         try(final var statement = connection.createStatement()) {
             System.out.println(this.finalQuery.toString());
             ResultSet rs = statement.executeQuery(this.finalQuery.toString());
@@ -59,15 +74,13 @@ public class ArrayQueryParser implements QueryParser{
         }
     }
 
-    public boolean executeQuery() {
+    private boolean executeUpdate() {
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println(this.finalQuery.toString());
             for (var i = 0; i < this.params.length; i++) {
                 this.setTypeStatement(statement, this.params[i], i + 1);
             }
-            statement.executeUpdate();
-            return true;
-
+            return statement.executeUpdate() > 0;
         } catch (final SQLException e) {
             throw new IllegalStateException(e);
         }
@@ -126,6 +139,11 @@ public class ArrayQueryParser implements QueryParser{
     }
 
     @Override
+    public Optional<List<List<Pair<String, Object>>>> getResult() {
+        return this.result;
+    }
+
+    @Override
     public String getQuery() {
         return this.finalQuery.toString();
     }
@@ -133,7 +151,7 @@ public class ArrayQueryParser implements QueryParser{
     @Override
     public void resetQuery() {
         this.finalQuery = new StringBuilder();
-        
+        this.params = null;        
     }
     
 }
