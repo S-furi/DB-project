@@ -9,8 +9,9 @@ public class TestRoutePathFind {
 
         RoutePathFinder pathFinder = new RoutePathFinder();
         System.out.println(pathFinder.getTotalDistance(src, dst));
-        
+
         pathFinder.getPathFromSourceToDestination(src, dst)
-            .forEach(t -> System.out.print(t + "->")); System.out.print("🏁");
+                .forEach(t -> System.out.print(t + "->"));
+        System.out.print("🏁");
     }
 }

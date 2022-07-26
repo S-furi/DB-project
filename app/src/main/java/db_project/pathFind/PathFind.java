@@ -17,11 +17,11 @@ public class PathFind {
         this.graph = graph;
         this.numOfVertices = this.graph.getNumOfVertices();
         this.parent = new int[this.numOfVertices];
-        for(var i = 0; i < this.numOfVertices; i++) 
+        for (var i = 0; i < this.numOfVertices; i++)
             this.parent[i] = -1;
         this.computed = false;
     }
-    
+
     /**
      * Applying Dijikstra algorithm, will be returned the shortest
      * path for each node in the graph.
@@ -32,20 +32,20 @@ public class PathFind {
     public int[] getMinDistance(int sourceVertex) {
         final var pq = this.getPriorityQueue();
         int[] dist = new int[this.numOfVertices];
-        for(var i = 0; i < this.numOfVertices; i++) 
-            dist[i] = Integer.MAX_VALUE;       
+        for (var i = 0; i < this.numOfVertices; i++)
+            dist[i] = Integer.MAX_VALUE;
 
-        pq.add(new Pair<Integer,Integer>(0, sourceVertex));
+        pq.add(new Pair<Integer, Integer>(0, sourceVertex));
         dist[sourceVertex] = 0;
         while (!pq.isEmpty()) {
             int u = pq.poll().getValue();
-            for(final var i : this.graph.getAdjList()[u]) {
+            for (final var i : this.graph.getAdjList()[u]) {
                 int v = i.getDestination();
                 int w = i.getWeight();
 
                 if (dist[v] > dist[u] + w) {
                     dist[v] = dist[u] + w;
-                    pq.add(new Pair<Integer,Integer>(dist[v], v));
+                    pq.add(new Pair<Integer, Integer>(dist[v], v));
                     parent[v] = u;
                 }
             }
@@ -55,7 +55,7 @@ public class PathFind {
     }
 
     public Optional<int[]> getParent() {
-        if(!this.computed) {
+        if (!this.computed) {
             return Optional.empty();
         }
         return Optional.of(this.parent);
@@ -63,12 +63,12 @@ public class PathFind {
 
     private PriorityQueue<Pair<Integer, Integer>> getPriorityQueue() {
         return new PriorityQueue<>(this.numOfVertices,
-                    new Comparator<Pair<Integer, Integer>>() {
+                new Comparator<Pair<Integer, Integer>>() {
 
-                        @Override
-                        public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
-                            return p1.getKey() - p2.getKey();
-                        }
-                    });
+                    @Override
+                    public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
+                        return p1.getKey() - p2.getKey();
+                    }
+                });
     }
 }

@@ -17,11 +17,10 @@ import org.json.simple.parser.JSONParser;
 
 import javafx.util.Pair;
 
-
 public class StationsLoader {
     private static final String STATION_IDS_FILEPATH = "data_generation/railway/route_data/statID.json";
     private static final String STATION_DISTANCES_FILEPATH = "data_generation/railway/route_data/routes_distances_diff.json";
-    
+
     private final JSONParser parser;
     private final Map<String, List<Pair<String, Double>>> stationsRouteInfo;
     private boolean isRouteComputed;
@@ -32,48 +31,48 @@ public class StationsLoader {
         this.isRouteComputed = false;
     }
 
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     public List<String> getStations() {
         var jsonData = this.getFileData(STATION_IDS_FILEPATH);
         final LinkedList<String> stations = new LinkedList<>();
-        
-        for(final var data : jsonData) {
-            JSONObject station = (JSONObject)data;
-            station.forEach((k,v) -> stations.addFirst((String)k));
+
+        for (final var data : jsonData) {
+            JSONObject station = (JSONObject) data;
+            station.forEach((k, v) -> stations.addFirst((String) k));
         }
         return stations;
     }
 
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     public void cacheDistancesData() {
         final var data = this.getFileData(STATION_DISTANCES_FILEPATH).get(0);
         final var stations = this.getStations();
 
-        JSONObject src = (JSONObject)data;
-        for(final String srcStation : stations) {
+        JSONObject src = (JSONObject) data;
+        for (final String srcStation : stations) {
             try {
-                JSONArray tripSolutions = (JSONArray)src.get(srcStation);
-                for(final var trip : tripSolutions) {
-                    ((JSONObject)trip).forEach((k,v) -> {
-                        double distance = (double)((JSONObject)v).get("distance");
+                JSONArray tripSolutions = (JSONArray) src.get(srcStation);
+                for (final var trip : tripSolutions) {
+                    ((JSONObject) trip).forEach((k, v) -> {
+                        double distance = (double) ((JSONObject) v).get("distance");
                         this.addStationData(srcStation, k.toString(), distance);
                     });
                 }
             } catch (NullPointerException e) {
-                //System.out.println("Error with " + srcStation);
+                // System.out.println("Error with " + srcStation);
             }
         }
         this.isRouteComputed = true;
     }
 
     private void addStationData(String src, String dst, double distance) {
-        if(!this.stationsRouteInfo.containsKey(src)) {
+        if (!this.stationsRouteInfo.containsKey(src)) {
             List<Pair<String, Double>> list = new LinkedList<>();
             list.add(new Pair<String, Double>(dst, distance));
             this.stationsRouteInfo.put(src, list);
         } else {
             var list = this.stationsRouteInfo.get(src);
-            list.add(new Pair<String,Double>(dst, distance));
+            list.add(new Pair<String, Double>(dst, distance));
         }
     }
 
@@ -86,7 +85,7 @@ public class StationsLoader {
         } catch (FileNotFoundException e) {
             System.out.println(String.format("File %s not found!", filename));
             System.exit(1);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -100,7 +99,7 @@ public class StationsLoader {
     }
 
     /**
-     * Get routes informations contained into Json in a 
+     * Get routes informations contained into Json in a
      * java, easy-to-read, format.
      * 
      * @return all stations route information (as formatted into json)

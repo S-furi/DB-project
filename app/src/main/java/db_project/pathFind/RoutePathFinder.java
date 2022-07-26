@@ -33,17 +33,18 @@ public class RoutePathFinder {
         this.pathFinder.getMinDistance(this.getStationAlias(source));
 
         final var parent = this.pathFinder.getParent();
-        if (parent.isEmpty()) throw new IllegalAccessError();
+        if (parent.isEmpty())
+            throw new IllegalAccessError();
         final var vertexTies = parent.get();
 
-        for(var i = 0; i < this.numOfStations; i++) {
+        for (var i = 0; i < this.numOfStations; i++) {
             String src = this.getStationNameFromAlias(i);
             if (vertexTies[i] != -1) {
                 String dst = this.getStationNameFromAlias(vertexTies[i]);
                 fromToEntries.put(src, dst);
             }
         }
-        
+
         return getOrderedPath(fromToEntries, source, destination);
     }
 
@@ -55,7 +56,8 @@ public class RoutePathFinder {
      * @param actual Actual station's name
      * @return an ordered list of station's names describing a shortest path.
      */
-    private static LinkedList<String> getOrderedPath(final Map<String, String> parent, final String arrive, final String actual) {
+    private static LinkedList<String> getOrderedPath(final Map<String, String> parent, final String arrive,
+            final String actual) {
         if (arrive.equals(actual)) {
             var list = new LinkedList<String>();
             list.addLast(actual);
@@ -79,7 +81,7 @@ public class RoutePathFinder {
 
     public int getTotalDistance(String source, String destination) {
         return this.pathFinder
-            .getMinDistance(this.getStationAlias(source))[this.getStationAlias(destination)];
+                .getMinDistance(this.getStationAlias(source))[this.getStationAlias(destination)];
     }
 
     private void generateStationAliases() {
@@ -89,12 +91,12 @@ public class RoutePathFinder {
             i++;
         }
     }
-    
+
     private void initializeGraph() {
-        this.stationLoader.getRouteInfo().forEach((k,v) -> {
-                v.forEach(edge -> this.graph.addEdge(this.getStationAlias(k), 
-                                                    this.getStationAlias(edge.getKey()), 
-                                                    (int)Math.ceil(edge.getValue())));
+        this.stationLoader.getRouteInfo().forEach((k, v) -> {
+            v.forEach(edge -> this.graph.addEdge(this.getStationAlias(k),
+                    this.getStationAlias(edge.getKey()),
+                    (int) Math.ceil(edge.getValue())));
         });
     }
 

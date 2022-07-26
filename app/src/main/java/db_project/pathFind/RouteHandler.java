@@ -19,7 +19,7 @@ public class RouteHandler {
     public int getMinDistanceBetweenSrcToDst(final String source, final String destination) {
         return this.pathFinder.getTotalDistance(source, destination);
     }
-    
+
     public List<String> getStationsNames() {
         return stations;
     }
