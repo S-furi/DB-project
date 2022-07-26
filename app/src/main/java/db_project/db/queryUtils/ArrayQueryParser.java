@@ -31,8 +31,8 @@ public class ArrayQueryParser implements QueryParser {
         if (this.finalQuery.toString().startsWith("SELECT")) {
             return this.preparedStatementQuery();
         } else if (this.finalQuery.toString().startsWith("DELETE")
-                    || this.finalQuery.toString().startsWith("UPDATE")
-                    || this.finalQuery.toString().startsWith("INSERT")) {
+                || this.finalQuery.toString().startsWith("UPDATE")
+                || this.finalQuery.toString().startsWith("INSERT")) {
             return this.executeUpdate();
         }
         return false;
@@ -48,8 +48,8 @@ public class ArrayQueryParser implements QueryParser {
         if (this.params == null) {
             this.result.buildResult(this.basicStatementQuery());
             return true;
-        } 
-        try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
+        }
+        try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println("----" + this.finalQuery.toString() + "----");
             for (var i = 0; i < this.params.length; i++) {
                 this.setTypeStatement(statement, this.params[i], i + 1);
@@ -63,7 +63,7 @@ public class ArrayQueryParser implements QueryParser {
     }
 
     private List<List<Pair<String, Object>>> basicStatementQuery() {
-        try(final var statement = connection.createStatement()) {
+        try (final var statement = connection.createStatement()) {
             System.out.println("----" + this.finalQuery.toString() + "----");
             ResultSet rs = statement.executeQuery(this.finalQuery.toString());
             return generateResultFromResultSet(rs);
@@ -74,7 +74,7 @@ public class ArrayQueryParser implements QueryParser {
     }
 
     private boolean executeUpdate() {
-        try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
+        try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println("----" + this.finalQuery.toString() + "----");
             for (var i = 0; i < this.params.length; i++) {
                 this.setTypeStatement(statement, this.params[i], i + 1);
@@ -87,7 +87,8 @@ public class ArrayQueryParser implements QueryParser {
 
     /**
      * Very raw and not Object Oriented method for retreiving and using the right
-     * method with preparedStatement (it's possibile also to use setObject but mmm... idk)
+     * method with preparedStatement (it's possibile also to use setObject but
+     * mmm... idk)
      * 
      * @param statement the {@link java.sql.PreparedStatement}
      * @param param
@@ -98,7 +99,7 @@ public class ArrayQueryParser implements QueryParser {
             if (param.getClass().equals(String.class)) {
                 statement.setString(index, param.toString());
             } else if (param.getClass().equals(Integer.class)) {
-                statement.setInt(index, (int)param);
+                statement.setInt(index, (int) param);
             } else {
                 throw new SQLException();
             }
@@ -111,14 +112,14 @@ public class ArrayQueryParser implements QueryParser {
      * 
      * @param res the resultSet of a given Query
      * @return a List of the results, mapped as a (key,value) pair
-     * where key is the name of the column, and value is the value of 
-     * the i-th row of the result.
+     *         where key is the name of the column, and value is the value of
+     *         the i-th row of the result.
      */
     private List<List<Pair<String, Object>>> generateResultFromResultSet(ResultSet res) {
         List<List<Pair<String, Object>>> results = new ArrayList<>();
         try {
             var md = res.getMetaData();
-            while(res.next()) {
+            while (res.next()) {
                 final List<Pair<String, Object>> lst = new ArrayList<>();
                 for (var i = 1; i <= md.getColumnCount(); i++) {
                     final String colName = md.getColumnName(i);
@@ -145,7 +146,7 @@ public class ArrayQueryParser implements QueryParser {
     @Override
     public void resetQuery() {
         this.finalQuery = new StringBuilder();
-        this.params = null;        
+        this.params = null;
     }
-    
+
 }

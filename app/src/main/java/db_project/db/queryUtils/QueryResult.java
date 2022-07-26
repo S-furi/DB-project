@@ -7,7 +7,7 @@ import javafx.util.Pair;
 
 public class QueryResult {
     private Optional<List<List<Pair<String, Object>>>> result;
-    
+
     public QueryResult() {
         this.result = Optional.empty();
     }

@@ -48,9 +48,10 @@ public class MapQueryParser {
     /**
      * Append the new statement to the final query to be computed
      * 
-     * @param op the SQL operator (e.g. SELECT, FROM, WHERE,...)
+     * @param op    the SQL operator (e.g. SELECT, FROM, WHERE,...)
      * @param query the new portion of query to append to the current building query
-     * @param args if the query has arguments marked with ?, args denote what to subistitute
+     * @param args  if the query has arguments marked with ?, args denote what to
+     *              subistitute
      */
     private void insertPortion(final String op, final String query, final Object args) {
         this.finalQuery.append(String.format("%s %s ", op, query));
@@ -64,17 +65,17 @@ public class MapQueryParser {
      * Execute the created query
      * 
      * @return a List of the results, mapped as a (key,value) pair
-     * where key is the name of the column, and value is the value of 
-     * the i-th row of the result.
+     *         where key is the name of the column, and value is the value of
+     *         the i-th row of the result.
      */
     public List<List<Pair<String, Object>>> getQueryResult() {
 
-        try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
+        try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
             System.out.println(this.finalQuery.toString());
-            this.params.forEach((k,v) -> {
+            this.params.forEach((k, v) -> {
                 this.setTypeStatement(statement, v, k);
             });
-            var res =  statement.executeQuery();
+            var res = statement.executeQuery();
             return generateResultFromResultSet(res);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,15 +87,15 @@ public class MapQueryParser {
      * 
      * @param res the resultSet of a given Query
      * @return a List of the results, mapped as a (key,value) pair
-     * where key is the name of the column, and value is the value of 
-     * the i-th row of the result.
+     *         where key is the name of the column, and value is the value of
+     *         the i-th row of the result.
      */
     private List<List<Pair<String, Object>>> generateResultFromResultSet(ResultSet res) {
         List<List<Pair<String, Object>>> results = new ArrayList<>();
         try {
             var md = res.getMetaData();
             System.out.println(md.getColumnCount());
-            while(res.next()) {
+            while (res.next()) {
                 final List<Pair<String, Object>> lst = new ArrayList<>();
                 for (var i = 1; i <= md.getColumnCount(); i++) {
                     final String colName = md.getColumnName(i);
@@ -114,7 +115,8 @@ public class MapQueryParser {
 
     /**
      * Very raw and not Object Oriented method for retreiving and using the right
-     * method with preparedStatement (it's possibile also to use setObject but mmm... idk)
+     * method with preparedStatement (it's possibile also to use setObject but
+     * mmm... idk)
      * 
      * @param statement the {@link java.sql.PreparedStatement}
      * @param param
@@ -125,7 +127,7 @@ public class MapQueryParser {
             if (param.getClass().equals(String.class)) {
                 statement.setString(index, param.toString());
             } else if (param.getClass().equals(Integer.class)) {
-                statement.setInt(index, (int)param);
+                statement.setInt(index, (int) param);
             } else {
                 throw new SQLException();
             }
