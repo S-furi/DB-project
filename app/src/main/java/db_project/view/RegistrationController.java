@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class RegistrationController implements Initializable {
     private Button regUser;
 
     @FXML
-    private ChoiceBox<String>  cittReg;
+    private TextField cittReg;
 
     @FXML
     private TextField surnameReg;
@@ -48,12 +49,16 @@ public class RegistrationController implements Initializable {
     @FXML
     private CheckBox cartArrowReg;
 
-    private List<String> accounts;
+    @FXML
+    private Button submitButton;
 
+    private List<String> accounts;
+    private List<String> data;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.populateAccountTypes();
+        this.populateCountryData();
 
         this.accountTypes.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val )-> {
             if(this.accounts.get(new_val.intValue()) == "Macchinista"){
@@ -76,7 +81,39 @@ public class RegistrationController implements Initializable {
         this.accountTypes.setValue("Utente");
     }
 
+    private void populateCountryData(){
+        this.regReg.setValue("Regione");
+        this.provReg.setValue("Provincia");
+
+    }
 
 
+    @FXML
+    private void retrieveData(ActionEvent event) {
+        this.data = new ArrayList<>();
+
+        this.data.add(accountTypes.getValue());
+        this.data.add(nameReg.getText());
+        this.data.add(surnameReg.getText());
+        this.data.add(phoneNumReg.getText());
+        this.data.add(emailReg.getText());
+        this.data.add(regReg.getValue());
+        this.data.add(provReg.getValue());
+        this.data.add(cittReg.getText());
+
+        //System.out.println(nameReg.getText().isEmpty());
+        //System.out.println(this.data.toString());
+        if(!this.validateData()){
+            this.nameReg.clear();
+            this.surnameReg.clear();
+            this.phoneNumReg.clear();
+            this.emailReg.clear();
+        }
+    }
+
+    private boolean validateData(){
+        boolean allNotEmpty = this.data.stream().allMatch(x -> x.isEmpty()==false);
+        return allNotEmpty;
+    }
 
 }
