@@ -14,6 +14,14 @@ public interface QueryParser {
      */
     public List<List<Pair<String, Object>>> getQueryResult();
 
+    /**
+     * 
+     * @param query
+     * @param params
+     * @return
+     */
+    public ArrayQueryParser insertQuery(final String query, final Object[] params);
+
     public String getQuery();
 
     public void resetQuery();
