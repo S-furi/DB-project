@@ -6,18 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 import javafx.util.Pair;
 
-public class ArrayQueryParser implements QueryParser{
+public class ArrayQueryParser implements QueryParser {
     private final Connection connection;
     private StringBuilder finalQuery;
     private Object[] params;
-    private Optional<List<List<Pair<String, Object>>>> result;
+    private QueryResult result;
 
     public ArrayQueryParser(final Connection connection) {
+        this.result = new QueryResult();
         this.connection = connection;
         this.finalQuery = new StringBuilder();
     }
@@ -47,7 +46,7 @@ public class ArrayQueryParser implements QueryParser{
 
     private boolean preparedStatementQuery() {
         if (this.params == null) {
-            this.result =  Optional.of(this.basicStatementQuery());
+            this.result.buildResult(this.basicStatementQuery());
             return true;
         } 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
@@ -56,7 +55,7 @@ public class ArrayQueryParser implements QueryParser{
                 this.setTypeStatement(statement, this.params[i], i + 1);
             }
             ResultSet rs = statement.executeQuery();
-            this.result =  Optional.of(generateResultFromResultSet(rs));
+            this.result.buildResult(generateResultFromResultSet(rs));
             return true;
         } catch (final SQLException e) {
             throw new IllegalStateException(e);
@@ -119,16 +118,11 @@ public class ArrayQueryParser implements QueryParser{
         List<List<Pair<String, Object>>> results = new ArrayList<>();
         try {
             var md = res.getMetaData();
-            System.out.println(md.getColumnCount());
             while(res.next()) {
                 final List<Pair<String, Object>> lst = new ArrayList<>();
                 for (var i = 1; i <= md.getColumnCount(); i++) {
                     final String colName = md.getColumnName(i);
-                    if (md.getColumnType(i) == java.sql.Types.VARCHAR) {
-                        lst.add(new Pair<String, Object>(colName, res.getString(i)));
-                    } else if (md.getColumnType(i) == java.sql.Types.INTEGER) {
-                        lst.add(new Pair<String, Object>(colName, Objects.requireNonNull(res.getInt(i))));
-                    }
+                    lst.add(new Pair<String, Object>(colName, res.getObject(i)));
                 }
                 results.add(lst);
             }
@@ -139,7 +133,7 @@ public class ArrayQueryParser implements QueryParser{
     }
 
     @Override
-    public Optional<List<List<Pair<String, Object>>>> getResult() {
+    public QueryResult getQueryResult() {
         return this.result;
     }
 
