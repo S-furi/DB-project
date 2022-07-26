@@ -22,8 +22,8 @@ public class TestParser {
         Object[] params = {987426};
 
         boolean res = parser.computeSqlQuery(query, params);
-        if (!parser.getResult().isEmpty()) {
-            parser.getResult().get().forEach(t -> {
+        if (!parser.getQueryResult().getResult().isEmpty()) {
+            parser.getQueryResult().getResult().get().forEach(t -> {
                 t.forEach(k -> {
                     System.out.println(
                         String.format("%s => %s", k.getKey(), k.getValue())
@@ -34,23 +34,37 @@ public class TestParser {
         return res;
     }
 
-    private static boolean testInsert(ArrayQueryParser parser) {
+    private static boolean testInsert(final QueryParser parser) {
         parser.resetQuery();
         String query = String.format(
             "INSERT INTO %s (id, firstName, lastName) VALUES (?, ?, ?)", 
             TABLE_NAME);
         Object[] params = {1111, "Merda", "Dio"};
 
-        return parser.computeSqlQuery(query, params) == deleteLastInsertedItem(parser, params[1]);
+        return parser.computeSqlQuery(query, params) 
+                == selectAll(parser) 
+                == deleteLastInsertedItem(parser, params[1]);
     }
 
-    private static boolean deleteLastInsertedItem(ArrayQueryParser parser, Object object) {
+    private static boolean deleteLastInsertedItem(final QueryParser parser, Object object) {
         parser.resetQuery();
         String query = String.format(
             "DELETE FROM %s WHERE id = ?", 
             TABLE_NAME);
         Object[] params = {1111};
         return parser.computeSqlQuery(query, params);
+    }
+
+    private static boolean selectAll(final QueryParser parser) {
+        parser.resetQuery();
+        String query = String.format(
+            "SELECT * FROM %s", 
+            TABLE_NAME);
+        boolean res =  parser.computeSqlQuery(query, null);
+        if(!parser.getQueryResult().getResult().isEmpty()) {
+            parser.getQueryResult().getResult().get().forEach(t -> t.forEach(System.out::println));
+        }
+        return res;
     }
 
     private static ConnectionProvider getConnection() {
