@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import javafx.util.Pair;
 
-public class MapQueryParser implements QueryParser {
+public class MapQueryParser {
     private final Connection connection;
     private StringBuilder finalQuery;
     private final Map<Integer, Object> params;
@@ -60,7 +60,13 @@ public class MapQueryParser implements QueryParser {
         }
     }
 
-    @Override
+    /**
+     * Execute the created query
+     * 
+     * @return a List of the results, mapped as a (key,value) pair
+     * where key is the name of the column, and value is the value of 
+     * the i-th row of the result.
+     */
     public List<List<Pair<String, Object>>> getQueryResult() {
 
         try(final var statement = connection.prepareStatement(this.finalQuery.toString())) {
