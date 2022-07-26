@@ -5,16 +5,19 @@ import db_project.db.ConnectionProvider;
 
 public class TestParser {
     public static void main(String[] args) {
-        var parser = new QueryParser(getConnection().getMySQLConnection());
-        var tableName = "Employees";
-        Objects.requireNonNull(parser.select("*", "")
-            .from(tableName)
-            .getQueryResult()).forEach(v -> {
-                System.out.println("----------------");
-                v.forEach(t -> {
-                    System.out.println(String.format("\t(%s, %s)", t.getKey(), t.getValue()));
-                });
-            });
+        var tableName = "Shippers";
+
+        var parser = new ArrayQueryParser(getConnection().getMySQLConnection());
+        var query = String.format("SELECT * FROM %s WHERE ShipperID=?", tableName);
+        Object[] parms = { 1 };
+        var res = Objects.requireNonNull(parser.insertQuery(query, parms)
+                                            .getQueryResult());
+        res.forEach((t -> {
+            System.out.println("----------------");
+            t.forEach(v -> System.out.println(
+                String.format("\t(%s, %s)", v.getKey(), v.getValue())));
+        } ));
+        
     }
 
     private static ConnectionProvider getConnection() {
