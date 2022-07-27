@@ -5,7 +5,9 @@ import junit.framework.Assert;
 
 public class TestParser {
   private static final String TABLE_NAME = "users";
-  private static final QueryParser parser = new ArrayQueryParser(getConnection().getMySQLConnection());
+  private static final QueryParser parser =
+      new ArrayQueryParser(getConnection().getMySQLConnection());
+
   public static void main(String[] args) {
     System.out.println("****(1)****");
     Assert.assertTrue("Simple Select Failed", testSelect(parser));

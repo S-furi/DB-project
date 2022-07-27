@@ -8,13 +8,13 @@ import db_project.db.queryUtils.TestParser;
 
 class TestQueryParser {
 
-    @Test
-    void testSelect() {
-        assertTrue(TestParser.testSelect(TestParser.getParser()));
-    }
-    
-    @Test
-    void testInsert() {
-        assertTrue(TestParser.testInsert(TestParser.getParser()));
-    }
+  @Test
+  void testSelect() {
+    assertTrue(TestParser.testSelect(TestParser.getParser()));
+  }
+
+  @Test
+  void testInsert() {
+    assertTrue(TestParser.testInsert(TestParser.getParser()));
+  }
 }
