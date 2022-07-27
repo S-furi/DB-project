@@ -9,37 +9,37 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class UsersController {
-    private final ObservableList<User> users;
+  private final ObservableList<User> users;
 
-    public UsersController() {
-        this.users = FXCollections.observableArrayList();
-    }
+  public UsersController() {
+    this.users = FXCollections.observableArrayList();
+  }
 
-    public List<TableColumn<User, ?>> getTableViewColumns() {
-        TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+  public List<TableColumn<User, ?>> getTableViewColumns() {
+    TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
+    firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
 
-        TableColumn<User, String> lastNameColumn = new TableColumn<>("Last Name");
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+    TableColumn<User, String> lastNameColumn = new TableColumn<>("Last Name");
+    lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
 
-        TableColumn<User, String> telColumn = new TableColumn<>("Tel");
-        telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
+    TableColumn<User, String> telColumn = new TableColumn<>("Tel");
+    telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
 
-        TableColumn<User, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+    TableColumn<User, String> emailColumn = new TableColumn<>("Email");
+    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        return List.of(firstNameColumn, lastNameColumn, telColumn, emailColumn);
-    }
+    return List.of(firstNameColumn, lastNameColumn, telColumn, emailColumn);
+  }
 
-    public ObservableList<User> getUsers() {
-        return users;
-    }
+  public ObservableList<User> getUsers() {
+    return users;
+  }
 
-    public boolean addUser(final User user) {
-        return this.users.add(user);
-    }
+  public boolean addUser(final User user) {
+    return this.users.add(user);
+  }
 
-    public boolean removeUser(final User user) {
-        return this.users.remove(user);
-    }
+  public boolean removeUser(final User user) {
+    return this.users.remove(user);
+  }
 }

@@ -19,46 +19,32 @@ import javafx.scene.Node;
 
 public class LogInController implements Initializable {
 
-    @FXML
-    private TextField usernameField;
+  @FXML private TextField usernameField;
 
-    @FXML
-    private PasswordField passField;
+  @FXML private PasswordField passField;
 
-    @FXML
-    private Button logInButton;
+  @FXML private Button logInButton;
 
-    @FXML
-    private CheckBox cartArrowReg;
+  @FXML private CheckBox cartArrowReg;
 
+  @FXML
+  void validateData(ActionEvent event) {}
 
-    @FXML
-    void validateData(ActionEvent event) {
+  @FXML
+  void switchToRegister(ActionEvent event) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/NormalUserRegistration.fxml"));
+      var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      var scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
 
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+  }
 
-    @FXML
-    void switchToRegister(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/NormalUserRegistration.fxml"));
-            var stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            var scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-
-            
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-        
-    }
-
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {}
 }
