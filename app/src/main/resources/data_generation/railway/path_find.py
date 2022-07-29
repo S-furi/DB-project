@@ -2,8 +2,10 @@
 # that something is wrong when decoding the JSON, need to do some debug
 import json
 import math
+from operator import indexOf
 from queue import PriorityQueue
 import sys
+from turtle import distance
 
 FILE_PATH = "route_data/routes_distances_diff.json"
 STATION_IDS_PATH = "route_data/statID.json"
@@ -41,19 +43,27 @@ def dijikstra(graph : Graph, start_vertex):
                         parent[neighbor] = current_vertex
     return D
 
-def initialize_graph(data : dict, ascId : list, graph : Graph, weight_key : str):
-    for key in data.keys():
-        for value in data[key]:
-            try:
-                u = ascId.index(key)
-                v = ascId.index(value)
-                graph.add_edge(u, v, data[key][value][weight_key])
-            except ValueError:
-                pass
+def initialize_graph(data : list, ascId : list, graph : Graph, weight_key : str):
+    for stations in data:
+        for src in stations:
+            for solution in stations[src]:
+                for dst in (dict)(solution).keys():
+                    distance = solution[dst][weight_key]
+                    try:
+                        u = ascId.index(src)
+                        v = ascId.index(dst)
+                        graph.add_edge(u, v, distance)
+                    except ValueError as info:
+                        print(f"Errore con {dst} -> {src}: {info}")
+
 
 def cache_stations_ids() -> dict:
     fa = open(STATION_IDS_PATH, 'r')
-    return dict(json.load(fa))
+    dct : dict = {}
+    for stat in json.load(fa):
+        for elem in stat:
+            dct[elem] = stat[elem]
+    return dct
 
 def ascStations(stations):
     res = []
@@ -83,15 +93,15 @@ parent = [-1] * len(stIds)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python pathFind.py <srcStationName> <dstStationName> \
+        print("Usage: python pathFind.py <srcStationName> <solutionStationName> \
             \nnote: all station names has to be in caps lock and wrapped in single/double quotes if \
             \nthe name contains a space. All stations' names are in route_data/statID.json")
         sys.exit(0)
 
     src = sys.argv[1]
-    dst = sys.argv[2]
+    solution = sys.argv[2]
     path = compute_route(src)
-    print(f"La distanza da {src} a {dst} è di {math.ceil(path[stIds.index(dst)])} km")
+    print(f"La distanza da {src} a {solution} è di {math.ceil(path[stIds.index(solution)])} km")
     print("il percorso da eseguire è il seguente: ")
-    printPath(stIds.index(dst))
+    printPath(stIds.index(solution))
     

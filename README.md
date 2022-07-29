@@ -31,7 +31,7 @@ Robe da far subito:
 ---
 ### **SCHEMA**
 Tutto quello che è qui è da fare concorrentemente alla stesura del report
-- [ ] Rifinire **ER** (specialmente i nomi)
+- [x] Rifinire **ER** (specialmente i nomi)
   - [ ] Check dei vincoli (dopo averli definiti)
   - [ ] Check *1NF, 2NF, 3NF* (magari *3NF* anche no dai).
 - [ ] Progettazione logica:
@@ -41,9 +41,9 @@ Tutto quello che è qui è da fare concorrentemente alla stesura del report
 ---
 ### **REPORT**
 Take **daily** notes for **REPORT** (at least two or three times a week work on the report).
-- [ ] Intervista
-  - [ ] Analisi dei *requisiti*
-- [ ] Rilevamento delle ambiguità e correzioni proposte
+- [x] Intervista
+  - [x] Analisi dei *requisiti*
+- [x] Rilevamento delle ambiguità e correzioni proposte
 - [ ] Definizione delle specifche in linguaggio naturale (analisi) ed estrazione dei **Progettazione Concettuale**
 - [ ] **Schema Scheletro** (progettazione concettuale)
 - [ ] Raffinamenti proposti

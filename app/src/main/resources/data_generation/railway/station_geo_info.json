@@ -1,0 +1,200 @@
+[
+    {
+        "station": "BARI CENTRALE",
+        "longitude": "16.8700416",
+        "latitude": "41.1175372",
+        "city": "Bari"
+    },
+    {
+        "station": "BARLETTA",
+        "longitude": "16.2786089999999",
+        "latitude": "41.3153774",
+        "city": "Barletta"
+    },
+    {
+        "station": "BENEVENTO",
+        "longitude": "14.7701192999999",
+        "latitude": "41.1417465999999",
+        "city": "Benevento"
+    },
+    {
+        "station": "BERGAMO",
+        "longitude": "9.6751551",
+        "latitude": "45.6903168999999",
+        "city": "Bergamo"
+    },
+    {
+        "station": "BOLOGNA C.LE",
+        "longitude": "11.2847820999999",
+        "latitude": "44.5150377",
+        "city": "Bologna"
+    },
+    {
+        "station": "BOLZANO",
+        "longitude": "11.3584026999999",
+        "latitude": "46.4966084",
+        "city": "Bolzano"
+    },
+    {
+        "station": "BRESCIA",
+        "longitude": "10.2128011999999",
+        "latitude": "45.5323057",
+        "city": "Brescia"
+    },
+    {
+        "station": "CASERTA",
+        "longitude": "14.3282069",
+        "latitude": "41.068655",
+        "city": "Caserta"
+    },
+    {
+        "station": "DESENZANO",
+        "longitude": "10.5363674",
+        "latitude": "45.4625910999999",
+        "city": "Desenzano del Garda"
+    },
+    {
+        "station": "FERRARA",
+        "longitude": "11.6037819",
+        "latitude": "44.8429501999999",
+        "city": "Ferrara"
+    },
+    {
+        "station": "FIRENZE S.M.N.",
+        "longitude": "11.276617",
+        "latitude": "43.7775773999999",
+        "city": "Firenze"
+    },
+    {
+        "station": "FOGGIA",
+        "longitude": "15.555882",
+        "latitude": "41.4659473999999",
+        "city": "Foggia"
+    },
+    {
+        "station": "GENOVA",
+        "longitude": "8.7732509",
+        "latitude": "44.4587125999999",
+        "city": "Genova"
+    },
+    {
+        "station": "LAMEZIA",
+        "longitude": "16.2849308",
+        "latitude": "38.9600348",
+        "city": "Lamezia Terme"
+    },
+    {
+        "station": "MILANO CENTRALE",
+        "longitude": "9.2049959",
+        "latitude": "45.4870667",
+        "city": "Milano"
+    },
+    {
+        "station": "NAPOLI CENTRALE",
+        "longitude": "14.2729455",
+        "latitude": "40.8529478",
+        "city": "Napoli"
+    },
+    {
+        "station": "PADOVA",
+        "longitude": "11.8805441999999",
+        "latitude": "45.4176683",
+        "city": "Padova"
+    },
+    {
+        "station": "PESCHIERA",
+        "longitude": "10.7025927",
+        "latitude": "45.4384467",
+        "city": "Peschiera del Garda"
+    },
+    {
+        "station": "REGGIO CALABRIA",
+        "longitude": "11.3584026999999",
+        "latitude": "46.4966084",
+        "city": "Reggio Calabria"
+    },
+    {
+        "station": "REGGIO EMILIA",
+        "longitude": "10.6433418",
+        "latitude": "44.6977205999999",
+        "city": "Reggio nell'Emilia"
+    },
+    {
+        "station": "RIMINI",
+        "longitude": "12.574028",
+        "latitude": "44.0642210999999",
+        "city": "Rimini"
+    },
+    {
+        "station": "ROMA TERMINI",
+        "longitude": "12.5023316999999",
+        "latitude": "41.9008151",
+        "city": "Roma"
+    },
+    {
+        "station": "ROVERETO",
+        "longitude": "11.0339060999999",
+        "latitude": "45.8908227",
+        "city": "Rovereto"
+    },
+    {
+        "station": "ROVIGO",
+        "longitude": "11.7811056",
+        "latitude": "45.0769876999999",
+        "city": "Rovigo"
+    },
+    {
+        "station": "SALERNO",
+        "longitude": "14.7623397999999",
+        "latitude": "40.6813931",
+        "city": "Salerno"
+    },
+    {
+        "station": "TORINO",
+        "longitude": "7.6772699",
+        "latitude": "45.0908026999999",
+        "city": "Torino"
+    },
+    {
+        "station": "TRENTO",
+        "longitude": "11.1192018",
+        "latitude": "46.0721989999999",
+        "city": "Trento"
+    },
+    {
+        "station": "TREVISO C.",
+        "longitude": "12.2450963",
+        "latitude": "45.6596730999999",
+        "city": "Treviso"
+    },
+    {
+        "station": "TRIESTE",
+        "clongitudine":"13.7196729",
+        "clatitudine":"45.7049718999999",
+        "city" : "Trieste"
+    },
+    {
+        "station": "UDINE",
+        "longitude": "13.2841543",
+        "latitude": "46.0755034",
+        "city": "Udine"
+    },
+    {
+        "station": "VENEZIA SANTA LUCIA",
+        "longitude": "12.3204993999999",
+        "latitude": "45.4413789999999",
+        "city": "Venezia"
+    },
+    {
+        "station": "VERONA",
+        "longitude": "10.9823226",
+        "latitude": "45.4291259",
+        "city": "Verona"
+    },
+    {
+        "station": "VICENZA",
+        "longitude": "11.5404661",
+        "latitude": "45.5411009999999",
+        "city": "Vicenza"
+    }
+]
