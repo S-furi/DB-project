@@ -1,9 +1,4 @@
 package db_project.model;
 
-
-//Viaggiatore
-public class Traveler {
-
-
-
-}
+// Viaggiatore
+public class Traveler {}
