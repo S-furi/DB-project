@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Macchinista
-public class Driver {
-    
-}
+// Macchinista
+public class Driver {}

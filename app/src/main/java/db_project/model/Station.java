@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Stazione
-public class Station {
-    
-}
+// Stazione
+public class Station {}

@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Sottoscrizione
-public class Subscription {
-    
-}
+// Sottoscrizione
+public class Subscription {}

@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Tratta
-public class Section {
-    
-}
+// Tratta
+public class Section {}

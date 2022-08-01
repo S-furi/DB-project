@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Percorrenza
-public class RouteInfo {
-    
-}
+// Percorrenza
+public class RouteInfo {}
