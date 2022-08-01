@@ -5,15 +5,15 @@
 -- * Generator date: Sep 14 2021              
 -- * Generation date: Mon Aug  1 15:25:21 2022 
 -- * LUN file: C:\users\crossover\Desktop\My Mac Desktop\DB\Progetto\prj\DB-project\schemas\Railway.lun 
--- * Schema: ERFattoBene_Logica/2-1 
+-- * Schema: Ferrovia/2-1 
 -- ********************************************* 
 
 
 -- Database Section
 -- ________________ 
 
-create database ERFattoBene_Logica;
-use ERFattoBene_Logica;
+create database Ferrovia;
+use Ferrovia;
 
 
 -- Tables Section
