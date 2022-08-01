@@ -1,7 +1,4 @@
 package db_project.model;
 
-
-//Biglietto
-public class Ticket {
-    
-}
+// Biglietto
+public class Ticket {}
