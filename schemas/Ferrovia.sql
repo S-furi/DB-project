@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Mon Aug  1 17:33:25 2022 
+-- * Generation date: Mon Aug  1 17:36:55 2022 
 -- * LUN file: C:\users\crossover\Desktop\My Mac Desktop\DB\Progetto\prj\DB-project\schemas\Railway.lun 
 -- * Schema: Ferrovia/2-1 
 -- ********************************************* 
@@ -128,7 +128,7 @@ create table RESPONSABILE_STAZIONE (
      residenza char(1) not null,
      constraint ID_RESPONSABILE_STAZIONE_ID primary key (codResponsabile));
 
-create table Sottoscrizione (
+create table SOTTOSCRIZIONE (
      codPasseggero varchar(5) not null,
      codCarta varchar(5) not null,
      dataSottoscrizione date not null,
@@ -203,8 +203,8 @@ alter table CARROZZA add constraint FKAppartenenza
 
 -- Not implemented
 -- alter table LOYALTY_CARD add constraint ID_LOYALTY_CARD_CHK
---     check(exists(select * from Sottoscrizione
---                  where Sottoscrizione.codCarta = codCarta)); 
+--     check(exists(select * from SOTTOSCRIZIONE
+--                  where SOTTOSCRIZIONE.codCarta = codCarta)); 
 
 -- Not implemented
 -- alter table MACCHINISTA add constraint ID_MACCHINISTA_CHK
@@ -256,11 +256,11 @@ alter table RESPONSABILE_STAZIONE add constraint FKResidenza_Resp_FK
      foreign key (residenza)
      references CITTA (nome);
 
-alter table Sottoscrizione add constraint FKRiferimento_Pas_FK
+alter table SOTTOSCRIZIONE add constraint FKRiferimento_Pas_FK
      foreign key (codPasseggero)
      references PASSEGGERO (codPasseggero);
 
-alter table Sottoscrizione add constraint FKRiferimento_Card_FK
+alter table SOTTOSCRIZIONE add constraint FKRiferimento_Card_FK
      foreign key (codCarta)
      references LOYALTY_CARD (codCarta);
 
@@ -376,10 +376,10 @@ create index FKResidenza_Resp_IND
      on RESPONSABILE_STAZIONE (residenza);
 
 create unique index FKRiferimento_Pas_IND
-     on Sottoscrizione (codPasseggero);
+     on SOTTOSCRIZIONE (codPasseggero);
 
 create unique index FKRiferimento_Card_IND
-     on Sottoscrizione (codCarta);
+     on SOTTOSCRIZIONE (codCarta);
 
 create unique index ID_STAZIONE_IND
      on STAZIONE (codStazione);
