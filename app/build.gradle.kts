@@ -41,8 +41,3 @@ javafx {
     version = "17.0.2"
     modules("javafx.controls", "javafx.fxml")
 }
-
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-}
