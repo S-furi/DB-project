@@ -34,7 +34,6 @@ public class AdminTable implements Table<Admin, Integer> {
     String query = "SELECT * FROM " + TABLE_NAME + " WHERE adminID = ?";
     Integer[] params = {primaryKey};
     this.queryParser.computeSqlQuery(query, params);
-
     return this.readAdminsWithQueryResult(this.queryParser.getQueryResult()).stream().findFirst();
   }
 
