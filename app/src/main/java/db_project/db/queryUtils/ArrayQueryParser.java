@@ -109,6 +109,7 @@ public class ArrayQueryParser implements QueryParser {
       for (var i = 0; i < this.params.length; i++) {
         this.setTypeStatement(statement, this.params[i], i + 1);
       }
+      this.resetQuery();
       return statement.executeUpdate() > 0;
     } catch (final SQLException e) {
       throw new IllegalStateException(e);
