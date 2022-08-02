@@ -47,20 +47,21 @@ public class AdminTable implements Table<Admin, Integer> {
 
   @Override
   public boolean save(final Admin admin) {
-    String query = "INSERT INTO " 
-          + TABLE_NAME
-          + " (adminID, annoContratto, nome, cognome, telefono, email, residenza)"
-          + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String query =
+        "INSERT INTO "
+            + TABLE_NAME
+            + " (adminID, annoContratto, nome, cognome, telefono, email, residenza)"
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     Object[] params = {
-          admin.getId(),
-          Utils.dateToSqlDate(admin.getContractYear()),
-          admin.getFirstName(),
-          admin.getLastName(),
-          admin.getTelephone(),
-          admin.getEmail(),
-          admin.getResidence()
+      admin.getId(),
+      Utils.dateToSqlDate(admin.getContractYear()),
+      admin.getFirstName(),
+      admin.getLastName(),
+      admin.getTelephone(),
+      admin.getEmail(),
+      admin.getResidence()
     };
-    
+
     if (this.queryParser.computeSqlQuery(query, params)) {
       return true;
     }

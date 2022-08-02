@@ -34,14 +34,9 @@ public class AdminTableTest {
   @Test
   public void testSave() {
     Date date = Utils.buildDate(12, 12, 2012).get();
-    Admin adm = new Admin(
-      "3",
-      Utils.dateToSqlDate(date), 
-      "stefano",
-      "furi",
-      35,
-      "stefano.furi7@gmail.com",
-      "C");
+    Admin adm =
+        new Admin(
+            "3", Utils.dateToSqlDate(date), "stefano", "furi", 35, "stefano.furi7@gmail.com", "C");
     System.out.println(adm);
     assertTrue(this.adminTable.save(adm));
   }

@@ -128,9 +128,9 @@ public class ArrayQueryParser implements QueryParser {
       if (param.getClass().equals(String.class)) {
         statement.setString(index, param.toString());
       } else if (param.getClass().equals(Integer.class)) {
-        statement.setInt(index, (int)param);
+        statement.setInt(index, (int) param);
       } else if (param.getClass().equals(java.sql.Date.class)) {
-        statement.setDate(index, (java.sql.Date)param);
+        statement.setDate(index, (java.sql.Date) param);
       } else {
         throw new SQLException();
       }
