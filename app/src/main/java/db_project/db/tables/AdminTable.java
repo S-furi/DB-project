@@ -15,7 +15,7 @@ import db_project.model.Admin;
 import db_project.utils.Utils;
 import javafx.util.Pair;
 
-public class AdminTable implements Table<Admin, Integer> {
+public class AdminTable implements Table<Admin, String> {
   public static final String TABLE_NAME = "AMMINISTRATORE";
   private final Connection connection;
   private final QueryParser queryParser;
@@ -31,9 +31,9 @@ public class AdminTable implements Table<Admin, Integer> {
   }
 
   @Override
-  public Optional<Admin> findByPrimaryKey(Integer primaryKey) {
+  public Optional<Admin> findByPrimaryKey(String primaryKey) {
     String query = "SELECT * FROM " + TABLE_NAME + " WHERE adminID = ?";
-    Integer[] params = {primaryKey};
+    String[] params = {primaryKey};
     this.queryParser.computeSqlQuery(query, params);
     return this.readAdminsWithQueryResult(this.queryParser.getQueryResult()).stream().findFirst();
   }
@@ -67,6 +67,13 @@ public class AdminTable implements Table<Admin, Integer> {
     }
     return false;
   }
+  
+  @Override
+  public boolean delete(String primaryKey) {
+    String query = "DELETE FROM " + TABLE_NAME + " WHERE adminID = ?";
+    String[] params = {primaryKey};
+    return this.queryParser.computeSqlQuery(query, params);
+  }
 
   @Override
   public boolean update(Admin updatedValue) {
@@ -74,11 +81,6 @@ public class AdminTable implements Table<Admin, Integer> {
     return false;
   }
 
-  @Override
-  public boolean delete(Integer primaryKey) {
-    // TODO Auto-generated method stub
-    return false;
-  }
 
   private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
     final List<Admin> admList = new ArrayList<>();
