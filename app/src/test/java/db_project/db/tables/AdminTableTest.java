@@ -19,6 +19,7 @@ public class AdminTableTest {
   @Test
   public void testFindByPrimaryKey() {
     assertTrue(this.adminTable.findByPrimaryKey(1).isPresent());
+    assertFalse(this.adminTable.findByPrimaryKey(9).isPresent());
   }
 
   @Test
