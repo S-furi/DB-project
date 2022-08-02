@@ -3,16 +3,16 @@ package db_project.model;
 import java.util.Date;
 // Amministratore
 public class Admin {
-  private final int id;
-  private final Date contractYear;
-  private final String firstName;
-  private final String lastName;
-  private final int telephone;
-  private final String email;
-  private final String residence;
+  private String id;
+  private Date contractYear;
+  private String firstName;
+  private String lastName;
+  private int telephone;
+  private String email;
+  private String residence;
 
   public Admin(
-      final int id,
+      final String id,
       final Date contractYear,
       final String firstName,
       final String lastName,
@@ -28,7 +28,9 @@ public class Admin {
     this.residence = residence;
   }
 
-  public int getId() {
+  public Admin() {}
+
+  public String getId() {
     return id;
   }
 
@@ -55,7 +57,35 @@ public class Admin {
   public String getResidence() {
     return residence;
   }
-
+  
+  public void setId(final String id) {
+    this.id = id;
+  }
+  
+  public void setContractYear(final Date contractYear) {
+    this.contractYear = contractYear;
+  }
+  
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+  
+  public void setLastName(final String lastName) {
+    this.lastName = lastName;
+  }
+  
+  public void setTelephone(final int telephone) {
+    this.telephone = telephone;
+  }
+  
+  public void setEmail(final String email) {
+    this.email = email;
+  }
+  
+  public void setResidence(final String residence) {
+    this.residence = residence;
+  }
+  
   @Override
   public String toString() {
     return String.format(
