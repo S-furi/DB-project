@@ -27,9 +27,17 @@ public class ArrayQueryParser implements QueryParser {
     return this.parseAndExecuteQuery();
   }
 
+  /**
+   * Super bad method, but it works...
+   * Check with wich keyword the given query begins with, 
+   * an according to that, an update is executed (in case of 
+   * DELETE, UPDATE, INSERT operations) or a result is built
+   
+   * @return false if the query starts with an unknown keyword
+   */
   private boolean parseAndExecuteQuery() {
     if (this.finalQuery.toString().startsWith("SELECT")) {
-      return this.preparedStatementQuery();
+      return this.variableStatementQuery();
     } else if (this.finalQuery.toString().startsWith("DELETE")
         || this.finalQuery.toString().startsWith("UPDATE")
         || this.finalQuery.toString().startsWith("INSERT")) {
@@ -44,7 +52,16 @@ public class ArrayQueryParser implements QueryParser {
     return this;
   }
 
-  private boolean preparedStatementQuery() {
+  /**
+   * It's called variabile because it's been called if the 
+   * query is Basic (it hasn't got non-static-final fields
+   * inside query's body) or it needs to be a PreparedStatement,
+   * in order to insert all the parameters.
+   * 
+   * @return true if the statement is created succefully
+   * @throws IllegalStateException if a SQLException is raised.
+   */
+  private boolean variableStatementQuery() {
     if (this.params == null) {
       this.result.buildResult(this.basicStatementQuery());
       return true;
@@ -62,6 +79,17 @@ public class ArrayQueryParser implements QueryParser {
     }
   }
 
+  /**
+   * Generate a result from a Basic Statement query (means that
+   * the query hasn't got non-static-final parameters and so
+   * it's safe (no sql injection) to assign them to the string).
+   * 
+   * For a better understanding about the result go to 
+   * {@link db_project.db.queryUtils.QueryResult} and read why
+   * and what it yields.
+   * 
+   * @return the result given from the query
+   */
   private List<List<Pair<String, Object>>> basicStatementQuery() {
     try (final var statement = connection.createStatement()) {
       System.out.println("----" + this.finalQuery.toString() + "----");
@@ -73,6 +101,13 @@ public class ArrayQueryParser implements QueryParser {
     }
   }
 
+  /**
+   * Method called only if the query is an update-query
+   * (INSERT, DELETE, UPDATE).
+   * 
+   * @return true if everything goes ok
+   * @throws IllegalStateException if a SQLException is thown
+   */
   private boolean executeUpdate() {
     try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
       System.out.println("----" + this.finalQuery.toString() + "----");
