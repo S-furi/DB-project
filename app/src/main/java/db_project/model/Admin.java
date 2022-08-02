@@ -57,35 +57,35 @@ public class Admin {
   public String getResidence() {
     return residence;
   }
-  
+
   public void setId(final String id) {
     this.id = id;
   }
-  
+
   public void setContractYear(final Date contractYear) {
     this.contractYear = contractYear;
   }
-  
+
   public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
-  
+
   public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
-  
+
   public void setTelephone(final int telephone) {
     this.telephone = telephone;
   }
-  
+
   public void setEmail(final String email) {
     this.email = email;
   }
-  
+
   public void setResidence(final String residence) {
     this.residence = residence;
   }
-  
+
   @Override
   public String toString() {
     return String.format(

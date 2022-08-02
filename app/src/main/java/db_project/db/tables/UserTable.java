@@ -24,7 +24,7 @@ public class UserTable implements Table<User, Integer> {
   public UserTable(final Connection connection) {
     this.connection = Objects.requireNonNull(connection);
   }
-  
+
   @Override
   public String getTableName() {
     return TABLE_NAME;
