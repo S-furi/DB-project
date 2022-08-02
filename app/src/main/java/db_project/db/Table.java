@@ -16,20 +16,6 @@ public interface Table<V, K> {
   String getTableName();
 
   /**
-   * Creates the DB table
-   *
-   * @return false if the table could not be created
-   */
-  boolean createTable();
-
-  /**
-   * Drops the DB table
-   *
-   * @return false if the table could not be dropped
-   */
-  boolean dropTable();
-
-  /**
    * Finds an objet in the table with the given primary key
    *
    * @param primaryKey
