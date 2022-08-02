@@ -13,10 +13,16 @@ public class AdminTableTest {
 
   private final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
-  private final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
+      
+    private final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
+    
+    @Test
+    public void testFindByPrimaryKey() {
+        assertTrue(this.adminTable.findByPrimaryKey(1).isPresent());
+    }
 
-  @Test
-  public void testFindByPrimaryKey() {
-    assertTrue(this.adminTable.findByPrimaryKey(1).isPresent());
-  }
+    @Test
+    public void testFindAll() {
+        assertFalse (this.adminTable.findAll().isEmpty());
+    }
 }
