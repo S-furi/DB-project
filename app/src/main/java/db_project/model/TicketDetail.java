@@ -11,8 +11,12 @@ public class TicketDetail {
     private final int carNumber;
     private final int seatNumber;
 
-    public TicketDetail(String tickedId, Date reservationDate, int trainClass, String trainId, int carNumber,
-            int seatNumber) {
+    public TicketDetail(final String tickedId,
+            final Date reservationDate,
+            final int trainClass, 
+            final String trainId, 
+            final int carNumber,
+            final int seatNumber) {
         this.tickedId = tickedId;
         this.reservationDate = reservationDate;
         this.trainClass = trainClass;
