@@ -32,10 +32,10 @@ Robe da far subito:
 ### **SCHEMA**
 Tutto quello che è qui è da fare concorrentemente alla stesura del report
 - [x] Rifinire **ER** (specialmente i nomi)
-  - [ ] Check dei vincoli (dopo averli definiti)
+  - [x] Check dei vincoli (dopo averli definiti)
   - [ ] Check *1NF, 2NF, 3NF* (magari *3NF* anche no dai).
 - [ ] Progettazione logica:
-  - [ ] Verificare che la traduzione non faccia tralasciare dei vincoli espressi
+  - [x] Verificare che la traduzione non faccia tralasciare dei vincoli espressi
   - [ ] Rendere la progettazione di query più semplice possibile 
 
 ---
@@ -44,7 +44,7 @@ Take **daily** notes for **REPORT** (at least two or three times a week work on 
 - [x] Intervista
   - [x] Analisi dei *requisiti*
 - [x] Rilevamento delle ambiguità e correzioni proposte
-- [ ] Definizione delle specifche in linguaggio naturale (analisi) ed estrazione dei **Progettazione Concettuale**
+- [x] Definizione delle specifche in linguaggio naturale (analisi) ed estrazione dei **Progettazione Concettuale**
 - [ ] **Schema Scheletro** (progettazione concettuale)
 - [ ] Raffinamenti proposti
 - [ ] Schema conettuale finale (Solo dopo aver finito tutti i punti di [Schema](#schema))
