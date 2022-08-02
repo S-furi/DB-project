@@ -132,6 +132,7 @@ public class ArrayQueryParser implements QueryParser {
 
   @Override
   public QueryResult getQueryResult() {
+    this.resetQuery();
     return this.result;
   }
 
