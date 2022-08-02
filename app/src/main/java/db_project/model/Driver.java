@@ -10,7 +10,7 @@ public class Driver {
     private final String lastName;
     private final int telephone;
     private final String email;
-    private final City residence;
+    private final String residence;
 
     public Driver(
         final String licenceNumber,
@@ -19,7 +19,7 @@ public class Driver {
         final String lastName,
         final int telephone,
         final String email,
-        final City residence
+        final String residence
     ) {
         this.licenceNumber = licenceNumber;
         this.contractYear = contractYear;
@@ -54,7 +54,7 @@ public class Driver {
         return email;
     }
 
-    public City getResidence() {
+    public String getResidence() {
         return residence;
     }
 
@@ -68,6 +68,6 @@ public class Driver {
                 this.contractYear.toString(),
                 this.telephone,
                 this.email,
-                this.residence.toString());
+                this.residence);
     }
 }
