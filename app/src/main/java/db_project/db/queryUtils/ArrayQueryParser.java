@@ -28,11 +28,10 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Super bad method, but it works...
-   * Check with wich keyword the given query begins with, 
-   * an according to that, an update is executed (in case of 
-   * DELETE, UPDATE, INSERT operations) or a result is built
-   
+   * Super bad method, but it works... Check with wich keyword the given query begins with, an
+   * according to that, an update is executed (in case of DELETE, UPDATE, INSERT operations) or a
+   * result is built
+   *
    * @return false if the query starts with an unknown keyword
    */
   private boolean parseAndExecuteQuery() {
@@ -53,11 +52,10 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * It's called variabile because it's been called if the 
-   * query is Basic (it hasn't got non-static-final fields
-   * inside query's body) or it needs to be a PreparedStatement,
-   * in order to insert all the parameters.
-   * 
+   * It's called variabile because it's been called if the query is Basic (it hasn't got
+   * non-static-final fields inside query's body) or it needs to be a PreparedStatement, in order to
+   * insert all the parameters.
+   *
    * @return true if the statement is created succefully
    * @throws IllegalStateException if a SQLException is raised.
    */
@@ -80,14 +78,12 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Generate a result from a Basic Statement query (means that
-   * the query hasn't got non-static-final parameters and so
-   * it's safe (no sql injection) to assign them to the string).
-   * 
-   * For a better understanding about the result go to 
-   * {@link db_project.db.queryUtils.QueryResult} and read why
-   * and what it yields.
-   * 
+   * Generate a result from a Basic Statement query (means that the query hasn't got
+   * non-static-final parameters and so it's safe (no sql injection) to assign them to the string).
+   *
+   * <p>For a better understanding about the result go to {@link
+   * db_project.db.queryUtils.QueryResult} and read why and what it yields.
+   *
    * @return the result given from the query
    */
   private List<List<Pair<String, Object>>> basicStatementQuery() {
@@ -102,9 +98,8 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Method called only if the query is an update-query
-   * (INSERT, DELETE, UPDATE).
-   * 
+   * Method called only if the query is an update-query (INSERT, DELETE, UPDATE).
+   *
    * @return true if everything goes ok
    * @throws IllegalStateException if a SQLException is thown
    */
