@@ -1,4 +1,4 @@
 package db_project.model;
 
-//Città
+// Città
 public class City {}
