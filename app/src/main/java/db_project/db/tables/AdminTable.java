@@ -67,7 +67,7 @@ public class AdminTable implements Table<Admin, String> {
     }
     return false;
   }
-  
+
   @Override
   public boolean delete(String primaryKey) {
     String query = "DELETE FROM " + TABLE_NAME + " WHERE adminID = ?";
@@ -80,7 +80,6 @@ public class AdminTable implements Table<Admin, String> {
     // TODO Auto-generated method stub
     return false;
   }
-
 
   private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
     final List<Admin> admList = new ArrayList<>();

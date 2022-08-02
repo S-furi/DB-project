@@ -21,14 +21,8 @@ public class AdminTableTest {
   private final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
-  private final Admin adm = new Admin(
-      "3",
-      date, 
-      "stefano",
-      "furi",
-      35,
-      "stefano.furi7@gmail.com",
-      "C");
+  private final Admin adm =
+      new Admin("3", date, "stefano", "furi", 35, "stefano.furi7@gmail.com", "C");
 
   @Test
   public void testFindByPrimaryKey() {
@@ -50,17 +44,20 @@ public class AdminTableTest {
 
   @Test
   public void testInsertDuplicateKey() {
-    assertThrows(IllegalStateException.class, () -> {
-      Admin adm = new Admin(
-        "1",
-        Utils.dateToSqlDate(date), 
-        "stefano",
-        "furi",
-        35,
-        "stefano.furi7@gmail.com",
-        "C");
-      System.out.println(adm);
-      assertTrue(this.adminTable.save(adm));
-    });
+    assertThrows(
+        IllegalStateException.class,
+        () -> {
+          Admin adm =
+              new Admin(
+                  "1",
+                  Utils.dateToSqlDate(date),
+                  "stefano",
+                  "furi",
+                  35,
+                  "stefano.furi7@gmail.com",
+                  "C");
+          System.out.println(adm);
+          assertTrue(this.adminTable.save(adm));
+        });
   }
 }
