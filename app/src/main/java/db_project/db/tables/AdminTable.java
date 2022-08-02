@@ -40,9 +40,9 @@ public class AdminTable implements Table<Admin, Integer> {
 
   @Override
   public List<Admin> findAll() {
-        String query = "SELECT * FROM " + TABLE_NAME;
-        this.queryParser.computeSqlQuery(query, null);
-        return this.readAdminsWithQueryResult(this.queryParser.getQueryResult());
+    String query = "SELECT * FROM " + TABLE_NAME;
+    this.queryParser.computeSqlQuery(query, null);
+    return this.readAdminsWithQueryResult(this.queryParser.getQueryResult());
   }
 
   @Override
