@@ -40,8 +40,9 @@ public class AdminTable implements Table<Admin, Integer> {
 
   @Override
   public List<Admin> findAll() {
-    // TODO Auto-generated method stub
-    return null;
+        String query = "SELECT * FROM " + TABLE_NAME;
+        this.queryParser.computeSqlQuery(query, null);
+        return this.readAdminsWithQueryResult(this.queryParser.getQueryResult());
   }
 
   @Override
