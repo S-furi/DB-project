@@ -24,13 +24,12 @@ public class UserTable implements Table<User, Integer> {
   public UserTable(final Connection connection) {
     this.connection = Objects.requireNonNull(connection);
   }
-
+  
   @Override
   public String getTableName() {
     return TABLE_NAME;
   }
 
-  @Override
   public boolean createTable() {
     try (final Statement statement = this.connection.createStatement()) {
       statement.executeUpdate(
@@ -50,7 +49,6 @@ public class UserTable implements Table<User, Integer> {
     }
   }
 
-  @Override
   public boolean dropTable() {
     try (final Statement statement = this.connection.createStatement()) {
       statement.executeUpdate("DROP TABLE " + TABLE_NAME);
