@@ -30,4 +30,12 @@ public class Station {
   public String getManagerCode() {
     return managerCode;
   }
+
+  @Override
+  public String toString() {
+    return "Station [managerCode=" + managerCode + ", rails=" + rails + ", stationCode=" + stationCode
+        + ", stationName=" + stationName + "]";
+  }
+
+  
 }
