@@ -33,9 +33,14 @@ public class Station {
 
   @Override
   public String toString() {
-    return "Station [managerCode=" + managerCode + ", rails=" + rails + ", stationCode=" + stationCode
-        + ", stationName=" + stationName + "]";
+    return "Station [managerCode="
+        + managerCode
+        + ", rails="
+        + rails
+        + ", stationCode="
+        + stationCode
+        + ", stationName="
+        + stationName
+        + "]";
   }
-
-  
 }
