@@ -22,7 +22,7 @@ public class GroupTable implements Table<Group, String> {
 
     public GroupTable(final Connection connection) {
         this.connection = connection;
-        this.queryParser = new ArrayQueryParser(connection);
+        this.queryParser = new ArrayQueryParser(this.connection);
     }
 
     @Override
@@ -47,18 +47,23 @@ public class GroupTable implements Table<Group, String> {
 
     @Override
     public boolean save(final Group group) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean update(final Group updatedValue) {
-        // TODO Auto-generated method stub
-        return false;
+        final String query = 
+            "INSERT INTO " + TABLE_NAME
+            + "(codComitiva, numPersone)"
+            + "VALUES (?, ?)";
+        final Object[] params = {group.getGroupId(), group.getNumberOfPeople()};
+        return this.queryParser.computeSqlQuery(query, params);
     }
 
     @Override
     public boolean delete(final String primaryKey) {
+        final String query = "DELETE FROM " + TABLE_NAME + " WHERE codComitiva = ?";
+        final String[] params = {primaryKey};
+        return this.queryParser.computeSqlQuery(query, params);
+    }
+
+    @Override
+    public boolean update(final Group updatedValue) {
         // TODO Auto-generated method stub
         return false;
     }
