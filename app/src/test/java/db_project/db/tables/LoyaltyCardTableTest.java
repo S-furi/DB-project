@@ -11,51 +11,52 @@ import db_project.db.ConnectionProvider;
 import db_project.model.LoyaltyCard;
 
 public class LoyaltyCardTableTest {
-    private static final String username = "root";
-    private static final String password = "123Test123";
-    private static final String dbName = "Ferrovia";
-  
-    private final ConnectionProvider connectionProvider =
-        new ConnectionProvider(username, password, dbName);
-    
-    private final LoyaltyCardTable loyaltyCardTable = 
-        new LoyaltyCardTable(this.connectionProvider.getMySQLConnection());
+  private static final String username = "root";
+  private static final String password = "123Test123";
+  private static final String dbName = "Ferrovia";
 
-    private final LoyaltyCard loyaltyCard = 
-        new LoyaltyCard("3", 50, 3);
-    
-    @Test
-    public void testFindAll() {
-        assertFalse(this.loyaltyCardTable.findAll().isEmpty());
-        assertTrue(this.loyaltyCardTable.findAll().size() == 2);
-    }
+  private final ConnectionProvider connectionProvider =
+      new ConnectionProvider(username, password, dbName);
 
-    @Test
-    public void testFindByPrimaryKey() {
-        assertTrue(this.loyaltyCardTable.findByPrimaryKey("1").isPresent());
-        assertFalse(this.loyaltyCardTable.findByPrimaryKey("8").isPresent());
-    }
+  private final LoyaltyCardTable loyaltyCardTable =
+      new LoyaltyCardTable(this.connectionProvider.getMySQLConnection());
 
-    @Test
-    public void testSaveAndDelete() {
-        assertTrue(this.loyaltyCardTable.save(this.loyaltyCard));
-        assertThrows(IllegalStateException.class, () -> {
-            this.loyaltyCardTable.save(this.loyaltyCard);
+  private final LoyaltyCard loyaltyCard = new LoyaltyCard("3", 50, 3);
+
+  @Test
+  public void testFindAll() {
+    assertFalse(this.loyaltyCardTable.findAll().isEmpty());
+    assertTrue(this.loyaltyCardTable.findAll().size() == 2);
+  }
+
+  @Test
+  public void testFindByPrimaryKey() {
+    assertTrue(this.loyaltyCardTable.findByPrimaryKey("1").isPresent());
+    assertFalse(this.loyaltyCardTable.findByPrimaryKey("8").isPresent());
+  }
+
+  @Test
+  public void testSaveAndDelete() {
+    assertTrue(this.loyaltyCardTable.save(this.loyaltyCard));
+    assertThrows(
+        IllegalStateException.class,
+        () -> {
+          this.loyaltyCardTable.save(this.loyaltyCard);
         });
-        assertTrue(this.loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
-        assertFalse(this.loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
-    }
+    assertTrue(this.loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
+    assertFalse(this.loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
+  }
 
-    @Test
-    public void testUpdate() {
-        final var currLoyaltyCard = this.loyaltyCardTable.findByPrimaryKey("1");
-        if (currLoyaltyCard.isEmpty()) {
-            fail("Select Failed");
-        }
-        assertTrue(this.loyaltyCardTable.update(
-            new LoyaltyCard(
-                "1", this.loyaltyCard.getPoints(), this.loyaltyCard.getDiscountPercentage())
-        ));
-        assertTrue(this.loyaltyCardTable.update(currLoyaltyCard.get()));
+  @Test
+  public void testUpdate() {
+    final var currLoyaltyCard = this.loyaltyCardTable.findByPrimaryKey("1");
+    if (currLoyaltyCard.isEmpty()) {
+      fail("Select Failed");
     }
+    assertTrue(
+        this.loyaltyCardTable.update(
+            new LoyaltyCard(
+                "1", this.loyaltyCard.getPoints(), this.loyaltyCard.getDiscountPercentage())));
+    assertTrue(this.loyaltyCardTable.update(currLoyaltyCard.get()));
+  }
 }
