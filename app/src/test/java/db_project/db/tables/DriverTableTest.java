@@ -1,11 +1,15 @@
 package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
+import db_project.model.Driver;
+import db_project.utils.Utils;
 
 public class DriverTableTest {
     private static final String username = "root";
@@ -18,10 +22,14 @@ public class DriverTableTest {
     private final DriverTable driverTable = 
         new DriverTable(this.connectionProvider.getMySQLConnection());
 
-    @Test
-    public void testDelete() {
-
-    }
+    private final Driver driver = new Driver(
+        "3", 
+        Utils.buildDate(31, 12, 1992).get(), 
+        "stefano", 
+        "furi", 
+        123,
+        "stefano.furi7@gmail.com", 
+        "C");
 
     @Test
     public void testFindAll() {
@@ -36,17 +44,32 @@ public class DriverTableTest {
     }
 
     @Test
-    public void testGetTableName() {
-
-    }
-
-    @Test
-    public void testSave() {
-
+    public void testSaveAndDelete() {
+        assertTrue(this.driverTable.save(this.driver));
+        assertThrows(IllegalStateException.class, () -> {
+            this.driverTable.save(this.driver);
+        });
+        //deleting
+        assertTrue(this.driverTable.delete(this.driver.getLicenceNumber()));
+        assertFalse(this.driverTable.delete(this.driver.getLicenceNumber()));
     }
 
     @Test
     public void testUpdate() {
-
+        final var currDriver = this.driverTable.findByPrimaryKey("2");
+        if (currDriver.isEmpty()) {
+            fail("Select Failed!");
+        }
+        boolean result = this.driverTable.update(
+            new Driver(
+                currDriver.get().getLicenceNumber(), 
+                this.driver.getContractYear(), 
+                this.driver.getFirstName(), 
+                this.driver.getLastName(), 
+                this.driver.getTelephone(), 
+                this.driver.getEmail(), 
+                this.driver.getResidence()));
+        assertTrue(result);
+        assertTrue(this.driverTable.update(currDriver.get()));
     }
 }
