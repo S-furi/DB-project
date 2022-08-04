@@ -26,7 +26,7 @@ Robe da far subito:
   - Write their purpose down.
   - Check complexity
   - Write *SQL* query
-  - [x] _WIP_ Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
+  - [x] Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
     - [x] Use `java.util.Map<String, Object>` instead if `Pair<String, Object>` for row-col value.
 ---
 ### **SCHEMA**
