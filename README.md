@@ -27,7 +27,7 @@ Robe da far subito:
   - Check complexity
   - Write *SQL* query
   - [x] _WIP_ Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
-
+    - [ ] Use java.util.Map<String, Object> instead if `Pair<String, Object>` for row-col value.
 ---
 ### **SCHEMA**
 Tutto quello che è qui è da fare concorrentemente alla stesura del report
