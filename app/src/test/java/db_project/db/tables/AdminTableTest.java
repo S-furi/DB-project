@@ -18,8 +18,7 @@ public class AdminTableTest {
   private final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private final AdminTable adminTable = 
-      new AdminTable(connectionProvider.getMySQLConnection());
+  private final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
   private final Admin adm =
