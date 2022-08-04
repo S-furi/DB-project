@@ -26,10 +26,7 @@ public class TestParser {
           .getQueryResult()
           .getResult()
           .get()
-          .forEach(
-              t -> {
-                t.forEach(System.out::println);
-              });
+          .forEach(System.out::println);
     }
     return res;
   }
@@ -59,7 +56,7 @@ public class TestParser {
     String query = String.format("SELECT * FROM %s", TABLE_NAME);
     boolean res = parser.computeSqlQuery(query, null);
     if (!parser.getQueryResult().getResult().isEmpty()) {
-      parser.getQueryResult().getResult().get().forEach(t -> t.forEach(System.out::println));
+      parser.getQueryResult().getResult().get().forEach(System.out::println);
     }
     return res;
   }

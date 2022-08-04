@@ -1,12 +1,11 @@
 package db_project.db.queryUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import javafx.util.Pair;
-
 public class QueryResult {
-  private Optional<List<List<Pair<String, Object>>>> result;
+  private Optional<List<Map<String, Object>>> result;
 
   public QueryResult() {
     this.result = Optional.empty();
@@ -17,7 +16,7 @@ public class QueryResult {
    *
    * @param res
    */
-  public void buildResult(final List<List<Pair<String, Object>>> res) {
+  public void buildResult(final List<Map<String, Object>> res) {
     this.result = Optional.of(res);
   }
 
@@ -32,7 +31,7 @@ public class QueryResult {
    * @return The result stored by this object (a portion of a table). {@link
    *     java.util.Optional#empty()} if there isn't a result.
    */
-  public Optional<List<List<Pair<String, Object>>>> getResult() {
+  public Optional<List<Map<String, Object>>> getResult() {
     return result;
   }
 }

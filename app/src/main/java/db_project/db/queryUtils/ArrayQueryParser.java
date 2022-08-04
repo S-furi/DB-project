@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javafx.util.Pair;
+import java.util.Map;
 
 public class ArrayQueryParser implements QueryParser {
   private final Connection connection;
@@ -86,7 +86,7 @@ public class ArrayQueryParser implements QueryParser {
    *
    * @return the result given from the query
    */
-  private List<List<Pair<String, Object>>> basicStatementQuery() {
+  private List<Map<String, Object>> basicStatementQuery() {
     try (final var statement = connection.createStatement()) {
       System.out.println("----" + this.finalQuery.toString() + "----");
       ResultSet rs = statement.executeQuery(this.finalQuery.toString());
@@ -145,15 +145,15 @@ public class ArrayQueryParser implements QueryParser {
    * @return a List of the results, mapped as a (key,value) pair where key is the name of the
    *     column, and value is the value of the i-th row of the result.
    */
-  private List<List<Pair<String, Object>>> generateResultFromResultSet(ResultSet res) {
-    List<List<Pair<String, Object>>> results = new ArrayList<>();
+  private List<Map<String, Object>> generateResultFromResultSet(ResultSet res) {
+    List<Map<String, Object>> results = new ArrayList<>();
     try {
       var md = res.getMetaData();
       while (res.next()) {
-        final List<Pair<String, Object>> lst = new ArrayList<>();
+        final Map<String, Object> lst = new HashMap<>();
         for (var i = 1; i <= md.getColumnCount(); i++) {
           final String colName = md.getColumnName(i);
-          lst.add(new Pair<String, Object>(colName, res.getObject(i)));
+          lst.put(colName, res.getObject(i));
         }
         results.add(lst);
       }
