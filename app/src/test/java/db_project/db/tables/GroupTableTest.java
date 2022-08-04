@@ -45,6 +45,13 @@ public class GroupTableTest {
 
     @Test
     public void testUpdate() {
+        var currGroup = this.groupTable.findByPrimaryKey("1");
+        if (currGroup.isEmpty()) {
+            fail("Select Failed!");
+        }
+        var newGroup = new Group("1", 12);
 
+        assertTrue(this.groupTable.update(newGroup));
+        assertTrue(this.groupTable.update(currGroup.get()));
     }
 }
