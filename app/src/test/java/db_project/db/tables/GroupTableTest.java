@@ -20,11 +20,6 @@ public class GroupTableTest {
         new GroupTable(this.connectionProvider.getMySQLConnection());
 
     private final Group group = new Group("3", 13);
-    
-    @Test
-    public void testDelete() {
-
-    }
 
     @Test
     public void testFindAll() {
@@ -39,8 +34,13 @@ public class GroupTableTest {
     }
 
     @Test
-    public void testSave() {
-
+    public void testSaveAndDelete() {
+        assertTrue(this.groupTable.save(group));
+        assertThrows(IllegalStateException.class, () -> {
+            this.groupTable.save(group);
+        });
+        assertTrue(this.groupTable.delete(this.group.getGroupId()));
+        assertFalse(this.groupTable.delete(this.group.getGroupId()));
     }
 
     @Test
