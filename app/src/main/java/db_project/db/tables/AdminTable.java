@@ -3,6 +3,7 @@ package db_project.db.tables;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -105,7 +106,7 @@ public class AdminTable implements Table<Admin, String> {
   private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
     final List<Admin> admList = new ArrayList<>();
     if (result.getResult().isEmpty()) {
-      throw new IllegalAccessError("Query Result is Empty");
+      return Collections.emptyList();
     }
     result
         .getResult()
