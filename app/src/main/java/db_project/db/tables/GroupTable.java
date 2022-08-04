@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import com.mysql.cj.protocol.x.OkBuilder;
+
 import db_project.db.Table;
 import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
@@ -63,9 +65,14 @@ public class GroupTable implements Table<Group, String> {
     }
 
     @Override
-    public boolean update(final Group updatedValue) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean update(final Group group) {
+        final String query = 
+            "UPDATE " + TABLE_NAME
+            + " SET "
+            + "numPersone = ? "
+            + "WHERE codComitiva = ?";
+        final Object[] params = {group.getNumberOfPeople(), group.getGroupId()};
+        return this.queryParser.computeSqlQuery(query, params);
     }
 
     private List<Group> getGroupsFromQueryResult(final QueryResult result) {
