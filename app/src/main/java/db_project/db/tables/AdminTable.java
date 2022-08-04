@@ -104,10 +104,10 @@ public class AdminTable implements Table<Admin, String> {
   }
 
   private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
-    final List<Admin> admList = new ArrayList<>();
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
+    final List<Admin> admList = new ArrayList<>();
     result
         .getResult()
         .get()
