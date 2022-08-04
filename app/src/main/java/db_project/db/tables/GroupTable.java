@@ -1,13 +1,18 @@
 package db_project.db.tables;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import db_project.db.Table;
 import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
+import db_project.db.queryUtils.QueryResult;
 import db_project.model.Group;
+import javafx.util.Pair;
 
 public class GroupTable implements Table<Group, String> {
     public static final String TABLE_NAME = "COMITIVA";
@@ -22,37 +27,65 @@ public class GroupTable implements Table<Group, String> {
 
     @Override
     public String getTableName() {
-        // TODO Auto-generated method stub
-        return null;
+        return TABLE_NAME;
     }
 
     @Override
-    public Optional<Group> findByPrimaryKey(String primaryKey) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+    public Optional<Group> findByPrimaryKey(final String primaryKey) {
+        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE codComitiva = ?";
+        String[] params = {primaryKey};
+        this.queryParser.computeSqlQuery(query, params);
+        return this.getGroupsFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
     }
 
     @Override
     public List<Group> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        final String query = "SELECT * FROM " + TABLE_NAME;
+        this.queryParser.computeSqlQuery(query, null);
+        return this.getGroupsFromQueryResult(this.queryParser.getQueryResult());
     }
 
     @Override
-    public boolean save(Group value) {
+    public boolean save(final Group group) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean update(Group updatedValue) {
+    public boolean update(final Group updatedValue) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean delete(String primaryKey) {
+    public boolean delete(final String primaryKey) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    private List<Group> getGroupsFromQueryResult(final QueryResult result) {
+        if (result.getResult().isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Group> groups = new ArrayList<>();
+        result
+            .getResult()
+            .get()
+            .forEach(
+                row -> {
+                    row.forEach(System.out::println);
+                    final String groupId = 
+                        (String) this.getValueFromColumnName(row, t -> t.getKey().equals("codComitiva"));
+                    final int numberOfPeople = 
+                        (int) this.getValueFromColumnName(row, t -> t.getKey().equals("numPersone"));
+                    groups.add(new Group(groupId, numberOfPeople));
+                }
+            );
+        return groups;
+    }
+
+    private Object getValueFromColumnName(
+        final List<Pair<String, Object>> row, Predicate<Pair<String, Object>> predicate) {
+            return row.stream().filter(t -> predicate.test(t)).findAny().get().getValue();
     }
 }
