@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import db_project.db.Table;
 import db_project.db.queryUtils.ArrayQueryParser;
@@ -14,7 +13,6 @@ import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Driver;
 import db_project.utils.Utils;
-import javafx.util.Pair;
 
 public class DriverTable implements Table<Driver, String> {
   public static final String TABLE_NAME = "MACCHINISTA";
@@ -33,29 +31,30 @@ public class DriverTable implements Table<Driver, String> {
 
   @Override
   public Optional<Driver> findByPrimaryKey(final String primaryKey) {
-    String query = "SELECT * FROM " + TABLE_NAME + " WHERE numeroPatente = ?";
-    String[] params = {primaryKey};
+    final String query = "SELECT * FROM " + TABLE_NAME + " WHERE numeroPatente = ?";
+    final String[] params = {primaryKey};
     this.queryParser.computeSqlQuery(query, params);
     return this.readDriverFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
   }
 
   @Override
   public List<Driver> findAll() {
-    String query = "SELECT * FROM " + TABLE_NAME;
+    final String query = "SELECT * FROM " + TABLE_NAME;
     this.queryParser.computeSqlQuery(query, null);
     return this.readDriverFromQueryResult(this.queryParser.getQueryResult());
   }
 
   @Override
   public boolean save(final Driver driver) {
-    String query =
+    final String query =
         "INSERT INTO "
             + TABLE_NAME
             + " ("
             + "numeroPatente, annoContratto, nome, cognome,"
             + "telefono, email, residenza)"
             + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    Object[] params = {
+
+    final Object[] params = {
       driver.getLicenceNumber(),
       Utils.dateToSqlDate(driver.getContractYear()),
       driver.getFirstName(),
@@ -82,7 +81,7 @@ public class DriverTable implements Table<Driver, String> {
             + "residenza = ?"
             + " WHERE numeroPatente = ?";
 
-    Object[] params = {
+    final Object[] params = {
       Utils.dateToSqlDate(driver.getContractYear()),
       driver.getFirstName(),
       driver.getLastName(),
@@ -112,22 +111,14 @@ public class DriverTable implements Table<Driver, String> {
         .get()
         .forEach(
             row -> {
-              row.forEach(System.out::println);
-              final String licenceNumber =
-                  (String)
-                      this.getValueFromColumnName(row, t -> t.getKey().equals("numeroPatente"));
-              final Date contractYear =
-                  (Date) this.getValueFromColumnName(row, t -> t.getKey().equals("annoContratto"));
-              final String firstName =
-                  (String) this.getValueFromColumnName(row, t -> t.getKey().equals("nome"));
-              final String lastName =
-                  (String) this.getValueFromColumnName(row, t -> t.getKey().equals("cognome"));
-              final int telephone =
-                  (int) this.getValueFromColumnName(row, t -> t.getKey().equals("telefono"));
-              final String email =
-                  (String) this.getValueFromColumnName(row, t -> t.getKey().equals("email"));
-              final String residence =
-                  (String) this.getValueFromColumnName(row, t -> t.getKey().equals("residenza"));
+              System.out.println(row.toString());
+              final String licenceNumber = (String) row.get("numeroPatente");
+              final Date contractYear = (Date) row.get("annoContratto");
+              final String firstName = (String) row.get("nome");
+              final String lastName = (String) row.get("cognome");
+              final int telephone = (int) row.get("telefono");
+              final String email = (String) row.get("email");
+              final String residence = (String) row.get("residenza");
               drivers.add(
                   new Driver(
                       licenceNumber,
@@ -139,10 +130,5 @@ public class DriverTable implements Table<Driver, String> {
                       residence));
             });
     return drivers;
-  }
-
-  private Object getValueFromColumnName(
-      final List<Pair<String, Object>> row, Predicate<Pair<String, Object>> predicate) {
-    return row.stream().filter(t -> predicate.test(t)).findAny().get().getValue();
   }
 }

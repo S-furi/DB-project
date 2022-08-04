@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 
 import db_project.db.Table;
@@ -13,7 +12,6 @@ import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Group;
-import javafx.util.Pair;
 
 public class GroupTable implements Table<Group, String> {
   public static final String TABLE_NAME = "COMITIVA";
@@ -79,18 +77,11 @@ public class GroupTable implements Table<Group, String> {
         .get()
         .forEach(
             row -> {
-              row.forEach(System.out::println);
-              final String groupId =
-                  (String) this.getValueFromColumnName(row, t -> t.getKey().equals("codComitiva"));
-              final int numberOfPeople =
-                  (int) this.getValueFromColumnName(row, t -> t.getKey().equals("numPersone"));
+              System.out.println(row.toString());
+              final String groupId = (String) row.get("codComitiva");
+              final int numberOfPeople = (int) row.get("numPersone");
               groups.add(new Group(groupId, numberOfPeople));
             });
     return groups;
-  }
-
-  private Object getValueFromColumnName(
-      final List<Pair<String, Object>> row, Predicate<Pair<String, Object>> predicate) {
-    return row.stream().filter(t -> predicate.test(t)).findAny().get().getValue();
   }
 }
