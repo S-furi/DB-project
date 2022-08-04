@@ -13,6 +13,7 @@ import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Driver;
+import db_project.utils.Utils;
 import javafx.util.Pair;
 
 public class DriverTable implements Table<Driver, String> {
@@ -46,21 +47,55 @@ public class DriverTable implements Table<Driver, String> {
     }
 
     @Override
-    public boolean save(final Driver value) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean save(final Driver driver) {
+        String query = 
+            "INSERT INTO " + TABLE_NAME + " ("
+            + "numeroPatente, annoContratto, nome, cognome,"
+            + "telefono, email, residenza)"
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Object[] params = {
+            driver.getLicenceNumber(),
+            Utils.dateToSqlDate(driver.getContractYear()),
+            driver.getFirstName(),
+            driver.getLastName(),
+            driver.getTelephone(),
+            driver.getEmail(),
+            driver.getResidence()
+        };
+
+        return this.queryParser.computeSqlQuery(query, params);
     }
 
     @Override
-    public boolean update(final Driver updatedValue) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean update(final Driver driver) {
+        final String query = 
+            "UPDATE " + TABLE_NAME + " SET "
+            + "annoContratto = ?,"
+            + "nome = ?,"
+            + "cognome = ?,"
+            + "telefono = ?,"
+            + "email = ?,"
+            + "residenza = ?"
+            + " WHERE numeroPatente = ?";
+
+        Object[] params = {
+            Utils.dateToSqlDate(driver.getContractYear()),
+            driver.getFirstName(),
+            driver.getLastName(),
+            driver.getTelephone(),
+            driver.getEmail(),
+            driver.getResidence(),
+            driver.getLicenceNumber()
+        };
+
+        return this.queryParser.computeSqlQuery(query, params);
     }
 
     @Override
     public boolean delete(final String primaryKey) {
-        // TODO Auto-generated method stub
-        return false;
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE numeroPatente = ?";
+        String[] params = {primaryKey};
+        return this.queryParser.computeSqlQuery(query, params);
     }
 
     private List<Driver> readDriverFromQueryResult(final QueryResult result) {
