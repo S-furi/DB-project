@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-
 import db_project.db.Table;
 import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;

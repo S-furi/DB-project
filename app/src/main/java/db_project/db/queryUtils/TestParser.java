@@ -22,11 +22,7 @@ public class TestParser {
 
     boolean res = parser.computeSqlQuery(query, params);
     if (!parser.getQueryResult().getResult().isEmpty()) {
-      parser
-          .getQueryResult()
-          .getResult()
-          .get()
-          .forEach(System.out::println);
+      parser.getQueryResult().getResult().get().forEach(System.out::println);
     }
     return res;
   }
