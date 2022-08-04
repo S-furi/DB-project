@@ -31,7 +31,7 @@ public class AdminTable implements Table<Admin, String> {
   }
 
   @Override
-  public Optional<Admin> findByPrimaryKey(String primaryKey) {
+  public Optional<Admin> findByPrimaryKey(final String primaryKey) {
     String query = "SELECT * FROM " + TABLE_NAME + " WHERE adminID = ?";
     String[] params = {primaryKey};
     this.queryParser.computeSqlQuery(query, params);
@@ -69,16 +69,35 @@ public class AdminTable implements Table<Admin, String> {
   }
 
   @Override
-  public boolean delete(String primaryKey) {
+  public boolean delete(final String primaryKey) {
     String query = "DELETE FROM " + TABLE_NAME + " WHERE adminID = ?";
     String[] params = {primaryKey};
     return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean update(Admin updatedValue) {
-    // TODO Auto-generated method stub
-    return false;
+  public boolean update(final Admin admin) {
+    final String query = 
+      "UPDATE " + TABLE_NAME + " SET "
+       + "annoContratto = ?,"
+       + "nome = ?,"
+       + "cognome = ?,"
+       + "telefono = ?,"
+       + "email = ?,"
+       + "residenza = ?"
+       + " WHERE adminID = ?";
+
+    Object[] params = {
+      Utils.dateToSqlDate(admin.getContractYear()),
+      admin.getFirstName(),
+      admin.getLastName(),
+      admin.getTelephone(),
+      admin.getEmail(),
+      admin.getResidence(),
+      admin.getId()
+    };
+
+    return this.queryParser.computeSqlQuery(query, params);
   }
 
   private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
