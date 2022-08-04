@@ -67,30 +67,31 @@ public class AdminTableTest {
     if (currentAdm.isEmpty()) {
       fail("Admin number 2 is not found");
     }
-    
-    var newAdm = new Admin(
-      "2", 
-      this.adm.getContractYear(), 
-      "Massimo", 
-      "Duri", 
-      120309120, 
-      "durissimomassimo@aruba.it", 
-      "C");
-    
+
+    var newAdm =
+        new Admin(
+            "2",
+            this.adm.getContractYear(),
+            "Massimo",
+            "Duri",
+            120309120,
+            "durissimomassimo@aruba.it",
+            "C");
+
     assertTrue(this.adminTable.update(newAdm));
     assertTrue(this.adminTable.update(currentAdm.get()));
-    
+
     // Testing non esisting primary key update
-    var nonExisingAdminKey = new Admin(
-      "3", 
-      this.adm.getContractYear(), 
-      "Massimo", 
-      "Duri", 
-      120309120, 
-      "durissimomassimo@aruba.it", 
-      "C");
+    var nonExisingAdminKey =
+        new Admin(
+            "3",
+            this.adm.getContractYear(),
+            "Massimo",
+            "Duri",
+            120309120,
+            "durissimomassimo@aruba.it",
+            "C");
 
-      assertFalse(this.adminTable.update(nonExisingAdminKey));
+    assertFalse(this.adminTable.update(nonExisingAdminKey));
   }
-
 }

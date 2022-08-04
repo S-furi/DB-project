@@ -77,15 +77,17 @@ public class AdminTable implements Table<Admin, String> {
 
   @Override
   public boolean update(final Admin admin) {
-    final String query = 
-      "UPDATE " + TABLE_NAME + " SET "
-       + "annoContratto = ?,"
-       + "nome = ?,"
-       + "cognome = ?,"
-       + "telefono = ?,"
-       + "email = ?,"
-       + "residenza = ?"
-       + " WHERE adminID = ?";
+    final String query =
+        "UPDATE "
+            + TABLE_NAME
+            + " SET "
+            + "annoContratto = ?,"
+            + "nome = ?,"
+            + "cognome = ?,"
+            + "telefono = ?,"
+            + "email = ?,"
+            + "residenza = ?"
+            + " WHERE adminID = ?";
 
     Object[] params = {
       Utils.dateToSqlDate(admin.getContractYear()),
