@@ -60,4 +60,19 @@ public class AdminTableTest {
           assertTrue(this.adminTable.save(adm));
         });
   }
+
+  @Test
+  public void testUpdateValue() {
+    var newAdm = new Admin(
+      "2", 
+      this.adm.getContractYear(), 
+      "Massimo", 
+      "Duri", 
+      120309120, 
+      "durissimomassimo@aruba.it", 
+      "C");
+      
+    assertTrue(this.adminTable.update(newAdm));
+    
+  }
 }
