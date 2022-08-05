@@ -95,7 +95,7 @@ public class TravelerTable implements Table<Traveler, String> {
               final int phone = (int) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
-              final String isGroup = (String) row.get("codComitiva");
+              final Optional<Object> isGroup = Optional.of(row.get("codComitiva"));
               travelers.add(
                   new Traveler(
                       travelerCode, firstName, lastName, phone, email, residence, isGroup));
