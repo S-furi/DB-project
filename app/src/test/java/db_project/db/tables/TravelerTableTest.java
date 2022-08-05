@@ -29,19 +29,23 @@ public class TravelerTableTest {
 
   private final Date date = Utils.buildDate(25, 5, 2005).get();
 
-  private final Traveler traveler = new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.empty());
-  
+  private final Traveler traveler =
+      new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.empty());
+
   @BeforeAll
-  static void setUp(){
-    final Traveler traveler1 = new Traveler("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
-    final Traveler traveler2 = new Traveler("2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", Optional.empty());
-    
+  static void setUp() {
+    final Traveler traveler1 =
+        new Traveler("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
+    final Traveler traveler2 =
+        new Traveler(
+            "2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", Optional.empty());
+
     assertTrue(travelerTable.save(traveler1));
     assertTrue(travelerTable.save(traveler2));
   }
-  
+
   @AfterAll
-  static void tearDown(){
+  static void tearDown() {
     travelerTable.findAll().forEach(t -> travelerTable.delete(t.getTravelerCode()));
   }
 
@@ -52,24 +56,33 @@ public class TravelerTableTest {
   }
 
   @Test
-  public void testSaveandDelete(){
+  public void testSaveandDelete() {
     assertTrue(travelerTable.save(this.traveler));
-    assertThrows(IllegalStateException.class, () -> {
-      travelerTable.save(this.traveler);
-    });
+    assertThrows(
+        IllegalStateException.class,
+        () -> {
+          travelerTable.save(this.traveler);
+        });
     assertTrue(travelerTable.delete(this.traveler.getTravelerCode()));
     assertFalse(travelerTable.delete(this.traveler.getTravelerCode()));
   }
 
   @Test
-  public void testUpdate(){
+  public void testUpdate() {
     final var curTraveler = travelerTable.findByPrimaryKey("3");
-    if(curTraveler.isEmpty()){
+    if (curTraveler.isEmpty()) {
       fail("Select Failed");
     }
-    assertTrue(travelerTable.update(
-        new Traveler("1", this.traveler.getFirstName(), this.traveler.getLastName(), this.traveler.getPhone(), this.traveler.getEmail(), this.traveler.getResidence(), this.traveler.isGroup())
-    ));
+    assertTrue(
+        travelerTable.update(
+            new Traveler(
+                "1",
+                this.traveler.getFirstName(),
+                this.traveler.getLastName(),
+                this.traveler.getPhone(),
+                this.traveler.getEmail(),
+                this.traveler.getResidence(),
+                this.traveler.isGroup())));
     assertTrue(travelerTable.update(curTraveler.get()));
   }
 }
