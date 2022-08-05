@@ -29,7 +29,7 @@ public class AdminTableTest {
 
   @BeforeAll
   static void setUp() {
-    //city dependency
+    // city dependency
     CityTableTest.setUp();
     final var adm1 =
         new Admin(
@@ -58,7 +58,7 @@ public class AdminTableTest {
   @AfterAll
   static void tearDown() {
     adminTable.findAll().forEach(t -> adminTable.delete(t.getId()));
-    //city dependency
+    // city dependency
     CityTableTest.tearDown();
   }
 

@@ -13,82 +13,75 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.City;
 
 public class CityTable implements Table<City, String> {
-    public static final String TABLE_NAME = "CITTA";
-    private final Connection connection;
-    private final QueryParser queryParser;
-    
-    public CityTable(final Connection connection) {
-        this.connection = connection;
-        this.queryParser = new ArrayQueryParser(this.connection);
-    }
+  public static final String TABLE_NAME = "CITTA";
+  private final Connection connection;
+  private final QueryParser queryParser;
 
-    @Override
-    public String getTableName() {
-        return TABLE_NAME;
-    }
+  public CityTable(final Connection connection) {
+    this.connection = connection;
+    this.queryParser = new ArrayQueryParser(this.connection);
+  }
 
-    @Override
-    public Optional<City> findByPrimaryKey(final String primaryKey) {
-        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE nome = ?";
-        final String[] params = {primaryKey};
-        this.queryParser.computeSqlQuery(query, params);
-        return this.getCitiesFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
-    }
+  @Override
+  public String getTableName() {
+    return TABLE_NAME;
+  }
 
-    @Override
-    public List<City> findAll() {
-        final String query = "SELECT * FROM " + TABLE_NAME;
-        this.queryParser.computeSqlQuery(query, null);
-        return this.getCitiesFromQueryResult(this.queryParser.getQueryResult());
-    }
+  @Override
+  public Optional<City> findByPrimaryKey(final String primaryKey) {
+    final String query = "SELECT * FROM " + TABLE_NAME + " WHERE nome = ?";
+    final String[] params = {primaryKey};
+    this.queryParser.computeSqlQuery(query, params);
+    return this.getCitiesFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
+  }
 
-    @Override
-    public boolean save(final City city) {
-        final String query = 
-            "INSERT INTO " + TABLE_NAME
-            + " (nome, regione, provincia) "
-            + "VALUES (?, ?, ?)";
-        final Object[] params = {
-            city.getName(),
-            city.getRegion(),
-            city.getProvince()
-        };
-        return this.queryParser.computeSqlQuery(query, params);
-    }
+  @Override
+  public List<City> findAll() {
+    final String query = "SELECT * FROM " + TABLE_NAME;
+    this.queryParser.computeSqlQuery(query, null);
+    return this.getCitiesFromQueryResult(this.queryParser.getQueryResult());
+  }
 
-    @Override
-    public boolean update(final City city) {
-        final String query = 
-            "UPDATE " + TABLE_NAME
-            + " SET "
-            + " regione = ?, provincia = ? WHERE nome = ?";
-        final Object[] params = {city.getRegion(), city.getProvince(), city.getName()};
-        return this.queryParser.computeSqlQuery(query, params);
-    }
+  @Override
+  public boolean save(final City city) {
+    final String query =
+        "INSERT INTO " + TABLE_NAME + " (nome, regione, provincia) " + "VALUES (?, ?, ?)";
+    final Object[] params = {city.getName(), city.getRegion(), city.getProvince()};
+    return this.queryParser.computeSqlQuery(query, params);
+  }
 
-    @Override
-    public boolean delete(final String primaryKey) {
-        final String query = "DELETE FROM " + TABLE_NAME + " WHERE nome = ?";
-        final Object[] params = {primaryKey};
-        return this.queryParser.computeSqlQuery(query, params);
+  @Override
+  public boolean update(final City city) {
+    final String query =
+        "UPDATE " + TABLE_NAME + " SET " + " regione = ?, provincia = ? WHERE nome = ?";
+    final Object[] params = {city.getRegion(), city.getProvince(), city.getName()};
+    return this.queryParser.computeSqlQuery(query, params);
+  }
+
+  @Override
+  public boolean delete(final String primaryKey) {
+    final String query = "DELETE FROM " + TABLE_NAME + " WHERE nome = ?";
+    final Object[] params = {primaryKey};
+    return this.queryParser.computeSqlQuery(query, params);
+  }
+
+  private List<City> getCitiesFromQueryResult(final QueryResult result) {
+    if (result.getResult().isEmpty()) {
+      return Collections.emptyList();
     }
-   
-    private List<City> getCitiesFromQueryResult(final QueryResult result) {
-        if (result.getResult().isEmpty()) {
-            return Collections.emptyList();
-        }
-        List<City> cieties = new ArrayList<>();
-        result
-            .getResult()
-            .get()
-            .forEach(row -> {
-               System.out.println(row.toString()); 
-               final String name = (String) row.get("nome");
-               final String region = (String) row.get("regione");
-               final String province = (String) row.get("provincia");
-               cieties.add(new City(name, region, province));
+    List<City> cieties = new ArrayList<>();
+    result
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              System.out.println(row.toString());
+              final String name = (String) row.get("nome");
+              final String region = (String) row.get("regione");
+              final String province = (String) row.get("provincia");
+              cieties.add(new City(name, region, province));
             });
 
-        return cieties;
-    }
+    return cieties;
+  }
 }

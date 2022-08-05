@@ -36,7 +36,7 @@ public class DriverTableTest {
 
   @BeforeAll
   static void setUp() {
-    //city dependency
+    // city dependency
     CityTableTest.setUp();
     final var driver1 =
         new Driver(
@@ -64,7 +64,7 @@ public class DriverTableTest {
   @AfterAll
   static void tearDown() {
     driverTable.findAll().forEach(t -> driverTable.delete(t.getLicenceNumber()));
-    //city dependency
+    // city dependency
     CityTableTest.tearDown();
   }
 
