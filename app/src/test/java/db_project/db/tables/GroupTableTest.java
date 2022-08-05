@@ -2,6 +2,8 @@ package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
@@ -12,47 +14,61 @@ public class GroupTableTest {
   private static final String password = "123Test123";
   private static final String dbName = "Ferrovia";
 
-  private final ConnectionProvider connectionProvider =
+  private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private final GroupTable groupTable =
-      new GroupTable(this.connectionProvider.getMySQLConnection());
+  private static final GroupTable groupTable =
+      new GroupTable(connectionProvider.getMySQLConnection());
 
   private final Group group = new Group("3", 13);
 
+  @BeforeAll
+  static void setUp() {
+    var group1 = new Group("1", 9);
+    var group2 = new Group("2", 5);
+
+    assertTrue(groupTable.save(group1));
+    assertTrue(groupTable.save(group2));
+  }
+
+  @AfterAll
+  static void tearDown() {
+    groupTable.findAll().forEach(t -> groupTable.delete(t.getGroupId()));
+  }
+
   @Test
   public void testFindAll() {
-    assertFalse(this.groupTable.findAll().isEmpty());
-    assertTrue(this.groupTable.findAll().size() == 2);
+    assertFalse(groupTable.findAll().isEmpty());
+    assertTrue(groupTable.findAll().size() == 2);
   }
 
   @Test
   public void testFindByPrimaryKey() {
-    assertTrue(this.groupTable.findByPrimaryKey("1").isPresent());
-    assertFalse(this.groupTable.findByPrimaryKey("8").isPresent());
+    assertTrue(groupTable.findByPrimaryKey("1").isPresent());
+    assertFalse(groupTable.findByPrimaryKey("8").isPresent());
   }
 
   @Test
   public void testSaveAndDelete() {
-    assertTrue(this.groupTable.save(group));
+    assertTrue(groupTable.save(group));
     assertThrows(
         IllegalStateException.class,
         () -> {
-          this.groupTable.save(group);
+          groupTable.save(group);
         });
-    assertTrue(this.groupTable.delete(this.group.getGroupId()));
-    assertFalse(this.groupTable.delete(this.group.getGroupId()));
+    assertTrue(groupTable.delete(this.group.getGroupId()));
+    assertFalse(groupTable.delete(this.group.getGroupId()));
   }
 
   @Test
   public void testUpdate() {
-    var currGroup = this.groupTable.findByPrimaryKey("1");
+    var currGroup = groupTable.findByPrimaryKey("1");
     if (currGroup.isEmpty()) {
       fail("Select Failed!");
     }
     var newGroup = new Group("1", 12);
 
-    assertTrue(this.groupTable.update(newGroup));
-    assertTrue(this.groupTable.update(currGroup.get()));
+    assertTrue(groupTable.update(newGroup));
+    assertTrue(groupTable.update(currGroup.get()));
   }
 }

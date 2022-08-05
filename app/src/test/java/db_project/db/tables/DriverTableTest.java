@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
@@ -16,11 +18,11 @@ public class DriverTableTest {
   private static final String password = "123Test123";
   private static final String dbName = "Ferrovia";
 
-  private final ConnectionProvider connectionProvider =
+  private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private final DriverTable driverTable =
-      new DriverTable(this.connectionProvider.getMySQLConnection());
+  private static final DriverTable driverTable =
+      new DriverTable(connectionProvider.getMySQLConnection());
 
   private final Driver driver =
       new Driver(
@@ -32,39 +34,68 @@ public class DriverTableTest {
           "stefano.furi7@gmail.com",
           "C");
 
+  @BeforeAll
+  static void setUp() {
+    final var driver1 =
+        new Driver(
+            "1",
+            Utils.buildDate(21, 11, 1990).get(),
+            "mizzico",
+            "mizzichi",
+            12,
+            "nonhovoglia@gmail.com",
+            "C");
+    final var driver2 =
+        new Driver(
+            "2",
+            Utils.buildDate(22, 11, 1991).get(),
+            "ariostrio",
+            "iostrio",
+            11,
+            "nonohovogliaa@gmail.com",
+            "C");
+
+    assertTrue(driverTable.save(driver1));
+    assertTrue(driverTable.save(driver2));
+  }
+
+  @AfterAll
+  static void tearDown() {
+    driverTable.findAll().forEach(t -> driverTable.delete(t.getLicenceNumber()));
+  }
+
   @Test
   public void testFindAll() {
-    assertFalse(this.driverTable.findAll().isEmpty());
-    // in our tests, the DB is filled with 2 elements
-    assertTrue(this.driverTable.findAll().size() == 2);
+    assertFalse(driverTable.findAll().isEmpty());
+    assertTrue(driverTable.findAll().size() == 2);
   }
 
   @Test
   public void testFindByPrimaryKey() {
-    assertTrue(this.driverTable.findByPrimaryKey("1").isPresent());
+    assertTrue(driverTable.findByPrimaryKey("1").isPresent());
   }
 
   @Test
   public void testSaveAndDelete() {
-    assertTrue(this.driverTable.save(this.driver));
+    assertTrue(driverTable.save(this.driver));
     assertThrows(
         IllegalStateException.class,
         () -> {
-          this.driverTable.save(this.driver);
+          driverTable.save(this.driver);
         });
     // deleting
-    assertTrue(this.driverTable.delete(this.driver.getLicenceNumber()));
-    assertFalse(this.driverTable.delete(this.driver.getLicenceNumber()));
+    assertTrue(driverTable.delete(this.driver.getLicenceNumber()));
+    assertFalse(driverTable.delete(this.driver.getLicenceNumber()));
   }
 
   @Test
   public void testUpdate() {
-    final var currDriver = this.driverTable.findByPrimaryKey("2");
+    final var currDriver = driverTable.findByPrimaryKey("2");
     if (currDriver.isEmpty()) {
       fail("Select Failed!");
     }
     boolean result =
-        this.driverTable.update(
+        driverTable.update(
             new Driver(
                 currDriver.get().getLicenceNumber(),
                 this.driver.getContractYear(),
@@ -74,6 +105,6 @@ public class DriverTableTest {
                 this.driver.getEmail(),
                 this.driver.getResidence()));
     assertTrue(result);
-    assertTrue(this.driverTable.update(currDriver.get()));
+    assertTrue(driverTable.update(currDriver.get()));
   }
 }

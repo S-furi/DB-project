@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
@@ -15,31 +17,63 @@ public class AdminTableTest {
   private static final String password = "123Test123";
   private static final String dbName = "Ferrovia";
 
-  private final ConnectionProvider connectionProvider =
+  private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
+  private static final AdminTable adminTable =
+      new AdminTable(connectionProvider.getMySQLConnection());
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
   private final Admin adm =
       new Admin("3", date, "stefano", "furi", 35, "stefano.furi7@gmail.com", "C");
 
+  @BeforeAll
+  static void setUp() {
+    final var adm1 =
+        new Admin(
+            "1",
+            Utils.buildDate(21, 01, 1999).get(),
+            "Mario",
+            "Rossi",
+            65,
+            "mario.rossi@gmail.com",
+            "C");
+
+    final var adm2 =
+        new Admin(
+            "2",
+            Utils.buildDate(22, 02, 1999).get(),
+            "Filippo",
+            "Rossi",
+            12,
+            "filippo.rossi@gmail.com",
+            "A");
+
+    assertTrue(adminTable.save(adm1));
+    assertTrue(adminTable.save(adm2));
+  }
+
+  @AfterAll
+  static void tearDown() {
+    adminTable.findAll().forEach(t -> adminTable.delete(t.getId()));
+  }
+
   @Test
   public void testFindByPrimaryKey() {
-    assertTrue(this.adminTable.findByPrimaryKey("1").isPresent());
-    assertFalse(this.adminTable.findByPrimaryKey("9").isPresent());
+    assertTrue(adminTable.findByPrimaryKey("1").isPresent());
+    assertFalse(adminTable.findByPrimaryKey("9").isPresent());
   }
 
   @Test
   public void testFindAll() {
-    assertFalse(this.adminTable.findAll().isEmpty());
+    assertFalse(adminTable.findAll().isEmpty());
   }
 
   @Test
   public void testSaveAndDelete() {
     System.out.println(this.adm);
-    assertTrue(this.adminTable.save(this.adm));
-    assertTrue(this.adminTable.delete(this.adm.getId()));
+    assertTrue(adminTable.save(this.adm));
+    assertTrue(adminTable.delete(this.adm.getId()));
   }
 
   @Test
@@ -57,13 +91,13 @@ public class AdminTableTest {
                   "stefano.furi7@gmail.com",
                   "C");
           System.out.println(adm);
-          assertTrue(this.adminTable.save(adm));
+          assertTrue(adminTable.save(adm));
         });
   }
 
   @Test
   public void testUpdateValue() {
-    var currentAdm = this.adminTable.findByPrimaryKey("2");
+    var currentAdm = adminTable.findByPrimaryKey("2");
     if (currentAdm.isEmpty()) {
       fail("Admin number 2 is not found");
     }
@@ -78,8 +112,8 @@ public class AdminTableTest {
             "durissimomassimo@aruba.it",
             "C");
 
-    assertTrue(this.adminTable.update(newAdm));
-    assertTrue(this.adminTable.update(currentAdm.get()));
+    assertTrue(adminTable.update(newAdm));
+    assertTrue(adminTable.update(currentAdm.get()));
 
     // Testing non esisting primary key update
     var nonExisingAdminKey =
@@ -92,6 +126,6 @@ public class AdminTableTest {
             "durissimomassimo@aruba.it",
             "C");
 
-    assertFalse(this.adminTable.update(nonExisingAdminKey));
+    assertFalse(adminTable.update(nonExisingAdminKey));
   }
 }
