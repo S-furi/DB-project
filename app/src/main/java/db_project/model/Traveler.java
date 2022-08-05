@@ -16,7 +16,7 @@ public class Traveler {
       String firstName,
       String lastName,
       int phone,
-      String email, 
+      String email,
       String residence,
       String isGroup) {
     this.travelerCode = travelerCode;
@@ -52,7 +52,7 @@ public class Traveler {
     return isGroup;
   }
 
-  public String getEmail(){
+  public String getEmail() {
     return this.email;
   }
 }
