@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeAll;
 import db_project.db.ConnectionProvider;
 import db_project.model.Traveler;
 
-
 public class TravelerTableTest {
   private static final String username = "root";
   private static final String password = "123Test123";
@@ -26,7 +25,7 @@ public class TravelerTableTest {
   private static final TravelerTable travelerTable =
       new TravelerTable(connectionProvider.getMySQLConnection());
 
-  //private final Date date = Utils.buildDate(25, 5, 2005).get();
+  // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Traveler traveler =
       new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.of(0));
