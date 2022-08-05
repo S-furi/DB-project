@@ -14,7 +14,7 @@ import db_project.model.Traveler;
 
 public class TravelerTable implements Table<Traveler, String>{
 
-    public static final String TABLE_NAME = "TRAVELER";
+    public static final String TABLE_NAME = "PASSEGGERO";
 
     private final Connection connection;
     private final QueryParser queryParser;
