@@ -36,34 +36,34 @@ public class DriverTableTest {
 
   @BeforeAll
   static void setUp() {
-    final var driver1 = new Driver(
-      "1", 
-      Utils.buildDate(21, 11, 1990).get(), 
-      "mizzico", 
-      "mizzichi", 
-      12, 
-      "nonhovoglia@gmail.com", 
-      "C");
-    final var driver2 = new Driver(
-      "2", 
-      Utils.buildDate(22, 11, 1991).get(), 
-      "ariostrio", 
-      "iostrio", 
-      11, 
-      "nonohovogliaa@gmail.com", 
-      "C");
+    final var driver1 =
+        new Driver(
+            "1",
+            Utils.buildDate(21, 11, 1990).get(),
+            "mizzico",
+            "mizzichi",
+            12,
+            "nonhovoglia@gmail.com",
+            "C");
+    final var driver2 =
+        new Driver(
+            "2",
+            Utils.buildDate(22, 11, 1991).get(),
+            "ariostrio",
+            "iostrio",
+            11,
+            "nonohovogliaa@gmail.com",
+            "C");
 
-      assertTrue(driverTable.save(driver1));
-      assertTrue(driverTable.save(driver2));
+    assertTrue(driverTable.save(driver1));
+    assertTrue(driverTable.save(driver2));
   }
 
   @AfterAll
   static void tearDown() {
-    driverTable
-      .findAll()
-      .forEach(t -> driverTable.delete(t.getLicenceNumber()));
+    driverTable.findAll().forEach(t -> driverTable.delete(t.getLicenceNumber()));
   }
-  
+
   @Test
   public void testFindAll() {
     assertFalse(driverTable.findAll().isEmpty());

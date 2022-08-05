@@ -20,7 +20,8 @@ public class AdminTableTest {
   private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private static final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
+  private static final AdminTable adminTable =
+      new AdminTable(connectionProvider.getMySQLConnection());
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
   private final Admin adm =
@@ -28,33 +29,33 @@ public class AdminTableTest {
 
   @BeforeAll
   static void setUp() {
-    final var adm1 = new Admin(
-    "1",
-      Utils.buildDate(21, 01, 1999).get(),
-      "Mario", 
-      "Rossi", 
-      65, 
-      "mario.rossi@gmail.com", 
-      "C");
+    final var adm1 =
+        new Admin(
+            "1",
+            Utils.buildDate(21, 01, 1999).get(),
+            "Mario",
+            "Rossi",
+            65,
+            "mario.rossi@gmail.com",
+            "C");
 
-    final var adm2 = new Admin(
-      "2", 
-      Utils.buildDate(22, 02, 1999).get(),
-      "Filippo", 
-      "Rossi", 
-      12, 
-      "filippo.rossi@gmail.com",
-      "A");
+    final var adm2 =
+        new Admin(
+            "2",
+            Utils.buildDate(22, 02, 1999).get(),
+            "Filippo",
+            "Rossi",
+            12,
+            "filippo.rossi@gmail.com",
+            "A");
 
-      assertTrue(adminTable.save(adm1));
-      assertTrue(adminTable.save(adm2));
+    assertTrue(adminTable.save(adm1));
+    assertTrue(adminTable.save(adm2));
   }
 
   @AfterAll
   static void tearDown() {
-    adminTable
-      .findAll()
-      .forEach(t -> adminTable.delete(t.getId()));
+    adminTable.findAll().forEach(t -> adminTable.delete(t.getId()));
   }
 
   @Test

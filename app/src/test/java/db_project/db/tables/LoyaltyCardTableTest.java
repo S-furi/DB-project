@@ -37,9 +37,7 @@ public class LoyaltyCardTableTest {
 
   @AfterAll
   static void tearDown() {
-    loyaltyCardTable
-      .findAll()
-      .forEach(t -> loyaltyCardTable.delete(t.getCardId()));
+    loyaltyCardTable.findAll().forEach(t -> loyaltyCardTable.delete(t.getCardId()));
   }
 
   @Test

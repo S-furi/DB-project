@@ -33,9 +33,7 @@ public class GroupTableTest {
 
   @AfterAll
   static void tearDown() {
-    groupTable
-      .findAll()
-      .forEach(t -> groupTable.delete(t.getGroupId()));
+    groupTable.findAll().forEach(t -> groupTable.delete(t.getGroupId()));
   }
 
   @Test
