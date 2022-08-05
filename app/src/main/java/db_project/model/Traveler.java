@@ -9,7 +9,7 @@ public class Traveler {
   private final int phone;
   private final String email;
   private final String residence;
-  private final boolean isGroup;
+  private final String isGroup;
 
   public Traveler(
       String travelerCode,
@@ -18,7 +18,7 @@ public class Traveler {
       int phone,
       String email, 
       String residence,
-      boolean isGroup) {
+      String isGroup) {
     this.travelerCode = travelerCode;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -48,7 +48,7 @@ public class Traveler {
     return residence;
   }
 
-  public boolean isGroup() {
+  public String isGroup() {
     return isGroup;
   }
 
