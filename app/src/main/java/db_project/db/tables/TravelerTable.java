@@ -58,7 +58,7 @@ public class TravelerTable implements Table<Traveler, String> {
       traveler.getPhone(),
       traveler.getEmail(),
       traveler.getResidence(),
-      traveler.isGroup()
+      traveler.isGroup().get()
     };
     return this.queryParser.computeSqlQuery(query, params);
   }
@@ -67,7 +67,7 @@ public class TravelerTable implements Table<Traveler, String> {
   public boolean update(Traveler updatedTraveler) {
     final String query =
         "UPDATE " + TABLE_NAME + " SET " + " codComitiva = ? WHERE codPasseggero = ?";
-    final Object[] params = {updatedTraveler.isGroup(), updatedTraveler.getTravelerCode()};
+    final Object[] params = {updatedTraveler.isGroup().get(), updatedTraveler.getTravelerCode()};
     return this.queryParser.computeSqlQuery(query, params);
   }
 
