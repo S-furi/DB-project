@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import db_project.db.ConnectionProvider;
 import db_project.model.Traveler;
-import db_project.utils.Utils;
+
 
 public class TravelerTableTest {
   private static final String username = "root";
@@ -27,10 +26,10 @@ public class TravelerTableTest {
   private static final TravelerTable travelerTable =
       new TravelerTable(connectionProvider.getMySQLConnection());
 
-  private final Date date = Utils.buildDate(25, 5, 2005).get();
+  //private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Traveler traveler =
-      new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.empty());
+      new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.of(0));
 
   @BeforeAll
   static void setUp() {
@@ -69,7 +68,7 @@ public class TravelerTableTest {
 
   @Test
   public void testUpdate() {
-    final var curTraveler = travelerTable.findByPrimaryKey("3");
+    final var curTraveler = travelerTable.findByPrimaryKey("1");
     if (curTraveler.isEmpty()) {
       fail("Select Failed");
     }
