@@ -1,5 +1,7 @@
 package db_project.model;
 
+import java.util.Optional;
+
 // Viaggiatore
 public class Traveler {
 
@@ -9,7 +11,7 @@ public class Traveler {
   private final int phone;
   private final String email;
   private final String residence;
-  private final String isGroup;
+  private final Optional<String> isGroup;
 
   public Traveler(
       String travelerCode,
@@ -18,7 +20,7 @@ public class Traveler {
       int phone,
       String email,
       String residence,
-      String isGroup) {
+      Optional<String> isGroup) {
     this.travelerCode = travelerCode;
     this.firstName = firstName;
     this.lastName = lastName;
