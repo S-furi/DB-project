@@ -31,7 +31,7 @@ public class TravelerTable implements Table<Traveler, String>{
 
     @Override
     public Optional<Traveler> findByPrimaryKey(String primaryKey) {
-        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE travelerCode = ?";
+        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE codPasseggero = ?";
         final String[] params = {primaryKey};
         this.queryParser.computeSqlQuery(query, params);
         return this.getTravelersFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
@@ -46,16 +46,16 @@ public class TravelerTable implements Table<Traveler, String>{
 
     @Override
     public boolean save(Traveler traveler) {
-        final String query = "INSERT INTO " + TABLE_NAME + "(travelerCode, firstName, lastName, phone, residence, isGroup)" + "VALUES (?, ?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO " + TABLE_NAME + "(codPasseggero, nome, cognome, telefono, email, residenza, codComitiva)" + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         final Object[] params = {
-            traveler.getTravelerCode(), traveler.getFirstName(), traveler.getLastName(), traveler.getPhone(), traveler.getResidence(), traveler.isGroup()
+            traveler.getTravelerCode(), traveler.getFirstName(), traveler.getLastName(), traveler.getPhone(), traveler.getEmail(), traveler.getResidence(), traveler.isGroup()
         };
         return this.queryParser.computeSqlQuery(query, params);
     }
 
     @Override
     public boolean update(Traveler updatedTraveler) {
-        final String query = "UPDATE " + TABLE_NAME + " SET " + " isGroup = ? WHERE travelerCode = ?";
+        final String query = "UPDATE " + TABLE_NAME + " SET " + " codComitiva = ? WHERE codPasseggero = ?";
         final Object[] params = {
             updatedTraveler.isGroup(), updatedTraveler.getTravelerCode()
         };
@@ -64,7 +64,7 @@ public class TravelerTable implements Table<Traveler, String>{
 
     @Override
     public boolean delete(String primaryKey) {
-        final String query = "DELETE FROM " + TABLE_NAME + " WHERE travelerCode = ?";
+        final String query = "DELETE FROM " + TABLE_NAME + " WHERE codPasseggero = ?";
         final Object[] params = {primaryKey};
         return this.queryParser.computeSqlQuery(query, params);
     }
@@ -77,13 +77,14 @@ public class TravelerTable implements Table<Traveler, String>{
         List<Traveler> travelers = new ArrayList<>();
         result.getResult().get().forEach(row -> {
             System.out.println(row.toString());
-            final String travelerCode = (String) row.get("travelerCode");
-            final String firstName = (String) row.get("firstName");
-            final String lastName = (String) row.get("lastName");
-            final int phone = (int) row.get("phone");
-            final String residence = (String) row.get("residence");
-            final boolean isGroup = (boolean) row.get("isGroup");
-            travelers.add(new Traveler(travelerCode, firstName, lastName, phone, residence, isGroup));
+            final String travelerCode = (String) row.get("codPasseggero");
+            final String firstName = (String) row.get("nome");
+            final String lastName = (String) row.get("cognome");
+            final int phone = (int) row.get("telefono");
+            final String email = (String) row.get("email");
+            final String residence = (String) row.get("residenza");
+            final boolean isGroup = (boolean) row.get("codComitiva");
+            travelers.add(new Traveler(travelerCode, firstName, lastName, phone, email, residence, isGroup));
         });
         return travelers;
     }
