@@ -13,7 +13,7 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.City;
 
 public class CityTable implements Table<City, String> {
-    public static final String TABLE_NAME;
+    public static final String TABLE_NAME = "CITTA";
     private final Connection connection;
     private final QueryParser queryParser;
     
