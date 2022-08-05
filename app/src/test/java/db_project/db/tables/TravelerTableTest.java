@@ -1,10 +1,12 @@
 package db_project.db.tables;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
@@ -27,12 +29,12 @@ public class TravelerTableTest {
 
   private final Date date = Utils.buildDate(25, 5, 2005).get();
 
-  private final Traveler traveler = new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", "false");
+  private final Traveler traveler = new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.empty());
   
   @BeforeAll
   static void setUp(){
-    final Traveler traveler1 = new Traveler("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", "false");
-    final Traveler traveler2 = new Traveler("2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", "false");
+    final Traveler traveler1 = new Traveler("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
+    final Traveler traveler2 = new Traveler("2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", Optional.empty());
     
     assertTrue(travelerTable.save(traveler1));
     assertTrue(travelerTable.save(traveler2));
@@ -60,5 +62,14 @@ public class TravelerTableTest {
   }
 
   @Test
-  public void testUpdate
+  public void testUpdate(){
+    final var curTraveler = travelerTable.findByPrimaryKey("3");
+    if(curTraveler.isEmpty()){
+      fail("Select Failed");
+    }
+    assertTrue(travelerTable.update(
+        new Traveler("1", this.traveler.getFirstName(), this.traveler.getLastName(), this.traveler.getPhone(), this.traveler.getEmail(), this.traveler.getResidence(), this.traveler.isGroup())
+    ));
+    assertTrue(travelerTable.update(curTraveler.get()));
+  }
 }
