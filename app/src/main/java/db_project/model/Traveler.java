@@ -16,9 +16,9 @@ public class Traveler {
       String firstName,
       String lastName,
       int phone,
+      String email, 
       String residence,
-      boolean isGroup, 
-      String email) {
+      boolean isGroup) {
     this.travelerCode = travelerCode;
     this.firstName = firstName;
     this.lastName = lastName;
