@@ -18,21 +18,34 @@ public class AdminTable extends AbstractTable<Admin, String> {
   public AdminTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
+    super.setTableColumns(
+        List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
   }
 
   @Override
   protected Object[] getSaveQueryParameters(final Admin admin) {
-    return new Object[] { admin.getId(), Utils.dateToSqlDate(admin.getContractYear()), admin.getFirstName(),
-        admin.getLastName(),
-        admin.getTelephone(), admin.getEmail(), admin.getResidence() };
+    return new Object[] {
+      admin.getId(),
+      Utils.dateToSqlDate(admin.getContractYear()),
+      admin.getFirstName(),
+      admin.getLastName(),
+      admin.getTelephone(),
+      admin.getEmail(),
+      admin.getResidence()
+    };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final Admin admin) {
-    return new Object[] { Utils.dateToSqlDate(admin.getContractYear()), admin.getFirstName(), admin.getLastName(),
-        admin.getTelephone(),
-        admin.getEmail(), admin.getResidence(), admin.getId() };
+    return new Object[] {
+      Utils.dateToSqlDate(admin.getContractYear()),
+      admin.getFirstName(),
+      admin.getLastName(),
+      admin.getTelephone(),
+      admin.getEmail(),
+      admin.getResidence(),
+      admin.getId()
+    };
   }
 
   @Override
@@ -42,18 +55,23 @@ public class AdminTable extends AbstractTable<Admin, String> {
     }
     final List<Admin> admList = new ArrayList<>();
 
-    result.getResult().get().forEach(row -> {
-      System.out.println(row.toString());
-      final String id = (String) row.get("adminID");
-      final Date contractYear = (Date) row.get("annoContratto");
-      final String firstName = (String) row.get("nome");
-      final String lastName = (String) row.get("cognome");
-      final int telephone = (int) row.get("telefono");
-      final String email = (String) row.get("email");
-      final String residence = (String) row.get("residenza");
-      admList.add(new Admin(id, contractYear, firstName, lastName, telephone, email, residence));
-    });
-    
+    result
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              System.out.println(row.toString());
+              final String id = (String) row.get("adminID");
+              final Date contractYear = (Date) row.get("annoContratto");
+              final String firstName = (String) row.get("nome");
+              final String lastName = (String) row.get("cognome");
+              final int telephone = (int) row.get("telefono");
+              final String email = (String) row.get("email");
+              final String residence = (String) row.get("residenza");
+              admList.add(
+                  new Admin(id, contractYear, firstName, lastName, telephone, email, residence));
+            });
+
     return admList;
   }
 }

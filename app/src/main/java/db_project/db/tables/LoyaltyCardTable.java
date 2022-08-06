@@ -16,26 +16,20 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
   public LoyaltyCardTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(List.of(
-        "punti",
-        "percentualeSconto"));
+    super.setTableColumns(List.of("punti", "percentualeSconto"));
   }
 
   @Override
   protected Object[] getSaveQueryParameters(final LoyaltyCard loyaltyCard) {
     return new Object[] {
-        loyaltyCard.getCardId(),
-        loyaltyCard.getPoints(),
-        loyaltyCard.getDiscountPercentage()
+      loyaltyCard.getCardId(), loyaltyCard.getPoints(), loyaltyCard.getDiscountPercentage()
     };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final LoyaltyCard loyaltyCard) {
     return new Object[] {
-        loyaltyCard.getPoints(),
-        loyaltyCard.getDiscountPercentage(),
-        loyaltyCard.getCardId()
+      loyaltyCard.getPoints(), loyaltyCard.getDiscountPercentage(), loyaltyCard.getCardId()
     };
   }
 
