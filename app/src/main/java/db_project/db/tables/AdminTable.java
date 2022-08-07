@@ -5,54 +5,26 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import db_project.db.Table;
-import db_project.db.queryUtils.ArrayQueryParser;
-import db_project.db.queryUtils.QueryParser;
+import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Admin;
 import db_project.utils.Utils;
 
-public class AdminTable implements Table<Admin, String> {
+public class AdminTable extends AbstractTable<Admin, String> {
   public static final String TABLE_NAME = "AMMINISTRATORE";
-  private final Connection connection;
-  private final QueryParser queryParser;
+  public static final String PRIMARY_KEY = "adminID";
 
   public AdminTable(final Connection connection) {
-    this.connection = connection;
-    this.queryParser = new ArrayQueryParser(this.connection);
+    super(TABLE_NAME, connection);
+    super.setPrimaryKey(PRIMARY_KEY);
+    super.setTableColumns(
+        List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
   }
 
   @Override
-  public String getTableName() {
-    return TABLE_NAME;
-  }
-
-  @Override
-  public Optional<Admin> findByPrimaryKey(final String primaryKey) {
-    final String query = "SELECT * FROM " + TABLE_NAME + " WHERE adminID = ?";
-    final String[] params = {primaryKey};
-    this.queryParser.computeSqlQuery(query, params);
-    return this.readAdminsWithQueryResult(this.queryParser.getQueryResult()).stream().findFirst();
-  }
-
-  @Override
-  public List<Admin> findAll() {
-    final String query = "SELECT * FROM " + TABLE_NAME;
-    this.queryParser.computeSqlQuery(query, null);
-    return this.readAdminsWithQueryResult(this.queryParser.getQueryResult());
-  }
-
-  @Override
-  public boolean save(final Admin admin) {
-    final String query =
-        "INSERT INTO "
-            + TABLE_NAME
-            + " (adminID, annoContratto, nome, cognome, telefono, email, residenza)"
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    final Object[] params = {
+  protected Object[] getSaveQueryParameters(final Admin admin) {
+    return new Object[] {
       admin.getId(),
       Utils.dateToSqlDate(admin.getContractYear()),
       admin.getFirstName(),
@@ -61,32 +33,11 @@ public class AdminTable implements Table<Admin, String> {
       admin.getEmail(),
       admin.getResidence()
     };
-
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean delete(final String primaryKey) {
-    String query = "DELETE FROM " + TABLE_NAME + " WHERE adminID = ?";
-    String[] params = {primaryKey};
-    return this.queryParser.computeSqlQuery(query, params);
-  }
-
-  @Override
-  public boolean update(final Admin admin) {
-    final String query =
-        "UPDATE "
-            + TABLE_NAME
-            + " SET "
-            + "annoContratto = ?,"
-            + "nome = ?,"
-            + "cognome = ?,"
-            + "telefono = ?,"
-            + "email = ?,"
-            + "residenza = ?"
-            + " WHERE adminID = ?";
-
-    final Object[] params = {
+  protected Object[] getUpdateQueryParameters(final Admin admin) {
+    return new Object[] {
       Utils.dateToSqlDate(admin.getContractYear()),
       admin.getFirstName(),
       admin.getLastName(),
@@ -95,15 +46,15 @@ public class AdminTable implements Table<Admin, String> {
       admin.getResidence(),
       admin.getId()
     };
-
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
-  private List<Admin> readAdminsWithQueryResult(final QueryResult result) {
+  @Override
+  protected List<Admin> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
     final List<Admin> admList = new ArrayList<>();
+
     result
         .getResult()
         .get()
@@ -120,6 +71,7 @@ public class AdminTable implements Table<Admin, String> {
               admList.add(
                   new Admin(id, contractYear, firstName, lastName, telephone, email, residence));
             });
+
     return admList;
   }
 }

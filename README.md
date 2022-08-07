@@ -28,6 +28,7 @@ Robe da far subito:
   - Write *SQL* query
   - [x] Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
     - [x] Use `java.util.Map<String, Object>` instead if `Pair<String, Object>` for row-col value.
+    - [ ] Figure Out a way to manipulate Composite-Keys Tables
 ---
 ### **SCHEMA**
 Tutto quello che è qui è da fare concorrentemente alla stesura del report

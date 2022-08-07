@@ -4,77 +4,37 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import db_project.db.Table;
-import db_project.db.queryUtils.ArrayQueryParser;
-import db_project.db.queryUtils.QueryParser;
+import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.LoyaltyCard;
 
-public class LoyaltyCardTable implements Table<LoyaltyCard, String> {
+public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
   public static final String TABLE_NAME = "LOYALTY_CARD";
-
-  private final Connection connection;
-  private final QueryParser queryParser;
+  public static final String PRIMARY_KEY = "codCarta";
 
   public LoyaltyCardTable(final Connection connection) {
-    this.connection = connection;
-    this.queryParser = new ArrayQueryParser(this.connection);
+    super(TABLE_NAME, connection);
+    super.setPrimaryKey(PRIMARY_KEY);
+    super.setTableColumns(List.of("punti", "percentualeSconto"));
   }
 
   @Override
-  public String getTableName() {
-    return TABLE_NAME;
-  }
-
-  @Override
-  public Optional<LoyaltyCard> findByPrimaryKey(final String primaryKey) {
-    final String query = "SELECT * FROM " + TABLE_NAME + " WHERE codCarta = ?";
-    final String[] params = {primaryKey};
-    this.queryParser.computeSqlQuery(query, params);
-    return this.getLoyaltyCardsFromQueryResult(this.queryParser.getQueryResult()).stream()
-        .findAny();
-  }
-
-  @Override
-  public List<LoyaltyCard> findAll() {
-    final String query = "SELECT * FROM " + TABLE_NAME;
-    this.queryParser.computeSqlQuery(query, null);
-    return this.getLoyaltyCardsFromQueryResult(this.queryParser.getQueryResult());
-  }
-
-  @Override
-  public boolean save(final LoyaltyCard loyaltyCard) {
-    final String query =
-        "INSERT INTO " + TABLE_NAME + "(codCarta, punti, percentualeSconto)" + "VALUES (?, ?, ?)";
-
-    final Object[] params = {
+  protected Object[] getSaveQueryParameters(final LoyaltyCard loyaltyCard) {
+    return new Object[] {
       loyaltyCard.getCardId(), loyaltyCard.getPoints(), loyaltyCard.getDiscountPercentage()
     };
-
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean update(final LoyaltyCard loyaltyCard) {
-    final String query =
-        "UPDATE " + TABLE_NAME + " SET " + " punti = ?, percentualeSconto = ? WHERE codCarta = ?";
-    final Object[] params = {
+  protected Object[] getUpdateQueryParameters(final LoyaltyCard loyaltyCard) {
+    return new Object[] {
       loyaltyCard.getPoints(), loyaltyCard.getDiscountPercentage(), loyaltyCard.getCardId()
     };
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean delete(final String primaryKey) {
-    final String query = "DELETE FROM " + TABLE_NAME + " WHERE codCarta = ?";
-    final String[] params = {primaryKey};
-
-    return this.queryParser.computeSqlQuery(query, params);
-  }
-
-  private List<LoyaltyCard> getLoyaltyCardsFromQueryResult(final QueryResult result) {
+  protected List<LoyaltyCard> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
