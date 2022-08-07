@@ -54,7 +54,7 @@ public class StationManager {
     return residence;
   }
 
-  public String getEmail(){
+  public String getEmail() {
     return this.email;
   }
 
