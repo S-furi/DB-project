@@ -10,6 +10,7 @@ public class StationManager {
   private final String firstName;
   private final String lastName;
   private final int phone;
+  private final String email;
   private final String residence;
 
   public StationManager(
@@ -18,12 +19,14 @@ public class StationManager {
       String firstName,
       String lastName,
       int phone,
+      String email,
       String residence) {
     this.managerCode = managerCode;
     this.contractYear = contractYear;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
+    this.email = email;
     this.residence = residence;
   }
 
@@ -49,6 +52,10 @@ public class StationManager {
 
   public String getResidence() {
     return residence;
+  }
+
+  public String getEmail(){
+    return this.email;
   }
 
   @Override
