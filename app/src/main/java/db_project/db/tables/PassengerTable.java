@@ -10,9 +10,9 @@ import db_project.db.Table;
 import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
-import db_project.model.Traveler;
+import db_project.model.Passenger;
 
-public class TravelerTable implements Table<Traveler, String> {
+public class TravelerTable implements Table<Passenger, String> {
 
   public static final String TABLE_NAME = "PASSEGGERO";
 
@@ -30,7 +30,7 @@ public class TravelerTable implements Table<Traveler, String> {
   }
 
   @Override
-  public Optional<Traveler> findByPrimaryKey(String primaryKey) {
+  public Optional<Passenger> findByPrimaryKey(String primaryKey) {
     final String query = "SELECT * FROM " + TABLE_NAME + " WHERE codPasseggero = ?";
     final String[] params = {primaryKey};
     this.queryParser.computeSqlQuery(query, params);
@@ -38,14 +38,14 @@ public class TravelerTable implements Table<Traveler, String> {
   }
 
   @Override
-  public List<Traveler> findAll() {
+  public List<Passenger> findAll() {
     final String query = "SELECT * FROM " + TABLE_NAME;
     this.queryParser.computeSqlQuery(query, null);
     return this.getTravelersFromQueryResult(this.queryParser.getQueryResult());
   }
 
   @Override
-  public boolean save(Traveler traveler) {
+  public boolean save(Passenger traveler) {
     final String query =
         "INSERT INTO "
             + TABLE_NAME
@@ -64,7 +64,7 @@ public class TravelerTable implements Table<Traveler, String> {
   }
 
   @Override
-  public boolean update(Traveler updatedTraveler) {
+  public boolean update(Passenger updatedTraveler) {
     final String query =
         "UPDATE " + TABLE_NAME + " SET " + " codComitiva = ? WHERE codPasseggero = ?";
     final Object[] params = {updatedTraveler.isGroup().get(), updatedTraveler.getTravelerCode()};
@@ -78,11 +78,11 @@ public class TravelerTable implements Table<Traveler, String> {
     return this.queryParser.computeSqlQuery(query, params);
   }
 
-  private List<Traveler> getTravelersFromQueryResult(final QueryResult result) {
+  private List<Passenger> getTravelersFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
-    List<Traveler> travelers = new ArrayList<>();
+    List<Passenger> travelers = new ArrayList<>();
     result
         .getResult()
         .get()
@@ -97,7 +97,7 @@ public class TravelerTable implements Table<Traveler, String> {
               final String residence = (String) row.get("residenza");
               final Optional<Object> isGroup = Optional.of(row.get("codComitiva"));
               travelers.add(
-                  new Traveler(
+                  new Passenger(
                       travelerCode, firstName, lastName, phone, email, residence, isGroup));
             });
     return travelers;

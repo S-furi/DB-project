@@ -3,7 +3,7 @@ package db_project.model;
 import java.util.Optional;
 
 // Viaggiatore
-public class Traveler {
+public class Passenger {
 
   private final String travelerCode;
   private final String firstName;
@@ -13,7 +13,7 @@ public class Traveler {
   private final String residence;
   private final Optional<Object> isGroup;
 
-  public Traveler(
+  public Passenger(
       String travelerCode,
       String firstName,
       String lastName,
