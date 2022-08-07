@@ -12,9 +12,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
 import db_project.db.ConnectionProvider;
-import db_project.model.Traveler;
+import db_project.model.Passenger;
 
-public class TravelerTableTest {
+public class PassengerTableTest {
   private static final String username = "root";
   private static final String password = "123Test123";
   private static final String dbName = "Ferrovia";
@@ -22,20 +22,20 @@ public class TravelerTableTest {
   private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
 
-  private static final TravelerTable travelerTable =
-      new TravelerTable(connectionProvider.getMySQLConnection());
+  private static final PassengerTable travelerTable =
+      new PassengerTable(connectionProvider.getMySQLConnection());
 
   // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
-  private final Traveler traveler =
-      new Traveler("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.of(0));
+  private final Passenger traveler =
+      new Passenger("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.of(0));
 
   @BeforeAll
   static void setUp() {
-    final Traveler traveler1 =
-        new Traveler("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
-    final Traveler traveler2 =
-        new Traveler(
+    final Passenger traveler1 =
+        new Passenger("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
+    final Passenger traveler2 =
+        new Passenger(
             "2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", Optional.empty());
 
     assertTrue(travelerTable.save(traveler1));
@@ -73,7 +73,7 @@ public class TravelerTableTest {
     }
     assertTrue(
         travelerTable.update(
-            new Traveler(
+            new Passenger(
                 "1",
                 this.traveler.getFirstName(),
                 this.traveler.getLastName(),

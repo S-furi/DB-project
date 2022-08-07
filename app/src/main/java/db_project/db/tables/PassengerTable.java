@@ -12,14 +12,14 @@ import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Passenger;
 
-public class TravelerTable implements Table<Passenger, String> {
+public class PassengerTable implements Table<Passenger, String> {
 
   public static final String TABLE_NAME = "PASSEGGERO";
 
   private final Connection connection;
   private final QueryParser queryParser;
 
-  public TravelerTable(final Connection connection) {
+  public PassengerTable(final Connection connection) {
     this.connection = connection;
     this.queryParser = new ArrayQueryParser(this.connection);
   }
