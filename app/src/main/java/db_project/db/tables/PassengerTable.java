@@ -102,7 +102,7 @@ public class PassengerTable implements Table<Passenger, String> {
               final String phone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
-              final Optional<Object> isGroup = Optional.of(row.get("codComitiva"));
+              final Optional<Object> isGroup = Optional.ofNullable(row.get("codComitiva"));
               travelers.add(
                   new Passenger(
                       travelerCode, firstName, lastName, phone, email, residence, isGroup));
