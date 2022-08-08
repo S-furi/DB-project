@@ -60,7 +60,7 @@ public class Driver {
   @Override
   public String toString() {
     return String.format(
-        "(%s, %s, %s, %s, %d, %s, %s)",
+        "(%s, %s, %s, %s, %s, %s, %s)",
         this.licenceNumber,
         this.firstName,
         this.lastName,

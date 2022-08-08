@@ -89,7 +89,7 @@ public class Admin {
   @Override
   public String toString() {
     return String.format(
-        "(%s, %s, %s, %s, %d, %s, %s)",
+        "(%s, %s, %s, %s, %s, %s, %s)",
         this.id,
         this.firstName,
         this.lastName,
