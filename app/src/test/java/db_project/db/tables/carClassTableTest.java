@@ -13,54 +13,57 @@ import db_project.db.ConnectionProvider;
 import db_project.model.CarClass;
 
 public class carClassTableTest {
-    
-    private static final String username = "root";
-    private static final String password = "123Test123";
-    private static final String dbName = "Ferrovia";
 
-    private CarClass carClass3 = new CarClass(3, 50);
+  private static final String username = "root";
+  private static final String password = "123Test123";
+  private static final String dbName = "Ferrovia";
 
-    private static final ConnectionProvider connectionProvider = new ConnectionProvider(username, password, dbName);
-    private static final CarClassTable carClassTable = new CarClassTable(connectionProvider.getMySQLConnection());
+  private CarClass carClass3 = new CarClass(3, 50);
 
-    @BeforeAll
-    static void setUp(){
-        final CarClass carclass1 = new CarClass(1, 10);
-        final CarClass carclass2 = new CarClass(2, 15);
+  private static final ConnectionProvider connectionProvider =
+      new ConnectionProvider(username, password, dbName);
+  private static final CarClassTable carClassTable =
+      new CarClassTable(connectionProvider.getMySQLConnection());
 
-        assertTrue(carClassTable.save(carclass1));
-        assertTrue(carClassTable.save(carclass2));
-    }
+  @BeforeAll
+  static void setUp() {
+    final CarClass carclass1 = new CarClass(1, 10);
+    final CarClass carclass2 = new CarClass(2, 15);
 
-    @AfterAll
-    static void tearDown(){
-        carClassTable.findAll().forEach(t -> carClassTable.delete(t.getClassType()));
-    }
+    assertTrue(carClassTable.save(carclass1));
+    assertTrue(carClassTable.save(carclass2));
+  }
 
-    @Test
-    public void testFindByPrimaryKey(){
-        assertTrue(carClassTable.findByPrimaryKey(1).isPresent());
-        assertFalse(carClassTable.findByPrimaryKey(4).isPresent());
-    }
+  @AfterAll
+  static void tearDown() {
+    carClassTable.findAll().forEach(t -> carClassTable.delete(t.getClassType()));
+  }
 
-    @Test
-    public void testSaveAndDelete(){
-        assertTrue(carClassTable.save(this.carClass3));
-        assertThrows(IllegalStateException.class, () -> {
-            carClassTable.save(this.carClass3);
+  @Test
+  public void testFindByPrimaryKey() {
+    assertTrue(carClassTable.findByPrimaryKey(1).isPresent());
+    assertFalse(carClassTable.findByPrimaryKey(4).isPresent());
+  }
+
+  @Test
+  public void testSaveAndDelete() {
+    assertTrue(carClassTable.save(this.carClass3));
+    assertThrows(
+        IllegalStateException.class,
+        () -> {
+          carClassTable.save(this.carClass3);
         });
-        assertTrue(carClassTable.delete(this.carClass3.getClassType()));
-        assertFalse(carClassTable.delete(this.carClass3.getClassType()));
-    }
+    assertTrue(carClassTable.delete(this.carClass3.getClassType()));
+    assertFalse(carClassTable.delete(this.carClass3.getClassType()));
+  }
 
-    @Test
-    public void testUpdate(){
-        final var curCarClass = carClassTable.findByPrimaryKey(1);
-        if(curCarClass.isEmpty()){
-            fail("Select Failed");
-        }
-        assertTrue(carClassTable.update(new CarClass(1, 100)));
-        assertTrue(carClassTable.update(curCarClass.get()));
+  @Test
+  public void testUpdate() {
+    final var curCarClass = carClassTable.findByPrimaryKey(1);
+    if (curCarClass.isEmpty()) {
+      fail("Select Failed");
     }
-
+    assertTrue(carClassTable.update(new CarClass(1, 100)));
+    assertTrue(carClassTable.update(curCarClass.get()));
+  }
 }

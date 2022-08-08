@@ -52,15 +52,16 @@ public class RegistrationController implements Initializable {
   private static String password = "123Test123";
   private static String db_name = "Ferrovia";
 
-  private static final ConnectionProvider connectionProvider = new ConnectionProvider(username, password, db_name);
+  private static final ConnectionProvider connectionProvider =
+      new ConnectionProvider(username, password, db_name);
   private static final CityTable cityTable = new CityTable(connectionProvider.getMySQLConnection());
-  private static final PassengerTable passengerTable = new PassengerTable(connectionProvider.getMySQLConnection());
+  private static final PassengerTable passengerTable =
+      new PassengerTable(connectionProvider.getMySQLConnection());
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.populateAccountTypes();
     this.populateCountryData();
-
 
     this.populateBoxes();
     this.accountTypes
@@ -106,16 +107,14 @@ public class RegistrationController implements Initializable {
     this.data.add(regReg.getValue());
     this.data.add(provReg.getValue());
     this.data.add(cittReg.getText());
-    
-    if(this.accountTypes.getValue() == "Utente"){
-      if(this.cartArrowReg.isSelected()){
+
+    if (this.accountTypes.getValue() == "Utente") {
+      if (this.cartArrowReg.isSelected()) {
         this.data.add("true");
-      }else{
+      } else {
         this.data.add("false");
       }
     }
-
-
 
     // System.out.println(nameReg.getText().isEmpty());
     if (!this.validateData()) {
@@ -129,11 +128,19 @@ public class RegistrationController implements Initializable {
     this.executeData(data);
   }
 
-  private void executeData(List<String> data){
+  private void executeData(List<String> data) {
     var userType = data.get(0);
-    if(userType == "Utente"){
+    if (userType == "Utente") {
       var newID = passengerTable.getHighestID() + 1;
-      var newUser = new Passenger(Integer.toString(newID), data.get(2), data.get(3), Integer.parseInt(data.get(4)), data.get(5), "Residenza", Optional.of("1"));
+      var newUser =
+          new Passenger(
+              Integer.toString(newID),
+              data.get(2),
+              data.get(3),
+              Integer.parseInt(data.get(4)),
+              data.get(5),
+              "Residenza",
+              Optional.of("1"));
       System.out.println(newUser.toString());
     }
   }
@@ -143,13 +150,14 @@ public class RegistrationController implements Initializable {
     return allNotEmpty;
   }
 
-  private void populateBoxes(){
-    cityTable.findAll().forEach(t -> {
-      this.regReg.getItems().add(t.getRegion());
-      this.provReg.getItems().add(t.getProvince());
-    });
+  private void populateBoxes() {
+    cityTable
+        .findAll()
+        .forEach(
+            t -> {
+              this.regReg.getItems().add(t.getRegion());
+              this.provReg.getItems().add(t.getProvince());
+            });
     System.out.println("ChoiceBox setup went fine");
   }
-
-
 }

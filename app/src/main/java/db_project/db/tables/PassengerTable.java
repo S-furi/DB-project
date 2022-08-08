@@ -44,7 +44,7 @@ public class PassengerTable implements Table<Passenger, String> {
     return this.getTravelersFromQueryResult(this.queryParser.getQueryResult());
   }
 
-  public int getHighestID(){
+  public int getHighestID() {
     final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
     this.queryParser.computeSqlQuery(query, null);
     var passenger = this.getTravelersFromQueryResult(this.queryParser.getQueryResult());
