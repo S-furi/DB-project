@@ -37,8 +37,7 @@ public class PassengerTableTest {
     final Passenger traveler1 =
         new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C", Optional.empty());
     final Passenger traveler2 =
-        new Passenger(
-            "2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C", Optional.empty());
+        new Passenger("2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C", Optional.empty());
 
     assertTrue(travelerTable.save(traveler1));
     assertTrue(travelerTable.save(traveler2));
@@ -74,7 +73,7 @@ public class PassengerTableTest {
     final var curTraveler = travelerTable.findByPrimaryKey("1");
     if (curTraveler.isEmpty()) {
       fail("Select Failed");
-    } 
+    }
     assertTrue(
         travelerTable.update(
             new Passenger(

@@ -127,7 +127,8 @@ public class ArrayQueryParser implements QueryParser {
    * @param index
    */
   @SuppressWarnings("unchecked")
-  private void setTypeStatement(final PreparedStatement statement, final Object param, final int index) {
+  private void setTypeStatement(
+      final PreparedStatement statement, final Object param, final int index) {
     try {
       if (param.getClass().equals(String.class)) {
         statement.setString(index, param.toString());
@@ -136,7 +137,7 @@ public class ArrayQueryParser implements QueryParser {
       } else if (param.getClass().equals(java.sql.Date.class)) {
         statement.setDate(index, (java.sql.Date) param);
       } else if (param.getClass().equals(java.util.Optional.class)) {
-        final Optional<String> optParam = (Optional<String>)param;
+        final Optional<String> optParam = (Optional<String>) param;
         if (optParam.isPresent()) {
           statement.setString(index, optParam.get());
         } else {
