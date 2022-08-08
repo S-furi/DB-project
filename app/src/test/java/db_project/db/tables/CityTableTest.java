@@ -43,7 +43,7 @@ public class CityTableTest {
 
   @Test
   void testFindByPrimaryKey() {
-    assertTrue(cityTable.findByPrimaryKey("A").isPresent());
+    assertFalse(cityTable.findByPrimaryKey("A").isPresent());
     assertFalse(cityTable.findByPrimaryKey("Z").isPresent());
   }
 
