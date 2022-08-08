@@ -60,9 +60,20 @@ public class Passenger {
 
   @Override
   public String toString() {
-    return "Passenger [email=" + email + ", firstName=" + firstName + ", isGroup=" + isGroup + ", lastName=" + lastName
-        + ", phone=" + phone + ", residence=" + residence + ", travelerCode=" + travelerCode + "]";
+    return "Passenger [email="
+        + email
+        + ", firstName="
+        + firstName
+        + ", isGroup="
+        + isGroup
+        + ", lastName="
+        + lastName
+        + ", phone="
+        + phone
+        + ", residence="
+        + residence
+        + ", travelerCode="
+        + travelerCode
+        + "]";
   }
-
-  
 }
