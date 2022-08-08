@@ -25,11 +25,7 @@ public class AdminTableTest {
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
   private final Admin adm =
-<<<<<<< HEAD
       new Admin("3", date, "stefano", "furi", "35", "stefano.furi7@gmail.com", "C");
-=======
-      new Admin("3", date, "stefano", "furi", "3519499790", "stefano.furi7@gmail.com", "C");
->>>>>>> 5efe91cb08d25d76e20668e823deb55959f84ac8
 
   @BeforeAll
   static void setUp() {
