@@ -44,7 +44,7 @@ public class CityTableTest {
   @Test
   void testFindByPrimaryKey() {
     assertFalse(cityTable.findByPrimaryKey("A").isPresent());
-    assertTrue(cityTable.findByPrimaryKey("Z").isPresent());
+    assertFalse(cityTable.findByPrimaryKey("Z").isPresent());
   }
 
   @Test
