@@ -3,9 +3,9 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Mon Aug  1 17:36:55 2022 
+-- * Generation date: Mon Aug  8 18:45:36 2022 
 -- * LUN file: C:\users\crossover\Desktop\My Mac Desktop\DB\Progetto\prj\DB-project\schemas\Railway.lun 
--- * Schema: Ferrovia/2-1 
+-- * Schema: Ferrovia/2-2 
 -- ********************************************* 
 
 
@@ -22,11 +22,11 @@ use Ferrovia;
 create table AMMINISTRATORE (
      adminID varchar(5) not null,
      annoContratto date not null,
-     nome varchar(10) not null,
-     cognome varchar(10) not null,
-     telefono int not null,
-     email varchar(25) not null,
-     Res_nome char(1) not null,
+     nome varchar(40) not null,
+     cognome varchar(40) not null,
+     telefono varchar(10) not null,
+     email varchar(50) not null,
+     residenza varchar(40) not null,
      constraint ID_AMMINISTRATORE_ID primary key (adminID));
 
 create table BIGLIETTO (
@@ -48,9 +48,9 @@ create table CARROZZA (
      constraint ID_CARROZZA_ID primary key (numClasse, codTreno, numeroCarrozza));
 
 create table CITTA (
-     nome char(1) not null,
-     regione char(1) not null,
-     provincia char(1) not null,
+     nome varchar(40) not null,
+     regione varchar(40) not null,
+     provincia varchar(2) not null,
      constraint ID_CITTA_ID primary key (nome));
 
 create table CLASSE (
@@ -72,20 +72,20 @@ create table LOYALTY_CARD (
 create table MACCHINISTA (
      numeroPatente varchar(5) not null,
      annoContratto date not null,
-     nome varchar(10) not null,
-     cognome varchar(10) not null,
-     telefono int not null,
-     email varchar(25) not null,
-     residenza char(1) not null,
+     nome varchar(40) not null,
+     cognome varchar(40) not null,
+     telefono varchar(10) not null,
+     email varchar(50) not null,
+     residenza varchar(40) not null,
      constraint ID_MACCHINISTA_ID primary key (numeroPatente));
 
 create table PASSEGGERO (
      codPasseggero varchar(5) not null,
-     nome varchar(10) not null,
-     cognome varchar(10) not null,
-     telefono int not null,
-     email varchar(25) not null,
-     residenza char(1) not null,
+     nome varchar(40) not null,
+     cognome varchar(40) not null,
+     telefono varchar(10) not null,
+     email varchar(50) not null,
+     residenza varchar(40) not null,
      codComitiva varchar(5),
      constraint ID_PASSEGGERO_ID primary key (codPasseggero));
 
@@ -97,7 +97,7 @@ create table PERCORRENZA (
 
 create table PERCORSO (
      codPercorso varchar(5) not null,
-     tempoTotale int not null,
+     tempoTotale varchar(5) not null,
      numFermate int not null,
      adminID varchar(5) not null,
      constraint ID_PERCORSO_ID primary key (codPercorso));
@@ -121,11 +121,11 @@ create table DETTAGLIO_BIGLIETTO (
 create table RESPONSABILE_STAZIONE (
      codResponsabile varchar(5) not null,
      annoContratto date not null,
-     nome varchar(10) not null,
-     cognome varchar(10) not null,
+     nome varchar(40) not null,
+     cognome varchar(40) not null,
      telefono varchar(10) not null,
-     email varchar(25) not null,
-     residenza char(1) not null,
+     email varchar(50) not null,
+     residenza varchar(40) not null,
      constraint ID_RESPONSABILE_STAZIONE_ID primary key (codResponsabile));
 
 create table SOTTOSCRIZIONE (
@@ -137,7 +137,7 @@ create table SOTTOSCRIZIONE (
 
 create table STAZIONE (
      codStazione varchar(5) not null,
-     nome varchar(10) not null,
+     nome varchar(20) not null,
      numBinari int not null,
      codResponsabile varchar(5) not null,
      constraint ID_STAZIONE_ID primary key (codStazione));
@@ -157,11 +157,11 @@ create table TRATTA (
 
 create table TRENO (
      codTreno varchar(5) not null,
-     macchinista varchar(5) not null,
+     codMacchinista varchar(5) not null,
      capienza int not null,
      regionaleVeloce char,
      constraint ID_TRENO_ID primary key (codTreno),
-     constraint FKPilota_ID unique (macchinista));
+     constraint FKPilota_ID unique (codMacchinista));
 
 
 -- Constraints Section
@@ -173,7 +173,7 @@ create table TRENO (
 --                  where PERCORSO.adminID = adminID)); 
 
 alter table AMMINISTRATORE add constraint FKResidenza_Adm_FK
-     foreign key (Res_nome)
+     foreign key (residenza)
      references CITTA (nome);
 
 -- Not implemented
@@ -209,7 +209,7 @@ alter table CARROZZA add constraint FKAppartenenza
 -- Not implemented
 -- alter table MACCHINISTA add constraint ID_MACCHINISTA_CHK
 --     check(exists(select * from TRENO
---                  where TRENO.macchinista = numeroPatente)); 
+--                  where TRENO.codMacchinista = numeroPatente)); 
 
 alter table MACCHINISTA add constraint FKResidenza_Mac_FK
      foreign key (residenza)
@@ -290,7 +290,7 @@ alter table TRATTA add constraint FKArrivo_FK
      references STAZIONE (codStazione);
 
 alter table TRENO add constraint FKPilota_FK
-     foreign key (macchinista)
+     foreign key (codMacchinista)
      references MACCHINISTA (numeroPatente);
 
 
@@ -301,7 +301,7 @@ create unique index ID_AMMINISTRATORE_IND
      on AMMINISTRATORE (adminID);
 
 create index FKResidenza_Adm_IND
-     on AMMINISTRATORE (Res_nome);
+     on AMMINISTRATORE (residenza);
 
 create unique index ID_BIGLIETTO_IND
      on BIGLIETTO (codiceBiglietto);
@@ -406,5 +406,5 @@ create unique index ID_TRENO_IND
      on TRENO (codTreno);
 
 create unique index FKPilota_IND
-     on TRENO (macchinista);
+     on TRENO (codMacchinista);
 
