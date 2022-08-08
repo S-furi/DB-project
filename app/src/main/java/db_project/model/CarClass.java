@@ -11,11 +11,11 @@ public class CarClass {
     this.availableSeats = availableSeats;
   }
 
-  int getClassType() {
+  public int getClassType() {
     return this.classType;
   }
 
-  int getAvailableSeats() {
+  public int getAvailableSeats() {
     return this.availableSeats;
   }
 }
