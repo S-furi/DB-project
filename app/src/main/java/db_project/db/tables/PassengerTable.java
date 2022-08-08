@@ -99,7 +99,7 @@ public class PassengerTable implements Table<Passenger, String> {
               final String travelerCode = (String) row.get("codPasseggero");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");
-              final int phone = (int) row.get("telefono");
+              final String phone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
               final Optional<Object> isGroup = Optional.of(row.get("codComitiva"));

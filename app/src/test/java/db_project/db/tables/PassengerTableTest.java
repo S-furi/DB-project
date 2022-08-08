@@ -28,15 +28,15 @@ public class PassengerTableTest {
   // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Passenger traveler =
-      new Passenger("3", "Fabio", "DeLuigi", 34, "luigi@gmail.com", "Santa", Optional.of(0));
+      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "Santa", Optional.of(0));
 
   @BeforeAll
   static void setUp() {
     final Passenger traveler1 =
-        new Passenger("1", "Gianni", "Gianni", 57, "ciao@gmail.com", "Salerno", Optional.empty());
+        new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "Salerno", Optional.empty());
     final Passenger traveler2 =
         new Passenger(
-            "2", "Mimmo", "Baresi", 24, "mimmombare@gmail.com", "Palermo", Optional.empty());
+            "2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "Palermo", Optional.empty());
 
     assertTrue(travelerTable.save(traveler1));
     assertTrue(travelerTable.save(traveler2));

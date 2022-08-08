@@ -9,7 +9,7 @@ public class StationManager {
   private final Date contractYear;
   private final String firstName;
   private final String lastName;
-  private final int phone;
+  private final String phone;
   private final String email;
   private final String residence;
 
@@ -18,7 +18,7 @@ public class StationManager {
       Date contractYear,
       String firstName,
       String lastName,
-      int phone,
+      String phone,
       String email,
       String residence) {
     this.managerCode = managerCode;
@@ -46,7 +46,7 @@ public class StationManager {
     return lastName;
   }
 
-  public int getPhone() {
+  public String getPhone() {
     return phone;
   }
 

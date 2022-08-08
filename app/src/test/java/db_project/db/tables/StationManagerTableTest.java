@@ -26,7 +26,7 @@ public class StationManagerTableTest {
 
   private static final Date date = new Date(12122001);
   private final StationManager stationManager =
-      new StationManager("3", date, "Peppe", "Pesce", 3, "peppe@peppe.com", "A");
+      new StationManager("3", date, "Peppe", "Pesce", "3", "peppe@peppe.com", "A");
 
   @BeforeAll
   static void setUp() {
@@ -35,9 +35,9 @@ public class StationManagerTableTest {
     Date date2 = new Date(12022001);
 
     final StationManager stationManager1 =
-        new StationManager("1", date1, "Mimmo", "Baresi", 3, "a@gmail.com", "CastelFranco");
+        new StationManager("1", date1, "Mimmo", "Baresi", "3", "a@gmail.com", "CastelFranco");
     final StationManager stationManager2 =
-        new StationManager("2", date2, "Franco", "Pino", 2, "franco@pino.com", "CastelFranco");
+        new StationManager("2", date2, "Franco", "Pino", "2", "franco@pino.com", "CastelFranco");
     System.out.println("DIODID");
     assertTrue(stationManagerTable.save(stationManager1));
     assertTrue(stationManagerTable.save(stationManager2));

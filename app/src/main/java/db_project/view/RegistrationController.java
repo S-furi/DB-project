@@ -135,10 +135,10 @@ public class RegistrationController implements Initializable {
       var newUser =
           new Passenger(
               Integer.toString(newID),
+              data.get(1),
               data.get(2),
               data.get(3),
-              Integer.parseInt(data.get(4)),
-              data.get(5),
+              data.get(4),
               "Residenza",
               Optional.of("1"));
       System.out.println(newUser.toString());

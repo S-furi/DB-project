@@ -64,7 +64,7 @@ public class StationManagerTable extends AbstractTable<StationManager, String> {
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");
-              final int phone = (int) row.get("telefono");
+              final String phone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
               stationManagers.add(

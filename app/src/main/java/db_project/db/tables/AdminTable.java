@@ -65,7 +65,7 @@ public class AdminTable extends AbstractTable<Admin, String> {
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");
-              final int telephone = (int) row.get("telefono");
+              final String telephone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
               admList.add(

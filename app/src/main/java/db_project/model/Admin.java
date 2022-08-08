@@ -7,7 +7,7 @@ public class Admin {
   private Date contractYear;
   private String firstName;
   private String lastName;
-  private int telephone;
+  private String telephone;
   private String email;
   private String residence;
 
@@ -16,7 +16,7 @@ public class Admin {
       final Date contractYear,
       final String firstName,
       final String lastName,
-      final int telephone,
+      final String telephone,
       final String email,
       final String residence) {
     this.id = id;
@@ -46,7 +46,7 @@ public class Admin {
     return lastName;
   }
 
-  public int getTelephone() {
+  public String getTelephone() {
     return telephone;
   }
 
@@ -74,7 +74,7 @@ public class Admin {
     this.lastName = lastName;
   }
 
-  public void setTelephone(final int telephone) {
+  public void setTelephone(final String telephone) {
     this.telephone = telephone;
   }
 

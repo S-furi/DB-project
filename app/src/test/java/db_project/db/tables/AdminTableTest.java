@@ -25,7 +25,7 @@ public class AdminTableTest {
 
   private final Date date = Utils.buildDate(12, 12, 2012).get();
   private final Admin adm =
-      new Admin("3", date, "stefano", "furi", 35, "stefano.furi7@gmail.com", "C");
+      new Admin("3", date, "stefano", "furi", "35", "stefano.furi7@gmail.com", "C");
 
   @BeforeAll
   static void setUp() {
@@ -37,7 +37,7 @@ public class AdminTableTest {
             Utils.buildDate(21, 01, 1999).get(),
             "Mario",
             "Rossi",
-            65,
+            "65",
             "mario.rossi@gmail.com",
             "C");
 
@@ -47,7 +47,7 @@ public class AdminTableTest {
             Utils.buildDate(22, 02, 1999).get(),
             "Filippo",
             "Rossi",
-            12,
+            "12",
             "filippo.rossi@gmail.com",
             "A");
 
@@ -91,7 +91,7 @@ public class AdminTableTest {
                   Utils.dateToSqlDate(date),
                   "stefano",
                   "furi",
-                  35,
+                  "35",
                   "stefano.furi7@gmail.com",
                   "C");
           System.out.println(adm);
@@ -112,7 +112,7 @@ public class AdminTableTest {
             this.adm.getContractYear(),
             "Massimo",
             "Duri",
-            120309120,
+            "120309120",
             "durissimomassimo@aruba.it",
             "C");
 
@@ -126,7 +126,7 @@ public class AdminTableTest {
             this.adm.getContractYear(),
             "Massimo",
             "Duri",
-            120309120,
+            "120309120",
             "durissimomassimo@aruba.it",
             "C");
 

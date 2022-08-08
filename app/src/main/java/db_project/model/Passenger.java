@@ -8,7 +8,7 @@ public class Passenger {
   private final String travelerCode;
   private final String firstName;
   private final String lastName;
-  private final int phone;
+  private final String phone;
   private final String email;
   private final String residence;
   private final Optional<Object> isGroup;
@@ -17,7 +17,7 @@ public class Passenger {
       String travelerCode,
       String firstName,
       String lastName,
-      int phone,
+      String phone,
       String email,
       String residence,
       Optional<Object> isGroup) {
@@ -42,7 +42,7 @@ public class Passenger {
     return lastName;
   }
 
-  public int getPhone() {
+  public String getPhone() {
     return phone;
   }
 
