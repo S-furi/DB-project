@@ -8,7 +8,7 @@ public class Driver {
   private final Date contractYear;
   private final String firstName;
   private final String lastName;
-  private final int telephone;
+  private final String telephone;
   private final String email;
   private final String residence;
 
@@ -17,7 +17,7 @@ public class Driver {
       final Date contractYear,
       final String firstName,
       final String lastName,
-      final int telephone,
+      final String telephone,
       final String email,
       final String residence) {
     this.licenceNumber = licenceNumber;
@@ -45,7 +45,7 @@ public class Driver {
     return lastName;
   }
 
-  public int getTelephone() {
+  public String getTelephone() {
     return telephone;
   }
 
@@ -60,7 +60,7 @@ public class Driver {
   @Override
   public String toString() {
     return String.format(
-        "(%s, %s, %s, %s, %d, %s, %s)",
+        "(%s, %s, %s, %s, %s, %s, %s)",
         this.licenceNumber,
         this.firstName,
         this.lastName,

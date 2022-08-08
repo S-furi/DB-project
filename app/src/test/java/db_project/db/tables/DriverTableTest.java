@@ -30,7 +30,7 @@ public class DriverTableTest {
           Utils.buildDate(31, 12, 1992).get(),
           "stefano",
           "furi",
-          123,
+          "123",
           "stefano.furi7@gmail.com",
           "C");
 
@@ -44,7 +44,7 @@ public class DriverTableTest {
             Utils.buildDate(21, 11, 1990).get(),
             "mizzico",
             "mizzichi",
-            12,
+            "12",
             "nonhovoglia@gmail.com",
             "C");
     final var driver2 =
@@ -53,7 +53,7 @@ public class DriverTableTest {
             Utils.buildDate(22, 11, 1991).get(),
             "ariostrio",
             "iostrio",
-            11,
+            "11",
             "nonohovogliaa@gmail.com",
             "C");
 
