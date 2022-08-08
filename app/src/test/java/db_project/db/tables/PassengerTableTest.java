@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -28,15 +28,17 @@ public class PassengerTableTest {
   // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Passenger traveler =
-      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "Santa", Optional.of(0));
+      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "C", Optional.of(1));
 
   @BeforeAll
   static void setUp() {
+    CityTableTest.setUp();
+    GroupTableTest.setUp();
     final Passenger traveler1 =
-        new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "Salerno", Optional.empty());
+        new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C", Optional.empty());
     final Passenger traveler2 =
         new Passenger(
-            "2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "Palermo", Optional.empty());
+            "2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C", Optional.empty());
 
     assertTrue(travelerTable.save(traveler1));
     assertTrue(travelerTable.save(traveler2));
@@ -45,12 +47,14 @@ public class PassengerTableTest {
   @AfterAll
   static void tearDown() {
     travelerTable.findAll().forEach(t -> travelerTable.delete(t.getTravelerCode()));
+    GroupTableTest.tearDown();
+    CityTableTest.tearDown();
   }
 
   @Test
   public void testFindByPrimaryKey() {
     assertTrue(travelerTable.findByPrimaryKey("1").isPresent());
-    assertFalse(travelerTable.findByPrimaryKey("2").isPresent());
+    assertTrue(travelerTable.findByPrimaryKey("2").isPresent());
   }
 
   @Test
@@ -70,7 +74,7 @@ public class PassengerTableTest {
     final var curTraveler = travelerTable.findByPrimaryKey("1");
     if (curTraveler.isEmpty()) {
       fail("Select Failed");
-    }
+    } 
     assertTrue(
         travelerTable.update(
             new Passenger(
