@@ -9,7 +9,7 @@ import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.CarClass;
 
-public class CarClassTable extends AbstractTable<CarClass, String>{
+public class CarClassTable extends AbstractTable<CarClass, Integer>{
 
     public static String TABLE_NAME = "CLASSE";
     public static String primary_key = "numClasse";
