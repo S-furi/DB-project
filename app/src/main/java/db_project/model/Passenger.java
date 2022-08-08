@@ -57,4 +57,12 @@ public class Passenger {
   public String getEmail() {
     return this.email;
   }
+
+  @Override
+  public String toString() {
+    return "Passenger [email=" + email + ", firstName=" + firstName + ", isGroup=" + isGroup + ", lastName=" + lastName
+        + ", phone=" + phone + ", residence=" + residence + ", travelerCode=" + travelerCode + "]";
+  }
+
+  
 }
