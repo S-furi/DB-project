@@ -1,12 +1,12 @@
 package db_project.db.tables;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -31,13 +31,14 @@ public class StationManagerTableTest {
   @BeforeAll
   static void setUp() {
 
+    CityTableTest.setUp();
     Date date1 = new Date(12012001);
     Date date2 = new Date(12022001);
 
     final StationManager stationManager1 =
-        new StationManager("1", date1, "Mimmo", "Baresi", "3", "a@gmail.com", "CastelFranco");
+        new StationManager("1", date1, "Mimmo", "Baresi", "3", "a@gmail.com", "C");
     final StationManager stationManager2 =
-        new StationManager("2", date2, "Franco", "Pino", "2", "franco@pino.com", "CastelFranco");
+        new StationManager("2", date2, "Franco", "Pino", "2", "franco@pino.com", "C");
     System.out.println("DIODID");
     assertTrue(stationManagerTable.save(stationManager1));
     assertTrue(stationManagerTable.save(stationManager2));
@@ -46,12 +47,19 @@ public class StationManagerTableTest {
   @AfterAll
   static void tearDown() {
     stationManagerTable.findAll().forEach(t -> stationManagerTable.delete(t.getManagerCode()));
+    CityTableTest.tearDown();
+  }
+
+  @Test
+  public void testFindAll(){
+    assertFalse(stationManagerTable.findAll().isEmpty());
+    assertTrue(stationManagerTable.findAll().size() == 2);
   }
 
   @Test
   public void testFindByPrimaryKey() {
     assertTrue(stationManagerTable.findByPrimaryKey("1").isPresent());
-    assertFalse(stationManagerTable.findByPrimaryKey("2").isPresent());
+    assertFalse(stationManagerTable.findByPrimaryKey("4").isPresent());
   }
 
   @Test

@@ -3,7 +3,7 @@ package db_project.db.tables;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -23,8 +23,9 @@ public class StationTableTest {
 
   @BeforeAll
   static void setUp() {
-    final Station station1 = new Station("1", "predappio", 6, "121");
-    final Station station2 = new Station("2", "Cesena", 2, "212");
+    StationManagerTableTest.setUp();
+    final Station station1 = new Station("1", "C", 6, "121");
+    final Station station2 = new Station("2", "C", 2, "212");
 
     assertTrue(stationTable.save(station1));
     assertTrue(stationTable.save(station2));
@@ -33,6 +34,7 @@ public class StationTableTest {
   @AfterAll
   static void tearDown() {
     stationTable.findAll().forEach(t -> stationTable.delete(t.getStationCode()));
+    StationManagerTableTest.tearDown();
   }
 
   @Test
