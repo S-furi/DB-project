@@ -46,6 +46,12 @@ public class carClassTableTest {
   }
 
   @Test
+  public void testFindAll(){
+    assertFalse(carClassTable.findAll().isEmpty());
+    assertTrue(carClassTable.findAll().size() == 2);
+  }
+
+  @Test
   public void testSaveAndDelete() {
     assertTrue(carClassTable.save(this.carClass3));
     assertThrows(

@@ -51,6 +51,12 @@ public class PassengerTableTest {
   }
 
   @Test
+  public void testFindAll(){
+    assertFalse(travelerTable.findAll().isEmpty());
+    assertTrue(travelerTable.findAll().size() == 2);
+  }
+
+  @Test
   public void testFindByPrimaryKey() {
     assertTrue(travelerTable.findByPrimaryKey("1").isPresent());
     assertTrue(travelerTable.findByPrimaryKey("2").isPresent());
