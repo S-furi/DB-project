@@ -1,14 +1,12 @@
 package db_project.db.tables;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
 import db_project.model.StationManager;
@@ -46,6 +44,8 @@ public class StationManagerTableTest {
 
   @AfterAll
   static void tearDown() {
+    System.out.println("PORCAMADONNANERA");
+    stationManagerTable.findAll().forEach(t -> System.out.println(t.getManagerCode()));
     stationManagerTable.findAll().forEach(t -> stationManagerTable.delete(t.getManagerCode()));
     CityTableTest.tearDown();
   }
@@ -58,6 +58,7 @@ public class StationManagerTableTest {
 
   @Test
   public void testFindByPrimaryKey() {
+    System.out.println("---testFindByPrimaryKey---");
     assertTrue(stationManagerTable.findByPrimaryKey("1").isPresent());
     assertFalse(stationManagerTable.findByPrimaryKey("4").isPresent());
   }
