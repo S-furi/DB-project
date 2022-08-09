@@ -51,7 +51,7 @@ public class StationManagerTableTest {
   }
 
   @Test
-  public void testFindAll(){
+  public void testFindAll() {
     assertFalse(stationManagerTable.findAll().isEmpty());
     assertTrue(stationManagerTable.findAll().size() == 2);
   }
