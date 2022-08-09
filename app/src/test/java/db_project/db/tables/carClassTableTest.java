@@ -46,7 +46,7 @@ public class carClassTableTest {
   }
 
   @Test
-  public void testFindAll(){
+  public void testFindAll() {
     assertFalse(carClassTable.findAll().isEmpty());
     assertTrue(carClassTable.findAll().size() == 2);
   }

@@ -51,7 +51,7 @@ public class PassengerTableTest {
   }
 
   @Test
-  public void testFindAll(){
+  public void testFindAll() {
     assertFalse(travelerTable.findAll().isEmpty());
     assertTrue(travelerTable.findAll().size() == 2);
   }
