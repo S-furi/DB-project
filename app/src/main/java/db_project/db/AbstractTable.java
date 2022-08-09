@@ -122,8 +122,8 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
     try {
       return this.parser.computeSqlQuery(query, params);
     } catch (IllegalStateException e) {
-        throw new IllegalStateException(e);
-    } 
+      throw new IllegalStateException(e);
+    }
   }
 
   /**

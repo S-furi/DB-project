@@ -10,8 +10,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.Station;
 
 public class StationTable extends AbstractTable<Station, String> {
-  public final static String TABLE_NAME = "STAZIONE";
-  public final static String PRIMARY_KEY = "codStazione";
+  public static final String TABLE_NAME = "STAZIONE";
+  public static final String PRIMARY_KEY = "codStazione";
 
   public StationTable(final Connection connection) {
     super(TABLE_NAME, connection);
@@ -22,20 +22,20 @@ public class StationTable extends AbstractTable<Station, String> {
   @Override
   protected Object[] getSaveQueryParameters(final Station station) {
     return new Object[] {
-        station.getStationCode(),
-        station.getStationName(),
-        station.getRails(),
-        station.getManagerCode()
+      station.getStationCode(),
+      station.getStationName(),
+      station.getRails(),
+      station.getManagerCode()
     };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final Station station) {
     return new Object[] {
-        station.getStationName(),
-        station.getRails(),
-        station.getManagerCode(),
-        station.getStationCode()
+      station.getStationName(),
+      station.getRails(),
+      station.getManagerCode(),
+      station.getStationCode()
     };
   }
 

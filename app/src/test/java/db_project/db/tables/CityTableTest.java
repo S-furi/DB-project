@@ -39,7 +39,7 @@ public class CityTableTest {
     try {
       cityTable.findAll().forEach(t -> cityTable.delete(t.getName()));
     } catch (IllegalStateException e) {
-      //there are some dependencies (teardown will be executed);
+      // there are some dependencies (teardown will be executed);
     }
   }
 
