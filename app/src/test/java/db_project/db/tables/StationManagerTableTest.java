@@ -37,14 +37,12 @@ public class StationManagerTableTest {
         new StationManager("1", date1, "Mimmo", "Baresi", "3", "a@gmail.com", "C");
     final StationManager stationManager2 =
         new StationManager("2", date2, "Franco", "Pino", "2", "franco@pino.com", "C");
-    System.out.println("DIODID");
     assertTrue(stationManagerTable.save(stationManager1));
     assertTrue(stationManagerTable.save(stationManager2));
   }
 
   @AfterAll
   static void tearDown() {
-    System.out.println("PORCAMADONNANERA");
     stationManagerTable.findAll().forEach(t -> System.out.println(t.getManagerCode()));
     stationManagerTable.findAll().forEach(t -> stationManagerTable.delete(t.getManagerCode()));
     CityTableTest.tearDown();
