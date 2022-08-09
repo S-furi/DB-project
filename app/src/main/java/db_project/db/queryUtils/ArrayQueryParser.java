@@ -30,10 +30,8 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Super bad method, but it works... Check with wich keyword the given query
-   * begins with, an
-   * according to that, an update is executed (in case of DELETE, UPDATE, INSERT
-   * operations) or a
+   * Super bad method, but it works... Check with wich keyword the given query begins with, an
+   * according to that, an update is executed (in case of DELETE, UPDATE, INSERT operations) or a
    * result is built
    *
    * @return false if the query starts with an unknown keyword
@@ -56,10 +54,8 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * It's called variabile because it's been called if the query is Basic (it
-   * hasn't got
-   * non-static-final fields inside query's body) or it needs to be a
-   * PreparedStatement, in order to
+   * It's called variabile because it's been called if the query is Basic (it hasn't got
+   * non-static-final fields inside query's body) or it needs to be a PreparedStatement, in order to
    * insert all the parameters.
    *
    * @return true if the statement is created succefully
@@ -84,13 +80,10 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Generate a result from a Basic Statement query (means that the query hasn't
-   * got
-   * non-static-final parameters and so it's safe (no sql injection) to assign
-   * them to the string).
+   * Generate a result from a Basic Statement query (means that the query hasn't got
+   * non-static-final parameters and so it's safe (no sql injection) to assign them to the string).
    *
-   * <p>
-   * For a better understanding about the result go to {@link
+   * <p>For a better understanding about the result go to {@link
    * db_project.db.queryUtils.QueryResult} and read why and what it yields.
    *
    * @return the result given from the query
@@ -131,8 +124,7 @@ public class ArrayQueryParser implements QueryParser {
   }
 
   /**
-   * Very raw and not Object Oriented method for retreiving and using the right
-   * method with
+   * Very raw and not Object Oriented method for retreiving and using the right method with
    * preparedStatement (it's possibile also to use setObject but mmm... idk)
    *
    * @param statement the {@link java.sql.PreparedStatement}
@@ -166,9 +158,8 @@ public class ArrayQueryParser implements QueryParser {
 
   /**
    * @param res the resultSet of a given Query
-   * @return a List of the results, mapped as a (key,value) pair where key is the
-   *         name of the
-   *         column, and value is the value of the i-th row of the result.
+   * @return a List of the results, mapped as a (key,value) pair where key is the name of the
+   *     column, and value is the value of the i-th row of the result.
    */
   private List<Map<String, Object>> generateResultFromResultSet(ResultSet res) {
     List<Map<String, Object>> results = new ArrayList<>();
