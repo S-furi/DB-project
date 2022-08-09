@@ -27,8 +27,8 @@ public class PathTableTest {
     final var path1 = new Path("1", "01:11", 5, "1");
     final var path2 = new Path("2", "02:21", 2, "2");
 
-    assertTrue(pathTable.save(path1));
-    assertTrue(pathTable.save(path2));
+    pathTable.save(path1);
+    pathTable.save(path2);
   }
 
   @AfterAll
@@ -52,11 +52,7 @@ public class PathTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(pathTable.save(this.path));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          pathTable.save(this.path);
-        });
+    assertFalse(pathTable.save(this.path));
     assertTrue(pathTable.delete(this.path.getPathCode()));
     assertFalse(pathTable.delete(this.path.getPathCode()));
   }

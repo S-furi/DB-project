@@ -1,11 +1,10 @@
 package db_project.db.tables;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
 import db_project.model.Station;
@@ -24,11 +23,11 @@ public class StationTableTest {
   @BeforeAll
   static void setUp() {
     StationManagerTableTest.setUp();
-    final Station station1 = new Station("1", "C", 6, "121");
-    final Station station2 = new Station("2", "C", 2, "212");
+    final Station station1 = new Station("1", "C", 6, "1");
+    final Station station2 = new Station("2", "A", 6, "2");
 
-    assertTrue(stationTable.save(station1));
-    assertTrue(stationTable.save(station2));
+    stationTable.save(station1);
+    stationTable.save(station2);
   }
 
   @AfterAll
@@ -40,6 +39,18 @@ public class StationTableTest {
   @Test
   public void testFindByPrimaryKey() {
     assertTrue(stationTable.findByPrimaryKey("1").isPresent());
-    assertFalse(stationTable.findByPrimaryKey("3").isPresent());
+    assertFalse(stationTable.findByPrimaryKey("5").isPresent());
+  }
+
+  @Test
+  public void testFindAll() {
+    assertFalse(stationTable.findAll().isEmpty());
+  }
+
+  @Test
+  public void testSaveAndDelete() {
+    final Station station1 = new Station("3", "C", 6, "2");
+    assertTrue(stationTable.save(station1));
+    assertTrue(stationTable.delete(station1.getStationCode()));
   }
 }

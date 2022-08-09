@@ -7,15 +7,12 @@ public class Section {
   private final String endStation;
   private final String sectionCode;
   private final int distance;
-  private final String routeCode;
 
-  public Section(
-      String startStation, String endStation, String sectionCode, int distance, String routeCode) {
+  public Section(String startStation, String endStation, String sectionCode, int distance) {
     this.startStation = startStation;
     this.endStation = endStation;
     this.sectionCode = sectionCode;
     this.distance = distance;
-    this.routeCode = routeCode;
   }
 
   public String getStartStation() {
@@ -32,9 +29,5 @@ public class Section {
 
   public int getDistance() {
     return distance;
-  }
-
-  public String getRouteCode() {
-    return routeCode;
   }
 }
