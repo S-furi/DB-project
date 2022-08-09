@@ -27,7 +27,7 @@ public class CarClassTable extends AbstractTable<CarClass, Integer> {
 
   @Override
   protected Object[] getUpdateQueryParameters(CarClass carclass) {
-    return new Object[] {carclass.getClassType(), carclass.getAvailableSeats()};
+    return new Object[] {carclass.getAvailableSeats(), carclass.getClassType()};
   }
 
   @Override
