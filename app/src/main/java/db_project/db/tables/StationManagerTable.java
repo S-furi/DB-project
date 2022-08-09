@@ -38,13 +38,13 @@ public class StationManagerTable extends AbstractTable<StationManager, String> {
   @Override
   protected Object[] getUpdateQueryParameters(StationManager stationManager) {
     return new Object[] {
-      stationManager.getManagerCode(),
       stationManager.getContractYear(),
       stationManager.getFirstName(),
       stationManager.getLastName(),
       stationManager.getPhone(),
       stationManager.getEmail(),
-      stationManager.getResidence()
+      stationManager.getResidence(),
+      stationManager.getManagerCode()
     };
   }
 
@@ -60,7 +60,7 @@ public class StationManagerTable extends AbstractTable<StationManager, String> {
         .forEach(
             row -> {
               System.out.println(row.toString());
-              final String managerCode = (String) row.get("codResopnsabile");
+              final String managerCode = (String) row.get("codResponsabile");
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");
