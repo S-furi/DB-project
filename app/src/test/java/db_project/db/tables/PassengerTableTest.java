@@ -2,7 +2,6 @@ package db_project.db.tables;
 
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -65,11 +64,7 @@ public class PassengerTableTest {
   @Test
   public void testSaveandDelete() {
     assertTrue(travelerTable.save(this.traveler));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          travelerTable.save(this.traveler);
-        });
+    assertFalse(travelerTable.save(this.traveler));
     assertTrue(travelerTable.delete(this.traveler.getTravelerCode()));
     assertFalse(travelerTable.delete(this.traveler.getTravelerCode()));
   }

@@ -1,7 +1,6 @@
 package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -82,11 +81,7 @@ public class DriverTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(driverTable.save(this.driver));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          driverTable.save(this.driver);
-        });
+    assertFalse(driverTable.save(this.driver));
     // deleting
     assertTrue(driverTable.delete(this.driver.getLicenceNumber()));
     assertFalse(driverTable.delete(this.driver.getLicenceNumber()));

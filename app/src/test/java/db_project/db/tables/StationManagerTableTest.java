@@ -66,11 +66,7 @@ public class StationManagerTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(stationManagerTable.save(this.stationManager));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          stationManagerTable.save(this.stationManager);
-        });
+    assertFalse(stationManagerTable.save(this.stationManager));
     assertTrue(stationManagerTable.delete(this.stationManager.getManagerCode()));
     assertFalse(stationManagerTable.delete(this.stationManager.getManagerCode()));
   }

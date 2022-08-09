@@ -53,11 +53,7 @@ public class SectionTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(sectionTable.save(this.section));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          sectionTable.save(this.section);
-        });
+    assertFalse(sectionTable.save(this.section));
     assertTrue(sectionTable.delete(this.section.getSectionCode()));
     assertFalse(sectionTable.delete(this.section.getSectionCode()));
   }

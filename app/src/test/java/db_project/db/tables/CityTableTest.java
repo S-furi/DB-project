@@ -26,21 +26,13 @@ public class CityTableTest {
     final var city1 = new City("A", "T", "A");
     final var city2 = new City("C", "E", "F");
 
-    try {
-      assertTrue(cityTable.save(city1));
-      assertTrue(cityTable.save(city2));
-    } catch (IllegalStateException e) {
-      // Row is duplicated (setUp already ran);
-    }
+    assertTrue(cityTable.save(city1));
+    assertTrue(cityTable.save(city2));
   }
 
   @AfterAll
   public static void tearDown() {
-    try {
-      cityTable.findAll().forEach(t -> cityTable.delete(t.getName()));
-    } catch (IllegalStateException e) {
-      // there are some dependencies (teardown will be executed);
-    }
+    cityTable.findAll().forEach(t -> cityTable.delete(t.getName()));
   }
 
   @Test
@@ -58,11 +50,7 @@ public class CityTableTest {
   @Test
   void testSaveAndDelete() {
     assertTrue(cityTable.save(this.city));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          cityTable.save(this.city);
-        });
+    assertFalse(cityTable.save(this.city));
     assertTrue(cityTable.delete(this.city.getName()));
     assertFalse(cityTable.delete(this.city.getName()));
   }

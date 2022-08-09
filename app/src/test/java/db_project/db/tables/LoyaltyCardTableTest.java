@@ -1,7 +1,6 @@
 package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -55,11 +54,7 @@ public class LoyaltyCardTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(loyaltyCardTable.save(this.loyaltyCard));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          loyaltyCardTable.save(this.loyaltyCard);
-        });
+    assertFalse(loyaltyCardTable.save(this.loyaltyCard));
     assertTrue(loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
     assertFalse(loyaltyCardTable.delete(this.loyaltyCard.getCardId()));
   }

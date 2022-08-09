@@ -51,11 +51,7 @@ public class GroupTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(groupTable.save(group));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          groupTable.save(group);
-        });
+    assertFalse(groupTable.save(group));
     assertTrue(groupTable.delete(this.group.getGroupId()));
     assertFalse(groupTable.delete(this.group.getGroupId()));
   }

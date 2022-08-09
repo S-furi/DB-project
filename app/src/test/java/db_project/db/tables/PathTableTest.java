@@ -52,11 +52,7 @@ public class PathTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(pathTable.save(this.path));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          pathTable.save(this.path);
-        });
+    assertFalse(pathTable.save(this.path));
     assertTrue(pathTable.delete(this.path.getPathCode()));
     assertFalse(pathTable.delete(this.path.getPathCode()));
   }

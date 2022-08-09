@@ -54,11 +54,7 @@ public class carClassTableTest {
   @Test
   public void testSaveAndDelete() {
     assertTrue(carClassTable.save(this.carClass3));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          carClassTable.save(this.carClass3);
-        });
+    assertFalse(carClassTable.save(this.carClass3));
     assertTrue(carClassTable.delete(this.carClass3.getClassType()));
     assertFalse(carClassTable.delete(this.carClass3.getClassType()));
   }
