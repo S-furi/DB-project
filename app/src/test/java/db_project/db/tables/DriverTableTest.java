@@ -56,8 +56,8 @@ public class DriverTableTest {
             "nonohovogliaa@gmail.com",
             "C");
 
-    assertTrue(driverTable.save(driver1));
-    assertTrue(driverTable.save(driver2));
+    driverTable.save(driver1);
+    driverTable.save(driver2);
   }
 
   @AfterAll

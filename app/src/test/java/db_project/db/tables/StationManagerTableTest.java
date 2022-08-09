@@ -37,8 +37,8 @@ public class StationManagerTableTest {
         new StationManager("1", date1, "Mimmo", "Baresi", "3", "a@gmail.com", "C");
     final StationManager stationManager2 =
         new StationManager("2", date2, "Franco", "Pino", "2", "franco@pino.com", "C");
-    assertTrue(stationManagerTable.save(stationManager1));
-    assertTrue(stationManagerTable.save(stationManager2));
+    stationManagerTable.save(stationManager1);
+    stationManagerTable.save(stationManager2);
   }
 
   @AfterAll

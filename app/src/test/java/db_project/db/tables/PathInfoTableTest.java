@@ -28,8 +28,8 @@ public class PathInfoTableTest {
     final var pathInfo1 = new PathInfo("1", 1, "1");
     final var pathInfo2 = new PathInfo("2", 2, "1");
 
-    assertTrue(pathInfoTable.save(pathInfo1));
-    assertTrue(pathInfoTable.save(pathInfo2));
+    pathInfoTable.save(pathInfo1);
+    pathInfoTable.save(pathInfo2);
   }
 
   @AfterAll

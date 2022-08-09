@@ -29,9 +29,8 @@ public class LoyaltyCardTableTest {
     final var loyaltyCard1 = new LoyaltyCard("1", 100, 12);
     final var loyaltyCard2 = new LoyaltyCard("2", 50, 6);
 
-    assertTrue(loyaltyCardTable.save(loyaltyCard1));
-    assertTrue(loyaltyCardTable.save(loyaltyCard2));
-    System.out.println("LAMMERDA!!!");
+    loyaltyCardTable.save(loyaltyCard1);
+    loyaltyCardTable.save(loyaltyCard2);
   }
 
   @AfterAll

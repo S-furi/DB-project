@@ -26,8 +26,8 @@ public class StationTableTest {
     final Station station1 = new Station("1", "C", 6, "1");
     final Station station2 = new Station("2", "A", 6, "2");
 
-    assertTrue(stationTable.save(station1));
-    assertTrue(stationTable.save(station2));
+    stationTable.save(station1);
+    stationTable.save(station2);
   }
 
   @AfterAll

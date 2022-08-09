@@ -28,8 +28,8 @@ public class SectionTableTest {
     final var section1 = new Section("1", "2", "1", 50);
     final var section2 = new Section("2", "1", "2", 50);
 
-    assertTrue(sectionTable.save(section1));
-    assertTrue(sectionTable.save(section2));
+    sectionTable.save(section1);
+    sectionTable.save(section2);
   }
 
   @AfterAll

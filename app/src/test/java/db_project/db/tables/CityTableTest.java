@@ -26,8 +26,8 @@ public class CityTableTest {
     final var city1 = new City("A", "T", "A");
     final var city2 = new City("C", "E", "F");
 
-    assertTrue(cityTable.save(city1));
-    assertTrue(cityTable.save(city2));
+    cityTable.save(city1);
+    cityTable.save(city2);
   }
 
   @AfterAll

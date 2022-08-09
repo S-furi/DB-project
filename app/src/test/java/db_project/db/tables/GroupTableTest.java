@@ -27,8 +27,8 @@ public class GroupTableTest {
     var group1 = new Group("1", 9);
     var group2 = new Group("2", 5);
 
-    assertTrue(groupTable.save(group1));
-    assertTrue(groupTable.save(group2));
+    groupTable.save(group1);
+    groupTable.save(group2);
   }
 
   @AfterAll

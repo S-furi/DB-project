@@ -51,8 +51,8 @@ public class AdminTableTest {
             "filippo.rossi@gmail.com",
             "A");
 
-    assertTrue(adminTable.save(adm1));
-    assertTrue(adminTable.save(adm2));
+    adminTable.save(adm1);
+    adminTable.save(adm2);
   }
 
   @AfterAll

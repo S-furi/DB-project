@@ -38,8 +38,8 @@ public class PassengerTableTest {
     final Passenger traveler2 =
         new Passenger("2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C", Optional.empty());
 
-    assertTrue(travelerTable.save(traveler1));
-    assertTrue(travelerTable.save(traveler2));
+    travelerTable.save(traveler1);
+    travelerTable.save(traveler2);
   }
 
   @AfterAll

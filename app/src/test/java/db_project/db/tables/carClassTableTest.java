@@ -29,8 +29,8 @@ public class carClassTableTest {
     final CarClass carclass1 = new CarClass(1, 10);
     final CarClass carclass2 = new CarClass(2, 15);
 
-    assertTrue(carClassTable.save(carclass1));
-    assertTrue(carClassTable.save(carclass2));
+    carClassTable.save(carclass1);
+    carClassTable.save(carclass2);
   }
 
   @AfterAll
