@@ -6,9 +6,9 @@ public class Train {
   private final String trainCode;
   private final String licenseNumber;
   private final int capacity;
-  private final boolean isRegionaleVeloce;
+  private final String isRegionaleVeloce;
 
-  public Train(String trainCode, String licenseNumber, int capacity, boolean isRegionaleVeloce) {
+  public Train(String trainCode, String licenseNumber, int capacity, String isRegionaleVeloce) {
     this.trainCode = trainCode;
     this.licenseNumber = licenseNumber;
     this.capacity = capacity;
@@ -27,7 +27,7 @@ public class Train {
     return capacity;
   }
 
-  public boolean isRegionaleVeloce() {
+  public String isRegionaleVeloce() {
     return isRegionaleVeloce;
   }
 
