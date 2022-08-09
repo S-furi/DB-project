@@ -26,13 +26,21 @@ public class CityTableTest {
     final var city1 = new City("A", "T", "A");
     final var city2 = new City("C", "E", "F");
 
-    assertTrue(cityTable.save(city1));
-    assertTrue(cityTable.save(city2));
+    try {
+      assertTrue(cityTable.save(city1));
+      assertTrue(cityTable.save(city2));
+    } catch (IllegalStateException e) {
+      // Row is duplicated (setUp already ran);
+    }
   }
 
   @AfterAll
   public static void tearDown() {
-    cityTable.findAll().forEach(t -> cityTable.delete(t.getName()));
+    try {
+      cityTable.findAll().forEach(t -> cityTable.delete(t.getName()));
+    } catch (IllegalStateException e) {
+      //there are some dependencies (teardown will be executed);
+    }
   }
 
   @Test

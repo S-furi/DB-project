@@ -72,7 +72,11 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
     query.append(")");
 
     final Object[] params = this.getSaveQueryParameters(value);
-    return this.parser.computeSqlQuery(query.toString(), params);
+    try {
+      return this.parser.computeSqlQuery(query.toString(), params);
+    } catch (IllegalStateException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   /**
@@ -92,7 +96,11 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
     query.append(" WHERE " + this.primaryKeyName + " = ?");
 
     final Object[] params = this.getUpdateQueryParameters(updatedValue);
-    return this.parser.computeSqlQuery(query.toString(), params);
+    try {
+      return this.parser.computeSqlQuery(query.toString(), params);
+    } catch (IllegalStateException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   /**
@@ -111,7 +119,11 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
     }
     final String query = "DELETE FROM " + this.tableName + " WHERE " + this.primaryKeyName + " = ?";
     final Object[] params = {primaryKey};
-    return this.parser.computeSqlQuery(query, params);
+    try {
+      return this.parser.computeSqlQuery(query, params);
+    } catch (IllegalStateException e) {
+        throw new IllegalStateException(e);
+    } 
   }
 
   /**
