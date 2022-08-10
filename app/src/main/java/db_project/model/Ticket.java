@@ -49,7 +49,7 @@ public class Ticket {
 
   /**
    * @return the primaryKey
-  */
+   */
   public String getTicketId() {
     return ticketId;
   }
