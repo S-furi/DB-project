@@ -10,7 +10,7 @@ import db_project.db.queryUtils.QueryResult;
 
 public abstract class AbstractTable<T, K> implements Table<T, K> {
   private String tableName;
-  private final QueryParser parser;
+  protected final QueryParser parser;
   private String primaryKeyName;
   private boolean isSetUpDone;
   private List<String> tableColumns;
