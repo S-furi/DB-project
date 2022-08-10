@@ -31,6 +31,25 @@ public class Ticket {
     this.date = date;
   }
 
+  public Ticket(
+      final String ticketId,
+      final boolean isRv,
+      final Optional<String> groupId,
+      final String passengerId,
+      final RouteInfo routeInfo) {
+
+    this.ticketId = ticketId;
+    this.isRv = isRv;
+    this.groupId = groupId;
+    this.passengerId = passengerId;
+    this.pathId = routeInfo.getPathId();
+    this.trainId = routeInfo.getTrainId();
+    this.date = routeInfo.getDate();
+  }
+
+  /**
+   * @return the primaryKey
+  */
   public String getTicketId() {
     return ticketId;
   }
