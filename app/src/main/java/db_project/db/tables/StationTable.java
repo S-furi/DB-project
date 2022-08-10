@@ -59,7 +59,4 @@ public class StationTable extends AbstractTable<Station, String> {
             });
     return stations;
   }
-
-  
-
 }
