@@ -1,6 +1,6 @@
 package db_project.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Optional;
 
 // Biglietto
