@@ -29,3 +29,6 @@ gradle-app.setting
 
 # Connection file
 # app/src/main/java/db_project/view/ConnectionController.java
+
+# logs
+.testlogs/
