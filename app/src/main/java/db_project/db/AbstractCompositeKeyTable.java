@@ -146,6 +146,12 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
     return this.parser.computeSqlQuery(query.toString(), params);
   }
 
+  @Override
+  public boolean dropTable() {
+      final String query = "DROP TABLE " + this.tableName;
+      return this.parser.computeSqlQuery(query, null);
+  }
+
   /**
    * Determine how to interpret and read the result given from a query;
    *
