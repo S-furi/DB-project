@@ -21,7 +21,6 @@ public class StationTableTest {
       new StationTable(connectionProvider.getMySQLConnection());
 
   private final Station station3 = new Station("3", "D", 2, "2");
-  
 
   @BeforeAll
   static void setUp() {
@@ -46,11 +45,17 @@ public class StationTableTest {
   }
 
   @Test
-  public void testUpdate(){
+  public void testUpdate() {
     final var currStation = stationTable.findByPrimaryKey("1");
-    if(currStation.isEmpty()){
+    if (currStation.isEmpty()) {
       fail("Select Failed");
     }
-    assertTrue(stationTable.update(new Station("1", this.station3.getStationName(), this.station3.getRails(), this.station3.getManagerCode())));
+    assertTrue(
+        stationTable.update(
+            new Station(
+                "1",
+                this.station3.getStationName(),
+                this.station3.getRails(),
+                this.station3.getManagerCode())));
   }
 }
