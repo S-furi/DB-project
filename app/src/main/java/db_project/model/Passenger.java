@@ -11,7 +11,7 @@ public class Passenger {
   private final String phone;
   private final String email;
   private final String residence;
-  private final Optional<Object> isGroup;
+  private final Optional<String> isGroup;
 
   public Passenger(
       String travelerCode,
@@ -20,7 +20,7 @@ public class Passenger {
       String phone,
       String email,
       String residence,
-      Optional<Object> isGroup) {
+      Optional<String> isGroup) {
     this.travelerCode = travelerCode;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -50,7 +50,7 @@ public class Passenger {
     return residence;
   }
 
-  public Optional<Object> isGroup() {
+  public Optional<String> isGroup() {
     return isGroup;
   }
 
