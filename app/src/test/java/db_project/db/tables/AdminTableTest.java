@@ -51,8 +51,8 @@ public class AdminTableTest {
             "filippo.rossi@gmail.com",
             "A");
 
-    assertTrue(adminTable.save(adm1));
-    assertTrue(adminTable.save(adm2));
+    adminTable.save(adm1);
+    adminTable.save(adm2);
   }
 
   @AfterAll
@@ -82,21 +82,16 @@ public class AdminTableTest {
 
   @Test
   public void testInsertDuplicateKey() {
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          Admin adm =
-              new Admin(
-                  "1",
-                  Utils.dateToSqlDate(date),
-                  "stefano",
-                  "furi",
-                  "35",
-                  "stefano.furi7@gmail.com",
-                  "C");
-          System.out.println(adm);
-          assertTrue(adminTable.save(adm));
-        });
+    Admin adm =
+        new Admin(
+            "1",
+            Utils.dateToSqlDate(date),
+            "stefano",
+            "furi",
+            "35",
+            "stefano.furi7@gmail.com",
+            "C");
+    assertFalse(adminTable.save(adm));
   }
 
   @Test

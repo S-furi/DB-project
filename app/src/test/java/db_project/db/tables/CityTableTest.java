@@ -26,8 +26,8 @@ public class CityTableTest {
     final var city1 = new City("A", "T", "A");
     final var city2 = new City("C", "E", "F");
 
-    assertTrue(cityTable.save(city1));
-    assertTrue(cityTable.save(city2));
+    cityTable.save(city1);
+    cityTable.save(city2);
   }
 
   @AfterAll
@@ -50,11 +50,7 @@ public class CityTableTest {
   @Test
   void testSaveAndDelete() {
     assertTrue(cityTable.save(this.city));
-    assertThrows(
-        IllegalStateException.class,
-        () -> {
-          cityTable.save(this.city);
-        });
+    assertFalse(cityTable.save(this.city));
     assertTrue(cityTable.delete(this.city.getName()));
     assertFalse(cityTable.delete(this.city.getName()));
   }

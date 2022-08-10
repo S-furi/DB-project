@@ -1,13 +1,10 @@
 package db_project.db.tables;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import db_project.db.ConnectionProvider;
 import db_project.model.Station;
@@ -30,10 +27,10 @@ public class StationTableTest {
   static void setUp() {
     StationManagerTableTest.setUp();
     final Station station1 = new Station("1", "C", 6, "1");
-    final Station station2 = new Station("2", "C", 2, "2");
+    final Station station2 = new Station("2", "A", 6, "2");
 
-    assertTrue(stationTable.save(station1));
-    assertTrue(stationTable.save(station2));
+    stationTable.save(station1);
+    stationTable.save(station2);
   }
 
   @AfterAll
@@ -45,24 +42,7 @@ public class StationTableTest {
   @Test
   public void testFindByPrimaryKey() {
     assertTrue(stationTable.findByPrimaryKey("1").isPresent());
-    assertFalse(stationTable.findByPrimaryKey("3").isPresent());
-  }
-
-  @Test
-  public void testFindAll(){
-    assertFalse(stationTable.findAll().isEmpty());
-    assertTrue(stationTable.findAll().size() == 2);
-  }
-
-  @Test
-  public void testSaveAndDelete(){
-    assertTrue(stationTable.save(this.station3));
-    assertThrows(IllegalStateException.class, 
-      () -> {
-        stationTable.save(this.station3);
-      });
-    assertTrue(stationTable.delete(this.station3.getStationCode()));
-    assertFalse(stationTable.delete(this.station3.getStationCode()));
+    assertFalse(stationTable.findByPrimaryKey("5").isPresent());
   }
 
   @Test

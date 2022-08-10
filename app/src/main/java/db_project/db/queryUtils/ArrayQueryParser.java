@@ -114,7 +114,12 @@ public class ArrayQueryParser implements QueryParser {
       this.resetQuery();
       return statement.executeUpdate() > 0;
     } catch (final SQLException e) {
-      throw new IllegalStateException(e);
+      // Error code 1062 is the Duplicate primary key insertion.
+      // Error code 1451 is the Constraint Violation when deleting.
+      if (!(e.getErrorCode() == 1451) && !(e.getErrorCode() == 1062)) {
+        throw new IllegalStateException(e);
+      }
+      return false;
     }
   }
 
