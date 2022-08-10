@@ -146,6 +146,8 @@ public class ArrayQueryParser implements QueryParser {
         statement.setInt(index, (int) param);
       } else if (param.getClass().equals(java.sql.Date.class)) {
         statement.setDate(index, (java.sql.Date) param);
+      } else if (param.getClass().equals(Float.class)) {
+        statement.setDouble(index, (Float) param);
       } else if (param.getClass().equals(java.util.Optional.class)) {
         final Optional<String> optParam = (Optional<String>) param;
         if (optParam.isPresent()) {
