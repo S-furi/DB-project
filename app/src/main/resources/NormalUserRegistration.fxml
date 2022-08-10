@@ -21,7 +21,7 @@
             <ChoiceBox fx:id="provReg" layoutX="226.0" layoutY="289.0" prefWidth="150.0" />
             <TextField fx:id="licId" layoutX="216.0" layoutY="247.0" promptText="Numero Patente" visible="false" />
             <Button fx:id="submitButton" layoutX="504.0" layoutY="368.0" mnemonicParsing="false" onAction="#retrieveData" text="Conferma" />
-            <TextField fx:id="cittReg" layoutX="397.0" layoutY="289.0" promptText="Citta'" />
+            <ChoiceBox fx:id="cittReg" layoutX="405.0" layoutY="289.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </center>

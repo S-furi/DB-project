@@ -23,7 +23,7 @@ public class RegistrationController implements Initializable {
 
   @FXML private Button regUser;
 
-  @FXML private TextField cittReg;
+  @FXML private ChoiceBox<String> cittReg;
 
   @FXML private TextField surnameReg;
 
@@ -93,6 +93,7 @@ public class RegistrationController implements Initializable {
   private void populateCountryData() {
     this.regReg.setValue("Regione");
     this.provReg.setValue("Provincia");
+    this.cittReg.setValue("Citta'");
   }
 
   @FXML
@@ -106,7 +107,7 @@ public class RegistrationController implements Initializable {
     this.data.add(emailReg.getText());
     this.data.add(regReg.getValue());
     this.data.add(provReg.getValue());
-    this.data.add(cittReg.getText());
+    this.data.add(cittReg.getValue());
 
     if (this.accountTypes.getValue() == "Utente") {
       if (this.cartArrowReg.isSelected()) {
