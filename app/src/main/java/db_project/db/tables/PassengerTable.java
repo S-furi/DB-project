@@ -18,8 +18,7 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
-      List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva")
-    );
+        List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva"));
   }
 
   @Override
