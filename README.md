@@ -12,11 +12,11 @@ Robe da far subito:
 - [x] Implement pathfind for railways  
 - [ ] Choose number/which stations to put into JSONs
 - [x] Clean **local code** for calculating time and routes:
-- [ ] Make DB code more robust and generic as possible
-- [ ] Model all **Tables** that will be needed:
-  - [ ] Logically (Progettazione Logica, teoricamente)
-  - [ ] Pratically (Java Tables implementation)
-  - [ ] Check them into DB
+- [x] Make DB code more robust and generic as possible
+- [x] Model all **Tables** that will be needed:
+  - [x] Logically (Progettazione Logica, teoricamente)
+  - [x] Pratically (Java Tables implementation)
+  - [x] Check them into DB
 - [ ] **GUI**:
   - [ ] Scratch a GUI design
   - [ ] Decide which operation will be needed in the GUI and how to do/design them
@@ -28,7 +28,7 @@ Robe da far subito:
   - Write *SQL* query
   - [x] Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute
     - [x] Use `java.util.Map<String, Object>` instead if `Pair<String, Object>` for row-col value.
-    - [ ] Figure Out a way to manipulate Composite-Keys Tables
+    - [x] Figure Out a way to manipulate Composite-Keys Tables
 ---
 ### **SCHEMA**
 Tutto quello che è qui è da fare concorrentemente alla stesura del report
