@@ -12,6 +12,7 @@ public class Ticket {
   private final String pathId;
   private final String trainId;
   private final Date date;
+  private final Float price;
 
   public Ticket(
       final String ticketId,
@@ -20,7 +21,8 @@ public class Ticket {
       final String passengerId,
       final String pathId,
       final String trainId,
-      final Date date) {
+      final Date date,
+      final Float price) {
 
     this.ticketId = ticketId;
     this.isRv = isRv;
@@ -29,6 +31,7 @@ public class Ticket {
     this.pathId = pathId;
     this.trainId = trainId;
     this.date = date;
+    this.price = price;
   }
 
   public Ticket(
@@ -36,6 +39,7 @@ public class Ticket {
       final boolean isRv,
       final Optional<String> groupId,
       final String passengerId,
+      final Float price,
       final RouteInfo routeInfo) {
 
     this.ticketId = ticketId;
@@ -45,6 +49,7 @@ public class Ticket {
     this.pathId = routeInfo.getPathId();
     this.trainId = routeInfo.getTrainId();
     this.date = routeInfo.getDate();
+    this.price = price;
   }
 
   /**
@@ -76,6 +81,10 @@ public class Ticket {
 
   public Date getDate() {
     return date;
+  }
+
+  public Float getPrice() {
+    return price;
   }
 
   @Override

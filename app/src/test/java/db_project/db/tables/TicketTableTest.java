@@ -31,7 +31,8 @@ public class TicketTableTest {
           "2",
           "2",
           "1",
-          Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()));
+          Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()),
+          12.8f);
 
   @BeforeAll
   public static void setUp() {
@@ -47,7 +48,8 @@ public class TicketTableTest {
             "1",
             "1",
             "1",
-            Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get()));
+            Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get()),
+            11.2f);
 
     final var ticket2 =
         new Ticket(
@@ -57,7 +59,8 @@ public class TicketTableTest {
             "2",
             "2",
             "1",
-            Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()));
+            Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()),
+            14.2f);
 
     ticketTable.save(ticket1);
     ticketTable.save(ticket2);
@@ -106,7 +109,8 @@ public class TicketTableTest {
             this.ticket.getPassengerId(),
             this.ticket.getPathId(),
             this.ticket.getTrainId(),
-            this.ticket.getDate());
+            this.ticket.getDate(),
+            this.ticket.getPrice());
 
     assertTrue(ticketTable.update(newTicket));
     assertTrue(ticketTable.update(currTicket.get()));

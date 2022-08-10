@@ -19,7 +19,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of(
-            "regionaleVeloce", "codComitiva", "codPasseggero", "codPercorso", "codTreno", "data"));
+            "regionaleVeloce", "codComitiva", "codPasseggero", "codPercorso", "codTreno", "data", "prezzo"));
   }
 
   @Override
@@ -31,7 +31,8 @@ public class TicketTable extends AbstractTable<Ticket, String> {
       ticket.getPassengerId(),
       ticket.getPathId(),
       ticket.getTrainId(),
-      ticket.getDate()
+      ticket.getDate(),
+      ticket.getPrice()
     };
   }
 
@@ -44,6 +45,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
       ticket.getPathId(),
       ticket.getTrainId(),
       ticket.getDate(),
+      ticket.getPrice(),
       ticket.getTicketId()
     };
   }
@@ -70,8 +72,8 @@ public class TicketTable extends AbstractTable<Ticket, String> {
               final String pathId = (String) row.get("codPercorso");
               final String trainId = (String) row.get("codTreno");
               final Date date = (Date) row.get("data");
-
-              tickets.add(new Ticket(ticketId, isRv, groupId, passengerId, pathId, trainId, date));
+              final Float price = (Float) row.get("prezzo");
+              tickets.add(new Ticket(ticketId, isRv, groupId, passengerId, pathId, trainId, date, price));
             });
 
     return tickets;
