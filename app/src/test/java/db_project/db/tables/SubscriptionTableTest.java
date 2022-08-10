@@ -38,6 +38,9 @@ public class SubscriptionTableTest {
     @AfterAll
     static void tearDown(){
         subscriptionTable.findAll().forEach(t -> subscriptionTable.delete(t.getTravelerCode()));
+        PassengerTableTest.tearDown();
+        LoyaltyCardTableTest.tearDown();
+        
     }
 
     @Test
