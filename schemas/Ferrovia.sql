@@ -32,7 +32,7 @@ create table AMMINISTRATORE (
 create table BIGLIETTO (
      codiceBiglietto varchar(5) not null,
      regionaleVeloce char,
-     codComitiva varchar(5) not null,
+     codComitiva varchar(5),
      codPasseggero varchar(5) not null,
      codPercorso varchar(5) not null,
      codTreno varchar(5) not null,
