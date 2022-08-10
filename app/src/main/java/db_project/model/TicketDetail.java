@@ -4,7 +4,7 @@ import java.sql.Date;
 
 // Dettaglio Biglietto
 public class TicketDetail {
-  private final String tickedId;
+  private final String ticketId;
   private final Date reservationDate;
   private final int trainClass;
   private final String trainId;
@@ -12,13 +12,13 @@ public class TicketDetail {
   private final int seatNumber;
 
   public TicketDetail(
-      final String tickedId,
+      final String ticketId,
       final Date reservationDate,
       final int trainClass,
       final String trainId,
       final int carNumber,
       final int seatNumber) {
-    this.tickedId = tickedId;
+    this.ticketId = ticketId;
     this.reservationDate = reservationDate;
     this.trainClass = trainClass;
     this.trainId = trainId;
@@ -26,8 +26,8 @@ public class TicketDetail {
     this.seatNumber = seatNumber;
   }
 
-  public String getTickedId() {
-    return tickedId;
+  public String getTicketId() {
+    return ticketId;
   }
 
   public Date getReservationDate() {
@@ -54,7 +54,7 @@ public class TicketDetail {
   public String toString() {
     return String.format(
         "(%s) ReservationDate: %s - %d Class Ticket - Train: %s - CarNo: %d - Seat: %d",
-        this.tickedId,
+        this.ticketId,
         this.reservationDate,
         this.trainClass,
         this.trainId,
