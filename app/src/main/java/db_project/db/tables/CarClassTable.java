@@ -31,6 +31,11 @@ public class CarClassTable extends AbstractTable<CarClass, Integer> {
   }
 
   @Override
+  public boolean createTable() {
+    return false;
+  }
+
+  @Override
   protected List<CarClass> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

@@ -49,6 +49,11 @@ public class DriverTable extends AbstractTable<Driver, String> {
   }
 
   @Override
+  public boolean createTable() {
+      return false;
+  }
+
+  @Override
   protected List<Driver> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

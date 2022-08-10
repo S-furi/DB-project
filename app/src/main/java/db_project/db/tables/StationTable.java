@@ -38,6 +38,10 @@ public class StationTable extends AbstractTable<Station, String> {
       station.getStationCode()
     };
   }
+  @Override
+  public boolean createTable() {
+      return false;
+  }
 
   @Override
   protected List<Station> getPrettyResultFromQueryResult(QueryResult result) {

@@ -40,6 +40,11 @@ public class SectionTable extends AbstractTable<Section, String> {
   }
 
   @Override
+  public boolean createTable() {
+      return false;
+  }
+
+  @Override
   protected List<Section> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

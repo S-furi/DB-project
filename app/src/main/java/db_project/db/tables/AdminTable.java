@@ -47,6 +47,11 @@ public class AdminTable extends AbstractTable<Admin, String> {
       admin.getId()
     };
   }
+  
+  @Override
+  public boolean createTable() {
+    return false;
+  }
 
   @Override
   protected List<Admin> getPrettyResultFromQueryResult(final QueryResult result) {

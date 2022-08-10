@@ -46,6 +46,11 @@ public class TicketDetailTable extends AbstractTable<TicketDetail, String> {
   }
 
   @Override
+  public boolean createTable() {
+      return false;
+  }
+
+  @Override
   protected List<TicketDetail> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

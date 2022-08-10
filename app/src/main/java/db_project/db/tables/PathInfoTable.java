@@ -30,6 +30,11 @@ public class PathInfoTable extends AbstractTable<PathInfo, String> {
   }
 
   @Override
+  public boolean createTable() {
+      return false;
+  }
+
+  @Override
   protected List<PathInfo> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

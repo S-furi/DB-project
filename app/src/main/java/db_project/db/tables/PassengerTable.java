@@ -74,6 +74,11 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
     return travelers;
   }
 
+  @Override
+  public boolean createTable() {
+      return false;
+  }
+
   public int getHighestID() {
     final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
     super.parser.computeSqlQuery(query, null);

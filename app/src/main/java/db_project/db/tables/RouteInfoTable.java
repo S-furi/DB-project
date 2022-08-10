@@ -56,6 +56,11 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
             });
     return routeInfos;
   }
+  
+  @Override
+  public boolean createTable() {
+      return false;
+  }
 
   /** In this paricular table, updates aren't possible... :( */
   @Override

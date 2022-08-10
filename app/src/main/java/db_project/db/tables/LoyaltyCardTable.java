@@ -34,6 +34,11 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
   }
 
   @Override
+  public boolean createTable() {
+      return false;
+  }
+
+  @Override
   protected List<LoyaltyCard> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
