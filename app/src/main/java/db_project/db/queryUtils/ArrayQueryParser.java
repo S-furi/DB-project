@@ -24,7 +24,7 @@ public class ArrayQueryParser implements QueryParser {
     this.result = new QueryResult();
     this.connection = connection;
     this.finalQuery = new StringBuilder();
-    logger.setLevel(Level.INFO);
+    logger.setLevel(Level.WARNING);
   }
 
   @Override
