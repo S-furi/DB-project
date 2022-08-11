@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -14,12 +16,15 @@ import db_project.utils.Utils;
 public class DriverTable extends AbstractTable<Driver, String> {
   public static final String TABLE_NAME = "MACCHINISTA";
   public static final String PRIMARY_KEY = "numeroPatente";
+  private final Logger logger;
 
   public DriverTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -75,7 +80,7 @@ public class DriverTable extends AbstractTable<Driver, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String licenceNumber = (String) row.get("numeroPatente");
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");

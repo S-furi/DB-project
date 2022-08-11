@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -13,12 +15,16 @@ import db_project.model.Passenger;
 public class PassengerTable extends AbstractTable<Passenger, String> {
   public static final String TABLE_NAME = "PASSEGGERO";
   public static final String PRIMARY_KEY = "codPasseggero";
+  private final Logger logger;
 
   public PassengerTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva"));
+    
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -58,7 +64,7 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String travelerCode = (String) row.get("codPasseggero");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");

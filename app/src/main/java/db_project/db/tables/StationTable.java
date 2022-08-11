@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -12,11 +14,14 @@ import db_project.model.Station;
 public class StationTable extends AbstractTable<Station, String> {
   public static final String TABLE_NAME = "STAZIONE";
   public static final String PRIMARY_KEY = "codStazione";
+  private final Logger logger;
 
   public StationTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("nome", "numBinari", "codResponsabile"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -63,7 +68,7 @@ public class StationTable extends AbstractTable<Station, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String stationCode = (String) row.get("codStazione");
               final String stationName = (String) row.get("nome");
               final int rails = (int) row.get("numBinari");

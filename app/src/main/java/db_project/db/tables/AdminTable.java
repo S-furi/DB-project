@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.JsonReadeable;
@@ -16,12 +18,15 @@ import db_project.utils.Utils;
 public class AdminTable extends AbstractTable<Admin, String> implements JsonReadeable <Admin>{
   public static final String TABLE_NAME = "AMMINISTRATORE";
   public static final String PRIMARY_KEY = "adminID";
+  private final Logger logger;
 
   public AdminTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
+    this.logger = Logger.getLogger("AdminTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -78,7 +83,7 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String id = (String) row.get("adminID");
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");

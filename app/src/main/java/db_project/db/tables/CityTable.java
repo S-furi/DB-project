@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.JsonReadeable;
@@ -14,11 +16,14 @@ import db_project.utils.AbstractJsonReader;
 public class CityTable extends AbstractTable<City, String> implements JsonReadeable<City> {
   public static final String TABLE_NAME = "CITTA";
   public static final String PRIMARY_KEY = "nome";
+  private final Logger logger;
 
   public CityTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("regione", "provincia"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -55,7 +60,7 @@ public class CityTable extends AbstractTable<City, String> implements JsonReadea
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String name = (String) row.get("nome");
               final String region = (String) row.get("regione");
               final String province = (String) row.get("provincia");

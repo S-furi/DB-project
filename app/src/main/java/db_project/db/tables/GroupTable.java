@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -12,11 +14,14 @@ import db_project.model.Group;
 public class GroupTable extends AbstractTable<Group, String> {
   public static final String TABLE_NAME = "COMITIVA";
   public static final String PRIMARY_KEY = "codComitiva";
+  private final Logger logger;
 
   public GroupTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("numPersone"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -51,7 +56,7 @@ public class GroupTable extends AbstractTable<Group, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String groupId = (String) row.get("codComitiva");
               final int numberOfPeople = (int) row.get("numPersone");
               groups.add(new Group(groupId, numberOfPeople));
