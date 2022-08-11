@@ -90,6 +90,7 @@ public class DBGenerator {
     this.tables = lst;
     if (this.areTablesAlreadyCreated()) {
       logger.warning("*****TALBES ALREADY CREATED!***");
+      this.tables.forEach(Table::setAlreadyCreated);
       return false;
     }
     this.tables.forEach(Table::createTable);
