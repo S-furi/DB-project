@@ -39,7 +39,7 @@ public class DBGenerator {
   private List<Table> tables = new ArrayList<>();
 
   public DBGenerator() {
-    logger.setLevel(Level.INFO);
+    logger.setLevel(Level.WARNING);
   }
 
   public boolean createDB() {
