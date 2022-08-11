@@ -55,7 +55,7 @@ public class TrainTableTest {
     assertTrue(trainTable.delete(this.train.getTrainCode()));
     assertFalse(trainTable.delete(this.train.getTrainCode()));
   }
-  
+
   @Test
   public void findAll() {
     assertFalse(trainTable.findAll().isEmpty());
