@@ -14,6 +14,7 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
   private String primaryKeyName;
   private boolean isSetUpDone;
   private List<String> tableColumns;
+  protected boolean created;
 
   public AbstractTable(final String tableName, final Connection connection) {
     this.tableName = tableName;
@@ -134,6 +135,10 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
 
   @Override
   public abstract boolean createTable();
+
+  public boolean isCreated() {
+    return this.created;
+  }
 
   /**
    * Determine how to interpret and read the result given from a query;
