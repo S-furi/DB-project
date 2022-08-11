@@ -25,7 +25,7 @@ public class TrainTable extends AbstractTable<Train, String> {
       train.getTrainCode(),
       train.getLicenseNumber(),
       train.getCapacity(),
-      train.isRegionaleVeloce() ? "1" : "0"
+      train.isRv() ? "1" : "0"
     };
   }
 
@@ -34,7 +34,7 @@ public class TrainTable extends AbstractTable<Train, String> {
     return new Object[] {
       train.getLicenseNumber(),
       train.getCapacity(),
-      train.isRegionaleVeloce() ? "1" : "0",
+      train.isRv() ? "1" : "0",
       train.getTrainCode()
     };
   }
@@ -68,9 +68,9 @@ public class TrainTable extends AbstractTable<Train, String> {
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
-              final boolean isRegionaleVeloce =
+              final boolean isRv =
                   ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
-              trains.add(new Train(trainCode, licenseNumber, capacity, isRegionaleVeloce));
+              trains.add(new Train(trainCode, licenseNumber, capacity, isRv));
             });
     return trains;
   }
