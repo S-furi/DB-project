@@ -41,7 +41,6 @@ public abstract class AbstractJsonReader<T> {
         if (resouce == null) {
             throw new IllegalArgumentException("File \"" + this.filename + "\" not found!");
         } else {
-            System.out.println(resouce.toURI().toString());
             return new File(resouce.toURI());
         }
     }

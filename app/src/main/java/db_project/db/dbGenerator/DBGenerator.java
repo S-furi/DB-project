@@ -89,7 +89,6 @@ public class DBGenerator {
     final ConnectionProvider connectionProvider =
         new ConnectionProvider(USERNAME, PASSWORD, DBNAME);
     final var lst = this.getAllTables(connectionProvider.getMySQLConnection());
-    lst.forEach(System.out::println);
     this.tables = lst;
     if (this.areTablesAlreadyCreated()) {
       logger.warning("*****TALBES ALREADY CREATED!***");

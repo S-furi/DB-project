@@ -70,7 +70,6 @@ public class RouteInfoTableTest {
 
   @Test
   public void testSaveAndDelete() {
-    System.out.println("\ntestSaveAndDelete:\n");
     assertTrue(routeInfoTable.save(this.routeInfo));
     assertFalse(routeInfoTable.save(this.routeInfo));
     assertTrue(
