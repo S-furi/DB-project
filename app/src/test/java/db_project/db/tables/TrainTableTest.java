@@ -73,7 +73,7 @@ public class TrainTableTest {
             "1",
             this.train.getLicenseNumber(),
             this.train.getCapacity(),
-            this.train.isRegionaleVeloce());
+            this.train.isRv());
 
     assertTrue(trainTable.update(newTrain));
     assertTrue(trainTable.update(currTrain.get()));

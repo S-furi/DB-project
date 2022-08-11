@@ -6,13 +6,13 @@ public class Train {
   private final String trainCode;
   private final String licenseNumber;
   private final int capacity;
-  private final String isRegionaleVeloce;
+  private final boolean isRv;
 
-  public Train(String trainCode, String licenseNumber, int capacity, String isRegionaleVeloce) {
+  public Train(String trainCode, String licenseNumber, int capacity, boolean isRv) {
     this.trainCode = trainCode;
     this.licenseNumber = licenseNumber;
     this.capacity = capacity;
-    this.isRegionaleVeloce = isRegionaleVeloce;
+    this.isRv = isRv;
   }
 
   public String getTrainCode() {
@@ -27,16 +27,16 @@ public class Train {
     return capacity;
   }
 
-  public String isRegionaleVeloce() {
-    return isRegionaleVeloce;
+  public boolean isRv() {
+    return isRv;
   }
 
   @Override
   public String toString() {
     return "Train [capacity="
         + capacity
-        + ", isRegionaleVeloce="
-        + isRegionaleVeloce
+        + ", isRv="
+        + isRv
         + ", licenseNumber="
         + licenseNumber
         + ", trainCode="
