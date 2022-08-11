@@ -160,12 +160,12 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
 
   @Override
   public boolean delete(K primaryKey) {
-      return false;
+    return false;
   }
 
   @Override
   public Optional<T> findByPrimaryKey(K primaryKey) {
-      return Optional.empty();
+    return Optional.empty();
   }
 
   /**
