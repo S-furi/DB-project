@@ -50,7 +50,18 @@ public class DriverTable extends AbstractTable<Driver, String> {
 
   @Override
   public boolean createTable() {
-      return false;
+    final String query = 
+      "create table MACCHINISTA ( " +
+      "numeroPatente varchar(5) not null, " +
+      "annoContratto date not null, " +
+      "nome varchar(40) not null, " + 
+      "cognome varchar(40) not null, " +
+      "telefono varchar(10) not null," +
+      "email varchar(50) not null, " +
+      "residenza varchar(40) not null, " +
+      "constraint ID_MACCHINISTA_ID primary key (numeroPatente));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
   }
 
   @Override

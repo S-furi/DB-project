@@ -59,7 +59,14 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
   
   @Override
   public boolean createTable() {
-      return false;
+    final String query = 
+      "create table PERCORRENZA ( " +
+      "codPercorso varchar(5) not null, " +
+      "codTreno varchar(5) not null, " +
+      "data date not null, " +
+      "constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data)); ";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
   }
 
   /** In this paricular table, updates aren't possible... :( */

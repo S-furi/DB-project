@@ -35,7 +35,14 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
 
   @Override
   public boolean createTable() {
-      return false;
+    final String query = 
+      "create table LOYALTY_CARD ( " +
+      "codCarta varchar(5) not null, " +
+      "punti int not null, " +
+      "percentualeSconto int not null, " +
+      "constraint ID_LOYALTY_CARD_ID primary key (codCarta));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
   }
 
   @Override

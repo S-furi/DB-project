@@ -36,7 +36,15 @@ public class PathTable extends AbstractTable<Path, String> {
 
   @Override
   public boolean createTable() {
-      return false;
+    final String query = 
+      "create table PERCORSO ( " +
+      "codPercorso varchar(5) not null, " +
+      "tempoTotale varchar(5) not null, " +
+      "numFermate int not null, " +
+      "adminID varchar(5) not null, " +
+      "constraint ID_PERCORSO_ID primary key (codPercorso));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
   }
 
   @Override
