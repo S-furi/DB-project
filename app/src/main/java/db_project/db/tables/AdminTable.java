@@ -7,11 +7,13 @@ import java.util.Collections;
 import java.util.List;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Admin;
+import db_project.utils.AbstractJsonReader;
 import db_project.utils.Utils;
 
-public class AdminTable extends AbstractTable<Admin, String> {
+public class AdminTable extends AbstractTable<Admin, String> implements JsonReadeable <Admin>{
   public static final String TABLE_NAME = "AMMINISTRATORE";
   public static final String PRIMARY_KEY = "adminID";
 
@@ -89,5 +91,12 @@ public class AdminTable extends AbstractTable<Admin, String> {
             });
 
     return admList;
+  }
+
+  @Override
+  public List<Admin> readFromFile() {
+    return new AbstractJsonReader<Admin>() 
+      {}.setFileName("DbAdmins.json")
+      .retreiveData(Admin.class);
   }
 }

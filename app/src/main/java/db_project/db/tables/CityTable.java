@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.List;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.City;
+import db_project.utils.AbstractJsonReader;
 
-public class CityTable extends AbstractTable<City, String> {
+public class CityTable extends AbstractTable<City, String> implements JsonReadeable<City> {
   public static final String TABLE_NAME = "CITTA";
   public static final String PRIMARY_KEY = "nome";
 
@@ -61,5 +63,12 @@ public class CityTable extends AbstractTable<City, String> {
             });
 
     return cities;
+  }
+
+  @Override
+  public List<City> readFromFile() {
+    return new AbstractJsonReader<City>() 
+      {}.setFileName("DbCities.json")
+      .retreiveData(City.class);
   }
 }
