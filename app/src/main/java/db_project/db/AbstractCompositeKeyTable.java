@@ -158,6 +158,16 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
     return this.created;
   }
 
+  @Override
+  public boolean delete(K primaryKey) {
+      return false;
+  }
+
+  @Override
+  public Optional<T> findByPrimaryKey(K primaryKey) {
+      return Optional.empty();
+  }
+
   /**
    * Determine how to interpret and read the result given from a query;
    *

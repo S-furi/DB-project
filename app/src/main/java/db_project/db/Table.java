@@ -65,4 +65,6 @@ public interface Table<V, K> {
    * @return true if the table is created succefully, false otherwise.
    */
   boolean createTable();
+
+  boolean isCreated();
 }
