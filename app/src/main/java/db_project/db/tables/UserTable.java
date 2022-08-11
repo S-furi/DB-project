@@ -160,6 +160,5 @@ public class UserTable implements Table<User, Integer> {
   }
 
   @Override
-  public void setAlreadyCreated() {
-  }
+  public void setAlreadyCreated() {}
 }

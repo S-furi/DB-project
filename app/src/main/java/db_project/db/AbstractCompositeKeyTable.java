@@ -170,7 +170,7 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
 
   @Override
   public void setAlreadyCreated() {
-      this.created = true;
+    this.created = true;
   }
   /**
    * Determine how to interpret and read the result given from a query;
