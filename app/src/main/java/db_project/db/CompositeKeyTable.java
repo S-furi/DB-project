@@ -3,7 +3,7 @@ package db_project.db;
 import java.util.List;
 import java.util.Optional;
 
-public interface CompositeKeyTable<T, K> extends Table<T, K>{
+public interface CompositeKeyTable<T, K> extends Table<T, K> {
   /**
    * @return the name of the table
    */
