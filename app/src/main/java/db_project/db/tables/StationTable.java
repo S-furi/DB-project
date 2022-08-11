@@ -40,6 +40,19 @@ public class StationTable extends AbstractTable<Station, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table STAZIONE ( "
+            + "codStazione varchar(5) not null, "
+            + "nome varchar(20) not null, "
+            + "numBinari int not null, "
+            + "codResponsabile varchar(5) not null, "
+            + "constraint ID_STAZIONE_ID primary key (codStazione)); ";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
   protected List<Station> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

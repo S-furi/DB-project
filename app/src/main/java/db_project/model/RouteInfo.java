@@ -1,6 +1,6 @@
 package db_project.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 // Percorrenza
 public class RouteInfo {

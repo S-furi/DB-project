@@ -153,4 +153,12 @@ public class UserTable implements Table<User, Integer> {
     }
     return users;
   }
+
+  @Override
+  public boolean isCreated() {
+    return false;
+  }
+
+  @Override
+  public void setAlreadyCreated() {}
 }

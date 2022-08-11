@@ -30,6 +30,17 @@ public class GroupTable extends AbstractTable<Group, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table COMITIVA ( "
+            + "codComitiva varchar(5) not null, "
+            + "numPersone int not null, "
+            + "constraint ID_COMITIVA_ID primary key (codComitiva));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
   protected List<Group> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

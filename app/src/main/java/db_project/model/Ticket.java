@@ -1,6 +1,6 @@
 package db_project.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Optional;
 
 // Biglietto
@@ -12,6 +12,7 @@ public class Ticket {
   private final String pathId;
   private final String trainId;
   private final Date date;
+  private final Float price;
 
   public Ticket(
       final String ticketId,
@@ -20,7 +21,8 @@ public class Ticket {
       final String passengerId,
       final String pathId,
       final String trainId,
-      final Date date) {
+      final Date date,
+      final Float price) {
 
     this.ticketId = ticketId;
     this.isRv = isRv;
@@ -29,8 +31,30 @@ public class Ticket {
     this.pathId = pathId;
     this.trainId = trainId;
     this.date = date;
+    this.price = price;
   }
 
+  public Ticket(
+      final String ticketId,
+      final boolean isRv,
+      final Optional<String> groupId,
+      final String passengerId,
+      final Float price,
+      final RouteInfo routeInfo) {
+
+    this.ticketId = ticketId;
+    this.isRv = isRv;
+    this.groupId = groupId;
+    this.passengerId = passengerId;
+    this.pathId = routeInfo.getPathId();
+    this.trainId = routeInfo.getTrainId();
+    this.date = routeInfo.getDate();
+    this.price = price;
+  }
+
+  /**
+   * @return the primaryKey
+   */
   public String getTicketId() {
     return ticketId;
   }
@@ -57,6 +81,10 @@ public class Ticket {
 
   public Date getDate() {
     return date;
+  }
+
+  public Float getPrice() {
+    return price;
   }
 
   @Override

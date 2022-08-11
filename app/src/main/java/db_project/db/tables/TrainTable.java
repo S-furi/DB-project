@@ -1,16 +1,15 @@
 package db_project.db.tables;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Train;
 
 public class TrainTable extends AbstractTable<Train, String> {
-
   public static final String TABLE_NAME = "TRENO";
   public static final String PRIMARY_KEY = "codTreno";
 
@@ -21,21 +20,41 @@ public class TrainTable extends AbstractTable<Train, String> {
   }
 
   @Override
-  protected Object[] getSaveQueryParameters(Train train) {
+  protected Object[] getSaveQueryParameters(final Train train) {
     return new Object[] {
-      train.getTrainCode(), train.getLicenseNumber(), train.getCapacity(), train.isRegionaleVeloce()
+      train.getTrainCode(),
+      train.getLicenseNumber(),
+      train.getCapacity(),
+      train.isRegionaleVeloce() ? "1" : "0"
     };
   }
 
   @Override
-  protected Object[] getUpdateQueryParameters(Train train) {
+  protected Object[] getUpdateQueryParameters(final Train train) {
     return new Object[] {
-      train.getLicenseNumber(), train.getCapacity(), train.isRegionaleVeloce(), train.getTrainCode()
+      train.getLicenseNumber(),
+      train.getCapacity(),
+      train.isRegionaleVeloce() ? "1" : "0",
+      train.getTrainCode()
     };
   }
 
   @Override
-  protected List<Train> getPrettyResultFromQueryResult(QueryResult result) {
+  public boolean createTable() {
+    final String query =
+        "create table TRENO ( "
+            + "codTreno varchar(5) not null, "
+            + "codMacchinista varchar(5) not null, "
+            + "capienza int not null, "
+            + "regionaleVeloce char, "
+            + "constraint ID_TRENO_ID primary key (codTreno), "
+            + "constraint FKPilota_ID unique (codMacchinista)); ";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
+  protected List<Train> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
@@ -49,7 +68,8 @@ public class TrainTable extends AbstractTable<Train, String> {
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
-              final String isRegionaleVeloce = (String) row.get("regionaleVeloce");
+              final boolean isRegionaleVeloce =
+                  ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
               trains.add(new Train(trainCode, licenseNumber, capacity, isRegionaleVeloce));
             });
     return trains;

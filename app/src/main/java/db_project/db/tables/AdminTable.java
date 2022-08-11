@@ -49,6 +49,22 @@ public class AdminTable extends AbstractTable<Admin, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table AMMINISTRATORE ( "
+            + "adminID varchar(5) not null, "
+            + "annoContratto date not null, "
+            + "nome varchar(40) not null, "
+            + "cognome varchar(40) not null, "
+            + "telefono varchar(10) not null, "
+            + "email varchar(50) not null, "
+            + "residenza varchar(40) not null, "
+            + "constraint ID_AMMINISTRATORE_ID primary key (adminID));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.created;
+  }
+
+  @Override
   protected List<Admin> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

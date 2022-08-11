@@ -31,6 +31,17 @@ public class CarClassTable extends AbstractTable<CarClass, Integer> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table CLASSE ( "
+            + "numClasse int not null, "
+            + "postiDisponibili int not null, "
+            + "constraint ID_CLASSE_ID primary key (numClasse));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.created;
+  }
+
+  @Override
   protected List<CarClass> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
