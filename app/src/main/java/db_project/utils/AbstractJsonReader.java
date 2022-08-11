@@ -15,43 +15,44 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 public abstract class AbstractJsonReader<T> {
-    private String filename;
-    private boolean setUp;
-    private List<T> data = new ArrayList<>();
+  private String filename;
+  private boolean setUp;
+  private List<T> data = new ArrayList<>();
 
-    public List<T> retreiveData(Class<T> elementClass) {
-        if (!this.setUp) {
-            throw new IllegalAccessError("No filename is specified!");
-        }
-        try (final Reader reader = Files.newBufferedReader(Paths.get(this.getFileFromResources().getAbsolutePath()))) {
-            final var listType = 
-                new TypeToken<List<T>>() {}.where(new TypeParameter<T>() {}, elementClass).getType();
-            
-            this.data = new Gson().fromJson(reader, listType);
-            return this.data;
-
-        } catch (final Exception e) {
-            throw new IllegalStateException(e);
-        }
+  public List<T> retreiveData(Class<T> elementClass) {
+    if (!this.setUp) {
+      throw new IllegalAccessError("No filename is specified!");
     }
+    try (final Reader reader =
+        Files.newBufferedReader(Paths.get(this.getFileFromResources().getAbsolutePath()))) {
+      final var listType =
+          new TypeToken<List<T>>() {}.where(new TypeParameter<T>() {}, elementClass).getType();
 
-    private File getFileFromResources() throws URISyntaxException {
-        final ClassLoader classLoader = this.getClass().getClassLoader();
-        URL resouce = classLoader.getResource(this.filename);
-        if (resouce == null) {
-            throw new IllegalArgumentException("File \"" + this.filename + "\" not found!");
-        } else {
-            return new File(resouce.toURI());
-        }
-    }
+      this.data = new Gson().fromJson(reader, listType);
+      return this.data;
 
-    public List<T> getChachedData() {
-        return this.data.isEmpty() ? Collections.emptyList() : this.data;
+    } catch (final Exception e) {
+      throw new IllegalStateException(e);
     }
+  }
 
-    public AbstractJsonReader<T> setFileName(final String filename) {
-        this.filename = "data_generation/DbData/"+filename;
-        this.setUp = true;
-        return this;
+  private File getFileFromResources() throws URISyntaxException {
+    final ClassLoader classLoader = this.getClass().getClassLoader();
+    URL resouce = classLoader.getResource(this.filename);
+    if (resouce == null) {
+      throw new IllegalArgumentException("File \"" + this.filename + "\" not found!");
+    } else {
+      return new File(resouce.toURI());
     }
+  }
+
+  public List<T> getChachedData() {
+    return this.data.isEmpty() ? Collections.emptyList() : this.data;
+  }
+
+  public AbstractJsonReader<T> setFileName(final String filename) {
+    this.filename = "data_generation/DbData/" + filename;
+    this.setUp = true;
+    return this;
+  }
 }

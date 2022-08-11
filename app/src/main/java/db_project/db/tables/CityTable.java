@@ -72,8 +72,6 @@ public class CityTable extends AbstractTable<City, String> implements JsonReadea
 
   @Override
   public List<City> readFromFile() {
-    return new AbstractJsonReader<City>() 
-      {}.setFileName("DbCities.json")
-      .retreiveData(City.class);
+    return new AbstractJsonReader<City>() {}.setFileName("DbCities.json").retreiveData(City.class);
   }
 }

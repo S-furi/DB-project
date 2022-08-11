@@ -22,7 +22,7 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva"));
-    
+
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
