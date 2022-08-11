@@ -31,15 +31,15 @@ public class CityTable extends AbstractTable<City, String> {
 
   @Override
   public boolean createTable() {
-      final String query = 
-      "create table CITTA ( " +
-      "nome varchar(40) not null, " +
-      "regione varchar(40) not null, " +
-      "provincia varchar(2) not null, " +
-      "constraint ID_CITTA_ID primary key (nome));";
+    final String query =
+        "create table CITTA ( "
+            + "nome varchar(40) not null, "
+            + "regione varchar(40) not null, "
+            + "provincia varchar(2) not null, "
+            + "constraint ID_CITTA_ID primary key (nome));";
 
-      super.created = super.parser.computeSqlQuery(query, null);
-      return super.isCreated();
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
   }
 
   @Override

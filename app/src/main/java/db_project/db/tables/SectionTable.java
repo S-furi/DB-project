@@ -41,13 +41,13 @@ public class SectionTable extends AbstractTable<Section, String> {
 
   @Override
   public boolean createTable() {
-    final String query = 
-      "create table TRATTA ( " +
-      "codTratta varchar(5) not null, " +
-      "distanza int not null, " +
-      "codStazionePartenza varchar(5) not null, " +
-      "codStazioneArrivo varchar(5) not null, " +
-      "constraint ID_TRATTA_ID primary key (codTratta)); ";
+    final String query =
+        "create table TRATTA ( "
+            + "codTratta varchar(5) not null, "
+            + "distanza int not null, "
+            + "codStazionePartenza varchar(5) not null, "
+            + "codStazioneArrivo varchar(5) not null, "
+            + "constraint ID_TRATTA_ID primary key (codTratta)); ";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }

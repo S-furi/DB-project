@@ -31,12 +31,12 @@ public class PathInfoTable extends AbstractTable<PathInfo, String> {
 
   @Override
   public boolean createTable() {
-    final String query = 
-      "create table DETTAGLIO_PERCORSO ( " +
-      "codTratta varchar(5) not null, " +
-      "ordine int not null, " +
-      "codPercorso varchar(5) not null, " +
-      "constraint FKStr_TRA_ID primary key (codTratta));";
+    final String query =
+        "create table DETTAGLIO_PERCORSO ( "
+            + "codTratta varchar(5) not null, "
+            + "ordine int not null, "
+            + "codPercorso varchar(5) not null, "
+            + "constraint FKStr_TRA_ID primary key (codTratta));";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }

@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ArrayQueryParser implements QueryParser {
   private final Connection connection;
   private StringBuilder finalQuery;

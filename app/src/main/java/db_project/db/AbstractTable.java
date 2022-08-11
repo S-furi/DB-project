@@ -129,8 +129,8 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
 
   @Override
   public boolean dropTable() {
-      final String query = "DROP TABLE " + this.tableName;
-      return this.parser.computeSqlQuery(query, null);
+    final String query = "DROP TABLE " + this.tableName;
+    return this.parser.computeSqlQuery(query, null);
   }
 
   @Override

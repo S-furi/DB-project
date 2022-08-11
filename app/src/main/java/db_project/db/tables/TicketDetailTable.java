@@ -47,15 +47,15 @@ public class TicketDetailTable extends AbstractTable<TicketDetail, String> {
 
   @Override
   public boolean createTable() {
-    final String query = 
-      "create table DETTAGLIO_BIGLIETTO ( " + 
-      "codiceBiglietto varchar(5) not null, " +
-      "dataPrenotazione date not null, " +
-      "numClasse int not null, " +
-      "codTreno varchar(5) not null, " +
-      "numeroCarrozza int not null, " +
-      "numeroPosto int not null, " +
-      "constraint FKRiseva_ID primary key (codiceBiglietto));";
+    final String query =
+        "create table DETTAGLIO_BIGLIETTO ( "
+            + "codiceBiglietto varchar(5) not null, "
+            + "dataPrenotazione date not null, "
+            + "numClasse int not null, "
+            + "codTreno varchar(5) not null, "
+            + "numeroCarrozza int not null, "
+            + "numeroPosto int not null, "
+            + "constraint FKRiseva_ID primary key (codiceBiglietto));";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }

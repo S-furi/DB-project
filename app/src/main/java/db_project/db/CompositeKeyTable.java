@@ -48,14 +48,14 @@ public interface CompositeKeyTable<T, K> {
 
   /**
    * Drops the current table.
-   * 
+   *
    * @return true if the table is dropped, false otherwise.
    */
   boolean dropTable();
 
   /**
    * Creates the current table.
-   * 
+   *
    * @return true if the table is created succefully, false otherwise.
    */
   boolean createTable();
