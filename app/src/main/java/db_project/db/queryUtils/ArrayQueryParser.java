@@ -10,17 +10,22 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class ArrayQueryParser implements QueryParser {
   private final Connection connection;
   private StringBuilder finalQuery;
   private Object[] params;
   private QueryResult result;
+  private final Logger logger = Logger.getLogger("QueryParser");
 
   public ArrayQueryParser(final Connection connection) {
     this.result = new QueryResult();
     this.connection = connection;
     this.finalQuery = new StringBuilder();
+    logger.setLevel(Level.INFO);
   }
 
   @Override
@@ -41,7 +46,9 @@ public class ArrayQueryParser implements QueryParser {
       return this.variableStatementQuery();
     } else if (this.finalQuery.toString().startsWith("DELETE")
         || this.finalQuery.toString().startsWith("UPDATE")
-        || this.finalQuery.toString().startsWith("INSERT")) {
+        || this.finalQuery.toString().startsWith("INSERT")
+        || this.finalQuery.toString().startsWith("create")
+        || this.finalQuery.toString().startsWith("DROP")) {
       return this.executeUpdate();
     }
     return false;
@@ -67,7 +74,7 @@ public class ArrayQueryParser implements QueryParser {
       return true;
     }
     try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
-      System.out.println("----" + this.finalQuery.toString() + "----");
+      this.logger.info("----" + this.finalQuery.toString() + "----");
       for (var i = 0; i < this.params.length; i++) {
         this.setTypeStatement(statement, this.params[i], i + 1);
       }
@@ -90,7 +97,7 @@ public class ArrayQueryParser implements QueryParser {
    */
   private List<Map<String, Object>> basicStatementQuery() {
     try (final var statement = connection.createStatement()) {
-      System.out.println("----" + this.finalQuery.toString() + "----");
+      this.logger.info("----" + this.finalQuery.toString() + "----");
       ResultSet rs = statement.executeQuery(this.finalQuery.toString());
       return generateResultFromResultSet(rs);
 
@@ -106,8 +113,11 @@ public class ArrayQueryParser implements QueryParser {
    * @throws IllegalStateException if a SQLException is thown
    */
   private boolean executeUpdate() {
+    if (params == null) {
+      return this.executeBasicUpdate();
+    }
     try (final var statement = connection.prepareStatement(this.finalQuery.toString())) {
-      System.out.println("----" + this.finalQuery.toString() + "----");
+      this.logger.info("----" + this.finalQuery.toString() + "----");
       for (var i = 0; i < this.params.length; i++) {
         this.setTypeStatement(statement, this.params[i], i + 1);
       }
@@ -120,11 +130,26 @@ public class ArrayQueryParser implements QueryParser {
         throw new IllegalStateException(e);
       }
       if (e.getErrorCode() == 1062) {
-        System.out.println(e.getMessage());
+        this.logger.info(e.getMessage());
       } else {
-        System.out.println(e.getMessage());
+        this.logger.info(e.getMessage());
       }
       return false;
+    }
+  }
+
+  private boolean executeBasicUpdate() {
+    try (final var statement = connection.createStatement()) {
+      this.logger.info("----" + this.finalQuery.toString() + "----");
+      statement.executeUpdate(this.finalQuery.toString());
+      this.resetQuery();
+      return true;
+    } catch (final SQLException e) {
+      if (e.getErrorCode() == 1050) {
+        this.logger.info("The table already exists!");
+        return true;
+      }
+      throw new IllegalStateException(e);
     }
   }
 
