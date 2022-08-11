@@ -20,6 +20,8 @@ public class StationTableTest {
   private static final StationTable stationTable =
       new StationTable(connectionProvider.getMySQLConnection());
 
+  private final Station station3 = new Station("3", "D", 2, "2");
+
   @BeforeAll
   static void setUp() {
     StationManagerTableTest.setUp();
@@ -43,14 +45,17 @@ public class StationTableTest {
   }
 
   @Test
-  public void testFindAll() {
-    assertFalse(stationTable.findAll().isEmpty());
-  }
-
-  @Test
-  public void testSaveAndDelete() {
-    final Station station1 = new Station("3", "C", 6, "2");
-    assertTrue(stationTable.save(station1));
-    assertTrue(stationTable.delete(station1.getStationCode()));
+  public void testUpdate() {
+    final var currStation = stationTable.findByPrimaryKey("1");
+    if (currStation.isEmpty()) {
+      fail("Select Failed");
+    }
+    assertTrue(
+        stationTable.update(
+            new Station(
+                "1",
+                this.station3.getStationName(),
+                this.station3.getRails(),
+                this.station3.getManagerCode())));
   }
 }
