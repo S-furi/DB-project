@@ -20,6 +20,29 @@ public class CityTable extends AbstractTable<City, String> {
   }
 
   @Override
+  protected Object[] getSaveQueryParameters(final City city) {
+    return new Object[] {city.getName(), city.getRegion(), city.getProvince()};
+  }
+
+  @Override
+  protected Object[] getUpdateQueryParameters(final City city) {
+    return new Object[] {city.getRegion(), city.getProvince(), city.getName()};
+  }
+
+  @Override
+  public boolean createTable() {
+      final String query = 
+      "create table CITTA ( " +
+      "nome varchar(40) not null, " +
+      "regione varchar(40) not null, " +
+      "provincia varchar(2) not null, " +
+      "constraint ID_CITTA_ID primary key (nome));";
+
+      super.created = super.parser.computeSqlQuery(query, null);
+      return super.isCreated();
+  }
+
+  @Override
   protected List<City> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
@@ -38,15 +61,5 @@ public class CityTable extends AbstractTable<City, String> {
             });
 
     return cities;
-  }
-
-  @Override
-  protected Object[] getSaveQueryParameters(final City city) {
-    return new Object[] {city.getName(), city.getRegion(), city.getProvince()};
-  }
-
-  @Override
-  protected Object[] getUpdateQueryParameters(final City city) {
-    return new Object[] {city.getRegion(), city.getProvince(), city.getName()};
   }
 }

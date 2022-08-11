@@ -14,6 +14,7 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
   private String primaryKeyName;
   private boolean isSetUpDone;
   private List<String> tableColumns;
+  protected boolean created;
 
   public AbstractTable(final String tableName, final Connection connection) {
     this.tableName = tableName;
@@ -124,6 +125,19 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
     } catch (IllegalStateException e) {
       throw new IllegalStateException(e);
     }
+  }
+
+  @Override
+  public boolean dropTable() {
+      final String query = "DROP TABLE " + this.tableName;
+      return this.parser.computeSqlQuery(query, null);
+  }
+
+  @Override
+  public abstract boolean createTable();
+
+  public boolean isCreated() {
+    return this.created;
   }
 
   /**

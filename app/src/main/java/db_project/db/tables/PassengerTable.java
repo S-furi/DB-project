@@ -73,6 +73,22 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
     return travelers;
   }
 
+  @Override
+  public boolean createTable() {
+    final String query = 
+      "create table PASSEGGERO ( " +
+      "codPasseggero varchar(5) not null, " +
+      "nome varchar(40) not null, " +
+      "cognome varchar(40) not null, " +
+      "telefono varchar(10) not null, " +
+      "email varchar(50) not null, " +
+      "residenza varchar(40) not null, " +
+      "codComitiva varchar(5), " +
+      "constraint ID_PASSEGGERO_ID primary key (codPasseggero));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
   public int getHighestID() {
     final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
     super.parser.computeSqlQuery(query, null);

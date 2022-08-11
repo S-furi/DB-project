@@ -10,15 +10,17 @@ import db_project.db.queryUtils.QueryResult;
 
 public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTable<T, K> {
   private final String tableName;
-  private final QueryParser parser;
+  protected final QueryParser parser;
   private List<String> keyNames;
   private boolean isSetUpDone;
   private List<String> tableColumns;
+  protected boolean created;
 
   public AbstractCompositeKeyTable(final String tableName, final Connection connection) {
     this.tableName = tableName;
     this.parser = new ArrayQueryParser(connection);
     this.isSetUpDone = false;
+    this.created = false;
   }
 
   public void setPrimaryKey(final List<String> keyNames) {
@@ -144,6 +146,16 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
     final Object[] params = primaryKey.toArray();
 
     return this.parser.computeSqlQuery(query.toString(), params);
+  }
+
+  @Override
+  public boolean dropTable() {
+      final String query = "DROP TABLE " + this.tableName;
+      return this.parser.computeSqlQuery(query, null);
+  }
+
+  public boolean isCreated() {
+    return this.created;
   }
 
   /**

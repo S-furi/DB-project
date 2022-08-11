@@ -40,6 +40,20 @@ public class TrainTable extends AbstractTable<Train, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+      "create table TRENO ( " +
+      "codTreno varchar(5) not null, " +
+      "codMacchinista varchar(5) not null, " +
+      "capienza int not null, " +
+      "regionaleVeloce char, " +
+      "constraint ID_TRENO_ID primary key (codTreno), " +
+      "constraint FKPilota_ID unique (codMacchinista)); ";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
   protected List<Train> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();

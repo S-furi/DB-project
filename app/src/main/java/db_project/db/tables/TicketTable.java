@@ -57,6 +57,23 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query = 
+      "create table BIGLIETTO ( " +
+      "codiceBiglietto varchar(5) not null, " +
+      "regionaleVeloce char not null, " +
+      "codComitiva varchar(5), " +
+      "codPasseggero varchar(5) not null, " +
+      "codPercorso varchar(5) not null, " +
+      "codTreno varchar(5) not null, " +
+      "data date not null, " +
+      "prezzo float(10) not null, " +
+      "constraint ID_BIGLIETTO_ID primary key (codiceBiglietto));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
   protected List<Ticket> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
