@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -12,11 +14,14 @@ import db_project.model.LoyaltyCard;
 public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
   public static final String TABLE_NAME = "LOYALTY_CARD";
   public static final String PRIMARY_KEY = "codCarta";
+  private final Logger logger;
 
   public LoyaltyCardTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("punti", "percentualeSconto"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -56,7 +61,7 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String cardId = (String) row.get("codCarta");
               final int points = (int) row.get("punti");
               final int discountPercentage = (int) row.get("percentualeSconto");

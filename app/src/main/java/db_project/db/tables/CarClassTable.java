@@ -4,20 +4,24 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.CarClass;
 
 public class CarClassTable extends AbstractTable<CarClass, Integer> {
-
   public static String TABLE_NAME = "CLASSE";
   public static String primary_key = "numClasse";
+  private final Logger logger;
 
   public CarClassTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(primary_key);
     super.setTableColumns(List.of("postiDisponibili"));
+    this.logger = Logger.getLogger("CarClassTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -52,7 +56,7 @@ public class CarClassTable extends AbstractTable<CarClass, Integer> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final int classNum = (int) row.get("numClasse");
               final int availableSeats = (int) row.get("postiDisponibili");
               carClasses.add(new CarClass(classNum, availableSeats));

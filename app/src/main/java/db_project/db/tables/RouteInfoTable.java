@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractCompositeKeyTable;
 import db_project.db.queryUtils.QueryResult;
@@ -13,11 +15,14 @@ import db_project.model.RouteInfo;
 public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object> {
   public static final String TABLE_NAME = "PERCORRENZA";
   public static final List<String> PRIMARY_KEYS = List.of("codPercorso", "codTreno", "data");
+  private final Logger logger;
 
   public RouteInfoTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEYS);
     super.setTableColumns(Collections.emptyList());
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -48,7 +53,7 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String pathId = (String) row.get("codPercorso");
               final String trainId = (String) row.get("codTreno");
               final Date date = (Date) row.get("data");

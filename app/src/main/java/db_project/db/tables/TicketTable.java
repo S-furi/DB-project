@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -13,6 +15,7 @@ import db_project.model.Ticket;
 public class TicketTable extends AbstractTable<Ticket, String> {
   public static final String TABLE_NAME = "BIGLIETTO";
   public static final String PRIMARY_KEY = "codiceBiglietto";
+  private final Logger logger;
 
   public TicketTable(final Connection connection) {
     super(TABLE_NAME, connection);
@@ -26,6 +29,8 @@ public class TicketTable extends AbstractTable<Ticket, String> {
             "codTreno",
             "data",
             "prezzo"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -84,7 +89,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String ticketId = (String) row.get("codiceBiglietto");
               final boolean isRv = row.get("regionaleVeloce").equals("0") ? false : true;
               final Optional<String> groupId =

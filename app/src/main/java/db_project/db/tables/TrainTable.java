@@ -3,6 +3,8 @@ package db_project.db.tables;
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 
 import db_project.db.AbstractTable;
@@ -12,11 +14,14 @@ import db_project.model.Train;
 public class TrainTable extends AbstractTable<Train, String> {
   public static final String TABLE_NAME = "TRENO";
   public static final String PRIMARY_KEY = "codTreno";
+  private final Logger logger;
 
   public TrainTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("codMacchinista", "capienza", "regionaleVeloce"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -58,7 +63,7 @@ public class TrainTable extends AbstractTable<Train, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
