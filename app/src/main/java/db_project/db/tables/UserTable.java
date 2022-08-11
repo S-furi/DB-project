@@ -158,4 +158,8 @@ public class UserTable implements Table<User, Integer> {
   public boolean isCreated() {
     return false;
   }
+
+  @Override
+  public void setAlreadyCreated() {
+  }
 }

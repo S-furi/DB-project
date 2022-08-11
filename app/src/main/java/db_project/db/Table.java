@@ -67,4 +67,6 @@ public interface Table<V, K> {
   boolean createTable();
 
   boolean isCreated();
+
+  void setAlreadyCreated();
 }

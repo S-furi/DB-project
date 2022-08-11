@@ -168,6 +168,10 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
       return Optional.empty();
   }
 
+  @Override
+  public void setAlreadyCreated() {
+      this.created = true;
+  }
   /**
    * Determine how to interpret and read the result given from a query;
    *

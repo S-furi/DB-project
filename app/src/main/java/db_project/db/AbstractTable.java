@@ -136,8 +136,14 @@ public abstract class AbstractTable<T, K> implements Table<T, K> {
   @Override
   public abstract boolean createTable();
 
+  @Override
   public boolean isCreated() {
     return this.created;
+  }
+
+  @Override
+  public void setAlreadyCreated() {
+    this.created = true;
   }
 
   /**
