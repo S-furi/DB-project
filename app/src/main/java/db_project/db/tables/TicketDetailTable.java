@@ -22,7 +22,7 @@ public class TicketDetailTable extends AbstractTable<TicketDetail, String> {
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("dataPrenotazione", "numClasse", "codTreno", "numeroCarrozza", "numeroPosto"));
-    
+
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }

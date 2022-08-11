@@ -15,7 +15,7 @@ import db_project.model.Admin;
 import db_project.utils.AbstractJsonReader;
 import db_project.utils.Utils;
 
-public class AdminTable extends AbstractTable<Admin, String> implements JsonReadeable <Admin>{
+public class AdminTable extends AbstractTable<Admin, String> implements JsonReadeable<Admin> {
   public static final String TABLE_NAME = "AMMINISTRATORE";
   public static final String PRIMARY_KEY = "adminID";
   private final Logger logger;
@@ -100,8 +100,7 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
 
   @Override
   public List<Admin> readFromFile() {
-    return new AbstractJsonReader<Admin>() 
-      {}.setFileName("DbAdmins.json")
-      .retreiveData(Admin.class);
+    return new AbstractJsonReader<Admin>() {}.setFileName("DbAdmins.json")
+        .retreiveData(Admin.class);
   }
 }

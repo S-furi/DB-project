@@ -22,7 +22,7 @@ public class StationManagerTable extends AbstractTable<StationManager, String> {
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
-    
+
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
