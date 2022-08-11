@@ -22,6 +22,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     implementation("org.json:json:20090211")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.7")
+
 }
 
 application {
