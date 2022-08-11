@@ -6,34 +6,52 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBGenerator {
-  private static final String USERNAME = "root";
-  private static final String PASSWORD = "123Test123";
-  private static final String DBNAME = "Railway";
-  private static final String URI = "jdbc:mysql://localhost:3306/";
-  private static final Logger logger = Logger.getLogger("DBGenerator");
+  private final String USERNAME = "root";
+  private final String PASSWORD = "123Test123";
+  private final String DBNAME = "Railway";
+  private final String URI = "jdbc:mysql://localhost:3306/";
+  private final Logger logger = Logger.getLogger("DBGenerator");
 
-  public static void createDB() {
+  public DBGenerator() {
     logger.setLevel(Level.INFO);
+  }
+
+  public boolean createDB() {
+    final String query = "CREATE DATABASE " + DBNAME;
+    final boolean res = connectAndExecuteUpdate(query);
+    logger.info(res ? DBNAME + " Creation Succeed!" : DBNAME + " Creation Failed: DB already exists");
+    return res;
+  }
+
+  public boolean dropDB() {
+    final String query = "DROP DATABASE " + DBNAME;
+    final boolean res = connectAndExecuteUpdate(query);
+    logger.info(res ? DBNAME + " Drop Succeed!" : DBNAME + " Drop Failed: DB doensn't exist");
+    return res;
+  }
+
+
+  private boolean connectAndExecuteUpdate(final String query) {
     try {
-      final var connection = DriverManager.getConnection(URI, USERNAME, PASSWORD);
-      if (connection == null) {
-        throw new IllegalStateException("Connection Failed");
-      }
-      final var resultSet = connection.getMetaData().getCatalogs();
-      while (resultSet.next()) {
-        final String catalog = resultSet.getString(1);
-        if (catalog.equals(DBNAME)) {
-          logger.info("DB " + DBNAME + " exists already!");
-          return;
+        final var connection = DriverManager.getConnection(URI, USERNAME, PASSWORD);
+        if (connection == null) {
+          throw new IllegalStateException("Connection Failed");
         }
+        final var resultSet = connection.getMetaData().getCatalogs();
+        while (resultSet.next()) {
+          final String catalog = resultSet.getString(1);
+          if (catalog.equals(DBNAME)) {
+            logger.info("DB " + DBNAME + " cant'b de dropped because it doesn't exists!");
+            return false;
+          }
+        }
+  
+        final var statement = connection.createStatement();
+        statement.executeUpdate(query);
+        logger.info("Succefully dropped DB: " + DBNAME);
+        return true;
+      } catch (final SQLException e) {
+        throw new IllegalStateException(e);
       }
-
-      final var statement = connection.createStatement();
-      statement.executeUpdate("CREATE DATABASE " + DBNAME);
-      logger.info("Succefully Created DB: " + DBNAME);
-
-    } catch (final SQLException e) {
-      throw new IllegalStateException(e);
-    }
   }
 }
