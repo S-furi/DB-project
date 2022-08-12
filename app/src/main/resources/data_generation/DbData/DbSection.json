@@ -2,7 +2,7 @@
     {
         "startStation": "S11119",
         "endStation": "S11108",
-        "sectionCode": "BR-BA",
+        "sectionCode": "BI-BA",
         "distance": 63
     },
     {
@@ -182,7 +182,7 @@
     {
         "startStation": "S11108",
         "endStation": "S11119",
-        "sectionCode": "BA-BR",
+        "sectionCode": "BA-BI",
         "distance": 67
     },
     {
