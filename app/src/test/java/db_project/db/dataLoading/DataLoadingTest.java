@@ -59,8 +59,7 @@ public class DataLoadingTest {
 
   private void createAdminDepencency() {
     this.createCitiesDependency();
-    final AdminTable adminTable =
-        (AdminTable) dbGenerator.getTableByClass(AdminTable.class);
+    final AdminTable adminTable = (AdminTable) dbGenerator.getTableByClass(AdminTable.class);
     final var admins = adminTable.readFromFile();
     admins.forEach(t -> adminTable.save(t));
   }
@@ -150,8 +149,7 @@ public class DataLoadingTest {
   @Test
   public void testPathClassReadAndInsertion() {
     this.createAdminDepencency();
-    final PathTable pathTable = 
-        (PathTable) dbGenerator.getTableByClass(PathTable.class);
+    final PathTable pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
     final var paths = pathTable.readFromFile();
     paths.forEach(t -> assertTrue(pathTable.save(t)));
     pathTable.findAll().forEach(t -> assertTrue(paths.contains(t)));

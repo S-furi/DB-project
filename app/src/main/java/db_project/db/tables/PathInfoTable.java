@@ -13,7 +13,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.PathInfo;
 import db_project.utils.AbstractJsonReader;
 
-public class PathInfoTable extends AbstractTable<PathInfo, String> implements JsonReadeable<PathInfo> {
+public class PathInfoTable extends AbstractTable<PathInfo, String>
+    implements JsonReadeable<PathInfo> {
   public static final String TABLE_NAME = "DETTAGLIO_PERCORSO";
   public static final String PRIMARY_KEY = "codTratta";
   private final Logger logger;
