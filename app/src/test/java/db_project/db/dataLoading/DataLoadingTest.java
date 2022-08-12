@@ -14,10 +14,12 @@ import db_project.db.tables.DriverTable;
 import db_project.db.tables.GroupTable;
 import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.PassengerTable;
+import db_project.db.tables.PathTable;
 import db_project.db.tables.StationManagerTable;
 import db_project.db.tables.StationTable;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 public class DataLoadingTest {
   private static final DBGenerator dbGenerator = new DBGenerator();
@@ -26,13 +28,6 @@ public class DataLoadingTest {
   public static void setUp() {
     dbGenerator.createDB();
     dbGenerator.createTables();
-    createCitiesDependency();
-  }
-
-  private static void createCitiesDependency() {
-    final CityTable cityTable = (CityTable) dbGenerator.getTableByClass(CityTable.class);
-    final var cities = cityTable.readFromFile();
-    cities.forEach(t -> cityTable.save(t));
   }
 
   @AfterAll
@@ -40,15 +35,39 @@ public class DataLoadingTest {
     dbGenerator.dropDB();
   }
 
+  @BeforeEach
+  public void clean() {
+    dbGenerator.dropDB();
+    dbGenerator.createDB();
+    dbGenerator.createTables();
+  }
+
+  private void createCitiesDependency() {
+    final CityTable cityTable = (CityTable) dbGenerator.getTableByClass(CityTable.class);
+    final var cities = cityTable.readFromFile();
+    cities.forEach(t -> cityTable.save(t));
+  }
+
   @Test
   public void testCityReadAndStored() {
     final CityTable cityTable = (CityTable) dbGenerator.getTableByClass(CityTable.class);
-    assertTrue(cityTable.findAll().size() == cityTable.readFromFile().size());
+    final var cities = cityTable.readFromFile();
+    cities.forEach(t -> assertTrue(cityTable.save(t)));
+    assertTrue(cityTable.findAll().size() == cities.size());
     cityTable.findAll().forEach(t -> assertTrue(cityTable.readFromFile().contains(t)));
+  }
+
+  private void createAdminDepencency() {
+    this.createCitiesDependency();
+    final AdminTable adminTable =
+        (AdminTable) dbGenerator.getTableByClass(AdminTable.class);
+    final var admins = adminTable.readFromFile();
+    admins.forEach(t -> adminTable.save(t));
   }
 
   @Test
   public void testAdminReadAndInsertion() {
+    this.createCitiesDependency();
     final AdminTable adminTable = (AdminTable) dbGenerator.getTableByClass(AdminTable.class);
     final var admins = adminTable.readFromFile();
     admins.forEach(t -> assertTrue(adminTable.save(t)));
@@ -57,6 +76,7 @@ public class DataLoadingTest {
 
   @Test
   public void testDriverReadAndInsertion() {
+    this.createCitiesDependency();
     final DriverTable driverTable = (DriverTable) dbGenerator.getTableByClass(DriverTable.class);
     final var drivers = driverTable.readFromFile();
     drivers.forEach(t -> assertTrue(driverTable.save(t)));
@@ -64,6 +84,7 @@ public class DataLoadingTest {
   }
 
   private void createManagerDepencency() {
+    this.createCitiesDependency();
     final StationManagerTable stationManagerTable =
         (StationManagerTable) dbGenerator.getTableByClass(StationManagerTable.class);
     final var managers = stationManagerTable.readFromFile();
@@ -72,6 +93,7 @@ public class DataLoadingTest {
 
   @Test
   public void testStationManagersReadAndInsertion() {
+    this.createCitiesDependency();
     final StationManagerTable stationManagerTable =
         (StationManagerTable) dbGenerator.getTableByClass(StationManagerTable.class);
     final var managers = stationManagerTable.readFromFile();
@@ -81,6 +103,7 @@ public class DataLoadingTest {
 
   @Test
   public void testPassengerReadAndInsertion() {
+    this.createCitiesDependency();
     final PassengerTable passengerTable =
         (PassengerTable) dbGenerator.getTableByClass(PassengerTable.class);
     final var passengers = passengerTable.readFromFile();
@@ -122,5 +145,15 @@ public class DataLoadingTest {
     final var carClasses = carClassTable.readFromFile();
     carClasses.forEach(t -> assertTrue(carClassTable.save(t)));
     carClassTable.findAll().forEach(t -> assertTrue(carClasses.contains(t)));
+  }
+
+  @Test
+  public void testPathClassReadAndInsertion() {
+    this.createAdminDepencency();
+    final PathTable pathTable = 
+        (PathTable) dbGenerator.getTableByClass(PathTable.class);
+    final var paths = pathTable.readFromFile();
+    paths.forEach(t -> assertTrue(pathTable.save(t)));
+    pathTable.findAll().forEach(t -> assertTrue(paths.contains(t)));
   }
 }
