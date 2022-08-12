@@ -3,10 +3,6 @@ package db_project.db.dataLoading;
 // import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +41,7 @@ public class DataLoadingTest {
   public void testCityReadAndStored() {
     final CityTable cityTable = (CityTable) dbGenerator.getTableByClass(CityTable.class);
     assertTrue(cityTable.findAll().size() == cityTable.readFromFile().size());
+    cityTable.findAll().forEach(t -> assertTrue(cityTable.readFromFile().contains(t)));
   }
 
   @Test
