@@ -9,10 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.StationManager;
+import db_project.utils.AbstractJsonReader;
 
-public class StationManagerTable extends AbstractTable<StationManager, String> {
+public class StationManagerTable extends AbstractTable<StationManager, String> implements JsonReadeable<StationManager> {
   public static final String TABLE_NAME = "RESPONSABILE_STAZIONE";
   public static final String PRIMARY_KEY = "codResponsabile";
   private final Logger logger;
@@ -93,5 +95,11 @@ public class StationManagerTable extends AbstractTable<StationManager, String> {
                       managerCode, contractYear, firstName, lastName, phone, email, residence));
             });
     return stationManagers;
+  }
+
+  @Override
+  public List<StationManager> readFromFile() {
+    return new AbstractJsonReader<StationManager>() {}.setFileName("DbManagers.json")
+      .retreiveData(StationManager.class);
   }
 }
