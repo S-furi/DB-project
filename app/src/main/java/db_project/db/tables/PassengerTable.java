@@ -9,10 +9,12 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Passenger;
+import db_project.utils.AbstractJsonReader;
 
-public class PassengerTable extends AbstractTable<Passenger, String> {
+public class PassengerTable extends AbstractTable<Passenger, String> implements JsonReadeable<Passenger> {
   public static final String TABLE_NAME = "PASSEGGERO";
   public static final String PRIMARY_KEY = "codPasseggero";
   private final Logger logger;
@@ -30,7 +32,7 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
   @Override
   protected Object[] getSaveQueryParameters(final Passenger passenger) {
     return new Object[] {
-      passenger.getTravelerCode(),
+      passenger.getPassengerCode(),
       passenger.getFirstName(),
       passenger.getLastName(),
       passenger.getPhone(),
@@ -49,7 +51,7 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
       passenger.getEmail(),
       passenger.getResidence(),
       passenger.isGroup(),
-      passenger.getTravelerCode()
+      passenger.getPassengerCode()
     };
   }
 
@@ -99,6 +101,12 @@ public class PassengerTable extends AbstractTable<Passenger, String> {
     final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
     super.parser.computeSqlQuery(query, null);
     var passenger = this.getPrettyResultFromQueryResult(super.parser.getQueryResult());
-    return Integer.parseInt(passenger.get(0).getTravelerCode());
+    return Integer.parseInt(passenger.get(0).getPassengerCode());
+  }
+
+  @Override
+  public List<Passenger> readFromFile() {
+    return new AbstractJsonReader<Passenger>() {}.setFileName("DbPassengers.json")
+      .retreiveData(Passenger.class);
   }
 }
