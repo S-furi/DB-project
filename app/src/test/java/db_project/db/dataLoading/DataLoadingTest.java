@@ -8,8 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.tables.AdminTable;
+import db_project.db.tables.CarClassTable;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.DriverTable;
+import db_project.db.tables.GroupTable;
+import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.PassengerTable;
 import db_project.db.tables.StationManagerTable;
 import db_project.db.tables.StationTable;
@@ -93,5 +96,32 @@ public class DataLoadingTest {
     final var stations = stationTable.readFromFile();
     stations.forEach(t -> stationTable.save(t));
     stationTable.findAll().forEach(t -> assertTrue(stations.contains(t)));
+  }
+
+  @Test 
+  public void testGroupsReadAndInsertion() {
+    final GroupTable groupTable = 
+        (GroupTable) dbGenerator.getTableByClass(GroupTable.class);
+    final var groups = groupTable.readFromFile();
+    groups.forEach(t -> assertTrue(groupTable.save(t)));
+    groupTable.findAll().forEach(t -> assertTrue(groups.contains(t)));
+  }
+
+  @Test
+  public void testLoyaltyCardsReadAndInsertion() {
+    final LoyaltyCardTable loyaltyCardTable = 
+        (LoyaltyCardTable) dbGenerator.getTableByClass(LoyaltyCardTable.class);
+    final var loyaltyCards = loyaltyCardTable.readFromFile();
+    loyaltyCards.forEach(t -> assertTrue(loyaltyCardTable.save(t)));
+    loyaltyCardTable.findAll().forEach(t -> assertTrue(loyaltyCards.contains(t)));
+  }
+
+  @Test
+  public void testCarClassReadAndInsertion() {
+    final CarClassTable carClassTable = 
+      (CarClassTable) dbGenerator.getTableByClass(CarClassTable.class);
+    final var carClasses = carClassTable.readFromFile();
+    carClasses.forEach(t -> assertTrue(carClassTable.save(t)));
+    carClassTable.findAll().forEach(t -> assertTrue(carClasses.contains(t)));
   }
 }
