@@ -28,7 +28,7 @@ public abstract class AbstractJsonReader<T> {
         Files.newBufferedReader(Paths.get(this.getFileFromResources().getAbsolutePath()))) {
       final var listType =
           new TypeToken<List<T>>() {}.where(new TypeParameter<T>() {}, elementClass).getType();
-      
+
       final Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
       this.data = gson.fromJson(reader, listType);
       return this.data;

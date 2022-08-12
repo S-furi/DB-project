@@ -34,21 +34,14 @@ public class Group {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Group other = (Group) obj;
     if (groupId == null) {
-      if (other.groupId != null)
-        return false;
-    } else if (!groupId.equals(other.groupId))
-      return false;
-    if (numberOfPeople != other.numberOfPeople)
-      return false;
+      if (other.groupId != null) return false;
+    } else if (!groupId.equals(other.groupId)) return false;
+    if (numberOfPeople != other.numberOfPeople) return false;
     return true;
   }
-  
 }

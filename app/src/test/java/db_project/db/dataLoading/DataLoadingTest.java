@@ -61,17 +61,16 @@ public class DataLoadingTest {
   }
 
   private void createManagerDepencency() {
-    final StationManagerTable stationManagerTable = (StationManagerTable) dbGenerator
-        .getTableByClass(StationManagerTable.class);
+    final StationManagerTable stationManagerTable =
+        (StationManagerTable) dbGenerator.getTableByClass(StationManagerTable.class);
     final var managers = stationManagerTable.readFromFile();
     managers.forEach(t -> stationManagerTable.save(t));
-
   }
 
   @Test
   public void testStationManagersReadAndInsertion() {
-    final StationManagerTable stationManagerTable = (StationManagerTable) dbGenerator
-        .getTableByClass(StationManagerTable.class);
+    final StationManagerTable stationManagerTable =
+        (StationManagerTable) dbGenerator.getTableByClass(StationManagerTable.class);
     final var managers = stationManagerTable.readFromFile();
     managers.forEach(t -> assertTrue(stationManagerTable.save(t)));
     assertTrue(stationManagerTable.findAll().size() == managers.size());
@@ -79,7 +78,8 @@ public class DataLoadingTest {
 
   @Test
   public void testPassengerReadAndInsertion() {
-    final PassengerTable passengerTable = (PassengerTable) dbGenerator.getTableByClass(PassengerTable.class);
+    final PassengerTable passengerTable =
+        (PassengerTable) dbGenerator.getTableByClass(PassengerTable.class);
     final var passengers = passengerTable.readFromFile();
     passengers.forEach(t -> assertTrue(passengerTable.save(t)));
     assertTrue(passengerTable.findAll().size() == passengers.size());
@@ -88,7 +88,8 @@ public class DataLoadingTest {
   @Test
   public void testStationReadAndInsertion() {
     this.createManagerDepencency();
-    final StationTable stationTable = (StationTable) dbGenerator.getTableByClass(StationTable.class);
+    final StationTable stationTable =
+        (StationTable) dbGenerator.getTableByClass(StationTable.class);
     final var stations = stationTable.readFromFile();
     stations.forEach(t -> stationTable.save(t));
     stationTable.findAll().forEach(t -> assertTrue(stations.contains(t)));

@@ -91,50 +91,31 @@ public class StationManager {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     StationManager other = (StationManager) obj;
     if (contractYear == null) {
-      if (other.contractYear != null)
-        return false;
-    } else if (!contractYear.equals(other.contractYear))
-      return false;
+      if (other.contractYear != null) return false;
+    } else if (!contractYear.equals(other.contractYear)) return false;
     if (email == null) {
-      if (other.email != null)
-        return false;
-    } else if (!email.equals(other.email))
-      return false;
+      if (other.email != null) return false;
+    } else if (!email.equals(other.email)) return false;
     if (firstName == null) {
-      if (other.firstName != null)
-        return false;
-    } else if (!firstName.equals(other.firstName))
-      return false;
+      if (other.firstName != null) return false;
+    } else if (!firstName.equals(other.firstName)) return false;
     if (lastName == null) {
-      if (other.lastName != null)
-        return false;
-    } else if (!lastName.equals(other.lastName))
-      return false;
+      if (other.lastName != null) return false;
+    } else if (!lastName.equals(other.lastName)) return false;
     if (managerCode == null) {
-      if (other.managerCode != null)
-        return false;
-    } else if (!managerCode.equals(other.managerCode))
-      return false;
+      if (other.managerCode != null) return false;
+    } else if (!managerCode.equals(other.managerCode)) return false;
     if (phone == null) {
-      if (other.phone != null)
-        return false;
-    } else if (!phone.equals(other.phone))
-      return false;
+      if (other.phone != null) return false;
+    } else if (!phone.equals(other.phone)) return false;
     if (residence == null) {
-      if (other.residence != null)
-        return false;
-    } else if (!residence.equals(other.residence))
-      return false;
+      if (other.residence != null) return false;
+    } else if (!residence.equals(other.residence)) return false;
     return true;
   }
-
-  
 }

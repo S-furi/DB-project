@@ -44,25 +44,16 @@ public class Seat {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Seat other = (Seat) obj;
-    if (carNumber != other.carNumber)
-      return false;
-    if (classType != other.classType)
-      return false;
-    if (seatNumber != other.seatNumber)
-      return false;
+    if (carNumber != other.carNumber) return false;
+    if (classType != other.classType) return false;
+    if (seatNumber != other.seatNumber) return false;
     if (trainCode == null) {
-      if (other.trainCode != null)
-        return false;
-    } else if (!trainCode.equals(other.trainCode))
-      return false;
+      if (other.trainCode != null) return false;
+    } else if (!trainCode.equals(other.trainCode)) return false;
     return true;
   }
-
 }

@@ -44,31 +44,20 @@ public class Section {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Section other = (Section) obj;
-    if (distance != other.distance)
-      return false;
+    if (distance != other.distance) return false;
     if (endStation == null) {
-      if (other.endStation != null)
-        return false;
-    } else if (!endStation.equals(other.endStation))
-      return false;
+      if (other.endStation != null) return false;
+    } else if (!endStation.equals(other.endStation)) return false;
     if (sectionCode == null) {
-      if (other.sectionCode != null)
-        return false;
-    } else if (!sectionCode.equals(other.sectionCode))
-      return false;
+      if (other.sectionCode != null) return false;
+    } else if (!sectionCode.equals(other.sectionCode)) return false;
     if (startStation == null) {
-      if (other.startStation != null)
-        return false;
-    } else if (!startStation.equals(other.startStation))
-      return false;
+      if (other.startStation != null) return false;
+    } else if (!startStation.equals(other.startStation)) return false;
     return true;
   }
-  
 }

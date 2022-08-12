@@ -83,6 +83,6 @@ public class StationTable extends AbstractTable<Station, String> implements Json
   @Override
   public List<Station> readFromFile() {
     return new AbstractJsonReader<Station>() {}.setFileName("DbStations.json")
-      .retreiveData(Station.class);
+        .retreiveData(Station.class);
   }
 }

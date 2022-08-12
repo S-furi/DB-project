@@ -39,30 +39,19 @@ public class Subscription {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Subscription other = (Subscription) obj;
     if (cardNumber == null) {
-      if (other.cardNumber != null)
-        return false;
-    } else if (!cardNumber.equals(other.cardNumber))
-      return false;
+      if (other.cardNumber != null) return false;
+    } else if (!cardNumber.equals(other.cardNumber)) return false;
     if (subscriptionDate == null) {
-      if (other.subscriptionDate != null)
-        return false;
-    } else if (!subscriptionDate.equals(other.subscriptionDate))
-      return false;
+      if (other.subscriptionDate != null) return false;
+    } else if (!subscriptionDate.equals(other.subscriptionDate)) return false;
     if (travelerCode == null) {
-      if (other.travelerCode != null)
-        return false;
-    } else if (!travelerCode.equals(other.travelerCode))
-      return false;
+      if (other.travelerCode != null) return false;
+    } else if (!travelerCode.equals(other.travelerCode)) return false;
     return true;
   }
-
-  
 }

@@ -44,32 +44,20 @@ public class Path {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Path other = (Path) obj;
     if (adminID == null) {
-      if (other.adminID != null)
-        return false;
-    } else if (!adminID.equals(other.adminID))
-      return false;
+      if (other.adminID != null) return false;
+    } else if (!adminID.equals(other.adminID)) return false;
     if (pathCode == null) {
-      if (other.pathCode != null)
-        return false;
-    } else if (!pathCode.equals(other.pathCode))
-      return false;
-    if (stops != other.stops)
-      return false;
+      if (other.pathCode != null) return false;
+    } else if (!pathCode.equals(other.pathCode)) return false;
+    if (stops != other.stops) return false;
     if (totalTime == null) {
-      if (other.totalTime != null)
-        return false;
-    } else if (!totalTime.equals(other.totalTime))
-      return false;
+      if (other.totalTime != null) return false;
+    } else if (!totalTime.equals(other.totalTime)) return false;
     return true;
   }
-
-  
 }

@@ -106,6 +106,6 @@ public class DriverTable extends AbstractTable<Driver, String> implements JsonRe
   @Override
   public List<Driver> readFromFile() {
     return new AbstractJsonReader<Driver>() {}.setFileName("DbDrivers.json")
-      .retreiveData(Driver.class);
+        .retreiveData(Driver.class);
   }
 }

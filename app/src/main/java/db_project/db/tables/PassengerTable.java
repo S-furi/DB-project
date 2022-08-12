@@ -14,7 +14,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.Passenger;
 import db_project.utils.AbstractJsonReader;
 
-public class PassengerTable extends AbstractTable<Passenger, String> implements JsonReadeable<Passenger> {
+public class PassengerTable extends AbstractTable<Passenger, String>
+    implements JsonReadeable<Passenger> {
   public static final String TABLE_NAME = "PASSEGGERO";
   public static final String PRIMARY_KEY = "codPasseggero";
   private final Logger logger;
@@ -107,6 +108,6 @@ public class PassengerTable extends AbstractTable<Passenger, String> implements 
   @Override
   public List<Passenger> readFromFile() {
     return new AbstractJsonReader<Passenger>() {}.setFileName("DbPassengers.json")
-      .retreiveData(Passenger.class);
+        .retreiveData(Passenger.class);
   }
 }

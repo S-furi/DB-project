@@ -57,29 +57,18 @@ public class Train {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Train other = (Train) obj;
-    if (capacity != other.capacity)
-      return false;
-    if (isRv != other.isRv)
-      return false;
+    if (capacity != other.capacity) return false;
+    if (isRv != other.isRv) return false;
     if (licenseNumber == null) {
-      if (other.licenseNumber != null)
-        return false;
-    } else if (!licenseNumber.equals(other.licenseNumber))
-      return false;
+      if (other.licenseNumber != null) return false;
+    } else if (!licenseNumber.equals(other.licenseNumber)) return false;
     if (trainCode == null) {
-      if (other.trainCode != null)
-        return false;
-    } else if (!trainCode.equals(other.trainCode))
-      return false;
+      if (other.trainCode != null) return false;
+    } else if (!trainCode.equals(other.trainCode)) return false;
     return true;
   }
-
-  
 }

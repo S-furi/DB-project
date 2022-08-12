@@ -44,30 +44,19 @@ public class RouteInfo {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     RouteInfo other = (RouteInfo) obj;
     if (date == null) {
-      if (other.date != null)
-        return false;
-    } else if (!date.equals(other.date))
-      return false;
+      if (other.date != null) return false;
+    } else if (!date.equals(other.date)) return false;
     if (pathId == null) {
-      if (other.pathId != null)
-        return false;
-    } else if (!pathId.equals(other.pathId))
-      return false;
+      if (other.pathId != null) return false;
+    } else if (!pathId.equals(other.pathId)) return false;
     if (trainId == null) {
-      if (other.trainId != null)
-        return false;
-    } else if (!trainId.equals(other.trainId))
-      return false;
+      if (other.trainId != null) return false;
+    } else if (!trainId.equals(other.trainId)) return false;
     return true;
   }
-
-  
 }

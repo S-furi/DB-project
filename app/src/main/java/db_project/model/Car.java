@@ -51,28 +51,17 @@ public class Car {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Car other = (Car) obj;
-    if (classType != other.classType)
-      return false;
-    if (position != other.position)
-      return false;
-    if (seats != other.seats)
-      return false;
-    if (toilet != other.toilet)
-      return false;
+    if (classType != other.classType) return false;
+    if (position != other.position) return false;
+    if (seats != other.seats) return false;
+    if (toilet != other.toilet) return false;
     if (trainCode == null) {
-      if (other.trainCode != null)
-        return false;
-    } else if (!trainCode.equals(other.trainCode))
-      return false;
+      if (other.trainCode != null) return false;
+    } else if (!trainCode.equals(other.trainCode)) return false;
     return true;
   }
-
-  
 }

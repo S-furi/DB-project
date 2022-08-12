@@ -86,50 +86,31 @@ public class Driver {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Driver other = (Driver) obj;
     if (contractYear == null) {
-      if (other.contractYear != null)
-        return false;
-    } else if (!contractYear.equals(other.contractYear))
-      return false;
+      if (other.contractYear != null) return false;
+    } else if (!contractYear.equals(other.contractYear)) return false;
     if (email == null) {
-      if (other.email != null)
-        return false;
-    } else if (!email.equals(other.email))
-      return false;
+      if (other.email != null) return false;
+    } else if (!email.equals(other.email)) return false;
     if (firstName == null) {
-      if (other.firstName != null)
-        return false;
-    } else if (!firstName.equals(other.firstName))
-      return false;
+      if (other.firstName != null) return false;
+    } else if (!firstName.equals(other.firstName)) return false;
     if (lastName == null) {
-      if (other.lastName != null)
-        return false;
-    } else if (!lastName.equals(other.lastName))
-      return false;
+      if (other.lastName != null) return false;
+    } else if (!lastName.equals(other.lastName)) return false;
     if (licenceNumber == null) {
-      if (other.licenceNumber != null)
-        return false;
-    } else if (!licenceNumber.equals(other.licenceNumber))
-      return false;
+      if (other.licenceNumber != null) return false;
+    } else if (!licenceNumber.equals(other.licenceNumber)) return false;
     if (residence == null) {
-      if (other.residence != null)
-        return false;
-    } else if (!residence.equals(other.residence))
-      return false;
+      if (other.residence != null) return false;
+    } else if (!residence.equals(other.residence)) return false;
     if (telephone == null) {
-      if (other.telephone != null)
-        return false;
-    } else if (!telephone.equals(other.telephone))
-      return false;
+      if (other.telephone != null) return false;
+    } else if (!telephone.equals(other.telephone)) return false;
     return true;
   }
-
-  
 }

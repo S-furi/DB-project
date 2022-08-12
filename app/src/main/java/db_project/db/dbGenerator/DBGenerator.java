@@ -223,10 +223,10 @@ public class DBGenerator {
   }
 
   public Table<?, String> getTableByClass(Class<? extends Table<?, String>> clazz) {
-    final var elem =  this.tables.stream().filter(clazz::isInstance).map(clazz::cast).findFirst();
+    final var elem = this.tables.stream().filter(clazz::isInstance).map(clazz::cast).findFirst();
     if (elem.isEmpty()) {
       throw new IllegalAccessError("Specified table does not exist!");
     }
     return elem.get();
-  } 
+  }
 }
