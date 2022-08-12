@@ -5,7 +5,7 @@ import java.util.Optional;
 // Viaggiatore
 public class Passenger {
 
-  private final String travelerCode;
+  private final String passengerCode;
   private final String firstName;
   private final String lastName;
   private final String phone;
@@ -14,14 +14,14 @@ public class Passenger {
   private final Optional<String> isGroup;
 
   public Passenger(
-      String travelerCode,
+      String passengerCode,
       String firstName,
       String lastName,
       String phone,
       String email,
       String residence,
       Optional<String> isGroup) {
-    this.travelerCode = travelerCode;
+    this.passengerCode = passengerCode;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
@@ -30,8 +30,8 @@ public class Passenger {
     this.email = email;
   }
 
-  public String getTravelerCode() {
-    return travelerCode;
+  public String getPassengerCode() {
+    return passengerCode;
   }
 
   public String getFirstName() {
@@ -72,8 +72,8 @@ public class Passenger {
         + phone
         + ", residence="
         + residence
-        + ", travelerCode="
-        + travelerCode
+        + ", passengerCode="
+        + passengerCode
         + "]";
   }
 }
