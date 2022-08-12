@@ -1,0 +1,137 @@
+[
+  {
+    "id": 0,
+    "contractYear": "1992-12-20",
+    "firstName": "Alessandra",
+    "lastName": "Rossetti",
+    "telephone": "3324071378",
+    "email": "alessandra.rossetti7@libero.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 1,
+    "contractYear": "2013-09-11",
+    "firstName": "Camilla",
+    "lastName": "Barbieri",
+    "telephone": "3165394402",
+    "email": "camilla.barbieri1@icloud.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 2,
+    "contractYear": "1991-02-11",
+    "firstName": "Gaia",
+    "lastName": "Palmieri",
+    "telephone": "3209696321",
+    "email": "gaia.palmieri5@libero.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 3,
+    "contractYear": "2003-08-20",
+    "firstName": "Sofia",
+    "lastName": "Rizzi",
+    "telephone": "3262208264",
+    "email": "sofia.rizzi4@hotmail.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 4,
+    "contractYear": "1994-07-12",
+    "firstName": "Maddalena",
+    "lastName": "Mancini",
+    "telephone": "3705936334",
+    "email": "maddalena.mancini6@aruba.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 5,
+    "contractYear": "2015-08-26",
+    "firstName": "Federica",
+    "lastName": "De Angelis",
+    "telephone": "3208819637",
+    "email": "federica.deangelis7@icloud.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 6,
+    "contractYear": "2001-08-25",
+    "firstName": "Desolino",
+    "lastName": "Mariani",
+    "telephone": "3156431948",
+    "email": "desolino.mariani8@live.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 7,
+    "contractYear": "1995-03-11",
+    "firstName": "Riccardo",
+    "lastName": "Caruso",
+    "telephone": "3696988031",
+    "email": "riccardo.caruso2@hotmail.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 8,
+    "contractYear": "2006-11-13",
+    "firstName": "Adele",
+    "lastName": "Morelli",
+    "telephone": "3558702056",
+    "email": "adele.morelli7@alice.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 9,
+    "contractYear": "2013-06-25",
+    "firstName": "Anita",
+    "lastName": "Milani",
+    "telephone": "3307536602",
+    "email": "anita.milani8@aruba.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 10,
+    "contractYear": "2009-04-25",
+    "firstName": "Maria",
+    "lastName": "Martino",
+    "telephone": "3814758355",
+    "email": "maria.martino9@icloud.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 11,
+    "contractYear": "1994-06-03",
+    "firstName": "Nicola",
+    "lastName": "Pellegrini",
+    "telephone": "3501812501",
+    "email": "nicola.pellegrini8@yahoo.com",
+    "residence": "Brescia"
+  },
+  {
+    "id": 12,
+    "contractYear": "2005-08-21",
+    "firstName": "Dario",
+    "lastName": "De Angelis",
+    "telephone": "3859850928",
+    "email": "dario.deangelis6@hotmail.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 13,
+    "contractYear": "1996-09-18",
+    "firstName": "Vanessa",
+    "lastName": "Farina",
+    "telephone": "3631462717",
+    "email": "vanessa.farina7@alice.it",
+    "residence": "Brescia"
+  },
+  {
+    "id": 14,
+    "contractYear": "1993-03-13",
+    "firstName": "Pietro",
+    "lastName": "Gallo",
+    "telephone": "3568380807",
+    "email": "pietro.gallo1@hotmail.it",
+    "residence": "Brescia"
+  }
+]
