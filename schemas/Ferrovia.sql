@@ -41,7 +41,7 @@ create table BIGLIETTO (
      constraint ID_BIGLIETTO_ID primary key (codiceBiglietto));
 
 create table CARROZZA (
-     numClasse int not null,
+     numClasse varchar(1) not null,
      codTreno varchar(5) not null,
      numeroCarrozza int not null,
      maxPosti int not null,
@@ -55,7 +55,7 @@ create table CITTA (
      constraint ID_CITTA_ID primary key (nome));
 
 create table CLASSE (
-     numClasse int not null,
+     numClasse varchar(1) not null,
      postiDisponibili int not null,
      constraint ID_CLASSE_ID primary key (numClasse));
 
@@ -67,7 +67,7 @@ create table COMITIVA (
 create table DETTAGLIO_BIGLIETTO (
      codiceBiglietto varchar(5) not null,
      dataPrenotazione date not null,
-     numClasse int not null,
+     numClasse varchar(1) not null,
      codTreno varchar(5) not null,
      numeroCarrozza int not null,
      numeroPosto int not null,
@@ -119,7 +119,7 @@ create table PERCORSO (
      constraint ID_PERCORSO_ID primary key (codPercorso));
 
 create table POSTO (
-     numClasse int not null,
+     numClasse varchar(1) not null,
      codTreno varchar(5) not null,
      numeroCarrozza int not null,
      numeroPosto int not null,
