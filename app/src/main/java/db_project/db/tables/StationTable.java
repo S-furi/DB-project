@@ -8,10 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Station;
+import db_project.utils.AbstractJsonReader;
 
-public class StationTable extends AbstractTable<Station, String> {
+public class StationTable extends AbstractTable<Station, String> implements JsonReadeable<Station> {
   public static final String TABLE_NAME = "STAZIONE";
   public static final String PRIMARY_KEY = "codStazione";
   private final Logger logger;
@@ -48,7 +50,7 @@ public class StationTable extends AbstractTable<Station, String> {
   public boolean createTable() {
     final String query =
         "create table STAZIONE ( "
-            + "codStazione varchar(5) not null, "
+            + "codStazione varchar(10) not null, "
             + "nome varchar(20) not null, "
             + "numBinari int not null, "
             + "codResponsabile varchar(5) not null, "
@@ -76,5 +78,11 @@ public class StationTable extends AbstractTable<Station, String> {
               stations.add(new Station(stationCode, stationName, rails, managerCode));
             });
     return stations;
+  }
+
+  @Override
+  public List<Station> readFromFile() {
+    return new AbstractJsonReader<Station>() {}.setFileName("DbStations.json")
+      .retreiveData(Station.class);
   }
 }
