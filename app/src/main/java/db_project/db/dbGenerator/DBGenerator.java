@@ -100,8 +100,6 @@ public class DBGenerator {
     return true;
   }
 
-  // Got to find a way to fill the data structure stored in this class if the tables are already
-  // present.
   private boolean areTablesAlreadyCreated() {
     try (final Connection connection =
         DriverManager.getConnection(URI + DBNAME, USERNAME, PASSWORD)) {
