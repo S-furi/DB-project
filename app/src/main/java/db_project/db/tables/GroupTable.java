@@ -8,10 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Group;
+import db_project.utils.AbstractJsonReader;
 
-public class GroupTable extends AbstractTable<Group, String> {
+public class GroupTable extends AbstractTable<Group, String> implements JsonReadeable<Group> {
   public static final String TABLE_NAME = "COMITIVA";
   public static final String PRIMARY_KEY = "codComitiva";
   private final Logger logger;
@@ -62,5 +64,11 @@ public class GroupTable extends AbstractTable<Group, String> {
               groups.add(new Group(groupId, numberOfPeople));
             });
     return groups;
+  }
+
+  @Override
+  public List<Group> readFromFile() {
+    return new AbstractJsonReader<Group>() {}.setFileName("DbGroups.json")
+      .retreiveData(Group.class);
   }
 }

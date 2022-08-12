@@ -8,10 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.LoyaltyCard;
+import db_project.utils.AbstractJsonReader;
 
-public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
+public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> implements JsonReadeable<LoyaltyCard> {
   public static final String TABLE_NAME = "LOYALTY_CARD";
   public static final String PRIMARY_KEY = "codCarta";
   private final Logger logger;
@@ -68,5 +70,11 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> {
               loyaltyCards.add(new LoyaltyCard(cardId, points, discountPercentage));
             });
     return loyaltyCards;
+  }
+
+  @Override
+  public List<LoyaltyCard> readFromFile() {
+      return new AbstractJsonReader<LoyaltyCard>() {}.setFileName("DbLoyaltyCards.json")
+        .retreiveData(LoyaltyCard.class);
   }
 }
