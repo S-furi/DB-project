@@ -1,0 +1,10 @@
+[
+    {
+        "classType": 1,
+        "availableSeats": 30
+    },
+    {
+        "classType": 2,
+        "availableSeats": 60
+    }
+]
