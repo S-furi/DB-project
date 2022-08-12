@@ -1,0 +1,380 @@
+[
+    {
+        "startStation": "S11119",
+        "endStation": "S11108",
+        "sectionCode": "BR-BA",
+        "distance": 63
+    },
+    {
+        "startStation": "S11108",
+        "endStation": "S11100",
+        "sectionCode": "BA-FO",
+        "distance": 81
+    },
+    {
+        "startStation": "S11100",
+        "endStation": "S09311",
+        "sectionCode": "FO-BV",
+        "distance": 112
+    },
+    {
+        "startStation": "S09311",
+        "endStation": "S09211",
+        "sectionCode": "BV-CA",
+        "distance": 62
+    },
+    {
+        "startStation": "S09211",
+        "endStation": "S08409",
+        "sectionCode": "CA-RO",
+        "distance": 200
+    },
+    {
+        "startStation": "S08409",
+        "endStation": "S06421",
+        "sectionCode": "RO-FI",
+        "distance": 280
+    },
+    {
+        "startStation": "S06421",
+        "endStation": "S05043",
+        "sectionCode": "FI-BO",
+        "distance": 118
+    },
+    {
+        "startStation": "S05043",
+        "endStation": "S05023",
+        "sectionCode": "BO-RE",
+        "distance": 80
+    },
+    {
+        "startStation": "S05023",
+        "endStation": "S01700",
+        "sectionCode": "RE-MI",
+        "distance": 154
+    },
+    {
+        "startStation": "S01700",
+        "endStation": "S01529",
+        "sectionCode": "MI-BE",
+        "distance": 52
+    },
+    {
+        "startStation": "S05043",
+        "endStation": "S02430",
+        "sectionCode": "BO-VR",
+        "distance": 144
+    },
+    {
+        "startStation": "S02430",
+        "endStation": "S02038",
+        "sectionCode": "VR-TN",
+        "distance": 99
+    },
+    {
+        "startStation": "S02038",
+        "endStation": "S02026",
+        "sectionCode": "TN-BZ",
+        "distance": 60
+    },
+    {
+        "startStation": "S01529",
+        "endStation": "S01717",
+        "sectionCode": "BE-BR",
+        "distance": 53
+    },
+    {
+        "startStation": "S01717",
+        "endStation": "S02084",
+        "sectionCode": "BR-DE",
+        "distance": 33
+    },
+    {
+        "startStation": "S05043",
+        "endStation": "S05712",
+        "sectionCode": "BO-FE",
+        "distance": 50
+    },
+    {
+        "startStation": "S01700",
+        "endStation": "S04700",
+        "sectionCode": "MI-GE",
+        "distance": 149
+    },
+    {
+        "startStation": "S08409",
+        "endStation": "S09218",
+        "sectionCode": "RO-NA",
+        "distance": 225
+    },
+    {
+        "startStation": "S09218",
+        "endStation": "S09818",
+        "sectionCode": "NA-SA",
+        "distance": 55
+    },
+    {
+        "startStation": "S09818",
+        "endStation": "S17014",
+        "sectionCode": "SA-LA",
+        "distance": 325
+    },
+    {
+        "startStation": "S05712",
+        "endStation": "S05706",
+        "sectionCode": "FE-RV",
+        "distance": 39
+    },
+    {
+        "startStation": "S05706",
+        "endStation": "S02581",
+        "sectionCode": "RV-PA",
+        "distance": 43
+    },
+    {
+        "startStation": "S02084",
+        "endStation": "S02088",
+        "sectionCode": "DE-PE",
+        "distance": 16
+    },
+    {
+        "startStation": "S17014",
+        "endStation": "S11781",
+        "sectionCode": "LA-RC",
+        "distance": 129
+    },
+    {
+        "startStation": "S01700",
+        "endStation": "S00219",
+        "sectionCode": "MI-TO",
+        "distance": 144
+    },
+    {
+        "startStation": "S02581",
+        "endStation": "S02593",
+        "sectionCode": "PA-VE",
+        "distance": 47
+    },
+    {
+        "startStation": "S02593",
+        "endStation": "S02712",
+        "sectionCode": "VE-TV",
+        "distance": 41
+    },
+    {
+        "startStation": "S02593",
+        "endStation": "S03317",
+        "sectionCode": "VE-TR",
+        "distance": 159
+    },
+    {
+        "startStation": "S02712",
+        "endStation": "S03026",
+        "sectionCode": "TV-UD",
+        "distance": 119
+    },
+    {
+        "startStation": "S02581",
+        "endStation": "S02446",
+        "sectionCode": "PA-VI",
+        "distance": 43
+    },
+    {
+        "startStation": "S11108",
+        "endStation": "S11119",
+        "sectionCode": "BA-BR",
+        "distance": 67
+    },
+    {
+        "startStation": "S09311",
+        "endStation": "S11100",
+        "sectionCode": "BV-FO",
+        "distance": 114
+    },
+    {
+        "startStation": "S11100",
+        "endStation": "S11108",
+        "sectionCode": "FO-BA",
+        "distance": 80
+    },
+    {
+        "startStation": "S02088",
+        "endStation": "S02430",
+        "sectionCode": "PE-VR",
+        "distance": 30
+    },
+    {
+        "startStation": "S02430",
+        "endStation": "S05043",
+        "sectionCode": "VR-BO",
+        "distance": 143
+    },
+    {
+        "startStation": "S05043",
+        "endStation": "S06421",
+        "sectionCode": "BO-FI",
+        "distance": 120
+    },
+    {
+        "startStation": "S06421",
+        "endStation": "S08409",
+        "sectionCode": "FI-RO",
+        "distance": 278
+    },
+    {
+        "startStation": "S08409",
+        "endStation": "S09211",
+        "sectionCode": "RO-CA",
+        "distance": 199
+    },
+    {
+        "startStation": "S09211",
+        "endStation": "S09311",
+        "sectionCode": "CA-BV",
+        "distance": 61
+    },
+    {
+        "startStation": "S01529",
+        "endStation": "S01700",
+        "sectionCode": "BE-MI",
+        "distance": 54
+    },
+    {
+        "startStation": "S02430",
+        "endStation": "S02446",
+        "sectionCode": "VR-VI",
+        "distance": 58
+    },
+    {
+        "startStation": "S02446",
+        "endStation": "S02581",
+        "sectionCode": "VI-PA",
+        "distance": 50
+    },
+    {
+        "startStation": "S01700",
+        "endStation": "S05023",
+        "sectionCode": "MI-RE",
+        "distance": 156
+    },
+    {
+        "startStation": "S02581",
+        "endStation": "S05706",
+        "sectionCode": "PA-RV",
+        "distance": 49
+    },
+    {
+        "startStation": "S02026",
+        "endStation": "S02038",
+        "sectionCode": "BZ-TN",
+        "distance": 59
+    },
+    {
+        "startStation": "S02038",
+        "endStation": "S02430",
+        "sectionCode": "TN-VR",
+        "distance": 101
+    },
+    {
+        "startStation": "S01717",
+        "endStation": "S01529",
+        "sectionCode": "BR-BE",
+        "distance": 54
+    },
+    {
+        "startStation": "S02084",
+        "endStation": "S01717",
+        "sectionCode": "DE-BR",
+        "distance": 32
+    },
+    {
+        "startStation": "S05712",
+        "endStation": "S05043",
+        "sectionCode": "FE-BO",
+        "distance": 50
+    },
+    {
+        "startStation": "S02446",
+        "endStation": "S02430",
+        "sectionCode": "VI-VR",
+        "distance": 58
+    },
+    {
+        "startStation": "S04700",
+        "endStation": "S01700",
+        "sectionCode": "GE-MI",
+        "distance": 146
+    },
+    {
+        "startStation": "S05023",
+        "endStation": "S05043",
+        "sectionCode": "RE-BO",
+        "distance": 72
+    },
+    {
+        "startStation": "S17014",
+        "endStation": "S09818",
+        "sectionCode": "LA-SA",
+        "distance": 323
+    },
+    {
+        "startStation": "S09818",
+        "endStation": "S09218",
+        "sectionCode": "SA-NA",
+        "distance": 55
+    },
+    {
+        "startStation": "S09218",
+        "endStation": "S08409",
+        "sectionCode": "NA-RO",
+        "distance": 226
+    },
+    {
+        "startStation": "S05706",
+        "endStation": "S05712",
+        "sectionCode": "RV-FE",
+        "distance": 39
+    },
+    {
+        "startStation": "S02088",
+        "endStation": "S02084",
+        "sectionCode": "PE-DE",
+        "distance": 15
+    },
+    {
+        "startStation": "S11781",
+        "endStation": "S17014",
+        "sectionCode": "RC-LA",
+        "distance": 130
+    },
+    {
+        "startStation": "S00219",
+        "endStation": "S01700",
+        "sectionCode": "TO-MI",
+        "distance": 141
+    },
+    {
+        "startStation": "S02712",
+        "endStation": "S02593",
+        "sectionCode": "TV-VE",
+        "distance": 42
+    },
+    {
+        "startStation": "S02593",
+        "endStation": "S02581",
+        "sectionCode": "VE-PA",
+        "distance": 42
+    },
+    {
+        "startStation": "S03317",
+        "endStation": "S02593",
+        "sectionCode": "TR-VE",
+        "distance": 157
+    },
+    {
+        "startStation": "S03026",
+        "endStation": "S02712",
+        "sectionCode": "UD-TV",
+        "distance": 117
+    }
+]
