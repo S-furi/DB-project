@@ -13,7 +13,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.LoyaltyCard;
 import db_project.utils.AbstractJsonReader;
 
-public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> implements JsonReadeable<LoyaltyCard> {
+public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String>
+    implements JsonReadeable<LoyaltyCard> {
   public static final String TABLE_NAME = "LOYALTY_CARD";
   public static final String PRIMARY_KEY = "codCarta";
   private final Logger logger;
@@ -74,7 +75,7 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String> impleme
 
   @Override
   public List<LoyaltyCard> readFromFile() {
-      return new AbstractJsonReader<LoyaltyCard>() {}.setFileName("DbLoyaltyCards.json")
+    return new AbstractJsonReader<LoyaltyCard>() {}.setFileName("DbLoyaltyCards.json")
         .retreiveData(LoyaltyCard.class);
   }
 }

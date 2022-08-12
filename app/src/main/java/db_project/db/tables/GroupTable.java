@@ -69,6 +69,6 @@ public class GroupTable extends AbstractTable<Group, String> implements JsonRead
   @Override
   public List<Group> readFromFile() {
     return new AbstractJsonReader<Group>() {}.setFileName("DbGroups.json")
-      .retreiveData(Group.class);
+        .retreiveData(Group.class);
   }
 }

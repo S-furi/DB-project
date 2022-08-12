@@ -13,7 +13,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.CarClass;
 import db_project.utils.AbstractJsonReader;
 
-public class CarClassTable extends AbstractTable<CarClass, String> implements JsonReadeable<CarClass> {
+public class CarClassTable extends AbstractTable<CarClass, String>
+    implements JsonReadeable<CarClass> {
   public static String TABLE_NAME = "CLASSE";
   public static String primary_key = "numClasse";
   private final Logger logger;
@@ -69,6 +70,6 @@ public class CarClassTable extends AbstractTable<CarClass, String> implements Js
   @Override
   public List<CarClass> readFromFile() {
     return new AbstractJsonReader<CarClass>() {}.setFileName("DbCarClass.json")
-      .retreiveData(CarClass.class);
+        .retreiveData(CarClass.class);
   }
 }

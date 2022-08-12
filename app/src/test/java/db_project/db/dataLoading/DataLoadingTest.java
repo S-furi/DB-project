@@ -98,10 +98,9 @@ public class DataLoadingTest {
     stationTable.findAll().forEach(t -> assertTrue(stations.contains(t)));
   }
 
-  @Test 
+  @Test
   public void testGroupsReadAndInsertion() {
-    final GroupTable groupTable = 
-        (GroupTable) dbGenerator.getTableByClass(GroupTable.class);
+    final GroupTable groupTable = (GroupTable) dbGenerator.getTableByClass(GroupTable.class);
     final var groups = groupTable.readFromFile();
     groups.forEach(t -> assertTrue(groupTable.save(t)));
     groupTable.findAll().forEach(t -> assertTrue(groups.contains(t)));
@@ -109,7 +108,7 @@ public class DataLoadingTest {
 
   @Test
   public void testLoyaltyCardsReadAndInsertion() {
-    final LoyaltyCardTable loyaltyCardTable = 
+    final LoyaltyCardTable loyaltyCardTable =
         (LoyaltyCardTable) dbGenerator.getTableByClass(LoyaltyCardTable.class);
     final var loyaltyCards = loyaltyCardTable.readFromFile();
     loyaltyCards.forEach(t -> assertTrue(loyaltyCardTable.save(t)));
@@ -118,8 +117,8 @@ public class DataLoadingTest {
 
   @Test
   public void testCarClassReadAndInsertion() {
-    final CarClassTable carClassTable = 
-      (CarClassTable) dbGenerator.getTableByClass(CarClassTable.class);
+    final CarClassTable carClassTable =
+        (CarClassTable) dbGenerator.getTableByClass(CarClassTable.class);
     final var carClasses = carClassTable.readFromFile();
     carClasses.forEach(t -> assertTrue(carClassTable.save(t)));
     carClassTable.findAll().forEach(t -> assertTrue(carClasses.contains(t)));
