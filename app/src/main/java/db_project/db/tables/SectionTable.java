@@ -8,10 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Section;
+import db_project.utils.AbstractJsonReader;
 
-public class SectionTable extends AbstractTable<Section, String> {
+public class SectionTable extends AbstractTable<Section, String> implements JsonReadeable<Section> {
   public static final String TABLE_NAME = "TRATTA";
   public static final String PRIMARY_KEY = "codTratta";
   private final Logger logger;
@@ -76,5 +78,11 @@ public class SectionTable extends AbstractTable<Section, String> {
               sections.add(new Section(startStation, endStation, sectionCode, distance));
             });
     return sections;
+  }
+
+  @Override
+  public List<Section> readFromFile() {
+    return new AbstractJsonReader<Section>() {}.setFileName("DbSection.json")
+        .retreiveData(Section.class);
   }
 }

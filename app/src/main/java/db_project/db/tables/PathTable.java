@@ -8,11 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Path;
+import db_project.utils.AbstractJsonReader;
 ;
 
-public class PathTable extends AbstractTable<Path, String> {
+public class PathTable extends AbstractTable<Path, String> implements JsonReadeable<Path> {
   public static final String TABLE_NAME = "PERCORSO";
   public static final String PRIMARY_KEY = "codPercorso";
   private final Logger logger;
@@ -73,5 +75,11 @@ public class PathTable extends AbstractTable<Path, String> {
             });
 
     return pathList;
+  }
+
+  @Override
+  public List<Path> readFromFile() {
+    return new AbstractJsonReader<Path>() {}.setFileName("DbPath.json")
+        .retreiveData(Path.class);
   }
 }
