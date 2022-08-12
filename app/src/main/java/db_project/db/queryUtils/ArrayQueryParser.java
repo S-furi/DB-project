@@ -164,7 +164,9 @@ public class ArrayQueryParser implements QueryParser {
   private void setTypeStatement(
       final PreparedStatement statement, final Object param, final int index) {
     try {
-      if (param.getClass().equals(String.class)) {
+      if (param == null) {
+        statement.setNull(index, java.sql.Types.VARCHAR);
+      } else if (param.getClass().equals(String.class)) {
         statement.setString(index, param.toString());
       } else if (param.getClass().equals(Integer.class)) {
         statement.setInt(index, (int) param);
