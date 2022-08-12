@@ -29,4 +29,40 @@ public class PathInfo {
     return String.format(
         "Section %s number %d of Path %s", this.sectionId, this.orderNumber, this.pathId);
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + orderNumber;
+    result = prime * result + ((pathId == null) ? 0 : pathId.hashCode());
+    result = prime * result + ((sectionId == null) ? 0 : sectionId.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    PathInfo other = (PathInfo) obj;
+    if (orderNumber != other.orderNumber)
+      return false;
+    if (pathId == null) {
+      if (other.pathId != null)
+        return false;
+    } else if (!pathId.equals(other.pathId))
+      return false;
+    if (sectionId == null) {
+      if (other.sectionId != null)
+        return false;
+    } else if (!sectionId.equals(other.sectionId))
+      return false;
+    return true;
+  }
+
+  
 }

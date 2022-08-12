@@ -61,4 +61,52 @@ public class TicketDetail {
         this.carNumber,
         this.seatNumber);
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + carNumber;
+    result = prime * result + ((reservationDate == null) ? 0 : reservationDate.hashCode());
+    result = prime * result + seatNumber;
+    result = prime * result + ((ticketId == null) ? 0 : ticketId.hashCode());
+    result = prime * result + trainClass;
+    result = prime * result + ((trainId == null) ? 0 : trainId.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    TicketDetail other = (TicketDetail) obj;
+    if (carNumber != other.carNumber)
+      return false;
+    if (reservationDate == null) {
+      if (other.reservationDate != null)
+        return false;
+    } else if (!reservationDate.equals(other.reservationDate))
+      return false;
+    if (seatNumber != other.seatNumber)
+      return false;
+    if (ticketId == null) {
+      if (other.ticketId != null)
+        return false;
+    } else if (!ticketId.equals(other.ticketId))
+      return false;
+    if (trainClass != other.trainClass)
+      return false;
+    if (trainId == null) {
+      if (other.trainId != null)
+        return false;
+    } else if (!trainId.equals(other.trainId))
+      return false;
+    return true;
+  }
+
+  
 }

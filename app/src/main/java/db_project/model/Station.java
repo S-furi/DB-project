@@ -43,4 +43,46 @@ public class Station {
         + stationName
         + "]";
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((managerCode == null) ? 0 : managerCode.hashCode());
+    result = prime * result + rails;
+    result = prime * result + ((stationCode == null) ? 0 : stationCode.hashCode());
+    result = prime * result + ((stationName == null) ? 0 : stationName.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Station other = (Station) obj;
+    if (managerCode == null) {
+      if (other.managerCode != null)
+        return false;
+    } else if (!managerCode.equals(other.managerCode))
+      return false;
+    if (rails != other.rails)
+      return false;
+    if (stationCode == null) {
+      if (other.stationCode != null)
+        return false;
+    } else if (!stationCode.equals(other.stationCode))
+      return false;
+    if (stationName == null) {
+      if (other.stationName != null)
+        return false;
+    } else if (!stationName.equals(other.stationName))
+      return false;
+    return true;
+  }
+
+  
 }
