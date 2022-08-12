@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.common.reflect.TypeParameter;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public abstract class AbstractJsonReader<T> {
   private String filename;
@@ -27,8 +28,9 @@ public abstract class AbstractJsonReader<T> {
         Files.newBufferedReader(Paths.get(this.getFileFromResources().getAbsolutePath()))) {
       final var listType =
           new TypeToken<List<T>>() {}.where(new TypeParameter<T>() {}, elementClass).getType();
-
-      this.data = new Gson().fromJson(reader, listType);
+      
+      final Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
+      this.data = gson.fromJson(reader, listType);
       return this.data;
 
     } catch (final Exception e) {
