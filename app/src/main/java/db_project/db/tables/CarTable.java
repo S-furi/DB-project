@@ -17,25 +17,23 @@ public class CarTable extends AbstractCompositeKeyTable<Car, Object> {
   private final Logger logger;
 
   public CarTable(final Connection connection) {
-        super(TABLE_NAME, connection);
-        super.setPrimaryKey(PRIMARY_KEY);
-        super.setTableColumns(
-            List.of("maxPosti", "bagno")
-          );
-        this.logger = Logger.getLogger("CarTable");
-        this.logger.setLevel(Level.WARNING);
-    }
+    super(TABLE_NAME, connection);
+    super.setPrimaryKey(PRIMARY_KEY);
+    super.setTableColumns(List.of("maxPosti", "bagno"));
+    this.logger = Logger.getLogger("CarTable");
+    this.logger.setLevel(Level.WARNING);
+  }
 
   @Override
   public boolean createTable() {
-    final String query = 
+    final String query =
         "create table CARROZZA ( "
-          + "numClasse varchar(1) not null, "
-          + "codTreno varchar(5) not null, "
-          + "numeroCarrozza int not null, "
-          + "maxPosti int not null, "
-          + "bagno char, "
-          + "constraint ID_CARROZZA_ID primary key (numClasse, codTreno, numeroCarrozza)); ";
+            + "numClasse varchar(1) not null, "
+            + "codTreno varchar(5) not null, "
+            + "numeroCarrozza int not null, "
+            + "maxPosti int not null, "
+            + "bagno char, "
+            + "constraint ID_CARROZZA_ID primary key (numClasse, codTreno, numeroCarrozza)); ";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
@@ -61,7 +59,7 @@ public class CarTable extends AbstractCompositeKeyTable<Car, Object> {
       car.hasToilet() ? "1" : "0",
       car.getClassType(),
       car.getTrainCode(),
-      car.getPosition()            
+      car.getPosition()
     };
   }
 
@@ -70,22 +68,21 @@ public class CarTable extends AbstractCompositeKeyTable<Car, Object> {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
-    List<Car> cars = new ArrayList<>(); 
+    List<Car> cars = new ArrayList<>();
     result
-      .getResult()
-      .get()
-      .forEach(
-          row -> {
-            logger.info(row.toString());
-            final String classNum = (String) row.get("numClasse");
-            final String trainCode = (String) row.get("codTreno");
-            final int carNumber = (int) row.get("numeroCarrozza");
-            final int maxSeats = (int) row.get("maxPosti");
-            final boolean toilet = row.get("bagno").equals("1") ? true : false;
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              logger.info(row.toString());
+              final String classNum = (String) row.get("numClasse");
+              final String trainCode = (String) row.get("codTreno");
+              final int carNumber = (int) row.get("numeroCarrozza");
+              final int maxSeats = (int) row.get("maxPosti");
+              final boolean toilet = row.get("bagno").equals("1") ? true : false;
 
-            cars.add(new Car(classNum, trainCode, carNumber, maxSeats, toilet));
-          });
+              cars.add(new Car(classNum, trainCode, carNumber, maxSeats, toilet));
+            });
     return cars;
   }
 }
-
