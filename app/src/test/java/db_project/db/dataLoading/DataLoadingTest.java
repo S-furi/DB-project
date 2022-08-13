@@ -191,7 +191,7 @@ public class DataLoadingTest {
   public void testPathInfoReadAndInsertion() {
     this.createSectionsDependencies();
     this.createPathDependencies();
-    
+
     final PathInfoTable pathInfoTable =
         (PathInfoTable) dbGenerator.getTableByClass(PathInfoTable.class);
     final var tables = pathInfoTable.readFromFile();

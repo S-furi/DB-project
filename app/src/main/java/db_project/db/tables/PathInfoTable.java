@@ -48,10 +48,10 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
   public boolean createTable() {
     final String query =
         "create table DETTAGLIO_PERCORSO ( "
-          + "codTratta varchar(5) not null, "
-          + "codPercorso varchar(5) not null, "
-          + "ordine varchar(10) not null, "
-          + "constraint ID_DETTAGLIO_PERCORSO_ID primary key (codPercorso, codTratta, ordine)); ";
+            + "codTratta varchar(5) not null, "
+            + "codPercorso varchar(5) not null, "
+            + "ordine varchar(10) not null, "
+            + "constraint ID_DETTAGLIO_PERCORSO_ID primary key (codPercorso, codTratta, ordine)); ";
 
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
@@ -79,7 +79,7 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
 
   @Override
   public boolean update(final PathInfo updatedValue) {
-      return false;
+    return false;
   }
 
   @Override

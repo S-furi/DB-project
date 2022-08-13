@@ -187,7 +187,7 @@ public class DBGenerator {
                 + "references RESPONSABILE_STAZIONE (codResponsabile); ",
             "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_PERCO "
                 + "foreign key (codPercorso) "
-                + "references PERCORSO (codPercorso); " ,
+                + "references PERCORSO (codPercorso); ",
             "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_TRATT_FK "
                 + "foreign key (codTratta) "
                 + "references TRATTA (codTratta); ",
