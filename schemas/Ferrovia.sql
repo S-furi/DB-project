@@ -152,8 +152,8 @@ create table STAZIONE (
 create table TRATTA (
      codTratta varchar(5) not null,
      distanza int not null,
-     codStazionePartenza varchar(5) not null,
-     codStazioneArrivo varchar(5) not null,
+     codStazionePartenza varchar(10) not null,
+     codStazioneArrivo varchar(10) not null,
      constraint ID_TRATTA_ID primary key (codTratta));
 
 create table TRENO (
