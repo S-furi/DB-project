@@ -31,6 +31,13 @@ public class Section {
     return distance;
   }
 
+
+  @Override
+  public String toString() {
+    return "Section [distance=" + distance + ", endStation=" + endStation + ", sectionCode=" + sectionCode
+        + ", startStation=" + startStation + "]";
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
