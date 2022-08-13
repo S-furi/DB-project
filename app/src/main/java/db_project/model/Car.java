@@ -33,7 +33,7 @@ public class Car {
     return seats;
   }
 
-  public boolean isToilet() {
+  public boolean hasToilet() {
     return toilet;
   }
 
