@@ -16,13 +16,13 @@ import db_project.utils.AbstractJsonReader;
 public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
     implements JsonReadeable<PathInfo> {
   public static final String TABLE_NAME = "DETTAGLIO_PERCORSO";
-  public static final List<String> PRIMARY_KEY = List.of("codPercorso", "ordine");
+  public static final List<String> PRIMARY_KEY = List.of("codPercorso", "ordine", "codTratta");
   private final Logger logger;
 
   public PathInfoTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(List.of("codTratta"));
+    super.setTableColumns(Collections.emptyList());
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
@@ -37,6 +37,7 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
     return new Object[] {
       pathInfo.getPathId(),
       pathInfo.getOrderNumber(),
+      pathInfo.getSectionId(),
       pathInfo.getPathId(),
       pathInfo.getOrderNumber(),
       pathInfo.getSectionId()
@@ -46,12 +47,11 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
   @Override
   public boolean createTable() {
     final String query =
-        "create table DETTAGLIO_PERCORSO ("
-            + "codPercorso varchar(5) not null,"
-            + "ordine char(10) not null,"
-            + "codTratta varchar(5) not null,"
-            + "constraint ID_Strutturazione_ID primary key (codPercorso, ordine),"
-            + "constraint FKStr_TRA_ID unique (codTratta));";
+        "create table DETTAGLIO_PERCORSO ( "
+          + "codTratta varchar(5) not null, "
+          + "codPercorso varchar(5) not null, "
+          + "ordine varchar(10) not null, "
+          + "constraint ID_DETTAGLIO_PERCORSO_ID primary key (codPercorso, codTratta, ordine)); ";
 
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
@@ -75,6 +75,11 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
               pathInfos.add(new PathInfo(sectionId, orderNumber, pathId));
             });
     return pathInfos;
+  }
+
+  @Override
+  public boolean update(final PathInfo updatedValue) {
+      return false;
   }
 
   @Override
