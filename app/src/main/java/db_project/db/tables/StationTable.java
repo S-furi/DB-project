@@ -21,7 +21,7 @@ public class StationTable extends AbstractTable<Station, String> implements Json
   public StationTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(List.of("nome", "numBinari", "codResponsabile"));
+    super.setTableColumns(List.of("nome", "numBinari", "locazione", "codResponsabile"));
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
@@ -32,6 +32,7 @@ public class StationTable extends AbstractTable<Station, String> implements Json
       station.getStationCode(),
       station.getStationName(),
       station.getRails(),
+      station.getLocation(),
       station.getManagerCode()
     };
   }
@@ -41,6 +42,7 @@ public class StationTable extends AbstractTable<Station, String> implements Json
     return new Object[] {
       station.getStationName(),
       station.getRails(),
+      station.getLocation(),
       station.getManagerCode(),
       station.getStationCode()
     };
@@ -53,8 +55,11 @@ public class StationTable extends AbstractTable<Station, String> implements Json
             + "codStazione varchar(10) not null, "
             + "nome varchar(20) not null, "
             + "numBinari int not null, "
+            + "locazione varchar(40) not null,"
             + "codResponsabile varchar(5) not null, "
             + "constraint ID_STAZIONE_ID primary key (codStazione)); ";
+
+
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
@@ -74,8 +79,9 @@ public class StationTable extends AbstractTable<Station, String> implements Json
               final String stationCode = (String) row.get("codStazione");
               final String stationName = (String) row.get("nome");
               final int rails = (int) row.get("numBinari");
+              final String location =(String) row.get("locazione");
               final String managerCode = (String) row.get("codResponsabile");
-              stations.add(new Station(stationCode, stationName, rails, managerCode));
+              stations.add(new Station(stationCode, stationName, rails, managerCode, location));
             });
     return stations;
   }
