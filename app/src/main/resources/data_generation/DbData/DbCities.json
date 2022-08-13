@@ -130,6 +130,11 @@
         "province": "TN"
     },
     {
+        "name": "Treviso",
+        "region": "Trentino-Alto Adige",
+        "province": "TV"
+    },
+    {
         "name": "Trieste",
         "region":"Trentino-Alto Adige",
         "province": "TS"

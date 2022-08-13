@@ -175,6 +175,14 @@
     "managerCode": 14
   },
   {
+    "stationName": "TREVISO",
+    "stationCode": "S02712",
+    "rails": "10",
+    "location": "Treviso",
+    "managerCode": 3
+
+  },
+  {
     "stationName": "TRIESTE",
     "stationCode": "S03317",
     "rails": 2,
