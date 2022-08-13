@@ -191,17 +191,13 @@ public class DataLoadingTest {
   public void testPathInfoReadAndInsertion() {
     this.createSectionsDependencies();
     this.createPathDependencies();
+    
     final PathInfoTable pathInfoTable =
         (PathInfoTable) dbGenerator.getTableByClass(PathInfoTable.class);
     final var tables = pathInfoTable.readFromFile();
-    tables.forEach(
-        t -> {
-          if (!pathInfoTable.save(t)) {
-            System.out.println("errore con " + t.toString());
-          } else {
-            System.out.println("TUTTO A POSTO CON " + t.toString());
-          }
-        });
+    tables.forEach(t -> assertTrue(pathInfoTable.save(t)));
+
     pathInfoTable.findAll().forEach(t -> assertTrue(tables.contains(t)));
+    assertTrue(pathInfoTable.findAll().size() == tables.size());
   }
 }
