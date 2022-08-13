@@ -3,186 +3,210 @@
     "stationName": "BARI CENTRALE",
     "stationCode": "S11119",
     "rails": 10,
+    "location": "Bari",
     "managerCode": 8
   },
   {
     "stationName": "BARLETTA",
     "stationCode": "S11108",
     "rails": 5,
+    "location": "Barletta",
     "managerCode": 9
   },
   {
     "stationName": "BENEVENTO",
     "stationCode": "S09311",
     "rails": 16,
+    "location": "Benevento",
     "managerCode": 3
   },
   {
     "stationName": "BERGAMO",
     "stationCode": "S01529",
     "rails": 17,
+    "location": "Bergamo",
     "managerCode": 1
   },
   {
     "stationName": "BOLOGNA C.LE",
     "stationCode": "S05043",
     "rails": 7,
+    "location": "Bologna",
     "managerCode": 9
   },
   {
     "stationName": "BOLZANO",
     "stationCode": "S02026",
     "rails": 5,
+    "location": "Bolzano",
     "managerCode": 15
   },
   {
     "stationName": "BRESCIA",
     "stationCode": "S01717",
     "rails": 13,
+    "location": "Brescia",
     "managerCode": 7
   },
   {
     "stationName": "CASERTA",
     "stationCode": "S09211",
     "rails": 13,
+    "location": "Caserta",
     "managerCode": 3
   },
   {
     "stationName": "DESENZANO",
     "stationCode": "S02084",
     "rails": 10,
+    "location": "Desenzano del Garda",
     "managerCode": 6
   },
   {
     "stationName": "FERRARA",
     "stationCode": "S05712",
     "rails": 18,
+    "location": "Ferrara",
     "managerCode": 1
   },
   {
     "stationName": "FIRENZE S.M.N.",
     "stationCode": "S06421",
     "rails": 11,
+    "location": "Firenze",
     "managerCode": 4
   },
   {
     "stationName": "FOGGIA",
     "stationCode": "S11100",
     "rails": 2,
+    "location": "Foggia",
     "managerCode": 4
   },
   {
     "stationName": "GENOVA",
     "stationCode": "S04700",
     "rails": 10,
+    "location": "Genova",
     "managerCode": 12
   },
   {
     "stationName": "LAMEZIA",
     "stationCode": "S17014",
     "rails": 8,
+    "location": "Lamezia Terme",
     "managerCode": 13
   },
   {
     "stationName": "MILANO CENTRALE",
     "stationCode": "S01700",
     "rails": 16,
+    "location": "Milano",
     "managerCode": 9
   },
   {
     "stationName": "NAPOLI CENTRALE",
     "stationCode": "S09218",
     "rails": 6,
+    "location": "Napoli",
     "managerCode": 2
   },
   {
     "stationName": "PADOVA",
     "stationCode": "S02581",
     "rails": 4,
+    "location": "Padova",
     "managerCode": 14
   },
   {
     "stationName": "PESCHIERA",
     "stationCode": "S02088",
     "rails": 7,
+    "location": "Peschiera del Garda",
     "managerCode": 1
   },
   {
     "stationName": "REGGIO CALABRIA",
     "stationCode": "S11781",
     "rails": 7,
+    "location": "Reggio Calabria",
     "managerCode": 4
   },
   {
     "stationName": "REGGIO EMILIA",
     "stationCode": "S05023",
     "rails": 5,
+    "location": "Reggio Emilia",
     "managerCode": 3
   },
   {
     "stationName": "ROMA TERMINI",
     "stationCode": "S08409",
     "rails": 13,
+    "location": "Roma",
     "managerCode": 15
   },
   {
     "stationName": "ROVIGO",
     "stationCode": "S05706",
     "rails": 4,
+    "location": "Rovigo",
     "managerCode": 13
   },
   {
     "stationName": "SALERNO",
     "stationCode": "S09818",
     "rails": 13,
+    "location": "Salerno",
     "managerCode": 10
   },
   {
     "stationName": "TORINO",
     "stationCode": "S00219",
     "rails": 18,
+    "location": "Torino",
     "managerCode": 14
   },
   {
     "stationName": "TRENTO",
     "stationCode": "S02038",
     "rails": 12,
+    "location": "Trento",
     "managerCode": 14
-  },
-  {
-    "stationName": "TREVISO",
-    "stationCode": "S02712",
-    "rails": 3,
-    "managerCode": 8
   },
   {
     "stationName": "TRIESTE",
     "stationCode": "S03317",
     "rails": 2,
+    "location": "Trieste",
     "managerCode": 5
   },
   {
     "stationName": "UDINE",
     "stationCode": "S03026",
     "rails": 10,
+    "location": "Udine",
     "managerCode": 1
   },
   {
     "stationName": "VENEZIA SANTA LUCIA",
     "stationCode": "S02593",
     "rails": 7,
+    "location": "Venezia",
     "managerCode": 8
   },
   {
     "stationName": "VERONA",
     "stationCode": "S02430",
     "rails": 17,
+    "location": "Verona",
     "managerCode": 9
   },
   {
     "stationName": "VICENZA",
     "stationCode": "S02446",
     "rails": 7,
+    "location": "Vicenza",
     "managerCode": 4
   }
 ]
