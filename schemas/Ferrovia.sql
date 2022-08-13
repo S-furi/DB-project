@@ -146,7 +146,7 @@ create table STAZIONE (
 
 create table DETTAGLIO_PERCORSO (
      codPercorso varchar(5) not null,
-     ordine int not null,
+     ordine char(10) not null,
      codTratta varchar(5) not null,
      constraint ID_Strutturazione_ID primary key (codPercorso, ordine),
      constraint FKStr_TRA_ID unique (codTratta));
