@@ -38,7 +38,7 @@ public class PathInfoTableTest {
   public static void tearDown() {
     pathInfoTable
         .findAll()
-        .forEach(t -> pathInfoTable.delete(List.of(t.getPathId(), t.getOrderNumber())));
+        .forEach(t -> pathInfoTable.delete(List.of(t.getPathId(), t.getOrderNumber(), t.getSectionId())));
     PathTableTest.tearDown();
     SectionTableTest.tearDown();
   }
