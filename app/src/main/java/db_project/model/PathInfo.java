@@ -42,28 +42,19 @@ public class PathInfo {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     PathInfo other = (PathInfo) obj;
     if (orderNumber == null) {
-      if (other.orderNumber != null)
-        return false;
-    } else if (!orderNumber.equals(other.orderNumber))
-      return false;
+      if (other.orderNumber != null) return false;
+    } else if (!orderNumber.equals(other.orderNumber)) return false;
     if (pathId == null) {
-      if (other.pathId != null)
-        return false;
-    } else if (!pathId.equals(other.pathId))
-      return false;
+      if (other.pathId != null) return false;
+    } else if (!pathId.equals(other.pathId)) return false;
     if (sectionId == null) {
-      if (other.sectionId != null)
-        return false;
-    } else if (!sectionId.equals(other.sectionId))
-      return false;
+      if (other.sectionId != null) return false;
+    } else if (!sectionId.equals(other.sectionId)) return false;
     return true;
   }
 }

@@ -160,7 +160,7 @@ public class DataLoadingTest {
     final PathTable pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
     pathTable.readFromFile().forEach(t -> assertTrue(pathTable.save(t)));
   }
-  
+
   @Test
   public void testPathReadAndInsertion() {
     this.createAdminDepencency();
@@ -172,15 +172,15 @@ public class DataLoadingTest {
 
   private void createSectionsDependencies() {
     this.createStationsDependencies();
-    final SectionTable sectionTable = 
-      (SectionTable) dbGenerator.getTableByClass(SectionTable.class);
+    final SectionTable sectionTable =
+        (SectionTable) dbGenerator.getTableByClass(SectionTable.class);
     sectionTable.readFromFile().forEach(t -> sectionTable.save(t));
   }
 
   @Test
   public void testSectionReadAndInsertion() {
     this.createStationsDependencies();
-    final SectionTable sectionTable = 
+    final SectionTable sectionTable =
         (SectionTable) dbGenerator.getTableByClass(SectionTable.class);
     final var tables = sectionTable.readFromFile();
     tables.forEach(t -> assertTrue(sectionTable.save(t)));
@@ -191,16 +191,17 @@ public class DataLoadingTest {
   public void testPathInfoReadAndInsertion() {
     this.createSectionsDependencies();
     this.createPathDependencies();
-    final PathInfoTable pathInfoTable = 
+    final PathInfoTable pathInfoTable =
         (PathInfoTable) dbGenerator.getTableByClass(PathInfoTable.class);
     final var tables = pathInfoTable.readFromFile();
-    tables.forEach(t -> {
-      if (!pathInfoTable.save(t)) {
-        System.out.println("errore con " + t.toString());
-      } else {
-        System.out.println("TUTTO A POSTO CON " + t.toString());
-      }
-    });
+    tables.forEach(
+        t -> {
+          if (!pathInfoTable.save(t)) {
+            System.out.println("errore con " + t.toString());
+          } else {
+            System.out.println("TUTTO A POSTO CON " + t.toString());
+          }
+        });
     pathInfoTable.findAll().forEach(t -> assertTrue(tables.contains(t)));
   }
 }

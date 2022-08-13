@@ -31,11 +31,17 @@ public class Section {
     return distance;
   }
 
-
   @Override
   public String toString() {
-    return "Section [distance=" + distance + ", endStation=" + endStation + ", sectionCode=" + sectionCode
-        + ", startStation=" + startStation + "]";
+    return "Section [distance="
+        + distance
+        + ", endStation="
+        + endStation
+        + ", sectionCode="
+        + sectionCode
+        + ", startStation="
+        + startStation
+        + "]";
   }
 
   @Override

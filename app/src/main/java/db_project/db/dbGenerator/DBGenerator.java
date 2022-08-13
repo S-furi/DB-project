@@ -115,13 +115,11 @@ public class DBGenerator {
     }
   }
 
-
-
-// DETTAGLIO_BIGLIETTO
-// SOTTOSCRIZIONE
-// CARROZZA
-// CARROZZA
-// POSTO
+  // DETTAGLIO_BIGLIETTO
+  // SOTTOSCRIZIONE
+  // CARROZZA
+  // CARROZZA
+  // POSTO
   private boolean constraintApplier(final Connection connection) {
     // MISSING:
     // "alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK " +
@@ -148,61 +146,61 @@ public class DBGenerator {
 
     final List<String> queries =
         List.of(
-    "alter table AMMINISTRATORE add constraint FKResidenza_Adm_FK " +
-          "foreign key (residenza) " +
-          "references CITTA (nome); ",
-     "alter table BIGLIETTO add constraint FKAcquistoComitiva_FK " +
-          "foreign key (codComitiva) " +
-          "references COMITIVA (codComitiva); ",
-     "alter table BIGLIETTO add constraint FKAcquisto_FK " +
-          "foreign key (codPasseggero) " +
-          "references PASSEGGERO (codPasseggero); ",
-     "alter table BIGLIETTO add constraint FKRiferimento_FK " +
-          "foreign key (codPercorso, codTreno, data) " +
-          "references PERCORRENZA (codPercorso, codTreno, data); ",
-     "alter table MACCHINISTA add constraint FKResidenza_Mac_FK " +
-          "foreign key (residenza) " +
-          "references CITTA (nome); ",
-     "alter table PASSEGGERO add constraint FKResidenza_Pas_FK " +
-          "foreign key (residenza) " +
-          "references CITTA (nome); ",
-     "alter table PASSEGGERO add constraint FKFormazione_FK " +
-          "foreign key (codComitiva) " +
-          "references COMITIVA (codComitiva); ",
-     "alter table PERCORRENZA add constraint FKServizio_FK " +
-          "foreign key (codTreno) " +
-          "references TRENO (codTreno); ",
-     "alter table PERCORRENZA add constraint FKAttivazione " +
-          "foreign key (codPercorso) " +
-          "references PERCORSO (codPercorso); ",
-     "alter table PERCORSO add constraint FKAmministrazione_FK " +
-          "foreign key (adminID) " +
-          "references AMMINISTRATORE (adminID); ",
-     "alter table RESPONSABILE_STAZIONE add constraint FKResidenza_Resp_FK " +
-          "foreign key (residenza) " +
-          "references CITTA (nome); ",
-     "alter table STAZIONE add constraint FKLocazione_FK " +
-          "foreign key (locazione) " +
-          "references CITTA (nome); ",
-     "alter table STAZIONE add constraint FKGestione_FK " +
-          "foreign key (codResponsabile) " +
-          "references RESPONSABILE_STAZIONE (codResponsabile); ",
-     "alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK " +
-          "foreign key (codTratta) " +
-          "references TRATTA (codTratta); ",
-     "alter table DETTAGLIO_PERCORSO add constraint FKStr_PER " +
-          "foreign key (codPercorso) " +
-          "references PERCORSO (codPercorso); ",
-     "alter table TRATTA add constraint FKPartenza_FK " +
-          "foreign key (codStazionePartenza) " +
-          "references STAZIONE (codStazione); ",
-     "alter table TRATTA add constraint FKArrivo_FK " +
-          "foreign key (codStazioneArrivo) " +
-          "references STAZIONE (codStazione); ",
-     "alter table TRENO add constraint FKPilota_FK " +
-          "foreign key (codMacchinista) " +
-          "references MACCHINISTA (numeroPatente); ");
-    
+            "alter table AMMINISTRATORE add constraint FKResidenza_Adm_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome); ",
+            "alter table BIGLIETTO add constraint FKAcquistoComitiva_FK "
+                + "foreign key (codComitiva) "
+                + "references COMITIVA (codComitiva); ",
+            "alter table BIGLIETTO add constraint FKAcquisto_FK "
+                + "foreign key (codPasseggero) "
+                + "references PASSEGGERO (codPasseggero); ",
+            "alter table BIGLIETTO add constraint FKRiferimento_FK "
+                + "foreign key (codPercorso, codTreno, data) "
+                + "references PERCORRENZA (codPercorso, codTreno, data); ",
+            "alter table MACCHINISTA add constraint FKResidenza_Mac_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome); ",
+            "alter table PASSEGGERO add constraint FKResidenza_Pas_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome); ",
+            "alter table PASSEGGERO add constraint FKFormazione_FK "
+                + "foreign key (codComitiva) "
+                + "references COMITIVA (codComitiva); ",
+            "alter table PERCORRENZA add constraint FKServizio_FK "
+                + "foreign key (codTreno) "
+                + "references TRENO (codTreno); ",
+            "alter table PERCORRENZA add constraint FKAttivazione "
+                + "foreign key (codPercorso) "
+                + "references PERCORSO (codPercorso); ",
+            "alter table PERCORSO add constraint FKAmministrazione_FK "
+                + "foreign key (adminID) "
+                + "references AMMINISTRATORE (adminID); ",
+            "alter table RESPONSABILE_STAZIONE add constraint FKResidenza_Resp_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome); ",
+            "alter table STAZIONE add constraint FKLocazione_FK "
+                + "foreign key (locazione) "
+                + "references CITTA (nome); ",
+            "alter table STAZIONE add constraint FKGestione_FK "
+                + "foreign key (codResponsabile) "
+                + "references RESPONSABILE_STAZIONE (codResponsabile); ",
+            "alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK "
+                + "foreign key (codTratta) "
+                + "references TRATTA (codTratta); ",
+            "alter table DETTAGLIO_PERCORSO add constraint FKStr_PER "
+                + "foreign key (codPercorso) "
+                + "references PERCORSO (codPercorso); ",
+            "alter table TRATTA add constraint FKPartenza_FK "
+                + "foreign key (codStazionePartenza) "
+                + "references STAZIONE (codStazione); ",
+            "alter table TRATTA add constraint FKArrivo_FK "
+                + "foreign key (codStazioneArrivo) "
+                + "references STAZIONE (codStazione); ",
+            "alter table TRENO add constraint FKPilota_FK "
+                + "foreign key (codMacchinista) "
+                + "references MACCHINISTA (numeroPatente); ");
+
     try (final var statement = connection.createStatement()) {
       for (final var query : queries) {
         statement.execute(query);

@@ -39,19 +39,20 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
       pathInfo.getOrderNumber(),
       pathInfo.getPathId(),
       pathInfo.getOrderNumber(),
-      pathInfo.getSectionId()};
+      pathInfo.getSectionId()
+    };
   }
 
   @Override
   public boolean createTable() {
     final String query =
-      "create table DETTAGLIO_PERCORSO ("
-        + "codPercorso varchar(5) not null,"
-        + "ordine char(10) not null,"
-        + "codTratta varchar(5) not null,"
-        + "constraint ID_Strutturazione_ID primary key (codPercorso, ordine),"
-        + "constraint FKStr_TRA_ID unique (codTratta));";
-            
+        "create table DETTAGLIO_PERCORSO ("
+            + "codPercorso varchar(5) not null,"
+            + "ordine char(10) not null,"
+            + "codTratta varchar(5) not null,"
+            + "constraint ID_Strutturazione_ID primary key (codPercorso, ordine),"
+            + "constraint FKStr_TRA_ID unique (codTratta));";
+
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }

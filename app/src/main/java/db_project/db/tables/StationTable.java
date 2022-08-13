@@ -59,7 +59,6 @@ public class StationTable extends AbstractTable<Station, String> implements Json
             + "codResponsabile varchar(5) not null, "
             + "constraint ID_STAZIONE_ID primary key (codStazione)); ";
 
-
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
@@ -79,7 +78,7 @@ public class StationTable extends AbstractTable<Station, String> implements Json
               final String stationCode = (String) row.get("codStazione");
               final String stationName = (String) row.get("nome");
               final int rails = (int) row.get("numBinari");
-              final String location =(String) row.get("locazione");
+              final String location = (String) row.get("locazione");
               final String managerCode = (String) row.get("codResponsabile");
               stations.add(new Station(stationCode, stationName, rails, managerCode, location));
             });
