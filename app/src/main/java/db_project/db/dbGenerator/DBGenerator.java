@@ -185,12 +185,12 @@ public class DBGenerator {
             "alter table STAZIONE add constraint FKGestione_FK "
                 + "foreign key (codResponsabile) "
                 + "references RESPONSABILE_STAZIONE (codResponsabile); ",
-            "alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK "
+            "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_PERCO "
+                + "foreign key (codPercorso) "
+                + "references PERCORSO (codPercorso); " ,
+            "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_TRATT_FK "
                 + "foreign key (codTratta) "
                 + "references TRATTA (codTratta); ",
-            "alter table DETTAGLIO_PERCORSO add constraint FKStr_PER "
-                + "foreign key (codPercorso) "
-                + "references PERCORSO (codPercorso); ",
             "alter table TRATTA add constraint FKPartenza_FK "
                 + "foreign key (codStazionePartenza) "
                 + "references STAZIONE (codStazione); ",
