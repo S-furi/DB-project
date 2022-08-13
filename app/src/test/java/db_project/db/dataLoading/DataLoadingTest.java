@@ -14,7 +14,9 @@ import db_project.db.tables.DriverTable;
 import db_project.db.tables.GroupTable;
 import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.PassengerTable;
+import db_project.db.tables.PathInfoTable;
 import db_project.db.tables.PathTable;
+import db_project.db.tables.SectionTable;
 import db_project.db.tables.StationManagerTable;
 import db_project.db.tables.StationTable;
 
@@ -110,6 +112,13 @@ public class DataLoadingTest {
     assertTrue(passengerTable.findAll().size() == passengers.size());
   }
 
+  private void createStationsDependencies() {
+    this.createManagerDepencency();
+    final StationTable stationTable =
+        (StationTable) dbGenerator.getTableByClass(StationTable.class);
+    stationTable.readFromFile().forEach(t -> stationTable.save(t));
+  }
+
   @Test
   public void testStationReadAndInsertion() {
     this.createManagerDepencency();
@@ -146,12 +155,52 @@ public class DataLoadingTest {
     carClassTable.findAll().forEach(t -> assertTrue(carClasses.contains(t)));
   }
 
+  private void createPathDependencies() {
+    this.createAdminDepencency();
+    final PathTable pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
+    pathTable.readFromFile().forEach(t -> assertTrue(pathTable.save(t)));
+  }
+  
   @Test
-  public void testPathClassReadAndInsertion() {
+  public void testPathReadAndInsertion() {
     this.createAdminDepencency();
     final PathTable pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
     final var paths = pathTable.readFromFile();
     paths.forEach(t -> assertTrue(pathTable.save(t)));
     pathTable.findAll().forEach(t -> assertTrue(paths.contains(t)));
+  }
+
+  private void createSectionsDependencies() {
+    this.createStationsDependencies();
+    final SectionTable sectionTable = 
+      (SectionTable) dbGenerator.getTableByClass(SectionTable.class);
+    sectionTable.readFromFile().forEach(t -> sectionTable.save(t));
+  }
+
+  @Test
+  public void testSectionReadAndInsertion() {
+    this.createStationsDependencies();
+    final SectionTable sectionTable = 
+        (SectionTable) dbGenerator.getTableByClass(SectionTable.class);
+    final var tables = sectionTable.readFromFile();
+    tables.forEach(t -> assertTrue(sectionTable.save(t)));
+    sectionTable.findAll().forEach(t -> assertTrue(tables.contains(t)));
+  }
+
+  @Test
+  public void testPathInfoReadAndInsertion() {
+    this.createSectionsDependencies();
+    this.createPathDependencies();
+    final PathInfoTable pathInfoTable = 
+        (PathInfoTable) dbGenerator.getTableByClass(PathInfoTable.class);
+    final var tables = pathInfoTable.readFromFile();
+    tables.forEach(t -> {
+      if (!pathInfoTable.save(t)) {
+        System.out.println("errore con " + t.toString());
+      } else {
+        System.out.println("TUTTO A POSTO CON " + t.toString());
+      }
+    });
+    pathInfoTable.findAll().forEach(t -> assertTrue(tables.contains(t)));
   }
 }
