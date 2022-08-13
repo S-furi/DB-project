@@ -6,7 +6,7 @@
     "lastName": "Rossetti",
     "telephone": "3324071378",
     "email": "alessandra.rossetti7@libero.it",
-    "residence": "Brescia"
+    "residence": "Barletta"
   },
   {
     "id": 1,
@@ -15,7 +15,7 @@
     "lastName": "Barbieri",
     "telephone": "3165394402",
     "email": "camilla.barbieri1@icloud.com",
-    "residence": "Brescia"
+    "residence": "Bergamo"
   },
   {
     "id": 2,
@@ -24,7 +24,7 @@
     "lastName": "Palmieri",
     "telephone": "3209696321",
     "email": "gaia.palmieri5@libero.it",
-    "residence": "Brescia"
+    "residence": "Ferrara"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "lastName": "Rizzi",
     "telephone": "3262208264",
     "email": "sofia.rizzi4@hotmail.it",
-    "residence": "Brescia"
+    "residence": "Peschiera del Garda"
   },
   {
     "id": 4,
@@ -42,7 +42,7 @@
     "lastName": "Mancini",
     "telephone": "3705936334",
     "email": "maddalena.mancini6@aruba.com",
-    "residence": "Brescia"
+    "residence": "Verona"
   },
   {
     "id": 5,
@@ -51,7 +51,7 @@
     "lastName": "De Angelis",
     "telephone": "3208819637",
     "email": "federica.deangelis7@icloud.com",
-    "residence": "Brescia"
+    "residence": "Peschiera del Garda"
   },
   {
     "id": 6,
@@ -60,7 +60,7 @@
     "lastName": "Mariani",
     "telephone": "3156431948",
     "email": "desolino.mariani8@live.it",
-    "residence": "Brescia"
+    "residence": "Bergamo"
   },
   {
     "id": 7,
@@ -69,7 +69,7 @@
     "lastName": "Caruso",
     "telephone": "3696988031",
     "email": "riccardo.caruso2@hotmail.it",
-    "residence": "Brescia"
+    "residence": "Reggio Calabria"
   },
   {
     "id": 8,
@@ -78,7 +78,7 @@
     "lastName": "Morelli",
     "telephone": "3558702056",
     "email": "adele.morelli7@alice.it",
-    "residence": "Brescia"
+    "residence": "Rovereto"
   },
   {
     "id": 9,
@@ -87,7 +87,7 @@
     "lastName": "Milani",
     "telephone": "3307536602",
     "email": "anita.milani8@aruba.com",
-    "residence": "Brescia"
+    "residence": "Trieste"
   },
   {
     "id": 10,
@@ -96,7 +96,7 @@
     "lastName": "Martino",
     "telephone": "3814758355",
     "email": "maria.martino9@icloud.com",
-    "residence": "Brescia"
+    "residence": "Treviso"
   },
   {
     "id": 11,
@@ -105,7 +105,7 @@
     "lastName": "Pellegrini",
     "telephone": "3501812501",
     "email": "nicola.pellegrini8@yahoo.com",
-    "residence": "Brescia"
+    "residence": "Desenzano del Garda"
   },
   {
     "id": 12,
@@ -114,7 +114,7 @@
     "lastName": "De Angelis",
     "telephone": "3859850928",
     "email": "dario.deangelis6@hotmail.it",
-    "residence": "Brescia"
+    "residence": "Torino"
   },
   {
     "id": 13,
@@ -123,7 +123,7 @@
     "lastName": "Farina",
     "telephone": "3631462717",
     "email": "vanessa.farina7@alice.it",
-    "residence": "Brescia"
+    "residence": "Peschiera del Garda"
   },
   {
     "id": 14,
@@ -132,6 +132,6 @@
     "lastName": "Gallo",
     "telephone": "3568380807",
     "email": "pietro.gallo1@hotmail.it",
-    "residence": "Brescia"
+    "residence": "Napoli"
   }
 ]
