@@ -220,7 +220,7 @@ public class DBGenerator {
     return this.tables;
   }
 
-  public Table<?, String> getTableByClass(Class<? extends Table<?, String>> clazz) {
+  public Table<?, ?> getTableByClass(Class<? extends Table<?, ?>> clazz) {
     final var elem = this.tables.stream().filter(clazz::isInstance).map(clazz::cast).findFirst();
     if (elem.isEmpty()) {
       throw new IllegalAccessError("Specified table does not exist!");
