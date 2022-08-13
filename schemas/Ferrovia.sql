@@ -3,9 +3,9 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Sat Aug 13 10:51:37 2022 
+-- * Generation date: Sat Aug 13 14:52:09 2022 
 -- * LUN file: C:\users\crossover\Desktop\My Mac Desktop\DB\Progetto\prj\DB-project\schemas\Railway.lun 
--- * Schema: Ferrovia/3 
+-- * Schema: Ferrovia/4 
 -- ********************************************* 
 
 
@@ -145,11 +145,10 @@ create table STAZIONE (
      constraint ID_STAZIONE_ID primary key (codStazione));
 
 create table DETTAGLIO_PERCORSO (
-     codPercorso varchar(5) not null,
-     ordine char(10) not null,
      codTratta varchar(5) not null,
-     constraint ID_Strutturazione_ID primary key (codPercorso, ordine),
-     constraint FKStr_TRA_ID unique (codTratta));
+     codPercorso varchar(5) not null,
+     ordine varchar(10) not null,
+     constraint ID_DETTAGLIO_PERCORSO_ID primary key (codPercorso, codTratta, ordine));
 
 create table TRATTA (
      codTratta varchar(5) not null,
@@ -269,18 +268,13 @@ alter table STAZIONE add constraint FKGestione_FK
      foreign key (codResponsabile)
      references RESPONSABILE_STAZIONE (codResponsabile);
 
-alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK
-     foreign key (codTratta)
-     references TRATTA (codTratta);
-
-alter table DETTAGLIO_PERCORSO add constraint FKStr_PER
+alter table DETTAGLIO_PERCORSO add constraint REF_Strut_PERCO
      foreign key (codPercorso)
      references PERCORSO (codPercorso);
 
--- Not implemented
--- alter table TRATTA add constraint ID_TRATTA_CHK
---     check(exists(select * from DETTAGLIO_PERCORSO
---                  where DETTAGLIO_PERCORSO.codTratta = codTratta)); 
+alter table DETTAGLIO_PERCORSO add constraint REF_Strut_TRATT_FK
+     foreign key (codTratta)
+     references TRATTA (codTratta);
 
 alter table TRATTA add constraint FKPartenza_FK
      foreign key (codStazionePartenza)
@@ -391,10 +385,10 @@ create index FKLocazione_IND
 create index FKGestione_IND
      on STAZIONE (codResponsabile);
 
-create unique index ID_Strutturazione_IND
-     on DETTAGLIO_PERCORSO (codPercorso, ordine);
+create unique index ID_DETTAGLIO_PERCORSO_IND
+     on DETTAGLIO_PERCORSO (codPercorso, codTratta, ordine);
 
-create unique index FKStr_TRA_IND
+create index REF_Strut_TRATT_IND
      on DETTAGLIO_PERCORSO (codTratta);
 
 create unique index ID_TRATTA_IND
