@@ -27,14 +27,20 @@ public class SubscriptionTable extends AbstractTable<Subscription, String> {
 
   @Override
   protected Object[] getSaveQueryParameters(final Subscription subscription) {
-    return new Object[] { subscription.getPassengerCode(), subscription.getCardNumber(),
-        subscription.getSubscriptionDate() };
+    return new Object[] {
+      subscription.getPassengerCode(),
+      subscription.getCardNumber(),
+      subscription.getSubscriptionDate()
+    };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final Subscription subscription) {
-    return new Object[] { subscription.getCardNumber(), subscription.getSubscriptionDate(),
-        subscription.getPassengerCode() };
+    return new Object[] {
+      subscription.getCardNumber(),
+      subscription.getSubscriptionDate(),
+      subscription.getPassengerCode()
+    };
   }
 
   @Override
@@ -56,13 +62,17 @@ public class SubscriptionTable extends AbstractTable<Subscription, String> {
       return Collections.emptyList();
     }
     List<Subscription> subscriptions = new ArrayList<>();
-    result.getResult().get().forEach(row -> {
-      this.logger.info(row.toString());
-      final String passengerCode = (String) row.get("codPasseggero");
-      final String cardCode = (String) row.get("codCarta");
-      final Date subscriptionDate = (Date) row.get("dataSottoscrizione");
-      subscriptions.add(new Subscription(passengerCode, cardCode, subscriptionDate));
-    });
+    result
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              this.logger.info(row.toString());
+              final String passengerCode = (String) row.get("codPasseggero");
+              final String cardCode = (String) row.get("codCarta");
+              final Date subscriptionDate = (Date) row.get("dataSottoscrizione");
+              subscriptions.add(new Subscription(passengerCode, cardCode, subscriptionDate));
+            });
     return subscriptions;
   }
 }

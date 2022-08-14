@@ -29,8 +29,13 @@ public class Subscription {
 
   @Override
   public String toString() {
-    return "Subscription [cardNumber=" + cardNumber + ", subscriptionDate=" + subscriptionDate + ", passengerCode="
-        + passengerCode + "]";
+    return "Subscription [cardNumber="
+        + cardNumber
+        + ", subscriptionDate="
+        + subscriptionDate
+        + ", passengerCode="
+        + passengerCode
+        + "]";
   }
 
   @Override
