@@ -6,7 +6,7 @@ import java.sql.Date;
 public class TicketDetail {
   private final String ticketId;
   private final Date reservationDate;
-  private final int trainClass;
+  private final String trainClass;
   private final String trainId;
   private final int carNumber;
   private final int seatNumber;
@@ -14,7 +14,7 @@ public class TicketDetail {
   public TicketDetail(
       final String ticketId,
       final Date reservationDate,
-      final int trainClass,
+      final String trainClass,
       final String trainId,
       final int carNumber,
       final int seatNumber) {
@@ -34,7 +34,7 @@ public class TicketDetail {
     return reservationDate;
   }
 
-  public int getTrainClass() {
+  public String getTrainClass() {
     return trainClass;
   }
 
@@ -53,7 +53,7 @@ public class TicketDetail {
   @Override
   public String toString() {
     return String.format(
-        "(%s) ReservationDate: %s - %d Class Ticket - Train: %s - CarNo: %d - Seat: %d",
+        "(%s) ReservationDate: %s - %s Class Ticket - Train: %s - CarNo: %d - Seat: %d",
         this.ticketId,
         this.reservationDate,
         this.trainClass,
@@ -70,29 +70,44 @@ public class TicketDetail {
     result = prime * result + ((reservationDate == null) ? 0 : reservationDate.hashCode());
     result = prime * result + seatNumber;
     result = prime * result + ((ticketId == null) ? 0 : ticketId.hashCode());
-    result = prime * result + trainClass;
+    result = prime * result + ((trainClass == null) ? 0 : trainClass.hashCode());
     result = prime * result + ((trainId == null) ? 0 : trainId.hashCode());
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
     TicketDetail other = (TicketDetail) obj;
-    if (carNumber != other.carNumber) return false;
+    if (carNumber != other.carNumber)
+      return false;
     if (reservationDate == null) {
-      if (other.reservationDate != null) return false;
-    } else if (!reservationDate.equals(other.reservationDate)) return false;
-    if (seatNumber != other.seatNumber) return false;
+      if (other.reservationDate != null)
+        return false;
+    } else if (!reservationDate.equals(other.reservationDate))
+      return false;
+    if (seatNumber != other.seatNumber)
+      return false;
     if (ticketId == null) {
-      if (other.ticketId != null) return false;
-    } else if (!ticketId.equals(other.ticketId)) return false;
-    if (trainClass != other.trainClass) return false;
+      if (other.ticketId != null)
+        return false;
+    } else if (!ticketId.equals(other.ticketId))
+      return false;
+    if (trainClass == null) {
+      if (other.trainClass != null)
+        return false;
+    } else if (!trainClass.equals(other.trainClass))
+      return false;
     if (trainId == null) {
-      if (other.trainId != null) return false;
-    } else if (!trainId.equals(other.trainId)) return false;
+      if (other.trainId != null)
+        return false;
+    } else if (!trainId.equals(other.trainId))
+      return false;
     return true;
   }
 }

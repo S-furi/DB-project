@@ -80,7 +80,7 @@ public class TicketDetailTable extends AbstractTable<TicketDetail, String> {
               logger.info(row.toString());
               final String ticketId = (String) row.get("codiceBiglietto");
               final Date reservationDate = (Date) row.get("dataPrenotazione");
-              final int trainClass = (int) row.get("numClasse");
+              final String trainClass = (String) row.get("numClasse");
               final String trainId = (String) row.get("codTreno");
               final int carNumber = (int) row.get("numeroCarrozza");
               final int seatNumber = (int) row.get("numeroPosto");
