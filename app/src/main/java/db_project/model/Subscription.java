@@ -5,18 +5,18 @@ import java.sql.Date;
 // Sottoscrizione
 public class Subscription {
 
-  private final String travelerCode;
+  private final String passengerCode;
   private final String cardNumber;
   private final Date subscriptionDate;
 
-  public Subscription(String travelerCode, String cardNumber, Date subscriptionDate) {
-    this.travelerCode = travelerCode;
+  public Subscription(String passengerCode, String cardNumber, Date subscriptionDate) {
+    this.passengerCode = passengerCode;
     this.cardNumber = cardNumber;
     this.subscriptionDate = subscriptionDate;
   }
 
-  public String getTravelerCode() {
-    return travelerCode;
+  public String getPassengerCode() {
+    return passengerCode;
   }
 
   public String getCardNumber() {
@@ -27,12 +27,10 @@ public class Subscription {
     return subscriptionDate;
   }
 
-  
-
   @Override
   public String toString() {
-    return "Subscription [cardNumber=" + cardNumber + ", subscriptionDate=" + subscriptionDate + ", travelerCode="
-        + travelerCode + "]";
+    return "Subscription [cardNumber=" + cardNumber + ", subscriptionDate=" + subscriptionDate + ", passengerCode="
+        + passengerCode + "]";
   }
 
   @Override
@@ -41,7 +39,7 @@ public class Subscription {
     int result = 1;
     result = prime * result + ((cardNumber == null) ? 0 : cardNumber.hashCode());
     result = prime * result + ((subscriptionDate == null) ? 0 : subscriptionDate.hashCode());
-    result = prime * result + ((travelerCode == null) ? 0 : travelerCode.hashCode());
+    result = prime * result + ((passengerCode == null) ? 0 : passengerCode.hashCode());
     return result;
   }
 
@@ -57,9 +55,9 @@ public class Subscription {
     if (subscriptionDate == null) {
       if (other.subscriptionDate != null) return false;
     } else if (!subscriptionDate.equals(other.subscriptionDate)) return false;
-    if (travelerCode == null) {
-      if (other.travelerCode != null) return false;
-    } else if (!travelerCode.equals(other.travelerCode)) return false;
+    if (passengerCode == null) {
+      if (other.passengerCode != null) return false;
+    } else if (!passengerCode.equals(other.passengerCode)) return false;
     return true;
   }
 }
