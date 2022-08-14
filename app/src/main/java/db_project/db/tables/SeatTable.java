@@ -13,7 +13,8 @@ import db_project.model.Seat;
 
 public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
   public static final String TABLE_NAME = "POSTO";
-  public static final List<String> PRIMARY_KEY = List.of("numClasse", "codTreno", "numeroCarrozza", "numeroPosto");
+  public static final List<String> PRIMARY_KEY =
+      List.of("numClasse", "codTreno", "numeroCarrozza", "numeroPosto");
   private final Logger logger;
 
   public SeatTable(final Connection connection) {
@@ -26,22 +27,33 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
 
   @Override
   public boolean createTable() {
-    final String query = "create table POSTO ( " + "numClasse varchar(1) not null, " + "codTreno varchar(5) not null, "
-        + "numeroCarrozza int not null, " + "numeroPosto int not null, "
-        + "constraint ID_POSTO_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto)); ";
+    final String query =
+        "create table POSTO ( numClasse varchar(1) not null, codTreno varchar(5) not null,"
+            + " numeroCarrozza int not null, numeroPosto int not null, constraint ID_POSTO_ID"
+            + " primary key (numClasse, codTreno, numeroCarrozza, numeroPosto)); ";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
 
   @Override
   protected Object[] getSaveQueryParameters(final Seat seat) {
-    return new Object[] { seat.getClassType(), seat.getTrainCode(), seat.getCarNumber(), seat.getSeatNumber() };
+    return new Object[] {
+      seat.getClassType(), seat.getTrainCode(), seat.getCarNumber(), seat.getSeatNumber()
+    };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final Seat seat) {
-    return new Object[] { seat.getClassType(), seat.getTrainCode(), seat.getCarNumber(), seat.getSeatNumber(),
-        seat.getClassType(), seat.getTrainCode(), seat.getCarNumber(), seat.getSeatNumber() };
+    return new Object[] {
+      seat.getClassType(),
+      seat.getTrainCode(),
+      seat.getCarNumber(),
+      seat.getSeatNumber(),
+      seat.getClassType(),
+      seat.getTrainCode(),
+      seat.getCarNumber(),
+      seat.getSeatNumber()
+    };
   }
 
   @Override
@@ -50,15 +62,19 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
       return Collections.emptyList();
     }
     List<Seat> seats = new ArrayList<>();
-    result.getResult().get().forEach(row -> {
-      this.logger.info(row.toString());
-      final String classNum = (String) row.get("numClasse");
-      final String trainCode = (String) row.get("codTreno");
-      final int carNumber = (int) row.get("numeroCarrozza");
-      final int seatNumber = (int) row.get("numeroPosto");
+    result
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              this.logger.info(row.toString());
+              final String classNum = (String) row.get("numClasse");
+              final String trainCode = (String) row.get("codTreno");
+              final int carNumber = (int) row.get("numeroCarrozza");
+              final int seatNumber = (int) row.get("numeroPosto");
 
-      seats.add(new Seat(classNum, trainCode, carNumber, seatNumber));
-    });
+              seats.add(new Seat(classNum, trainCode, carNumber, seatNumber));
+            });
     return seats;
   }
 }

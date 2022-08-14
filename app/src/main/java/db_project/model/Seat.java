@@ -33,8 +33,15 @@ public class Seat {
 
   @Override
   public String toString() {
-    return "Seat [carNumber=" + carNumber + ", classType=" + classType + ", seatNumber=" + seatNumber + ", trainCode="
-        + trainCode + "]";
+    return "Seat [carNumber="
+        + carNumber
+        + ", classType="
+        + classType
+        + ", seatNumber="
+        + seatNumber
+        + ", trainCode="
+        + trainCode
+        + "]";
   }
 
   @Override
@@ -50,27 +57,18 @@ public class Seat {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Seat other = (Seat) obj;
-    if (carNumber != other.carNumber)
-      return false;
+    if (carNumber != other.carNumber) return false;
     if (classType == null) {
-      if (other.classType != null)
-        return false;
-    } else if (!classType.equals(other.classType))
-      return false;
-    if (seatNumber != other.seatNumber)
-      return false;
+      if (other.classType != null) return false;
+    } else if (!classType.equals(other.classType)) return false;
+    if (seatNumber != other.seatNumber) return false;
     if (trainCode == null) {
-      if (other.trainCode != null)
-        return false;
-    } else if (!trainCode.equals(other.trainCode))
-      return false;
+      if (other.trainCode != null) return false;
+    } else if (!trainCode.equals(other.trainCode)) return false;
     return true;
   }
 }
