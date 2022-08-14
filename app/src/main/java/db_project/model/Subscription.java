@@ -27,6 +27,14 @@ public class Subscription {
     return subscriptionDate;
   }
 
+  
+
+  @Override
+  public String toString() {
+    return "Subscription [cardNumber=" + cardNumber + ", subscriptionDate=" + subscriptionDate + ", travelerCode="
+        + travelerCode + "]";
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
