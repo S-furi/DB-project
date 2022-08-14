@@ -142,7 +142,7 @@ public abstract class AbstractCompositeKeyTable<T, K> implements CompositeKeyTab
     query.append("DELETE FROM " + this.tableName + " WHERE " + firstKey + " = ? ");
     this.keyNames.stream()
         .filter(t -> !t.equals(firstKey))
-        .forEach(t -> query.append("AND " + t + " = ?"));
+        .forEach(t -> query.append("AND " + t + " = ? "));
     final Object[] params = primaryKey.toArray();
 
     return this.parser.computeSqlQuery(query.toString(), params);
