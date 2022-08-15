@@ -14,6 +14,7 @@ import db_project.db.ConnectionProvider;
 import db_project.db.Table;
 import db_project.db.tables.AdminTable;
 import db_project.db.tables.CarClassTable;
+import db_project.db.tables.CarTable;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.DriverTable;
 import db_project.db.tables.GroupTable;
@@ -22,9 +23,11 @@ import db_project.db.tables.PassengerTable;
 import db_project.db.tables.PathInfoTable;
 import db_project.db.tables.PathTable;
 import db_project.db.tables.RouteInfoTable;
+import db_project.db.tables.SeatTable;
 import db_project.db.tables.SectionTable;
 import db_project.db.tables.StationManagerTable;
 import db_project.db.tables.StationTable;
+import db_project.db.tables.SubscriptionTable;
 import db_project.db.tables.TicketDetailTable;
 import db_project.db.tables.TicketTable;
 import db_project.db.tables.TrainTable;
@@ -91,7 +94,7 @@ public class DBGenerator {
     final var lst = this.getAllTables(connectionProvider.getMySQLConnection());
     this.tables = lst;
     if (this.areTablesAlreadyCreated()) {
-      logger.warning("*****TALBES ALREADY CREATED!***");
+      logger.info("*****TALBES ALREADY CREATED!***");
       this.tables.forEach(Table::setAlreadyCreated);
       return false;
     }
@@ -115,35 +118,7 @@ public class DBGenerator {
     }
   }
 
-  // DETTAGLIO_BIGLIETTO
-  // SOTTOSCRIZIONE
-  // CARROZZA
-  // CARROZZA
-  // POSTO
   private boolean constraintApplier(final Connection connection) {
-    // MISSING:
-    // "alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK " +
-    //       "foreign key (codiceBiglietto) " +
-    //       "references BIGLIETTO (codiceBiglietto); " +
-    //  "alter table DETTAGLIO_BIGLIETTO add constraint FKPer_FK " +
-    //       "foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto) " +
-    //       "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto); " +
-    // "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Pas_FK " +
-    //       "foreign key (codPasseggero) " +
-    //       "references PASSEGGERO (codPasseggero); " +
-    //  "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Card_FK " +
-    //       "foreign key (codCarta) " +
-    //       "references LOYALTY_CARD (codCarta); " +
-    // "alter table CARROZZA add constraint FKComposizione_FK " +
-    //       "foreign key (codTreno) " +
-    //       "references TRENO (codTreno); " +
-    //  "alter table CARROZZA add constraint FKAppartenenza " +
-    //       "foreign key (numClasse) " +
-    //       "references CLASSE (numClasse); " +
-    // "alter table POSTO add constraint FKSuddivisione " +
-    //       "foreign key (numClasse, codTreno, numeroCarrozza) " +
-    //       "references CARROZZA (numClasse, codTreno, numeroCarrozza); " +
-
     final List<String> queries =
         List.of(
             "alter table AMMINISTRATORE add constraint FKResidenza_Adm_FK "
@@ -199,7 +174,28 @@ public class DBGenerator {
                 + "references STAZIONE (codStazione); ",
             "alter table TRENO add constraint FKPilota_FK "
                 + "foreign key (codMacchinista) "
-                + "references MACCHINISTA (numeroPatente); ");
+                + "references MACCHINISTA (numeroPatente); ",
+            "alter table CARROZZA add constraint FKComposizione_FK "
+                + "foreign key (codTreno) "
+                + "references TRENO (codTreno); ",
+            "alter table CARROZZA add constraint FKAppartenenza "
+                + "foreign key (numClasse) "
+                + "references CLASSE (numClasse); ",
+            "alter table POSTO add constraint FKSuddivisione "
+                + "foreign key (numClasse, codTreno, numeroCarrozza) "
+                + "references CARROZZA (numClasse, codTreno, numeroCarrozza); ",
+            "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Pas_FK "
+                + "foreign key (codPasseggero) " 
+                + "references PASSEGGERO (codPasseggero); ",
+            "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Card_FK "
+                + "foreign key (codCarta) "
+                + "references LOYALTY_CARD (codCarta); ",
+            "alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK "
+                + "foreign key (codiceBiglietto) "
+                + "references BIGLIETTO (codiceBiglietto); ",
+            "alter table DETTAGLIO_BIGLIETTO add constraint FKPer "
+                + "foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)"
+                + "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);" );
 
     try (final var statement = connection.createStatement()) {
       for (final var query : queries) {
@@ -213,39 +209,45 @@ public class DBGenerator {
 
   private List<Table> getAllTables(final Connection connection) {
     final Table adminTable = new AdminTable(connection);
-    final Table cityTable = new CityTable(connection);
     final Table carClassTable = new CarClassTable(connection);
-    final Table ticketTable = new TicketTable(connection);
-    final Table groupTable = new GroupTable(connection);
-    final Table ticketDetailTable = new TicketDetailTable(connection);
-    final Table pathInfoTable = new PathInfoTable(connection);
-    final Table loyaltyCardTable = new LoyaltyCardTable(connection);
+    final Table carTable = new CarTable(connection);
+    final Table cityTable = new CityTable(connection);
     final Table driverTable = new DriverTable(connection);
+    final Table groupTable = new GroupTable(connection);
+    final Table loyaltyCardTable = new LoyaltyCardTable(connection);
     final Table passengerTable = new PassengerTable(connection);
-    final Table routeInfoTable = new RouteInfoTable(connection);
+    final Table pathInfoTable = new PathInfoTable(connection);
     final Table pathTable = new PathTable(connection);
+    final Table routeInfoTable = new RouteInfoTable(connection);
+    final Table seatTable = new SeatTable(connection);
+    final Table sectionTable = new SectionTable(connection);
     final Table stationManagerTable = new StationManagerTable(connection);
     final Table stationTable = new StationTable(connection);
-    final Table sectionTable = new SectionTable(connection);
+    final Table subscritpionTable = new SubscriptionTable(connection);
+    final Table ticketDetailTable = new TicketDetailTable(connection);
+    final Table ticketTable = new TicketTable(connection);
     final Table trainTable = new TrainTable(connection);
 
     return List.of(
-        adminTable,
-        cityTable,
-        carClassTable,
-        ticketTable,
-        groupTable,
-        ticketDetailTable,
-        pathInfoTable,
-        loyaltyCardTable,
-        driverTable,
-        passengerTable,
-        routeInfoTable,
-        pathTable,
-        stationManagerTable,
-        stationTable,
-        sectionTable,
-        trainTable);
+      adminTable,
+      carClassTable,
+      carTable,
+      cityTable,
+      driverTable,
+      groupTable,
+      loyaltyCardTable,
+      passengerTable,
+      pathInfoTable,
+      pathTable,
+      routeInfoTable,
+      seatTable,
+      sectionTable,
+      stationManagerTable,
+      stationTable,
+      subscritpionTable,
+      ticketDetailTable,
+      ticketTable,
+      trainTable);
   }
 
   public List<Table> getTables() {
