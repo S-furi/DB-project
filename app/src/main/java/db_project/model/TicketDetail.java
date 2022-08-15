@@ -77,37 +77,24 @@ public class TicketDetail {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     TicketDetail other = (TicketDetail) obj;
-    if (carNumber != other.carNumber)
-      return false;
+    if (carNumber != other.carNumber) return false;
     if (tripDate == null) {
-      if (other.tripDate != null)
-        return false;
-    } else if (!tripDate.equals(other.tripDate))
-      return false;
-    if (seatNumber != other.seatNumber)
-      return false;
+      if (other.tripDate != null) return false;
+    } else if (!tripDate.equals(other.tripDate)) return false;
+    if (seatNumber != other.seatNumber) return false;
     if (ticketId == null) {
-      if (other.ticketId != null)
-        return false;
-    } else if (!ticketId.equals(other.ticketId))
-      return false;
+      if (other.ticketId != null) return false;
+    } else if (!ticketId.equals(other.ticketId)) return false;
     if (trainClass == null) {
-      if (other.trainClass != null)
-        return false;
-    } else if (!trainClass.equals(other.trainClass))
-      return false;
+      if (other.trainClass != null) return false;
+    } else if (!trainClass.equals(other.trainClass)) return false;
     if (trainId == null) {
-      if (other.trainId != null)
-        return false;
-    } else if (!trainId.equals(other.trainId))
-      return false;
+      if (other.trainId != null) return false;
+    } else if (!trainId.equals(other.trainId)) return false;
     return true;
   }
 }

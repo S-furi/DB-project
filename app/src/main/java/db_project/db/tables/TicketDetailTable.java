@@ -14,9 +14,10 @@ import db_project.model.TicketDetail;
 
 public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, Object> {
   public static final String TABLE_NAME = "DETTAGLIO_BIGLIETTO";
-  public static final List<String> PRIMARY_KEY = List.of("numClasse", "codTreno", "numeroCarrozza", "numeroPosto", "dataViaggio");
+  public static final List<String> PRIMARY_KEY =
+      List.of("numClasse", "codTreno", "numeroCarrozza", "numeroPosto", "dataViaggio");
   private final Logger logger;
-  
+
   public TicketDetailTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
@@ -27,20 +28,15 @@ public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, O
 
   @Override
   public boolean createTable() {
-    final String query = 
-    "create table DETTAGLIO_BIGLIETTO ( " 
-        + "numClasse varchar(1) not null, "
-        + "codTreno varchar(5) not null, "
-        + "numeroCarrozza int not null, "
-        + "numeroPosto int not null, "
-        + "dataViaggio date not null, "
-        + "codiceBiglietto varchar(5) not null, "
-        + "constraint ID_Prenotazione_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio), "
-        + "constraint FKRiseva_ID unique (codiceBiglietto)); ";
+    final String query =
+        "create table DETTAGLIO_BIGLIETTO ( numClasse varchar(1) not null, codTreno varchar(5) not"
+            + " null, numeroCarrozza int not null, numeroPosto int not null, dataViaggio date not"
+            + " null, codiceBiglietto varchar(5) not null, constraint ID_Prenotazione_ID primary"
+            + " key (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio), constraint"
+            + " FKRiseva_ID unique (codiceBiglietto)); ";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
-
 
   @Override
   protected Object[] getSaveQueryParameters(final TicketDetail ticketDetail) {
@@ -53,7 +49,6 @@ public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, O
       ticketDetail.getTicketId()
     };
   }
-
 
   @Override
   protected Object[] getUpdateQueryParameters(final TicketDetail ticketDetail) {
