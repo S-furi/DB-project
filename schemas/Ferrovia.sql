@@ -3,9 +3,9 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Sat Aug 13 14:52:09 2022 
--- * LUN file: C:\users\crossover\Desktop\My Mac Desktop\DB\Progetto\prj\DB-project\schemas\Railway.lun 
--- * Schema: Ferrovia/4 
+-- * Generation date: Mon Aug 15 15:08:27 2022 
+-- * LUN file: Y:\DBproject\schemas\Railway.lun 
+-- * Schema: Ferrovia/5 
 -- ********************************************* 
 
 
@@ -111,13 +111,14 @@ create table POSTO (
      constraint ID_POSTO_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto));
 
 create table DETTAGLIO_BIGLIETTO (
-     codiceBiglietto varchar(5) not null,
-     dataPrenotazione date not null,
      numClasse varchar(1) not null,
      codTreno varchar(5) not null,
      numeroCarrozza int not null,
      numeroPosto int not null,
-     constraint FKRiseva_ID primary key (codiceBiglietto));
+     dataViaggio date not null,
+     codiceBiglietto varchar(5) not null,
+     constraint ID_Prenotazione_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio),
+     constraint FKRiseva_ID unique (codiceBiglietto));
 
 create table RESPONSABILE_STAZIONE (
      codResponsabile varchar(5) not null,
@@ -145,10 +146,10 @@ create table STAZIONE (
      constraint ID_STAZIONE_ID primary key (codStazione));
 
 create table DETTAGLIO_PERCORSO (
-     codTratta varchar(5) not null,
      codPercorso varchar(5) not null,
+     codTratta varchar(5) not null,
      ordine varchar(10) not null,
-     constraint ID_DETTAGLIO_PERCORSO_ID primary key (codPercorso, codTratta, ordine));
+     constraint ID_Strutturazione_ID primary key (codPercorso, codTratta, ordine));
 
 create table TRATTA (
      codTratta varchar(5) not null,
@@ -239,7 +240,7 @@ alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK
      foreign key (codiceBiglietto)
      references BIGLIETTO (codiceBiglietto);
 
-alter table DETTAGLIO_BIGLIETTO add constraint FKPer_FK
+alter table DETTAGLIO_BIGLIETTO add constraint FKPer
      foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)
      references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
 
@@ -268,13 +269,13 @@ alter table STAZIONE add constraint FKGestione_FK
      foreign key (codResponsabile)
      references RESPONSABILE_STAZIONE (codResponsabile);
 
-alter table DETTAGLIO_PERCORSO add constraint REF_Strut_PERCO
-     foreign key (codPercorso)
-     references PERCORSO (codPercorso);
-
-alter table DETTAGLIO_PERCORSO add constraint REF_Strut_TRATT_FK
+alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK
      foreign key (codTratta)
      references TRATTA (codTratta);
+
+alter table DETTAGLIO_PERCORSO add constraint FKStr_PER
+     foreign key (codPercorso)
+     references PERCORSO (codPercorso);
 
 alter table TRATTA add constraint FKPartenza_FK
      foreign key (codStazionePartenza)
@@ -358,11 +359,11 @@ create index FKAmministrazione_IND
 create unique index ID_POSTO_IND
      on POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
 
+create unique index ID_Prenotazione_IND
+     on DETTAGLIO_BIGLIETTO (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio);
+
 create unique index FKRiseva_IND
      on DETTAGLIO_BIGLIETTO (codiceBiglietto);
-
-create index FKPer_IND
-     on DETTAGLIO_BIGLIETTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
 
 create unique index ID_RESPONSABILE_STAZIONE_IND
      on RESPONSABILE_STAZIONE (codResponsabile);
@@ -385,10 +386,10 @@ create index FKLocazione_IND
 create index FKGestione_IND
      on STAZIONE (codResponsabile);
 
-create unique index ID_DETTAGLIO_PERCORSO_IND
+create unique index ID_Strutturazione_IND
      on DETTAGLIO_PERCORSO (codPercorso, codTratta, ordine);
 
-create index REF_Strut_TRATT_IND
+create index FKStr_TRA_IND
      on DETTAGLIO_PERCORSO (codTratta);
 
 create unique index ID_TRATTA_IND
