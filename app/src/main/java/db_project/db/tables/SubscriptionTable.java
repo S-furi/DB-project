@@ -46,12 +46,13 @@ public class SubscriptionTable extends AbstractTable<Subscription, String> {
   @Override
   public boolean createTable() {
     final String query =
-        " create table SOTTOSCRIZIONE ( "
-            + "codPasseggero varchar(5) not null, "
-            + "codCarta varchar(5) not null, "
-            + "dataSottoscrizione date not null, "
-            + "constraint FKRiferimento_Pas_ID primary key (codPasseggero), "
-            + "constraint FKRiferimento_Card_ID unique (codCarta)); ";
+        "create table SOTTOSCRIZIONE ( "
+          + "codPasseggero varchar(5) not null, "
+          + "codCarta varchar(5) not null, "
+          + "dataSottoscrizione date not null, "
+          + "constraint FKRiferimento_Pas_ID primary key (codPasseggero), "
+          + "constraint FKRiferimento_Card_ID unique (codCarta)); ";
+          
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
