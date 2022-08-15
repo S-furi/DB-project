@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.tables.AdminTable;
 import db_project.db.tables.CarClassTable;
+import db_project.db.tables.CarTable;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.DriverTable;
 import db_project.db.tables.GroupTable;
@@ -18,9 +19,11 @@ import db_project.db.tables.PassengerTable;
 import db_project.db.tables.PathInfoTable;
 import db_project.db.tables.PathTable;
 import db_project.db.tables.RouteInfoTable;
+import db_project.db.tables.SeatTable;
 import db_project.db.tables.SectionTable;
 import db_project.db.tables.StationManagerTable;
 import db_project.db.tables.StationTable;
+import db_project.db.tables.SubscriptionTable;
 import db_project.db.tables.TicketDetailTable;
 import db_project.db.tables.TicketTable;
 import db_project.db.tables.TrainTable;
@@ -48,6 +51,9 @@ public class TestDBGenerator {
   private final StationTable stationTable = new StationTable(connection.getMySQLConnection());
   private final SectionTable sectionTable = new SectionTable(connection.getMySQLConnection());
   private final TrainTable trainTable = new TrainTable(connection.getMySQLConnection());
+  private final SubscriptionTable subscriptionTable = new SubscriptionTable(connection.getMySQLConnection());
+  private final SeatTable seatTable = new SeatTable(connection.getMySQLConnection());
+  private final CarTable carTable = new CarTable(connection.getMySQLConnection());
 
   @BeforeAll
   public static void setUp() {
@@ -62,7 +68,7 @@ public class TestDBGenerator {
   @Test
   public void testGenericTables() {
     assertTrue(dbGenerator.createTables());
-    assertTrue(dbGenerator.getTables().size() == 16);
+    assertTrue(dbGenerator.getTables().size() == 19);
     dbGenerator.getTables().forEach(t -> assertTrue(t.isCreated()));
     assertFalse(dbGenerator.createTables());
   }
@@ -177,5 +183,26 @@ public class TestDBGenerator {
     assertTrue(trainTable.createTable());
     assertTrue(trainTable.isCreated());
     assertTrue(trainTable.dropTable());
+  }
+
+  @Test
+  public void testSubScriptiontable() {
+    assertTrue(subscriptionTable.createTable());
+    assertTrue(subscriptionTable.isCreated());
+    assertTrue(subscriptionTable.dropTable());
+  }
+
+  @Test
+  public void testSeatTable() {
+    assertTrue(seatTable.createTable());
+    assertTrue(seatTable.isCreated());
+    assertTrue(seatTable.dropTable());
+  }
+  
+  @Test
+  public void testCarTable() {
+    assertTrue(carTable.createTable());
+    assertTrue(carTable.isCreated());
+    assertTrue(carTable.dropTable());
   }
 }
