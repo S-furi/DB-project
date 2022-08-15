@@ -5,7 +5,7 @@ import java.sql.Date;
 // Dettaglio Biglietto
 public class TicketDetail {
   private final String ticketId;
-  private final Date reservationDate;
+  private final Date tripDate;
   private final String trainClass;
   private final String trainId;
   private final int carNumber;
@@ -13,13 +13,13 @@ public class TicketDetail {
 
   public TicketDetail(
       final String ticketId,
-      final Date reservationDate,
+      final Date tripDate,
       final String trainClass,
       final String trainId,
       final int carNumber,
       final int seatNumber) {
     this.ticketId = ticketId;
-    this.reservationDate = reservationDate;
+    this.tripDate = tripDate;
     this.trainClass = trainClass;
     this.trainId = trainId;
     this.carNumber = carNumber;
@@ -30,8 +30,8 @@ public class TicketDetail {
     return ticketId;
   }
 
-  public Date getReservationDate() {
-    return reservationDate;
+  public Date getTripDate() {
+    return tripDate;
   }
 
   public String getTrainClass() {
@@ -55,7 +55,7 @@ public class TicketDetail {
     return String.format(
         "(%s) ReservationDate: %s - %s Class Ticket - Train: %s - CarNo: %d - Seat: %d",
         this.ticketId,
-        this.reservationDate,
+        this.tripDate,
         this.trainClass,
         this.trainId,
         this.carNumber,
@@ -67,7 +67,7 @@ public class TicketDetail {
     final int prime = 31;
     int result = 1;
     result = prime * result + carNumber;
-    result = prime * result + ((reservationDate == null) ? 0 : reservationDate.hashCode());
+    result = prime * result + ((tripDate == null) ? 0 : tripDate.hashCode());
     result = prime * result + seatNumber;
     result = prime * result + ((ticketId == null) ? 0 : ticketId.hashCode());
     result = prime * result + ((trainClass == null) ? 0 : trainClass.hashCode());
@@ -86,10 +86,10 @@ public class TicketDetail {
     TicketDetail other = (TicketDetail) obj;
     if (carNumber != other.carNumber)
       return false;
-    if (reservationDate == null) {
-      if (other.reservationDate != null)
+    if (tripDate == null) {
+      if (other.tripDate != null)
         return false;
-    } else if (!reservationDate.equals(other.reservationDate))
+    } else if (!tripDate.equals(other.tripDate))
       return false;
     if (seatNumber != other.seatNumber)
       return false;
