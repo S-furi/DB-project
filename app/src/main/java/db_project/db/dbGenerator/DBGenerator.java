@@ -185,7 +185,7 @@ public class DBGenerator {
                 + "foreign key (numClasse, codTreno, numeroCarrozza) "
                 + "references CARROZZA (numClasse, codTreno, numeroCarrozza); ",
             "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Pas_FK "
-                + "foreign key (codPasseggero) " 
+                + "foreign key (codPasseggero) "
                 + "references PASSEGGERO (codPasseggero); ",
             "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Card_FK "
                 + "foreign key (codCarta) "
@@ -195,7 +195,7 @@ public class DBGenerator {
                 + "references BIGLIETTO (codiceBiglietto); ",
             "alter table DETTAGLIO_BIGLIETTO add constraint FKPer "
                 + "foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)"
-                + "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);" );
+                + "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);");
 
     try (final var statement = connection.createStatement()) {
       for (final var query : queries) {
@@ -229,25 +229,25 @@ public class DBGenerator {
     final Table trainTable = new TrainTable(connection);
 
     return List.of(
-      adminTable,
-      carClassTable,
-      carTable,
-      cityTable,
-      driverTable,
-      groupTable,
-      loyaltyCardTable,
-      passengerTable,
-      pathInfoTable,
-      pathTable,
-      routeInfoTable,
-      seatTable,
-      sectionTable,
-      stationManagerTable,
-      stationTable,
-      subscritpionTable,
-      ticketDetailTable,
-      ticketTable,
-      trainTable);
+        adminTable,
+        carClassTable,
+        carTable,
+        cityTable,
+        driverTable,
+        groupTable,
+        loyaltyCardTable,
+        passengerTable,
+        pathInfoTable,
+        pathTable,
+        routeInfoTable,
+        seatTable,
+        sectionTable,
+        stationManagerTable,
+        stationTable,
+        subscritpionTable,
+        ticketDetailTable,
+        ticketTable,
+        trainTable);
   }
 
   public List<Table> getTables() {

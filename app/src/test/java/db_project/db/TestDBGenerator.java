@@ -51,7 +51,8 @@ public class TestDBGenerator {
   private final StationTable stationTable = new StationTable(connection.getMySQLConnection());
   private final SectionTable sectionTable = new SectionTable(connection.getMySQLConnection());
   private final TrainTable trainTable = new TrainTable(connection.getMySQLConnection());
-  private final SubscriptionTable subscriptionTable = new SubscriptionTable(connection.getMySQLConnection());
+  private final SubscriptionTable subscriptionTable =
+      new SubscriptionTable(connection.getMySQLConnection());
   private final SeatTable seatTable = new SeatTable(connection.getMySQLConnection());
   private final CarTable carTable = new CarTable(connection.getMySQLConnection());
 
@@ -198,7 +199,7 @@ public class TestDBGenerator {
     assertTrue(seatTable.isCreated());
     assertTrue(seatTable.dropTable());
   }
-  
+
   @Test
   public void testCarTable() {
     assertTrue(carTable.createTable());
