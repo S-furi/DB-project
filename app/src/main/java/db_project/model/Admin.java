@@ -98,4 +98,48 @@ public class Admin {
         this.email,
         this.residence);
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((contractYear == null) ? 0 : contractYear.hashCode());
+    result = prime * result + ((email == null) ? 0 : email.hashCode());
+    result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+    result = prime * result + ((residence == null) ? 0 : residence.hashCode());
+    result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Admin other = (Admin) obj;
+    if (contractYear == null) {
+      if (other.contractYear != null) return false;
+    } else if (!contractYear.equals(other.contractYear)) return false;
+    if (email == null) {
+      if (other.email != null) return false;
+    } else if (!email.equals(other.email)) return false;
+    if (firstName == null) {
+      if (other.firstName != null) return false;
+    } else if (!firstName.equals(other.firstName)) return false;
+    if (id == null) {
+      if (other.id != null) return false;
+    } else if (!id.equals(other.id)) return false;
+    if (lastName == null) {
+      if (other.lastName != null) return false;
+    } else if (!lastName.equals(other.lastName)) return false;
+    if (residence == null) {
+      if (other.residence != null) return false;
+    } else if (!residence.equals(other.residence)) return false;
+    if (telephone == null) {
+      if (other.telephone != null) return false;
+    } else if (!telephone.equals(other.telephone)) return false;
+    return true;
+  }
 }

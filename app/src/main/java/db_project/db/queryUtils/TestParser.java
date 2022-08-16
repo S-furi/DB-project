@@ -51,9 +51,9 @@ public class TestParser {
     parser.resetQuery();
     String query = String.format("SELECT * FROM %s", TABLE_NAME);
     boolean res = parser.computeSqlQuery(query, null);
-    if (!parser.getQueryResult().getResult().isEmpty()) {
-      parser.getQueryResult().getResult().get().forEach(System.out::println);
-    }
+    // if (!parser.getQueryResult().getResult().isEmpty()) {
+    //   parser.getQueryResult().getResult().get().forEach(System.out::println);
+    // }
     return res;
   }
 

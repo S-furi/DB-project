@@ -2,6 +2,8 @@ package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,8 +27,8 @@ public class PathInfoTableTest {
     SectionTableTest.setUp();
     PathTableTest.setUp();
 
-    final var pathInfo1 = new PathInfo("1", 1, "1");
-    final var pathInfo2 = new PathInfo("2", 2, "1");
+    final var pathInfo1 = new PathInfo("1", "1", "1");
+    final var pathInfo2 = new PathInfo("2", "2", "1");
 
     pathInfoTable.save(pathInfo1);
     pathInfoTable.save(pathInfo2);
@@ -34,7 +36,11 @@ public class PathInfoTableTest {
 
   @AfterAll
   public static void tearDown() {
-    pathInfoTable.findAll().forEach(t -> pathInfoTable.delete(t.getSectionId()));
+    pathInfoTable
+        .findAll()
+        .forEach(
+            t ->
+                pathInfoTable.delete(List.of(t.getPathId(), t.getOrderNumber(), t.getSectionId())));
     PathTableTest.tearDown();
     SectionTableTest.tearDown();
   }

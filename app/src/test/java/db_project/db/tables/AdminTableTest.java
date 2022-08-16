@@ -75,7 +75,6 @@ public class AdminTableTest {
 
   @Test
   public void testSaveAndDelete() {
-    System.out.println(this.adm);
     assertTrue(adminTable.save(this.adm));
     assertTrue(adminTable.delete(this.adm.getId()));
   }

@@ -27,7 +27,7 @@ public class PassengerTableTest {
   // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Passenger traveler =
-      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "C", Optional.of(1));
+      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "C", Optional.of("1"));
 
   @BeforeAll
   static void setUp() {
@@ -44,7 +44,7 @@ public class PassengerTableTest {
 
   @AfterAll
   static void tearDown() {
-    travelerTable.findAll().forEach(t -> travelerTable.delete(t.getTravelerCode()));
+    travelerTable.findAll().forEach(t -> travelerTable.delete(t.getPassengerCode()));
     GroupTableTest.tearDown();
     CityTableTest.tearDown();
   }
@@ -65,8 +65,8 @@ public class PassengerTableTest {
   public void testSaveandDelete() {
     assertTrue(travelerTable.save(this.traveler));
     assertFalse(travelerTable.save(this.traveler));
-    assertTrue(travelerTable.delete(this.traveler.getTravelerCode()));
-    assertFalse(travelerTable.delete(this.traveler.getTravelerCode()));
+    assertTrue(travelerTable.delete(this.traveler.getPassengerCode()));
+    assertFalse(travelerTable.delete(this.traveler.getPassengerCode()));
   }
 
   @Test

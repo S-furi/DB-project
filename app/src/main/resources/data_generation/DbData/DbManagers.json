@@ -1,0 +1,272 @@
+[
+  {
+    "managerCode": 0,
+    "contractYear": "1990-09-27",
+    "firstName": "Sofia",
+    "lastName": "Esposito",
+    "phone": "3408531726",
+    "email": "sofia.esposito4@icloud.com",
+    "residence": "Udine"
+  },
+  {
+    "managerCode": 1,
+    "contractYear": "1999-05-26",
+    "firstName": "Giulia",
+    "lastName": "Battaglia",
+    "phone": "3179415281",
+    "email": "giulia.battaglia6@aruba.com",
+    "residence": "Padova"
+  },
+  {
+    "managerCode": 2,
+    "contractYear": "2007-03-20",
+    "firstName": "Giada",
+    "lastName": "Pellegrini",
+    "phone": "3648099678",
+    "email": "giada.pellegrini6@yahoo.com",
+    "residence": "Verona"
+  },
+  {
+    "managerCode": 3,
+    "contractYear": "2012-10-27",
+    "firstName": "Sonia",
+    "lastName": "Pagano",
+    "phone": "3302350523",
+    "email": "sonia.pagano2@outlook.com",
+    "residence": "Desenzano del Garda"
+  },
+  {
+    "managerCode": 4,
+    "contractYear": "2006-01-17",
+    "firstName": "Giada",
+    "lastName": "Fontana",
+    "phone": "3598590955",
+    "email": "giada.fontana2@aruba.com",
+    "residence": "Bari"
+  },
+  {
+    "managerCode": 5,
+    "contractYear": "1991-06-08",
+    "firstName": "Pietro",
+    "lastName": "Vitale",
+    "phone": "3502820993",
+    "email": "pietro.vitale2@live.it",
+    "residence": "Verona"
+  },
+  {
+    "managerCode": 6,
+    "contractYear": "2014-12-15",
+    "firstName": "Maddalena",
+    "lastName": "Amato",
+    "phone": "3950422086",
+    "email": "maddalena.amato4@yahoo.com",
+    "residence": "Bergamo"
+  },
+  {
+    "managerCode": 7,
+    "contractYear": "2004-06-07",
+    "firstName": "Giorgio",
+    "lastName": "Carbone",
+    "phone": "3588813080",
+    "email": "giorgio.carbone1@libero.it",
+    "residence": "Foggia"
+  },
+  {
+    "managerCode": 8,
+    "contractYear": "2014-11-23",
+    "firstName": "Nina",
+    "lastName": "Costantini",
+    "phone": "3262568026",
+    "email": "nina.costantini7@virgilio.it",
+    "residence": "Milano"
+  },
+  {
+    "managerCode": 9,
+    "contractYear": "1997-01-18",
+    "firstName": "Sofia",
+    "lastName": "Ferretti",
+    "phone": "3651279654",
+    "email": "sofia.ferretti1@outlook.com",
+    "residence": "Trieste"
+  },
+  {
+    "managerCode": 10,
+    "contractYear": "2002-10-19",
+    "firstName": "Giorgio",
+    "lastName": "Conte",
+    "phone": "3976076281",
+    "email": "giorgio.conte3@libero.it",
+    "residence": "Rovigo"
+  },
+  {
+    "managerCode": 11,
+    "contractYear": "2010-05-26",
+    "firstName": "Valentina",
+    "lastName": "Monti",
+    "phone": "3827921308",
+    "email": "valentina.monti1@virgilio.it",
+    "residence": "Trento"
+  },
+  {
+    "managerCode": 12,
+    "contractYear": "2009-01-20",
+    "firstName": "Francesca",
+    "lastName": "Rossetti",
+    "phone": "3862771300",
+    "email": "francesca.rossetti9@alice.it",
+    "residence": "Roma"
+  },
+  {
+    "managerCode": 13,
+    "contractYear": "2006-06-10",
+    "firstName": "Vanessa",
+    "lastName": "Martini",
+    "phone": "3487092884",
+    "email": "vanessa.martini8@icloud.com",
+    "residence": "Bergamo"
+  },
+  {
+    "managerCode": 14,
+    "contractYear": "1998-07-28",
+    "firstName": "Leonardo",
+    "lastName": "Sanna",
+    "phone": "3904165357",
+    "email": "leonardo.sanna2@virgilio.it",
+    "residence": "Firenze"
+  },
+  {
+    "managerCode": 15,
+    "contractYear": "2001-04-11",
+    "firstName": "Alessia",
+    "lastName": "Sanna",
+    "phone": "3880835646",
+    "email": "alessia.sanna1@live.it",
+    "residence": "Bologna"
+  },
+  {
+    "managerCode": 16,
+    "contractYear": "2011-09-23",
+    "firstName": "Rebecca",
+    "lastName": "Ferrari",
+    "phone": "3636998097",
+    "email": "rebecca.ferrari8@gmail.com",
+    "residence": "Padova"
+  },
+  {
+    "managerCode": 17,
+    "contractYear": "2010-05-28",
+    "firstName": "Giulia",
+    "lastName": "Amato",
+    "phone": "3731942235",
+    "email": "giulia.amato3@gmail.com",
+    "residence": "Brescia"
+  },
+  {
+    "managerCode": 18,
+    "contractYear": "2001-04-14",
+    "firstName": "Diego",
+    "lastName": "Negri",
+    "phone": "3736702752",
+    "email": "diego.negri4@live.it",
+    "residence": "Milano"
+  },
+  {
+    "managerCode": 19,
+    "contractYear": "1995-09-02",
+    "firstName": "Giorgio",
+    "lastName": "Morelli",
+    "phone": "3866720636",
+    "email": "giorgio.morelli8@outlook.com",
+    "residence": "Bergamo"
+  },
+  {
+    "managerCode": 20,
+    "contractYear": "2001-07-04",
+    "firstName": "Sara",
+    "lastName": "Barone",
+    "phone": "3338734482",
+    "email": "sara.barone6@yahoo.com",
+    "residence": "Barletta"
+  },
+  {
+    "managerCode": 21,
+    "contractYear": "2000-05-14",
+    "firstName": "Leonardo",
+    "lastName": "Martinelli",
+    "phone": "3224624487",
+    "email": "leonardo.martinelli5@hotmail.it",
+    "residence": "Roma"
+  },
+  {
+    "managerCode": 22,
+    "contractYear": "1996-08-17",
+    "firstName": "Laura",
+    "lastName": "Marini",
+    "phone": "3550639445",
+    "email": "laura.marini9@live.it",
+    "residence": "Milano"
+  },
+  {
+    "managerCode": 23,
+    "contractYear": "2007-01-06",
+    "firstName": "Vittoria",
+    "lastName": "Grassi",
+    "phone": "3386034309",
+    "email": "vittoria.grassi9@alice.it",
+    "residence": "Benevento"
+  },
+  {
+    "managerCode": 24,
+    "contractYear": "1999-03-20",
+    "firstName": "Francesco",
+    "lastName": "Guerra",
+    "phone": "3614889021",
+    "email": "francesco.guerra1@hotmail.it",
+    "residence": "Rovereto"
+  },
+  {
+    "managerCode": 25,
+    "contractYear": "1999-04-25",
+    "firstName": "Laura",
+    "lastName": "Rossi",
+    "phone": "3217682294",
+    "email": "laura.rossi1@yahoo.com",
+    "residence": "Reggio Calabria"
+  },
+  {
+    "managerCode": 26,
+    "contractYear": "2003-04-20",
+    "firstName": "Simona",
+    "lastName": "Vitali",
+    "phone": "3791111523",
+    "email": "simona.vitali2@aruba.com",
+    "residence": "Rovereto"
+  },
+  {
+    "managerCode": 27,
+    "contractYear": "1995-10-19",
+    "firstName": "Tommaso",
+    "lastName": "Giordano",
+    "phone": "3931424403",
+    "email": "tommaso.giordano8@libero.it",
+    "residence": "Rovereto"
+  },
+  {
+    "managerCode": 28,
+    "contractYear": "1998-03-25",
+    "firstName": "Valentina",
+    "lastName": "Longo",
+    "phone": "3145443443",
+    "email": "valentina.longo5@libero.it",
+    "residence": "Trento"
+  },
+  {
+    "managerCode": 29,
+    "contractYear": "1996-08-05",
+    "firstName": "Alessandro",
+    "lastName": "Lombardi",
+    "phone": "3700194582",
+    "email": "alessandro.lombardi6@hotmail.it",
+    "residence": "Reggio Emilia"
+  }
+]

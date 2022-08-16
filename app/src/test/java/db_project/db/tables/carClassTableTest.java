@@ -17,7 +17,7 @@ public class carClassTableTest {
   private static final String password = "123Test123";
   private static final String dbName = "Ferrovia";
 
-  private CarClass carClass3 = new CarClass(3, 50);
+  private final CarClass carClass = new CarClass("2", 15);
 
   private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, dbName);
@@ -26,11 +26,9 @@ public class carClassTableTest {
 
   @BeforeAll
   static void setUp() {
-    final CarClass carclass1 = new CarClass(1, 10);
-    final CarClass carclass2 = new CarClass(2, 15);
+    final CarClass carclass1 = new CarClass("1", 10);
 
     carClassTable.save(carclass1);
-    carClassTable.save(carclass2);
   }
 
   @AfterAll
@@ -40,31 +38,31 @@ public class carClassTableTest {
 
   @Test
   public void testFindByPrimaryKey() {
-    assertTrue(carClassTable.findByPrimaryKey(1).isPresent());
-    assertFalse(carClassTable.findByPrimaryKey(4).isPresent());
+    assertTrue(carClassTable.findByPrimaryKey("1").isPresent());
+    assertFalse(carClassTable.findByPrimaryKey("4").isPresent());
   }
 
   @Test
   public void testFindAll() {
     assertFalse(carClassTable.findAll().isEmpty());
-    assertTrue(carClassTable.findAll().size() == 2);
+    assertTrue(carClassTable.findAll().size() == 1);
   }
 
   @Test
   public void testSaveAndDelete() {
-    assertTrue(carClassTable.save(this.carClass3));
-    assertFalse(carClassTable.save(this.carClass3));
-    assertTrue(carClassTable.delete(this.carClass3.getClassType()));
-    assertFalse(carClassTable.delete(this.carClass3.getClassType()));
+    assertTrue(carClassTable.save(this.carClass));
+    assertFalse(carClassTable.save(this.carClass));
+    assertTrue(carClassTable.delete(this.carClass.getClassType()));
+    assertFalse(carClassTable.delete(this.carClass.getClassType()));
   }
 
   @Test
   public void testUpdate() {
-    final var curCarClass = carClassTable.findByPrimaryKey(1);
+    final var curCarClass = carClassTable.findByPrimaryKey("1");
     if (curCarClass.isEmpty()) {
       fail("Select Failed");
     }
-    assertTrue(carClassTable.update(new CarClass(1, 100)));
+    assertTrue(carClassTable.update(new CarClass("1", 100)));
     assertTrue(carClassTable.update(curCarClass.get()));
   }
 }

@@ -5,21 +5,28 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Admin;
+import db_project.utils.AbstractJsonReader;
 import db_project.utils.Utils;
 
-public class AdminTable extends AbstractTable<Admin, String> {
+public class AdminTable extends AbstractTable<Admin, String> implements JsonReadeable<Admin> {
   public static final String TABLE_NAME = "AMMINISTRATORE";
   public static final String PRIMARY_KEY = "adminID";
+  private final Logger logger;
 
   public AdminTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
         List.of("annoContratto", "nome", "cognome", "telefono", "email", "residenza"));
+    this.logger = Logger.getLogger("AdminTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -49,6 +56,22 @@ public class AdminTable extends AbstractTable<Admin, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table AMMINISTRATORE ( "
+            + "adminID varchar(5) not null, "
+            + "annoContratto date not null, "
+            + "nome varchar(40) not null, "
+            + "cognome varchar(40) not null, "
+            + "telefono varchar(10) not null, "
+            + "email varchar(50) not null, "
+            + "residenza varchar(40) not null, "
+            + "constraint ID_AMMINISTRATORE_ID primary key (adminID));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.created;
+  }
+
+  @Override
   protected List<Admin> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
@@ -60,7 +83,7 @@ public class AdminTable extends AbstractTable<Admin, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String id = (String) row.get("adminID");
               final Date contractYear = (Date) row.get("annoContratto");
               final String firstName = (String) row.get("nome");
@@ -73,5 +96,11 @@ public class AdminTable extends AbstractTable<Admin, String> {
             });
 
     return admList;
+  }
+
+  @Override
+  public List<Admin> readFromFile() {
+    return new AbstractJsonReader<Admin>() {}.setFileName("DbAdmins.json")
+        .retreiveData(Admin.class);
   }
 }

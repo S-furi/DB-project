@@ -1,0 +1,162 @@
+[
+    {
+        "name": "Bari",
+        "region": "Puglia",
+        "province": "BA"
+    },
+    {
+        "name": "Barletta",
+        "region": "Puglia",
+        "province": "BT"
+    },
+    {
+        "name": "Benevento",
+        "region": "Campania",
+        "province": "BN"
+    },
+    {
+        "name": "Bergamo",
+        "region": "Lombardia",
+        "province": "BG"
+    },
+    {
+        "name": "Bologna",
+        "region": "Emilia-Romagna",
+        "province": "BO"
+    },
+    {
+        "name": "Bolzano",
+        "region": "Trentino-Alto Adige",
+        "province": "BZ"
+    },
+    {
+        "name": "Brescia",
+        "region": "Lombardia",
+        "province": "BS"
+    },
+    {
+        "name": "Caserta",
+        "region": "Campania",
+        "province": "CE"
+    },
+    {
+        "name": "Desenzano del Garda",
+        "region": "Lombardia",
+        "province": "DE"
+    },
+    {
+        "name": "Ferrara",
+        "region": "Emilia-Romagna",
+        "province": "FE"
+    },
+    {
+        "name": "Firenze",
+        "region":"Toscana",
+        "province": "FI"
+    },
+    {
+        "name": "Foggia",
+        "region": "Puglia",
+        "province": "FG"
+    },
+    {
+        "name": "Genova",
+        "region":"Liguria",
+        "province": "GE"
+    },
+    {
+        "name": "Lamezia Terme",
+        "region":"Calabria",
+        "province": "LA"
+    },
+    {
+        "name": "Milano",
+        "region": "Lombardia",
+        "province": "MI"
+    },
+    {
+        "name": "Napoli",
+        "region": "Campania",
+        "province": "NA"
+    },
+    {
+        "name": "Padova",
+        "region": "Veneto",
+        "province": "PD"
+    },
+    {
+        "name": "Peschiera del Garda",
+        "region":"Veneto",
+        "province": "VR"
+    },
+    {
+        "name": "Reggio Calabria",
+        "region":"Calabria",
+        "province": "RC"
+    },
+    {
+        "name": "Reggio Emilia",
+        "region": "Emilia-Romagna",
+        "province": "RE"
+    },
+    {
+        "name": "Roma",
+        "region": "Lazio",
+        "province": "RM"
+    },
+    {
+        "name": "Rovereto",
+        "region": "Trentino-Alto Adige",
+        "province": "RO"
+    },
+    {
+        "name": "Rovigo",
+        "region": "Veneto",
+        "province": "RV"
+    },
+    {
+        "name": "Salerno",
+        "region":"Campania",
+        "province": "SA"
+    },
+    {
+        "name": "Torino",
+        "region":"Piemonte",
+        "province": "TO"
+    },
+    {
+        "name": "Trento",
+        "region": "Trentino-Alto Adige",
+        "province": "TN"
+    },
+    {
+        "name": "Treviso",
+        "region": "Trentino-Alto Adige",
+        "province": "TV"
+    },
+    {
+        "name": "Trieste",
+        "region":"Trentino-Alto Adige",
+        "province": "TS"
+    },
+    {
+        "name": "Udine",
+        "region": "Friuli-Venezia Giulia",
+        "province": "UD"
+    },
+    {
+        "name": "Venezia",
+        "region": "Veneto",
+        "province": "VE"
+    },
+    {
+        "name": "Verona",
+        "region": "Veneto",
+        "province": "VN"
+    },
+    {
+        "name": "Vicenza",
+        "region": "Veneto",
+        "province": "VI"
+    }
+]

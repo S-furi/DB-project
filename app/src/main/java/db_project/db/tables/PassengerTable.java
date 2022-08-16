@@ -5,90 +5,59 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
-import db_project.db.Table;
-import db_project.db.queryUtils.ArrayQueryParser;
-import db_project.db.queryUtils.QueryParser;
+import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Passenger;
+import db_project.utils.AbstractJsonReader;
 
-public class PassengerTable implements Table<Passenger, String> {
-
+public class PassengerTable extends AbstractTable<Passenger, String>
+    implements JsonReadeable<Passenger> {
   public static final String TABLE_NAME = "PASSEGGERO";
-
-  private final Connection connection;
-  private final QueryParser queryParser;
+  public static final String PRIMARY_KEY = "codPasseggero";
+  private final Logger logger;
 
   public PassengerTable(final Connection connection) {
-    this.connection = connection;
-    this.queryParser = new ArrayQueryParser(this.connection);
+    super(TABLE_NAME, connection);
+    super.setPrimaryKey(PRIMARY_KEY);
+    super.setTableColumns(
+        List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva"));
+
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
-  public String getTableName() {
-    return TABLE_NAME;
-  }
-
-  @Override
-  public Optional<Passenger> findByPrimaryKey(String primaryKey) {
-    final String query = "SELECT * FROM " + TABLE_NAME + " WHERE codPasseggero = ?";
-    final String[] params = {primaryKey};
-    this.queryParser.computeSqlQuery(query, params);
-    return this.getTravelersFromQueryResult(this.queryParser.getQueryResult()).stream().findAny();
-  }
-
-  @Override
-  public List<Passenger> findAll() {
-    final String query = "SELECT * FROM " + TABLE_NAME;
-    this.queryParser.computeSqlQuery(query, null);
-    return this.getTravelersFromQueryResult(this.queryParser.getQueryResult());
-  }
-
-  public int getHighestID() {
-    final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
-    this.queryParser.computeSqlQuery(query, null);
-    var passenger = this.getTravelersFromQueryResult(this.queryParser.getQueryResult());
-    return Integer.parseInt(passenger.get(0).getTravelerCode());
-  }
-
-  @Override
-  public boolean save(Passenger traveler) {
-    final String query =
-        "INSERT INTO "
-            + TABLE_NAME
-            + "(codPasseggero, nome, cognome, telefono, email, residenza, codComitiva)"
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    final Object[] params = {
-      traveler.getTravelerCode(),
-      traveler.getFirstName(),
-      traveler.getLastName(),
-      traveler.getPhone(),
-      traveler.getEmail(),
-      traveler.getResidence(),
-      traveler.isGroup().isPresent() ? traveler.isGroup().get() : Optional.empty()
+  protected Object[] getSaveQueryParameters(final Passenger passenger) {
+    return new Object[] {
+      passenger.getPassengerCode(),
+      passenger.getFirstName(),
+      passenger.getLastName(),
+      passenger.getPhone(),
+      passenger.getEmail(),
+      passenger.getResidence(),
+      passenger.isGroup()
     };
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean update(Passenger updatedTraveler) {
-    final String query =
-        "UPDATE " + TABLE_NAME + " SET " + " codComitiva = ? WHERE codPasseggero = ?";
-    final Object[] params = {
-      updatedTraveler.isGroup().isPresent() ? updatedTraveler.isGroup().get() : Optional.empty(),
-      updatedTraveler.getTravelerCode()
+  protected Object[] getUpdateQueryParameters(final Passenger passenger) {
+    return new Object[] {
+      passenger.getFirstName(),
+      passenger.getLastName(),
+      passenger.getPhone(),
+      passenger.getEmail(),
+      passenger.getResidence(),
+      passenger.isGroup(),
+      passenger.getPassengerCode()
     };
-    return this.queryParser.computeSqlQuery(query, params);
   }
 
   @Override
-  public boolean delete(String primaryKey) {
-    final String query = "DELETE FROM " + TABLE_NAME + " WHERE codPasseggero = ?";
-    final Object[] params = {primaryKey};
-    return this.queryParser.computeSqlQuery(query, params);
-  }
-
-  private List<Passenger> getTravelersFromQueryResult(final QueryResult result) {
+  protected List<Passenger> getPrettyResultFromQueryResult(QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
@@ -98,18 +67,47 @@ public class PassengerTable implements Table<Passenger, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String travelerCode = (String) row.get("codPasseggero");
               final String firstName = (String) row.get("nome");
               final String lastName = (String) row.get("cognome");
               final String phone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
-              final Optional<Object> isGroup = Optional.ofNullable(row.get("codComitiva"));
+              final Optional<String> isGroup = Optional.ofNullable((String) row.get("codComitiva"));
               travelers.add(
                   new Passenger(
                       travelerCode, firstName, lastName, phone, email, residence, isGroup));
             });
     return travelers;
+  }
+
+  @Override
+  public boolean createTable() {
+    final String query =
+        "create table PASSEGGERO ( "
+            + "codPasseggero varchar(5) not null, "
+            + "nome varchar(40) not null, "
+            + "cognome varchar(40) not null, "
+            + "telefono varchar(10) not null, "
+            + "email varchar(50) not null, "
+            + "residenza varchar(40) not null, "
+            + "codComitiva varchar(5), "
+            + "constraint ID_PASSEGGERO_ID primary key (codPasseggero));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  public int getHighestID() {
+    final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
+    super.parser.computeSqlQuery(query, null);
+    var passenger = this.getPrettyResultFromQueryResult(super.parser.getQueryResult());
+    return Integer.parseInt(passenger.get(0).getPassengerCode());
+  }
+
+  @Override
+  public List<Passenger> readFromFile() {
+    return new AbstractJsonReader<Passenger>() {}.setFileName("DbPassengers.json")
+        .retreiveData(Passenger.class);
   }
 }

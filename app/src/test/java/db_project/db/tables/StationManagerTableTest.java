@@ -43,7 +43,6 @@ public class StationManagerTableTest {
 
   @AfterAll
   static void tearDown() {
-    stationManagerTable.findAll().forEach(t -> System.out.println(t.getManagerCode()));
     stationManagerTable.findAll().forEach(t -> stationManagerTable.delete(t.getManagerCode()));
     CityTableTest.tearDown();
   }
@@ -56,7 +55,6 @@ public class StationManagerTableTest {
 
   @Test
   public void testFindByPrimaryKey() {
-    System.out.println("---testFindByPrimaryKey---");
     assertTrue(stationManagerTable.findByPrimaryKey("1").isPresent());
     assertFalse(stationManagerTable.findByPrimaryKey("4").isPresent());
   }

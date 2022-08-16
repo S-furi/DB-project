@@ -3,7 +3,7 @@ package db_project.db;
 import java.util.List;
 import java.util.Optional;
 
-public interface CompositeKeyTable<T, K> {
+public interface CompositeKeyTable<T, K> extends Table<T, K> {
   /**
    * @return the name of the table
    */
@@ -45,4 +45,20 @@ public interface CompositeKeyTable<T, K> {
    * @return false if the row could not be deleted
    */
   boolean delete(final List<K> primaryKey);
+
+  /**
+   * Drops the current table.
+   *
+   * @return true if the table is dropped, false otherwise.
+   */
+  boolean dropTable();
+
+  /**
+   * Creates the current table.
+   *
+   * @return true if the table is created succefully, false otherwise.
+   */
+  boolean createTable();
+
+  boolean isCreated();
 }

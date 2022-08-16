@@ -20,14 +20,13 @@ public class StationTableTest {
   private static final StationTable stationTable =
       new StationTable(connectionProvider.getMySQLConnection());
 
-  private final Station station3 = new Station("3", "D", 2, "2");
-  
+  private final Station station3 = new Station("3", "D", 2, "2", "C");
 
   @BeforeAll
   static void setUp() {
     StationManagerTableTest.setUp();
-    final Station station1 = new Station("1", "C", 6, "1");
-    final Station station2 = new Station("2", "A", 6, "2");
+    final Station station1 = new Station("1", "Firenze", 5, "1", "A");
+    final Station station2 = new Station("2", "A", 6, "2", "C");
 
     stationTable.save(station1);
     stationTable.save(station2);
@@ -46,11 +45,18 @@ public class StationTableTest {
   }
 
   @Test
-  public void testUpdate(){
+  public void testUpdate() {
     final var currStation = stationTable.findByPrimaryKey("1");
-    if(currStation.isEmpty()){
+    if (currStation.isEmpty()) {
       fail("Select Failed");
     }
-    assertTrue(stationTable.update(new Station("1", this.station3.getStationName(), this.station3.getRails(), this.station3.getManagerCode())));
+    assertTrue(
+        stationTable.update(
+            new Station(
+                "1",
+                this.station3.getStationName(),
+                this.station3.getRails(),
+                this.station3.getManagerCode(),
+                this.station3.getLocation())));
   }
 }

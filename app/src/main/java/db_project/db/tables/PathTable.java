@@ -4,20 +4,27 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Path;
+import db_project.utils.AbstractJsonReader;
 ;
 
-public class PathTable extends AbstractTable<Path, String> {
+public class PathTable extends AbstractTable<Path, String> implements JsonReadeable<Path> {
   public static final String TABLE_NAME = "PERCORSO";
   public static final String PRIMARY_KEY = "codPercorso";
+  private final Logger logger;
 
   public PathTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("tempoTotale", "numFermate", "adminID"));
+    this.logger = Logger.getLogger("CityTable");
+    this.logger.setLevel(Level.WARNING);
   }
 
   @Override
@@ -35,6 +42,19 @@ public class PathTable extends AbstractTable<Path, String> {
   }
 
   @Override
+  public boolean createTable() {
+    final String query =
+        "create table PERCORSO ( "
+            + "codPercorso varchar(5) not null, "
+            + "tempoTotale varchar(5) not null, "
+            + "numFermate int not null, "
+            + "adminID varchar(5) not null, "
+            + "constraint ID_PERCORSO_ID primary key (codPercorso));";
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
   protected List<Path> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
@@ -46,7 +66,7 @@ public class PathTable extends AbstractTable<Path, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              logger.info(row.toString());
               final String pathCode = (String) row.get("codPercorso");
               final String totalTime = (String) row.get("tempoTotale");
               final int stops = (int) row.get("numFermate");
@@ -55,5 +75,10 @@ public class PathTable extends AbstractTable<Path, String> {
             });
 
     return pathList;
+  }
+
+  @Override
+  public List<Path> readFromFile() {
+    return new AbstractJsonReader<Path>() {}.setFileName("DbPath.json").retreiveData(Path.class);
   }
 }
