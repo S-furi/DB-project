@@ -67,12 +67,21 @@ public class StationManagerTableTest {
     assertFalse(stationManagerTable.delete(this.stationManager.getManagerCode()));
   }
 
-  public void testUpdate(){
+  public void testUpdate() {
     final var currStationManager = stationManagerTable.findByPrimaryKey("1");
-    if(currStationManager.isEmpty()){
+    if (currStationManager.isEmpty()) {
       fail("Select Failed");
     }
-    assertTrue(stationManagerTable.update(new StationManager("1", this.stationManager.getContractYear(), this.stationManager.getFirstName(), this.stationManager.getLastName(), this.stationManager.getPhone(), this.stationManager.getEmail(), this.stationManager.getResidence())));
-    assertTrue(stationManagerTable.update(currStationManager.get()));           
+    assertTrue(
+        stationManagerTable.update(
+            new StationManager(
+                "1",
+                this.stationManager.getContractYear(),
+                this.stationManager.getFirstName(),
+                this.stationManager.getLastName(),
+                this.stationManager.getPhone(),
+                this.stationManager.getEmail(),
+                this.stationManager.getResidence())));
+    assertTrue(stationManagerTable.update(currStationManager.get()));
   }
 }
