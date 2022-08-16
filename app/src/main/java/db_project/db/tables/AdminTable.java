@@ -103,4 +103,18 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
     return new AbstractJsonReader<Admin>() {}.setFileName("DbAdmins.json")
         .retreiveData(Admin.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

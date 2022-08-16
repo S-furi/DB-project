@@ -85,4 +85,18 @@ public class SectionTable extends AbstractTable<Section, String> implements Json
     return new AbstractJsonReader<Section>() {}.setFileName("DbSection.json")
         .retreiveData(Section.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

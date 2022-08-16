@@ -110,4 +110,18 @@ public class PassengerTable extends AbstractTable<Passenger, String>
     return new AbstractJsonReader<Passenger>() {}.setFileName("DbPassengers.json")
         .retreiveData(Passenger.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

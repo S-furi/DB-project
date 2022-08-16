@@ -78,4 +78,18 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String>
     return new AbstractJsonReader<LoyaltyCard>() {}.setFileName("DbLoyaltyCards.json")
         .retreiveData(LoyaltyCard.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
