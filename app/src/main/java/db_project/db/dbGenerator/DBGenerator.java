@@ -268,26 +268,23 @@ public class DBGenerator {
   }
 
   public void populateTables() {
-    final var connection = 
-        new ConnectionProvider(USERNAME, PASSWORD, DBNAME).getMySQLConnection();
+    final var connection = new ConnectionProvider(USERNAME, PASSWORD, DBNAME).getMySQLConnection();
     final List<JsonReadeable> tbls = this.getJsonReadeables(connection);
     final Map<JsonReadeable, Boolean> createdTables = new HashMap<>();
     tbls.forEach(t -> createdTables.put(t, false));
-    
+
     while (createdTables.values().contains(false)) {
-      createdTables
-        .entrySet()
-        .stream()
-        .filter(t -> t.getValue() == false)
-        .map(t -> t.getKey())
-        .forEach(tbl -> {
-          if (tbl.saveToDb()) {
-            createdTables.put(tbl, true);
-          }
-        });
+      createdTables.entrySet().stream()
+          .filter(t -> t.getValue() == false)
+          .map(t -> t.getKey())
+          .forEach(
+              tbl -> {
+                if (tbl.saveToDb()) {
+                  createdTables.put(tbl, true);
+                }
+              });
     }
   }
-
 
   private List<JsonReadeable> getJsonReadeables(final Connection connection) {
     final JsonReadeable adminTable = new AdminTable(connection);
@@ -304,19 +301,18 @@ public class DBGenerator {
     final JsonReadeable stationTable = new StationTable(connection);
 
     return List.of(
-      adminTable,
-      carClassTable,
-      cityTable,
-      driverTable,
-      groupTable,
-      loyaltyCardTable,
-      passengerTable,
-      pathInfoTable,
-      pathTable,
-      sectionTable,
-      stationManagerTable,
-      stationTable
-    );
+        adminTable,
+        carClassTable,
+        cityTable,
+        driverTable,
+        groupTable,
+        loyaltyCardTable,
+        passengerTable,
+        pathInfoTable,
+        pathTable,
+        sectionTable,
+        stationManagerTable,
+        stationTable);
   }
 
   public ConnectionProvider getConnectionProvider() {
