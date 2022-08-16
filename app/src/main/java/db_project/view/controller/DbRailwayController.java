@@ -86,7 +86,7 @@ public class DbRailwayController {
             + "GROUP BY p.codPercorso, p.tempoTotale; ";
     final Object[] params = {path.getPathCode()};
     if (!this.parser.computeSqlQuery(query, params)) {
-      logger.info("porco dio non va un cazzo");
+      logger.info("Qury Failed!");
     }
     return this.getTripSolutionsFromQuery(parser.getQueryResult()).stream().findAny();
   }
