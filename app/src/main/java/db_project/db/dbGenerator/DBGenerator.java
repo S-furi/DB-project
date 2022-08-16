@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.ConnectionProvider;
+import db_project.db.JsonReadeable;
 import db_project.db.Table;
 import db_project.db.tables.AdminTable;
 import db_project.db.tables.CarClassTable;
@@ -40,9 +43,11 @@ public class DBGenerator {
   private final String URI = "jdbc:mysql://localhost:3306/";
   private final Logger logger = Logger.getLogger("DBGenerator");
   private List<Table> tables = new ArrayList<>();
+  private ConnectionProvider connectionProvider;
 
   public DBGenerator() {
     logger.setLevel(Level.WARNING);
+    this.connectionProvider = new ConnectionProvider(USERNAME, PASSWORD, DBNAME);
   }
 
   public boolean createDB() {
@@ -260,5 +265,61 @@ public class DBGenerator {
       throw new IllegalAccessError("Specified table does not exist!");
     }
     return elem.get();
+  }
+
+  public void populateTables() {
+    final var connection = 
+        new ConnectionProvider(USERNAME, PASSWORD, DBNAME).getMySQLConnection();
+    final List<JsonReadeable> tbls = this.getJsonReadeables(connection);
+    final Map<JsonReadeable, Boolean> createdTables = new HashMap<>();
+    tbls.forEach(t -> createdTables.put(t, false));
+    
+    while (createdTables.values().contains(false)) {
+      createdTables
+        .entrySet()
+        .stream()
+        .filter(t -> t.getValue() == false)
+        .map(t -> t.getKey())
+        .forEach(tbl -> {
+          if (tbl.saveToDb()) {
+            createdTables.put(tbl, true);
+          }
+        });
+    }
+  }
+
+
+  private List<JsonReadeable> getJsonReadeables(final Connection connection) {
+    final JsonReadeable adminTable = new AdminTable(connection);
+    final JsonReadeable carClassTable = new CarClassTable(connection);
+    final JsonReadeable cityTable = new CityTable(connection);
+    final JsonReadeable driverTable = new DriverTable(connection);
+    final JsonReadeable groupTable = new GroupTable(connection);
+    final JsonReadeable loyaltyCardTable = new LoyaltyCardTable(connection);
+    final JsonReadeable passengerTable = new PassengerTable(connection);
+    final JsonReadeable pathInfoTable = new PathInfoTable(connection);
+    final JsonReadeable pathTable = new PathTable(connection);
+    final JsonReadeable sectionTable = new SectionTable(connection);
+    final JsonReadeable stationManagerTable = new StationManagerTable(connection);
+    final JsonReadeable stationTable = new StationTable(connection);
+
+    return List.of(
+      adminTable,
+      carClassTable,
+      cityTable,
+      driverTable,
+      groupTable,
+      loyaltyCardTable,
+      passengerTable,
+      pathInfoTable,
+      pathTable,
+      sectionTable,
+      stationManagerTable,
+      stationTable
+    );
+  }
+
+  public ConnectionProvider getConnectionProvider() {
+    return this.connectionProvider;
   }
 }
