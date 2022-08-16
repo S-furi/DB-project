@@ -34,4 +34,16 @@ public class QueryResult {
   public Optional<List<Map<String, Object>>> getResult() {
     return result;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder res = new StringBuilder();
+    result.get().forEach(t -> {
+      t.forEach((k, v) -> {
+        res.append("(+"+ k + v +")");
+      });
+      res.append("\n");
+    });
+    return res.toString();
+  }  
 }
