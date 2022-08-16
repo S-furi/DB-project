@@ -38,7 +38,7 @@ public class DbRailwayController {
     this.parser = new ArrayQueryParser(dbGenerator.getConnectionProvider().getMySQLConnection());
 
     this.logger = Logger.getLogger("RailwayController");
-    this.logger.setLevel(Level.INFO);
+    this.logger.setLevel(Level.WARNING);
   }
 
   private void initializeDb() {
