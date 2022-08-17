@@ -42,6 +42,7 @@ tasks.test {
   filter {
     includeTestsMatching("db_project.db.*")
     includeTestsMatching("db_project.view.*")
+    includeTestsMatching("db_project.buildDb.*")
   }
 }
 
