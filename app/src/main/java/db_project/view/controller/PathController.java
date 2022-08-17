@@ -68,9 +68,7 @@ public class PathController {
   }
 
   public List<Optional<TripSolution>> getAllTripSolutions() {
-    return this.pathTable
-        .findAll()
-        .stream()
+    return this.pathTable.findAll().stream()
         .map(t -> this.getTripSolutionForGivenPath(t))
         .collect(Collectors.toList());
   }
