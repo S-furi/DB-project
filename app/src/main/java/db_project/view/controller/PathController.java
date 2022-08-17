@@ -16,12 +16,16 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.db.tables.PathTable;
 import db_project.model.Path;
 import db_project.view.viewUtils.Cities;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Pair;
 
 public class PathController {
   private final DBGenerator dbGenerator;
   private PathTable pathTable;
+  private ObservableList<TripSolution> tripSolutions;
   private final QueryParser parser;
   private final Logger logger;
 
@@ -29,6 +33,8 @@ public class PathController {
     this.dbGenerator = dbGenerator;
     this.initializeDb();
     this.parser = new ArrayQueryParser(dbGenerator.getConnectionProvider().getMySQLConnection());
+
+    this.tripSolutions = FXCollections.observableArrayList();
 
     this.logger = Logger.getLogger("RailwayController");
     this.logger.setLevel(Level.WARNING);
@@ -151,6 +157,35 @@ public class PathController {
       throw new IllegalStateException("CANNOT RETREIVE STATIONS FROM PATHCODE!");
     }
     return new Pair<String, String>(src.get(), dst.get());
+  }
+
+  public List<TableColumn<TripSolution, ?>> getTableViewColumns() {
+    TableColumn<TripSolution, String> srcStationColumn = new TableColumn<>("Partenza");
+    srcStationColumn.setCellValueFactory(new PropertyValueFactory<>("srcStation"));
+    TableColumn<TripSolution, String> dstStationColumn = new TableColumn<>("Arrivo");
+    dstStationColumn.setCellValueFactory(new PropertyValueFactory<>("dstStation"));
+    TableColumn<TripSolution, String> duration = new TableColumn<>("Durata");
+    duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    TableColumn<TripSolution, Integer> distance = new TableColumn<>("Distanza");
+    distance.setCellValueFactory(new PropertyValueFactory<>("distance"));
+    
+    return List.of(srcStationColumn, dstStationColumn, duration, distance);
+  }
+
+  public ObservableList<TripSolution> getTripSolutions() {
+    if (this.tripSolutions.isEmpty()) {
+      this.logger.info("There are no trip Solutions, imma generating them...");
+      final var res = this.getAllTripSolutions();
+      if (!res.isEmpty()) {
+        
+        this.tripSolutions.addAll(res.stream().map(t -> t.get()).collect(Collectors.toList()));
+      } else {
+        logger.info("No Trip solutions where found in DB!");
+      }
+    } else {
+      this.logger.info("Trip solutions non sono empty...");
+    }
+    return this.tripSolutions;
   }
 
   public List<String> getStations() {
