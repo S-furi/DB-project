@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.dbGenerator.DBGenerator;
@@ -16,11 +17,17 @@ public class TestSectionController {
     private SectionController sectionController;
     private PathTable pathTable;
 
+    @AfterAll
+    public static void tearDown() {
+      dbGenerator.dropDB();
+    }
 
     @Test
     public void testSectionController() {
         dbGenerator.createDB();
         dbGenerator.createTables();
+        dbGenerator.populateTables();
+        
         this.sectionController = new SectionController(dbGenerator);
         this.pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
         final Optional<Path> routePath = this.pathTable.findByPrimaryKey("BI-BZ");
