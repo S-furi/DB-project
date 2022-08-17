@@ -79,6 +79,10 @@ public class PathController {
         .collect(Collectors.toList());
   }
 
+  public Optional<Path> getPathFromStations(final String src, final String dst) {
+    return this.pathTable.findByPrimaryKey(this.getPathCodeFromStationNames(src, dst));
+  }
+
   private Optional<TripSolution> getTripSolutionForGivenPath(final Path path) {
     final String query =
         "SELECT p.codPercorso, p.tempoTotale, SUM(t.distanza) AS Distanza "
@@ -283,5 +287,13 @@ public class PathController {
           + srcStation
           + "]";
     }
+  }
+
+  public List<String> getAllPathCodes() {
+      return this.pathTable
+          .findAll()
+          .stream()
+          .map(t -> t.getPathCode())
+          .collect(Collectors.toList());
   }
 }
