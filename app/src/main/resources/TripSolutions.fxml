@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.TestPathController">
+   <children>
+      <TabPane prefHeight="608.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+            <Tab text="Editor Percorrenza">
+               <content>
+                  <SplitPane dividerPositions="0.39462272333044235" orientation="VERTICAL" prefHeight="608.0" prefWidth="998.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <HBox layoutX="301.0" layoutY="73.0" prefHeight="300.0" prefWidth="996.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane prefHeight="367.0" prefWidth="341.0">
+                                       <children>
+                                          <Text layoutX="90.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare una Data" AnchorPane.bottomAnchor="267.203125" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="84.146484375" AnchorPane.topAnchor="60.59765625">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <DatePicker fx:id="datePicker" layoutX="76.0" layoutY="103.0" onAction="#saveAndConvertCurrentDate" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="71.5" AnchorPane.topAnchor="103.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="367.0" prefWidth="341.0">
+                                       <children>
+                                          <Text layoutX="85.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare un percorso" AnchorPane.bottomAnchor="265.203125" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="89.19140625" AnchorPane.topAnchor="62.59765625">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ChoiceBox fx:id="pathCheckBox" layoutX="84.0" layoutY="101.796875" prefWidth="150.0" AnchorPane.bottomAnchor="221.203125" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="90.166015625" AnchorPane.topAnchor="101.796875" />
+                                          <Button fx:id="routeConfirmationButton" defaultButton="true" layoutX="129.0" layoutY="174.0" mnemonicParsing="false" onAction="#saveRouteInfo" text="Conferma" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="126.5" AnchorPane.topAnchor="174.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="367.0" prefWidth="341.0">
+                                       <children>
+                                          <Text layoutX="84.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare un treno" AnchorPane.bottomAnchor="269.203125" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="90.166015625" AnchorPane.topAnchor="63.59765625">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ChoiceBox fx:id="trainCheckBox" layoutX="84.0" layoutY="101.59765625" prefWidth="150.0" AnchorPane.bottomAnchor="226.203125" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="90.166015625" AnchorPane.topAnchor="101.59765625" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="resultTableView" layoutX="234.0" layoutY="-4.0" prefHeight="299.0" prefWidth="996.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+            </Tab>
+          <Tab text="Percorsi">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="576.5" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="273.0" prefWidth="996.0">
+                                 <children>
+                                    <SplitPane dividerPositions="0.45724346076458755" prefHeight="284.0" prefWidth="996.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                             <children>
+                                                <Text layoutX="148.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creazione nuovo percorso" underline="true" AnchorPane.bottomAnchor="237.8359375" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="138.5126953125" AnchorPane.topAnchor="26.498046875">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text layoutX="179.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stazione Partenza" wrappingWidth="113.14453125">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Text>
+                                                <ChoiceBox fx:id="srcStationCheckBox" layoutX="152.0" layoutY="105.0" prefWidth="150.0" />
+                                                <Text layoutX="186.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stazione Arrivo" wrappingWidth="94.74609375">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Text>
+                                                <ChoiceBox fx:id="dstStationCheckBox" layoutX="152.0" layoutY="178.0" prefWidth="150.0" />
+                                                <Button fx:id="confirmPathButton" layoutX="203.0" layoutY="228.0" mnemonicParsing="false" onAction="#getSelectedPathSections" text="Salva" />
+                                             </children>
+                                          </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                             <children>
+                                                <TableView fx:id="pathDetailTableView" prefHeight="282.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="tripSolutionsTableView" layoutX="315.0" layoutY="28.0" prefHeight="283.5" prefWidth="996.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
