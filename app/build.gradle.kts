@@ -39,6 +39,10 @@ tasks.test {
 	testLogging {
 		events("passed", "skipped", "failed")
 	}
+  filter {
+    includeTestsMatching("db_project.db.*")
+    includeTestsMatching("db_project.view.*")
+  }
 }
 
 javafx {
