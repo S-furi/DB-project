@@ -45,3 +45,22 @@ javafx {
     version = "17.0.2"
     modules("javafx.controls", "javafx.fxml")
 }
+
+/* task("buildDB", JavaExec::class) { */
+/*   group = "customTasks" */
+/*   main = "db_project.db.BuildDb" */
+/*   classpath = sourceSets["main"].runtimeClasspath */
+/* } */
+
+task<Exec>("buildDb") {
+  group = "customTasks"
+  args("build")
+  commandLine("sh", "../buildDb.sh")
+}
+
+task<Exec>("dropDB") {
+  group = "customTasks"
+  args("drop")
+  commandLine("sh", "../dropDb.sh")
+}
+
