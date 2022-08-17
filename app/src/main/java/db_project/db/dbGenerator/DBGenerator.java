@@ -44,8 +44,10 @@ public class DBGenerator {
   private final Logger logger = Logger.getLogger("DBGenerator");
   private List<Table> tables = new ArrayList<>();
   private ConnectionProvider connectionProvider;
+  private boolean alreadyCreated;
 
   public DBGenerator() {
+    this.alreadyCreated = true;
     logger.setLevel(Level.WARNING);
     this.connectionProvider = new ConnectionProvider(USERNAME, PASSWORD, DBNAME);
   }
@@ -61,7 +63,7 @@ public class DBGenerator {
           return false;
         }
       }
-
+      this.alreadyCreated = false;
       final var statement = connection.createStatement();
       final boolean res = statement.executeUpdate(query) > 0;
       logger.info(
@@ -268,6 +270,9 @@ public class DBGenerator {
   }
 
   public void populateTables() {
+    if (this.alreadyCreated) {
+      return;
+    }
     final var connection = new ConnectionProvider(USERNAME, PASSWORD, DBNAME).getMySQLConnection();
     final List<JsonReadeable> tbls = this.getJsonReadeables(connection);
     final Map<JsonReadeable, Boolean> createdTables = new HashMap<>();
@@ -284,6 +289,7 @@ public class DBGenerator {
                 }
               });
     }
+    this.alreadyCreated = true;
   }
 
   private List<JsonReadeable> getJsonReadeables(final Connection connection) {
