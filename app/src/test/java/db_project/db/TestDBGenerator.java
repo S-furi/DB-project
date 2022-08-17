@@ -58,7 +58,10 @@ public class TestDBGenerator {
 
   @BeforeAll
   public static void setUp() {
-    dbGenerator.createDB();
+    if (!dbGenerator.createDB()) {
+      dbGenerator.dropDB();
+      dbGenerator.createDB();
+    };
   }
 
   @AfterAll
