@@ -166,7 +166,7 @@ public class PathController {
     duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
     TableColumn<TripSolution, Integer> distance = new TableColumn<>("Distanza");
     distance.setCellValueFactory(new PropertyValueFactory<>("distance"));
-    
+
     return List.of(srcStationColumn, dstStationColumn, duration, distance);
   }
 
@@ -175,7 +175,7 @@ public class PathController {
       this.logger.info("There are no trip Solutions, imma generating them...");
       final var res = this.getAllTripSolutions();
       if (!res.isEmpty()) {
-        
+
         this.tripSolutions.addAll(res.stream().map(t -> t.get()).collect(Collectors.toList()));
       } else {
         logger.info("No Trip solutions where found in DB!");
