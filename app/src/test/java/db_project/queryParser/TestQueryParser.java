@@ -30,16 +30,14 @@ class TestQueryParser {
 
   @Test
   public void testStrangeQuery() {
-    final String query = 
-    "SELECT t.codTratta, Partenza.nome as StazionePartenza, Arrivo.nome as StazioneArrivo from   "
-        + "( SELECT codTratta, nome from tratta, stazione where codStazioneArrivo = codStazione) as Arrivo, "
-        + "( SELECT codTratta, nome from tratta, stazione where codStazionePartenza = codStazione) as Partenza, "
-        + "tratta t "
-        + "where t.codTratta = Arrivo.codTratta "
-        + "and t.codTratta = Partenza.codTratta "
-        + "GROUP BY t.codTratta, StazionePartenza, StazioneArrivo ";
+    final String query =
+        "SELECT t.codTratta, Partenza.nome as StazionePartenza, Arrivo.nome as StazioneArrivo from "
+            + "  ( SELECT codTratta, nome from tratta, stazione where codStazioneArrivo ="
+            + " codStazione) as Arrivo, ( SELECT codTratta, nome from tratta, stazione where"
+            + " codStazionePartenza = codStazione) as Partenza, tratta t where t.codTratta ="
+            + " Arrivo.codTratta and t.codTratta = Partenza.codTratta GROUP BY t.codTratta,"
+            + " StazionePartenza, StazioneArrivo ";
     this.parser.computeSqlQuery(query, null);
-    System.out.println(this.parser.getQueryResult().toString()); 
+    System.out.println(this.parser.getQueryResult().toString());
   }
-
 }

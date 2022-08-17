@@ -61,7 +61,8 @@ public class TestDBGenerator {
     if (!dbGenerator.createDB()) {
       dbGenerator.dropDB();
       dbGenerator.createDB();
-    };
+    }
+    ;
   }
 
   @AfterAll

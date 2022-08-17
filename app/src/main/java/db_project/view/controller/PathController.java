@@ -290,10 +290,6 @@ public class PathController {
   }
 
   public List<String> getAllPathCodes() {
-      return this.pathTable
-          .findAll()
-          .stream()
-          .map(t -> t.getPathCode())
-          .collect(Collectors.toList());
+    return this.pathTable.findAll().stream().map(t -> t.getPathCode()).collect(Collectors.toList());
   }
 }
