@@ -106,6 +106,10 @@ public class SectionController {
     return this.pathDetails;
   }
 
+  public void clearPathDetails() {
+    this.pathDetails.clear();
+  }
+
   public class PathDetail {
     private String pathId;
     private int order;
