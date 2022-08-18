@@ -165,13 +165,18 @@
                                                       <Font size="16.0" />
                                                    </font>
                                                 </CheckBox>
-                                                <Slider fx:id="capacitySlider" blockIncrement="50.0" layoutX="103.0" layoutY="165.0" majorTickUnit="50.0" max="700.0" min="100.0" minorTickCount="0" prefHeight="33.0" prefWidth="257.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="400.0" />
+                                                <Slider fx:id="capacitySlider" blockIncrement="100.0" layoutX="132.0" layoutY="184.0" majorTickUnit="100.0" max="800.0" min="200.0" minorTickCount="0" prefHeight="21.0" prefWidth="215.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="400.0" />
                                                 <Text layoutX="97.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codice Macchinista">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
                                                 </Text>
-                                                <Button fx:id="trainCreationButton" layoutX="212.0" layoutY="223.0" mnemonicParsing="false" onAction="#saveTrainToDb" text="Crea" />
+                                                <Button fx:id="trainCreationButton" layoutX="212.0" layoutY="237.0" mnemonicParsing="false" onAction="#saveTrainToDb" text="Crea" />
+                                                <Text layoutX="199.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capienza" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Text>
                                              </children>
                                           </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
