@@ -47,14 +47,14 @@ public class LogInController implements Initializable {
     }
   }
 
-  private void switchToUserLanding(ActionEvent event){
-    try{
+  private void switchToUserLanding(ActionEvent event) {
+    try {
       Parent root = FXMLLoader.load(getClass().getResource("/UserLanding.fxml"));
       var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       var scene = new Scene(root);
       stage.setScene(scene);
       stage.show();
-    }catch(IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
