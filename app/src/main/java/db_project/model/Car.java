@@ -2,6 +2,8 @@ package db_project.model;
 
 // Carrozza
 public class Car {
+  public static final int NUMBER_FIRST_CLASS_SEATS = 50;
+  public static final int NUMBER_SECOND_CLASS_SEATS = 100;
 
   private final String classType;
   private final String trainCode;
