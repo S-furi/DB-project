@@ -10,16 +10,21 @@ public class BuildDb {
   @Test
   public void generateDB() {
     if (!dbGenerator.createDB()) {
-      System.out.println("Database already created!");
+      System.out.println("An error occurred during building DB.\nTry to check if DB is already created.");
       System.exit(1);
     }
     System.out.println("Generating database...");
     dbGenerator.createTables();
+    System.out.println("Filling Tables...");
     dbGenerator.populateTables();
   }
 
   @Test
   public void dropDB() {
-    dbGenerator.dropDB();
+    if (dbGenerator.dropDB()) {
+      System.out.println("Database succesfully dropped!");
+    } else {
+      System.out.println("An error occurred during dropping.\nTry to check if DB exits and retry.");
+    }
   }
 }
