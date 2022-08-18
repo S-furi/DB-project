@@ -31,14 +31,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class DbRailwayController implements Initializable {
-  //First Tab
+  // First Tab
   @FXML private DatePicker datePicker;
   @FXML private ChoiceBox<String> pathChoiceBox;
   @FXML private ChoiceBox<String> trainChoiceBox;
   @FXML private TableView<?> resultTableView;
   @FXML private Button routeConfirmationButton;
-  
-  //Second Tab
+
+  // Second Tab
   @FXML private ChoiceBox<String> srcStationChoiceBox;
   @FXML private ChoiceBox<String> dstStationChoiceBox;
   @FXML private Button confirmPathButton;
@@ -46,7 +46,7 @@ public class DbRailwayController implements Initializable {
   @FXML private TableView<TripSolution> tripSolutionsTableView = new TableView<>();
   @FXML private Button saveComputedPathButton;
 
-  //Third Tab
+  // Third Tab
   @FXML private TableView<Train> trainTableView;
   @FXML private TableView<Driver> driversTableView;
   @FXML private CheckBox isRvCheckBox;
@@ -62,7 +62,7 @@ public class DbRailwayController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.initializeSubControllers();  
+    this.initializeSubControllers();
     this.fillTableViews();
     this.fillChoiceBoxes();
     this.initialButtonsSetup();
@@ -79,24 +79,27 @@ public class DbRailwayController implements Initializable {
     this.confirmPathButton
         .disableProperty()
         .bind(
-          this.srcStationChoiceBox.valueProperty().isNull()
-          .or(dstStationChoiceBox.valueProperty().isNull())
-        );
+            this.srcStationChoiceBox
+                .valueProperty()
+                .isNull()
+                .or(dstStationChoiceBox.valueProperty().isNull()));
     this.saveComputedPathButton
         .disableProperty()
         .bind(Bindings.size(this.sectionController.getPathDetails()).isEqualTo(0));
 
-    this.capacitySlider.valueProperty().addListener(new ChangeListener<Number>() {
+    this.capacitySlider
+        .valueProperty()
+        .addListener(
+            new ChangeListener<Number>() {
 
-      @Override
-      public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-        capacitySlider.setValue(newValue.intValue());
-      }
-    });
+              @Override
+              public void changed(
+                  ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                capacitySlider.setValue(newValue.intValue());
+              }
+            });
 
-    this.trainCreationButton
-      .disableProperty()
-      .bind(this.driverChoiceBox.valueProperty().isNull());
+    this.trainCreationButton.disableProperty().bind(this.driverChoiceBox.valueProperty().isNull());
   }
 
   private void fillTableViews() {
@@ -107,32 +110,32 @@ public class DbRailwayController implements Initializable {
 
   private void fillPathTableView() {
     this.genericTableFill(
-        this.tripSolutionsTableView, 
-        this.pathController.getTableViewColumns(), 
-        this.pathController.getTripSolutions());  
+        this.tripSolutionsTableView,
+        this.pathController.getTableViewColumns(),
+        this.pathController.getTripSolutions());
   }
 
   private void fillSectionTableView() {
     this.genericTableFill(
-        this.pathDetailTableView, 
-        this.sectionController.getTableViewColumns(), 
+        this.pathDetailTableView,
+        this.sectionController.getTableViewColumns(),
         this.sectionController.getPathDetails());
   }
 
   private void fillTrainControllerView() {
     this.genericTableFill(
-        this.trainTableView, 
-        this.trainController.getTrainTableViewColumns(), 
+        this.trainTableView,
+        this.trainController.getTrainTableViewColumns(),
         this.trainController.getAllTrains());
 
     this.genericTableFill(
-        this.driversTableView, 
-        this.trainController.getDriversTableViewColumns(), 
+        this.driversTableView,
+        this.trainController.getDriversTableViewColumns(),
         this.trainController.getAllDrivers());
-    
   }
 
-  private <T> void genericTableFill(TableView<T> tableView, List<TableColumn<T, ?>> columns, ObservableList<T> elements) {
+  private <T> void genericTableFill(
+      TableView<T> tableView, List<TableColumn<T, ?>> columns, ObservableList<T> elements) {
     tableView.setEditable(true);
     columns.forEach(t -> tableView.getColumns().add(t));
     tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -147,19 +150,18 @@ public class DbRailwayController implements Initializable {
     this.driverChoiceBox
         .getItems()
         .setAll(
-            this.trainController.getAllDrivers()
-              .stream()
-              .map(t -> t.getLicenceNumber())
-              .collect(Collectors.toList()));
+            this.trainController.getAllDrivers().stream()
+                .map(t -> t.getLicenceNumber())
+                .collect(Collectors.toList()));
   }
 
   // converting to sql date, date retreived from datePicker.
 
-  // final var date = 
+  // final var date =
   //       Utils
   //         .dateToSqlDate(
-  //             Utils.buildDate(this.datePicker.getValue().getDayOfMonth(), 
-  //                             this.datePicker.getValue().getMonthValue(), 
+  //             Utils.buildDate(this.datePicker.getValue().getDayOfMonth(),
+  //                             this.datePicker.getValue().getMonthValue(),
   //                             this.datePicker.getValue().getYear()).get());
 
   @FXML
@@ -178,7 +180,7 @@ public class DbRailwayController implements Initializable {
     if (src.equals(dst)) {
       showDialog("Le stazioni selezionate sono le medesime...");
       this.srcStationChoiceBox.valueProperty().set(null);
-      this.dstStationChoiceBox.valueProperty().set(null);  
+      this.dstStationChoiceBox.valueProperty().set(null);
       return;
     }
 
@@ -197,22 +199,18 @@ public class DbRailwayController implements Initializable {
 
   // save computed route in the getSelectedPath to the database.
   @FXML
-  void saveComputedPathToDb(ActionEvent event) {
-
-  }
+  void saveComputedPathToDb(ActionEvent event) {}
 
   @FXML
-  void saveTrainToDb(ActionEvent event) {  
-    if (
-      !this.trainController.addNewTrain(
-      this.driverChoiceBox.getValue(), 
-      this.isRvCheckBox.isSelected(), 
-      (int)this.capacitySlider.getValue())
-      ) {
-        showDialog("Cannot Insert this train!");
-        return;
+  void saveTrainToDb(ActionEvent event) {
+    if (!this.trainController.addNewTrain(
+        this.driverChoiceBox.getValue(),
+        this.isRvCheckBox.isSelected(),
+        (int) this.capacitySlider.getValue())) {
+      showDialog("Cannot Insert this train!");
+      return;
     }
-    
+
     this.driverChoiceBox.setValue(null);
     this.trainTableView.refresh();
   }
