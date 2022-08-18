@@ -83,6 +83,14 @@ public class PathController {
     return this.pathTable.findByPrimaryKey(this.getPathCodeFromStationNames(src, dst));
   }
 
+  public Optional<TripSolution> getTripSolutionFromPathId(final String pathId) {
+    final var path = this.pathTable.findByPrimaryKey(pathId);
+    if (path.isEmpty()) {
+      return Optional.empty();
+    }
+    return this.getTripSolutionForGivenPath(path.get());
+  }
+
   private Optional<TripSolution> getTripSolutionForGivenPath(final Path path) {
     final String query =
         "SELECT p.codPercorso, p.tempoTotale, SUM(t.distanza) AS Distanza "
