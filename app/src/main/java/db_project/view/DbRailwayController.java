@@ -153,6 +153,8 @@ public class DbRailwayController implements Initializable {
             this.trainController.getAllDrivers().stream()
                 .map(t -> t.getLicenceNumber())
                 .collect(Collectors.toList()));
+    
+    this.trainChoiceBox.getItems().setAll(this.trainController.getAllTrains().stream().map(t -> t.getTrainCode()).collect(Collectors.toList()));
   }
 
   // converting to sql date, date retreived from datePicker.
@@ -219,6 +221,8 @@ public class DbRailwayController implements Initializable {
   void refreshTrainTableView(ActionEvent event) {
     this.trainController.refreshTrains();
     this.trainTableView.refresh();
+    this.trainChoiceBox.getItems().clear();
+    this.trainChoiceBox.getItems().setAll(this.trainController.getAllTrains().stream().map(t -> t.getTrainCode()).collect(Collectors.toList()));
   }
 
   private void showDialog(String msg) {
