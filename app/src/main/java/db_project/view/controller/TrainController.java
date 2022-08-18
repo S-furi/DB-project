@@ -194,7 +194,12 @@ public class TrainController {
     TableColumn<Train, String> isRvColumn = new TableColumn<>("Regionale Veloce");
     isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
 
-    return List.of(trainCodeColumn, licenceNumberColumn, capacityColumn, isRvColumn);
+    final List<TableColumn<Train, ?>> lst = 
+        List.of(trainCodeColumn, licenceNumberColumn, capacityColumn, isRvColumn);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
+
+    return lst;
   }
 
   public List<TableColumn<Driver, ?>> getDriversTableViewColumns() {
@@ -212,6 +217,17 @@ public class TrainController {
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
     TableColumn<Driver, String> residenceColumn = new TableColumn<>("Residenza");
     residenceColumn.setCellValueFactory(new PropertyValueFactory<>("residence"));
+
+    final List<TableColumn<Driver, ?>> lst = List.of(
+      licenceNumberColumn,
+      contractYearColumn,
+      firstNameColumn,
+      lastNameColumn,
+      telephoneColumn,
+      emailColumn,
+      residenceColumn);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
 
     return List.of(
         licenceNumberColumn,
