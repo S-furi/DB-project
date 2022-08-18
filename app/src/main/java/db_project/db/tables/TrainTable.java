@@ -27,14 +27,14 @@ public class TrainTable extends AbstractTable<Train, String> {
   @Override
   protected Object[] getSaveQueryParameters(final Train train) {
     return new Object[] {
-      train.getTrainCode(), train.getLicenseNumber(), train.getCapacity(), train.isRv() ? "1" : "0"
+      train.getTrainCode(), train.getLicenseNumber(), train.getCapacity(), train.getIsRv() ? "1" : "0"
     };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(final Train train) {
     return new Object[] {
-      train.getLicenseNumber(), train.getCapacity(), train.isRv() ? "1" : "0", train.getTrainCode()
+      train.getLicenseNumber(), train.getCapacity(), train.getIsRv() ? "1" : "0", train.getTrainCode()
     };
   }
 
@@ -67,8 +67,8 @@ public class TrainTable extends AbstractTable<Train, String> {
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
-              final boolean isRv = ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
-              trains.add(new Train(trainCode, licenseNumber, capacity, isRv));
+              final boolean getIsRv = ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
+              trains.add(new Train(trainCode, licenseNumber, capacity, getIsRv));
             });
     return trains;
   }
