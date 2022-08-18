@@ -1,6 +1,7 @@
 package db_project.view;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -8,10 +9,13 @@ import java.util.stream.Collectors;
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.model.Driver;
 import db_project.model.Train;
+import db_project.utils.Utils;
 import db_project.view.controller.PathController;
+import db_project.view.controller.RouteInfoController;
 import db_project.view.controller.SectionController;
 import db_project.view.controller.TrainController;
 import db_project.view.controller.PathController.TripSolution;
+import db_project.view.controller.RouteInfoController.DateTripSolution;
 import db_project.view.controller.SectionController.PathDetail;
 import javafx.fxml.Initializable;
 import javafx.beans.binding.Bindings;
@@ -35,8 +39,9 @@ public class DbRailwayController implements Initializable {
   @FXML private DatePicker datePicker;
   @FXML private ChoiceBox<String> pathChoiceBox;
   @FXML private ChoiceBox<String> trainChoiceBox;
-  @FXML private TableView<?> resultTableView;
+  @FXML private TableView<DateTripSolution> resultTableView;
   @FXML private Button routeConfirmationButton;
+  @FXML private Button routeRefreshButton;
 
   // Second Tab
   @FXML private ChoiceBox<String> srcStationChoiceBox;
@@ -59,6 +64,7 @@ public class DbRailwayController implements Initializable {
   private PathController pathController;
   private SectionController sectionController;
   private TrainController trainController;
+  private RouteInfoController routeInfoController;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +79,7 @@ public class DbRailwayController implements Initializable {
     this.pathController = new PathController(this.dbGenerator);
     this.sectionController = new SectionController(dbGenerator);
     this.trainController = new TrainController(dbGenerator);
+    this.routeInfoController = new RouteInfoController(dbGenerator);
   }
 
   private void initialButtonsSetup() {
@@ -100,12 +107,20 @@ public class DbRailwayController implements Initializable {
             });
 
     this.trainCreationButton.disableProperty().bind(this.driverChoiceBox.valueProperty().isNull());
+    this.routeConfirmationButton
+        .disableProperty()
+        .bind(
+            this.datePicker.valueProperty().isNull()
+            .or(this.pathChoiceBox.valueProperty().isNull())
+            .or(this.trainChoiceBox.valueProperty().isNull())
+        );
   }
 
   private void fillTableViews() {
     this.fillPathTableView();
     this.fillSectionTableView();
     this.fillTrainControllerView();
+    this.fillResultTableView();
   }
 
   private void fillPathTableView() {
@@ -132,6 +147,13 @@ public class DbRailwayController implements Initializable {
         this.driversTableView,
         this.trainController.getDriversTableViewColumns(),
         this.trainController.getAllDrivers());
+  }
+
+  private void fillResultTableView() {
+    this.genericTableFill(
+        this.resultTableView, 
+        this.routeInfoController.getTableViewColumns(), 
+        this.routeInfoController.getRouteInfos());
   }
 
   private <T> void genericTableFill(
@@ -162,17 +184,38 @@ public class DbRailwayController implements Initializable {
                 .collect(Collectors.toList()));
   }
 
-  // converting to sql date, date retreived from datePicker.
-
-  // final var date =
-  //       Utils
-  //         .dateToSqlDate(
-  //             Utils.buildDate(this.datePicker.getValue().getDayOfMonth(),
-  //                             this.datePicker.getValue().getMonthValue(),
-  //                             this.datePicker.getValue().getYear()).get());
 
   @FXML
-  void saveRouteInfo(ActionEvent event) {}
+  void saveRouteInfo(ActionEvent event) {
+    final var date = this.getDateFromDatePicker();
+    final var pathId = this.pathChoiceBox.getValue();
+    final var trainId = this.trainChoiceBox.getValue();
+    
+    if (!this.routeInfoController.saveSelectedPathInfo(date, pathId, trainId)) {
+      this.showDialog("Impossibile creare la percorrenza selezionata!");
+    }
+    this.clearRouteInfoButtons();
+  }
+
+  public Date getDateFromDatePicker() {
+    return Utils
+        .dateToSqlDate(
+            Utils.buildDate(this.datePicker.getValue().getDayOfMonth(),
+                this.datePicker.getValue().getMonthValue(),
+                this.datePicker.getValue().getYear()).get());
+  }
+
+  private void clearRouteInfoButtons() {
+    this.trainChoiceBox.setValue(null);
+    this.pathChoiceBox.setValue(null);
+    this.datePicker.setValue(null);
+  }
+
+  @FXML
+  void refreshRouteInfo(ActionEvent event) {
+    this.routeInfoController.refreshRouteInfos();
+    this.resultTableView.refresh();
+  }
 
   /**
    * Find the route from a to b, specifing all the paths (as in Controller.java)
