@@ -27,7 +27,7 @@ public class Train {
     return capacity;
   }
 
-  public boolean isRv() {
+  public boolean getIsRv() {
     return isRv;
   }
 

@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface JsonReadeable<T> {
   List<T> readFromFile();
+
+  boolean saveToDb();
 }

@@ -87,4 +87,18 @@ public class PathInfoTable extends AbstractCompositeKeyTable<PathInfo, Object>
     return new AbstractJsonReader<PathInfo>() {}.setFileName("DbPathInfo.json")
         .retreiveData(PathInfo.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

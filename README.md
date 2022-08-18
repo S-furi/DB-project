@@ -4,6 +4,7 @@ Database Project for Database course, University of Bologna
     - [**CODING**](#coding)
     - [**SCHEMA**](#schema)
     - [**REPORT**](#report)
+  - [**Istruzioni**](#istruzioni)
 
 Robe da far subito:
 - [ ] Decidere come e con cosa disegnare per il [Report](#report) schemi e tabelle
@@ -58,3 +59,20 @@ Take **daily** notes for **REPORT** (at least two or three times a week work on 
 - [ ] Traduzione delle operazioni in query SQL
 **Progettazione** dell'**[Applicazione](#coding)**
 - [ ] Descrizione dell'architettura dell'applicazione realizzata (**screenshots**)
+
+## **Istruzioni**
+Per generare il database, nella home del progetto digitare:
+```bash
+./gradlew createDB
+```
+L'ultima riga dei messaggi che verranno visualizzati a schermo determinerà se l'operazione è andata a buon fine. (da implementare check di altri exit status e fare i comandi anche per WINDOWS con gradlew.bat ...).
+
+Se si vuole elimare il database:
+```bash
+./gradlew dropDB
+```
+Per lanciare l'applicazione sarà sufficiente l'ulteriore task di gradle:
+```bash
+./gradlew run
+```
+Fine :)

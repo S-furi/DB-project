@@ -23,19 +23,39 @@ public class TrainTable extends AbstractTable<Train, String> {
   @Override
   protected Object[] getSaveQueryParameters(Train train) {
     return new Object[] {
-      train.getTrainCode(), train.getLicenseNumber(), train.getCapacity(), train.isRv()
+      train.getTrainCode(),
+      train.getLicenseNumber(),
+      train.getCapacity(),
+      train.getIsRv() ? "1" : "0"
     };
   }
 
   @Override
   protected Object[] getUpdateQueryParameters(Train train) {
     return new Object[] {
-      train.getLicenseNumber(), train.getCapacity(), train.isRv(), train.getTrainCode()
+      train.getLicenseNumber(),
+      train.getCapacity(),
+      train.getIsRv() ? "1" : "0",
+      train.getTrainCode()
     };
   }
 
   @Override
-  protected List<Train> getPrettyResultFromQueryResult(QueryResult result) {
+  public boolean createTable() {
+    final String query =
+        "create table TRENO ( "
+            + "codTreno varchar(5) not null, "
+            + "capienza int not null, "
+            + "regionaleVeloce char, "
+            + "codMacchinista varchar(5) not null, "
+            + "constraint ID_TRENO_ID primary key (codTreno)); ";
+
+    super.created = super.parser.computeSqlQuery(query, null);
+    return super.isCreated();
+  }
+
+  @Override
+  protected List<Train> getPrettyResultFromQueryResult(final QueryResult result) {
     if (result.getResult().isEmpty()) {
       return Collections.emptyList();
     }
@@ -49,22 +69,11 @@ public class TrainTable extends AbstractTable<Train, String> {
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
-              final boolean isRegionaleVeloce = (boolean) row.get("regionaleVeloce");
-              trains.add(new Train(trainCode, licenseNumber, capacity, isRegionaleVeloce));
+              final boolean getIsRv =
+                  ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
+              trains.add(new Train(trainCode, licenseNumber, capacity, getIsRv));
             });
     return trains;
   }
 
-  @Override
-  public boolean createTable() {
-    final String query =
-        "create table TRENO ( "
-            + "codTreno varchar(5) not null, "
-            + "capienza int not null,, "
-            + "regionaleVeloce char "
-            + "codMacchinista varchar(5) not null "
-            + "constraint ID_TRENO_ID primary key (codTreno));";
-    super.created = super.parser.computeSqlQuery(query, null);
-    return super.isCreated();
-  }
 }

@@ -69,7 +69,8 @@ public class TrainTableTest {
       fail("Select Failed");
     }
     final var newTrain =
-        new Train("1", this.train.getLicenseNumber(), this.train.getCapacity(), this.train.isRv());
+        new Train(
+            "1", this.train.getLicenseNumber(), this.train.getCapacity(), this.train.getIsRv());
 
     assertTrue(trainTable.update(newTrain));
     assertTrue(trainTable.update(currTrain.get()));

@@ -15,6 +15,13 @@ public class Seat {
     this.seatNumber = seatNumber;
   }
 
+  public Seat(final Car car, final int seatNumber) {
+    this.classType = car.getClassType();
+    this.trainCode = car.getTrainCode();
+    this.carNumber = car.getPosition();
+    this.seatNumber = seatNumber;
+  }
+
   public String getClassType() {
     return classType;
   }

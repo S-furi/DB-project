@@ -81,4 +81,18 @@ public class PathTable extends AbstractTable<Path, String> implements JsonReadea
   public List<Path> readFromFile() {
     return new AbstractJsonReader<Path>() {}.setFileName("DbPath.json").retreiveData(Path.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

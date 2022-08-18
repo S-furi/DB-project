@@ -71,4 +71,18 @@ public class GroupTable extends AbstractTable<Group, String> implements JsonRead
     return new AbstractJsonReader<Group>() {}.setFileName("DbGroups.json")
         .retreiveData(Group.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

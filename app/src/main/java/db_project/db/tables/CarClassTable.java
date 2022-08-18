@@ -72,4 +72,18 @@ public class CarClassTable extends AbstractTable<CarClass, String>
     return new AbstractJsonReader<CarClass>() {}.setFileName("DbCarClass.json")
         .retreiveData(CarClass.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
