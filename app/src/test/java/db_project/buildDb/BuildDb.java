@@ -10,7 +10,8 @@ public class BuildDb {
   @Test
   public void generateDB() {
     if (!dbGenerator.createDB()) {
-      System.out.println("An error occurred during building DB.\nTry to check if DB is already created.");
+      System.out.println(
+          "An error occurred during building DB.\nTry to check if DB is already created.");
       System.exit(1);
     }
     System.out.println("Generating database...");
