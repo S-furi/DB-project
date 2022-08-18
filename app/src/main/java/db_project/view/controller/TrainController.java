@@ -1,7 +1,9 @@
 package db_project.view.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -12,7 +14,10 @@ import db_project.db.tables.CarTable;
 import db_project.db.tables.DriverTable;
 import db_project.db.tables.SeatTable;
 import db_project.db.tables.TrainTable;
+import db_project.model.Car;
+//import db_project.model.CarClass;
 import db_project.model.Driver;
+import db_project.model.Seat;
 import db_project.model.Train;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,15 +36,18 @@ public class TrainController {
   private ObservableList<Train> trains;
   private ObservableList<Driver> drivers;
   private int lastTrainId;
+  private int lastCarNumber;
 
   public TrainController(final DBGenerator dbGenerator) {
     this.dbGenerator = dbGenerator;
     this.getTables();
     this.trains = FXCollections.observableArrayList();
     this.drivers = FXCollections.observableArrayList();
-    this.lastTrainId = this.getLastTrainId();
+    this.lastCarNumber = 1;
     this.logger = Logger.getLogger("TrainController");
     this.logger.setLevel(Level.WARNING);
+    this.lastTrainId = this.getLastTrainId();
+    logger.info("Last train inserted is number: " + (this.lastTrainId - 1));
   }
 
   private void getTables() {
@@ -53,7 +61,7 @@ public class TrainController {
   public boolean addNewTrain(final String licenseNumber, final boolean isRv, final int capacity) {
     final Train train = new Train(this.getNewTrainId(), licenseNumber, capacity, isRv);
     this.logger.info(train.toString());
-    return this.trainTable.save(train);
+    return this.trainTable.save(train) && this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity());
   }
 
   private String getNewTrainId() {
@@ -66,13 +74,107 @@ public class TrainController {
             .sorted(
                 (t1, t2) -> // reversed sort
                 Integer.compare(
-                        Integer.parseInt(t2.getLicenseNumber()),
-                        Integer.parseInt(t1.getLicenseNumber())))
+                        Integer.parseInt(t2.getTrainCode()),
+                        Integer.parseInt(t1.getTrainCode())))
             .findFirst();
     if (lastTrain.isPresent()) {
       return Integer.valueOf(lastTrain.get().getTrainCode()) + 1;
     }
     return 0;
+  }
+
+
+  public boolean saveCarAndSeatsDetails(final String trainId, final int capacity) {
+    final List<Car> cars = this.generateCarsFromTrain(trainId, capacity);
+    final List<Seat> seats = new ArrayList<>();
+    cars.forEach(t -> seats.addAll(this.getSeats(t)));
+    
+    return this.saveCarsToDb(cars) && this.saveSeatsToDb(seats);
+  }
+
+  private List<Car> generateCarsFromTrain(final String trainId, final int capacity) {
+    final var carClasses = this.carClassTable.findAll();
+    
+    final List<Car> cars = new ArrayList<>();
+    carClasses.forEach(t -> cars.addAll(this.createCarDetails(trainId, t.getClassType(), capacity)));
+    return cars;
+  }
+
+  // private void updateClassesSeats(final List<Car> cars) {
+  //   this.carClassTable
+  //       .findAll()
+  //       .forEach(t -> {
+  //         this.carClassTable.update(
+  //           new CarClass(t.getClassType(), this.getTotalSeatsByClass(t.getClassType(), cars))
+  //         );
+  //       });
+  // }
+
+  // private int getTotalSeatsByClass(final String classType, List<Car> cars) {
+  //   return cars
+  //       .stream()
+  //       .filter(t -> t.getClassType().equals(classType))
+  //       .map(t -> t.getSeats())
+  //       .collect(Collectors.summingInt(Integer::intValue));
+  // } 
+
+  private List<Car> createCarDetails(final String trainId, final String classType, final int capacity) {
+    int firstClassSeats = 0;
+    if ((capacity/100)%2 == 0) {
+      firstClassSeats= capacity/2 - 100;
+    } else {
+      firstClassSeats = capacity/2 - 150;
+    }
+
+    if (classType.equals("1")) {
+      return this.getCars(trainId, classType, firstClassSeats/Car.NUMBER_FIRST_CLASS_SEATS);
+    } else {
+      final int secondClassSeats = capacity - firstClassSeats;
+      return this.getCars(trainId, classType, secondClassSeats/Car.NUMBER_SECOND_CLASS_SEATS);
+    }
+  }
+
+  private List<Car> getCars(final String trainId, final String classType, final int numOfCars) {
+    final Random rand = new Random();
+    final List<Car> cars = new ArrayList<>();
+
+    for (int i = 0; i < numOfCars; i++) {
+      var car = new Car(classType, trainId, this.lastCarNumber++, 
+        classType.equals("1") ? Car.NUMBER_FIRST_CLASS_SEATS : Car.NUMBER_SECOND_CLASS_SEATS, 
+        rand.nextBoolean());
+      cars.add(car);
+    }
+    return cars;
+  }
+
+  private List<Seat> getSeats(final Car car) {
+    final List<Seat> seats = new ArrayList<>();
+    final int numOfSeats = car.getClassType().equals("1") 
+        ? Car.NUMBER_FIRST_CLASS_SEATS : Car.NUMBER_SECOND_CLASS_SEATS;
+    
+    for (int i = 0; i < numOfSeats; i++) {
+      var seat = new Seat(car, i+1);
+      seats.add(seat);
+    }
+    return seats;
+  }
+
+  private boolean saveSeatsToDb(List<Seat> seats) {
+    for (final var seat : seats) {
+      if (!this.seatTable.save(seat)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean saveCarsToDb(List<Car> cars) {
+    for (final var car : cars) {
+      if (!this.carTable.save(car)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public List<TableColumn<Train, ?>> getTrainTableViewColumns() {
