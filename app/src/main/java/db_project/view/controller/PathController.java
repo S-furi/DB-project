@@ -179,7 +179,7 @@ public class PathController {
     TableColumn<TripSolution, Integer> distance = new TableColumn<>("Distanza");
     distance.setCellValueFactory(new PropertyValueFactory<>("distance"));
 
-    final List<TableColumn<TripSolution, ?>> lst = 
+    final List<TableColumn<TripSolution, ?>> lst =
         List.of(srcStationColumn, dstStationColumn, duration, distance);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));

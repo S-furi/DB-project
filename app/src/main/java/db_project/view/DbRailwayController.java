@@ -110,10 +110,11 @@ public class DbRailwayController implements Initializable {
     this.routeConfirmationButton
         .disableProperty()
         .bind(
-            this.datePicker.valueProperty().isNull()
-            .or(this.pathChoiceBox.valueProperty().isNull())
-            .or(this.trainChoiceBox.valueProperty().isNull())
-        );
+            this.datePicker
+                .valueProperty()
+                .isNull()
+                .or(this.pathChoiceBox.valueProperty().isNull())
+                .or(this.trainChoiceBox.valueProperty().isNull()));
   }
 
   private void fillTableViews() {
@@ -151,8 +152,8 @@ public class DbRailwayController implements Initializable {
 
   private void fillResultTableView() {
     this.genericTableFill(
-        this.resultTableView, 
-        this.routeInfoController.getTableViewColumns(), 
+        this.resultTableView,
+        this.routeInfoController.getTableViewColumns(),
         this.routeInfoController.getRouteInfos());
   }
 
@@ -184,13 +185,12 @@ public class DbRailwayController implements Initializable {
                 .collect(Collectors.toList()));
   }
 
-
   @FXML
   void saveRouteInfo(ActionEvent event) {
     final var date = this.getDateFromDatePicker();
     final var pathId = this.pathChoiceBox.getValue();
     final var trainId = this.trainChoiceBox.getValue();
-    
+
     if (!this.routeInfoController.saveSelectedPathInfo(date, pathId, trainId)) {
       this.showDialog("Impossibile creare la percorrenza selezionata!");
     }
@@ -198,11 +198,12 @@ public class DbRailwayController implements Initializable {
   }
 
   public Date getDateFromDatePicker() {
-    return Utils
-        .dateToSqlDate(
-            Utils.buildDate(this.datePicker.getValue().getDayOfMonth(),
+    return Utils.dateToSqlDate(
+        Utils.buildDate(
+                this.datePicker.getValue().getDayOfMonth(),
                 this.datePicker.getValue().getMonthValue(),
-                this.datePicker.getValue().getYear()).get());
+                this.datePicker.getValue().getYear())
+            .get());
   }
 
   private void clearRouteInfoButtons() {

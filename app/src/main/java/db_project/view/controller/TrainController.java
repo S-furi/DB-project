@@ -194,7 +194,7 @@ public class TrainController {
     TableColumn<Train, String> isRvColumn = new TableColumn<>("Regionale Veloce");
     isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
 
-    final List<TableColumn<Train, ?>> lst = 
+    final List<TableColumn<Train, ?>> lst =
         List.of(trainCodeColumn, licenceNumberColumn, capacityColumn, isRvColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
@@ -218,14 +218,15 @@ public class TrainController {
     TableColumn<Driver, String> residenceColumn = new TableColumn<>("Residenza");
     residenceColumn.setCellValueFactory(new PropertyValueFactory<>("residence"));
 
-    final List<TableColumn<Driver, ?>> lst = List.of(
-      licenceNumberColumn,
-      contractYearColumn,
-      firstNameColumn,
-      lastNameColumn,
-      telephoneColumn,
-      emailColumn,
-      residenceColumn);
+    final List<TableColumn<Driver, ?>> lst =
+        List.of(
+            licenceNumberColumn,
+            contractYearColumn,
+            firstNameColumn,
+            lastNameColumn,
+            telephoneColumn,
+            emailColumn,
+            residenceColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
 

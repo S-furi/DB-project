@@ -99,7 +99,7 @@ public class SectionController {
     TableColumn<PathDetail, String> dstStationColumn = new TableColumn<>("Arrivo");
     dstStationColumn.setCellValueFactory(new PropertyValueFactory<>("dstStationName"));
 
-    final List<TableColumn<PathDetail, ?>> lst = 
+    final List<TableColumn<PathDetail, ?>> lst =
         List.of(pathIdColumn, orderColumn, sectionIdColumn, srcStationColumn, dstStationColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
