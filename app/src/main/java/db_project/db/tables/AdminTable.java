@@ -103,4 +103,11 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
     return new AbstractJsonReader<Admin>() {}.setFileName("DbAdmins.json")
         .retreiveData(Admin.class);
   }
+
+  public int getHighestID(){
+    final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY adminId DESC LIMIT 1";
+    super.parser.computeSqlQuery(query, null);
+    var admin = this.getPrettyResultFromQueryResult(super.parser.getQueryResult());
+    return admin.isEmpty() ? 0 : Integer.parseInt(admin.get(0).getId());
+  }
 }

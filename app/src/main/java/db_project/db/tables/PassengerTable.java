@@ -102,7 +102,7 @@ public class PassengerTable extends AbstractTable<Passenger, String>
     final String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY codPasseggero DESC LIMIT 1";
     super.parser.computeSqlQuery(query, null);
     var passenger = this.getPrettyResultFromQueryResult(super.parser.getQueryResult());
-    return Integer.parseInt(passenger.get(0).getPassengerCode());
+    return passenger.isEmpty() ? 0 : Integer.parseInt(passenger.get(0).getPassengerCode());
   }
 
   @Override
