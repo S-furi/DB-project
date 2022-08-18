@@ -57,6 +57,7 @@ public class RegistrationController implements Initializable {
   private static final CityTable cityTable = new CityTable(connectionProvider.getMySQLConnection());
   private static final PassengerTable passengerTable =
       new PassengerTable(connectionProvider.getMySQLConnection());
+  //private static final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -125,7 +126,6 @@ public class RegistrationController implements Initializable {
       this.phoneNumReg.clear();
       this.emailReg.clear();
     }
-
     this.executeData(data);
   }
 
@@ -144,6 +144,9 @@ public class RegistrationController implements Initializable {
               Optional.of("1"));
       System.out.println(newUser.toString());
     }
+    if(userType == "Amministratore"){
+      //var newID = adminTable.getHighestID() + 1;
+    }
   }
 
   private boolean validateData() {
@@ -158,6 +161,7 @@ public class RegistrationController implements Initializable {
             t -> {
               this.regReg.getItems().add(t.getRegion());
               this.provReg.getItems().add(t.getProvince());
+              this.cittReg.getItems().add(t.getName());
             });
     System.out.println("ChoiceBox setup went fine");
   }
