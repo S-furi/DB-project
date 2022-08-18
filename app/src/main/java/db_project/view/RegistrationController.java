@@ -57,7 +57,8 @@ public class RegistrationController implements Initializable {
   private static final CityTable cityTable = new CityTable(connectionProvider.getMySQLConnection());
   private static final PassengerTable passengerTable =
       new PassengerTable(connectionProvider.getMySQLConnection());
-  //private static final AdminTable adminTable = new AdminTable(connectionProvider.getMySQLConnection());
+  // private static final AdminTable adminTable = new
+  // AdminTable(connectionProvider.getMySQLConnection());
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -144,8 +145,8 @@ public class RegistrationController implements Initializable {
               Optional.of("1"));
       System.out.println(newUser.toString());
     }
-    if(userType == "Amministratore"){
-      //var newID = adminTable.getHighestID() + 1;
+    if (userType == "Amministratore") {
+      // var newID = adminTable.getHighestID() + 1;
     }
   }
 
