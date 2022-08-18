@@ -28,7 +28,9 @@ public class LogInController implements Initializable {
   @FXML private CheckBox cartArrowReg;
 
   @FXML
-  void validateData(ActionEvent event) {}
+  void validateData(ActionEvent event) {
+    this.switchToUserLanding(event);
+  }
 
   @FXML
   void switchToRegister(ActionEvent event) {
@@ -41,6 +43,18 @@ public class LogInController implements Initializable {
 
     } catch (IOException e) {
       // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  private void switchToUserLanding(ActionEvent event){
+    try{
+      Parent root = FXMLLoader.load(getClass().getResource("/UserLanding.fxml"));
+      var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      var scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    }catch(IOException e){
       e.printStackTrace();
     }
   }
