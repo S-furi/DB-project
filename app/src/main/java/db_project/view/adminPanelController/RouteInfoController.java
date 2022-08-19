@@ -62,7 +62,7 @@ public class RouteInfoController {
 
     return Optional.of(
         new DateTripSolution(
-            routeInfo.getDate(), this.getTripSolution(routeInfo.pathId).get(), routeInfo.trainId));
+            routeInfo.getPathId(), routeInfo.getDate(), this.getTripSolution(routeInfo.pathId).get(), routeInfo.trainId));
   }
 
   /**
@@ -74,6 +74,8 @@ public class RouteInfoController {
   }
 
   public List<TableColumn<DateTripSolution, ?>> getTableViewColumns() {
+    TableColumn<DateTripSolution, String> pathIdColumn = new TableColumn<>("Cod Percorso");
+    pathIdColumn.setCellValueFactory(new PropertyValueFactory<>("pathId"));
     TableColumn<DateTripSolution, Date> dateColumn = new TableColumn<>("Data");
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     TableColumn<DateTripSolution, String> srcStationColumn = new TableColumn<>("Partenza");
@@ -88,7 +90,7 @@ public class RouteInfoController {
     trainIdColumn.setCellValueFactory(new PropertyValueFactory<>("trainId"));
 
     final List<TableColumn<DateTripSolution, ?>> lst =
-        List.of(dateColumn, srcStationColumn, dstStationColumn, duration, distance, trainIdColumn);
+        List.of(pathIdColumn, dateColumn, srcStationColumn, dstStationColumn, duration, distance, trainIdColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
     return lst;
@@ -106,6 +108,7 @@ public class RouteInfoController {
   }
 
   public class DateTripSolution {
+    private String pathId;
     private Date date;
     private String srcStation;
     private String dstStation;
@@ -114,7 +117,8 @@ public class RouteInfoController {
     private String trainId;
 
     public DateTripSolution(
-        final Date date, final TripSolution tripSolution, final String trainId) {
+        final String pathId, final Date date, final TripSolution tripSolution, final String trainId) {
+      this.pathId = pathId;
       this.date = date;
       this.trainId = trainId;
       srcStation = tripSolution.getSrcStation();
@@ -170,6 +174,14 @@ public class RouteInfoController {
     public void setTrainId(String trainId) {
       this.trainId = trainId;
     }
+
+    public String getPathId() {
+      return pathId;
+    }
+
+    public void setPathId(String pathId) {
+      this.pathId = pathId;
+    }    
 
     @Override
     public String toString() {
