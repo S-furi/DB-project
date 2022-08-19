@@ -37,7 +37,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   protected Object[] getSaveQueryParameters(final Ticket ticket) {
     return new Object[] {
       ticket.getTicketId(),
-      ticket.isRv() ? "1" : "0",
+      ticket.getIsRv() ? "1" : "0",
       ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
@@ -50,7 +50,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   @Override
   protected Object[] getUpdateQueryParameters(final Ticket ticket) {
     return new Object[] {
-      ticket.isRv() ? "1" : "0",
+      ticket.getIsRv() ? "1" : "0",
       ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
@@ -91,7 +91,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
             row -> {
               logger.info(row.toString());
               final String ticketId = (String) row.get("codiceBiglietto");
-              final boolean isRv = row.get("regionaleVeloce").equals("0") ? false : true;
+              final boolean getIsRv = row.get("regionaleVeloce").equals("0") ? false : true;
               final Optional<String> groupId =
                   row.get("codComitiva") == null
                       ? Optional.empty()
@@ -102,7 +102,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
               final Date date = (Date) row.get("data");
               final Float price = (Float) row.get("prezzo");
               tickets.add(
-                  new Ticket(ticketId, isRv, groupId, passengerId, pathId, trainId, date, price));
+                  new Ticket(ticketId, getIsRv, groupId, passengerId, pathId, trainId, date, price));
             });
 
     return tickets;
