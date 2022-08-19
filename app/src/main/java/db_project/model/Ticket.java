@@ -59,7 +59,7 @@ public class Ticket {
     return ticketId;
   }
 
-  public boolean isRv() {
+  public boolean getIsRv() {
     return isRv;
   }
 
