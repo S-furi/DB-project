@@ -102,7 +102,8 @@ public class TicketTable extends AbstractTable<Ticket, String> {
               final Date date = (Date) row.get("data");
               final Float price = (Float) row.get("prezzo");
               tickets.add(
-                  new Ticket(ticketId, getIsRv, groupId, passengerId, pathId, trainId, date, price));
+                  new Ticket(
+                      ticketId, getIsRv, groupId, passengerId, pathId, trainId, date, price));
             });
 
     return tickets;
