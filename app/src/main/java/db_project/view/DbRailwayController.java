@@ -52,6 +52,7 @@ public class DbRailwayController implements Initializable {
   @FXML private TableView<PathDetail> pathDetailTableView = new TableView<>();
   @FXML private TableView<TripSolution> tripSolutionsTableView = new TableView<>();
   @FXML private Button saveComputedPathButton;
+  @FXML private Button refreshPathTableButton;
 
   // Third Tab
   @FXML private TableView<Train> trainTableView;
@@ -86,7 +87,7 @@ public class DbRailwayController implements Initializable {
   private void initializeSubControllers() {
     this.dbGenerator = new DBGenerator();
     this.pathController = new PathController(this.dbGenerator);
-    this.sectionController = new SectionController(dbGenerator);
+    this.sectionController = new SectionController(dbGenerator, this.pathController);
     this.trainController = new TrainController(dbGenerator);
     this.routeInfoController = new RouteInfoController(dbGenerator);
     this.subsController = new SubsController(dbGenerator);
@@ -252,7 +253,8 @@ public class DbRailwayController implements Initializable {
    * @param event
    */
   @FXML
-  void getSelectedPathSections(ActionEvent event) {
+  void showSelectedPathSections(ActionEvent event) {
+    // admin autoAssegnato
     final var src = this.srcStationChoiceBox.getValue();
     final var dst = this.dstStationChoiceBox.getValue();
 
@@ -266,11 +268,18 @@ public class DbRailwayController implements Initializable {
     this.sectionController.clearPathDetails();
     final var pathId =
         this.pathController
-            .getPathFromStations(
-                this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue())
-            .get();
+            .getPathCodeFromStationNames(
+                this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue());
 
-    this.sectionController.computeSectionsFromPath(pathId);
+    if (!this.sectionController.findSolution(pathId)) {
+      showDialog("Le stazioni selezionate sono le medesime...");
+      this.srcStationChoiceBox.valueProperty().set(null);
+      this.dstStationChoiceBox.valueProperty().set(null);
+      return;
+    }
+  
+
+    //this.sectionController.computeSectionsFromPath(pathId);
     this.pathDetailTableView.refresh();
     this.srcStationChoiceBox.valueProperty().set(null);
     this.dstStationChoiceBox.valueProperty().set(null);
@@ -278,7 +287,22 @@ public class DbRailwayController implements Initializable {
 
   // save computed route in the getSelectedPath to the database.
   @FXML
-  void saveComputedPathToDb(ActionEvent event) {}
+  void saveComputedPathToDb(ActionEvent event) {
+    if (!this.pathController.savePathToDb(this.sectionController.getComputedPath())
+        || !this.sectionController.savePathInfosToDb()) {
+      this.showDialog("Si è verificato un errore durante il salvataggio, riprovare.");
+      this.pathController.delete(this.sectionController.getComputedPath());
+      this.sectionController.clearPathDetails();
+      return;
+    }
+    this.sectionController.clearPathDetails();
+  }
+
+  @FXML
+  void refreshPathTableView(ActionEvent event) {
+    this.pathController.refreshSolutions();
+    this.tripSolutionsTableView.refresh();
+  }
 
   @FXML
   void saveTrainToDb(ActionEvent event) {
