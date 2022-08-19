@@ -36,7 +36,7 @@ public class SectionController {
   private ObservableList<PathDetail> pathDetails;
   private final QueryParser parser;
   private final Logger logger;
-  
+
   private Path computedPath;
   private List<PathInfo> pathInfosToBeSaved = new ArrayList<>();
 
@@ -61,7 +61,6 @@ public class SectionController {
   }
 
   /**
-   * 
    * @param path that already exists in DB!!!
    */
   public void computeSectionsFromPath(final Path path) {
@@ -90,7 +89,6 @@ public class SectionController {
   }
 
   /**
-   * 
    * @param pathId that isn't contained into the database
    * @return
    */
@@ -115,17 +113,22 @@ public class SectionController {
   private boolean buildPathDetailsFromPathInfos(final List<PathInfo> pathInfos) {
     final String pathId = pathInfos.get(0).getPathId();
 
-    final List<String> sectionIds = 
+    final List<String> sectionIds =
         pathInfos.stream().map(t -> t.getSectionId()).collect(Collectors.toList());
 
-    final int totalDistance = this.sectionTable.findAll()
-        .stream()
-        .filter(t -> sectionIds.contains(t.getSectionCode()))
-        .map(t -> t.getDistance())
-        .reduce(0, (t1, t2) -> t1 + t2);
-    
-    this.computedPath = new Path(pathId, this.getDurationFromDistance(totalDistance), sectionIds.size(), this.getRandomAdminId());
-  
+    final int totalDistance =
+        this.sectionTable.findAll().stream()
+            .filter(t -> sectionIds.contains(t.getSectionCode()))
+            .map(t -> t.getDistance())
+            .reduce(0, (t1, t2) -> t1 + t2);
+
+    this.computedPath =
+        new Path(
+            pathId,
+            this.getDurationFromDistance(totalDistance),
+            sectionIds.size(),
+            this.getRandomAdminId());
+
     this.buildNewPathDetail(pathId, pathInfos);
 
     return !this.pathDetails.isEmpty();
@@ -138,29 +141,27 @@ public class SectionController {
       var srcStation = stations.getKey();
       var dstStation = stations.getValue();
       this.pathDetails.add(
-          new PathDetail(pathId, 
-              Integer.parseInt(pathInfo.getOrderNumber()), 
-              pathInfo.getSectionId(), 
-              srcStation, 
+          new PathDetail(
+              pathId,
+              Integer.parseInt(pathInfo.getOrderNumber()),
+              pathInfo.getSectionId(),
+              srcStation,
               dstStation));
     }
   }
 
   private String getRandomAdminId() {
-    return new AdminTable(this.dbGenerator.getConnectionProvider().getMySQLConnection()).getRandomAdminId();
+    return new AdminTable(this.dbGenerator.getConnectionProvider().getMySQLConnection())
+        .getRandomAdminId();
   }
 
-  private String getDurationFromDistance(final int distance) { 
-    return this.getDurationFromMinutes((int)((distance/AVG_STD_TRAIN_SPEED)*60));
+  private String getDurationFromDistance(final int distance) {
+    return this.getDurationFromMinutes((int) ((distance / AVG_STD_TRAIN_SPEED) * 60));
   }
 
   private String getDurationFromMinutes(final long value) {
-    return LocalTime.MIN.plus(
-        Duration
-        .ofMinutes(value))
-        .toString();
-}
-
+    return LocalTime.MIN.plus(Duration.ofMinutes(value)).toString();
+  }
 
   private List<PathDetail> getPathDetailsFromQuery(final QueryResult result) {
     if (result.getResult().isEmpty()) {

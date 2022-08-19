@@ -267,9 +267,8 @@ public class DbRailwayController implements Initializable {
 
     this.sectionController.clearPathDetails();
     final var pathId =
-        this.pathController
-            .getPathCodeFromStationNames(
-                this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue());
+        this.pathController.getPathCodeFromStationNames(
+            this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue());
 
     if (!this.sectionController.findSolution(pathId)) {
       showDialog("Le stazioni selezionate sono le medesime...");
@@ -277,9 +276,8 @@ public class DbRailwayController implements Initializable {
       this.dstStationChoiceBox.valueProperty().set(null);
       return;
     }
-  
 
-    //this.sectionController.computeSectionsFromPath(pathId);
+    // this.sectionController.computeSectionsFromPath(pathId);
     this.pathDetailTableView.refresh();
     this.srcStationChoiceBox.valueProperty().set(null);
     this.dstStationChoiceBox.valueProperty().set(null);
