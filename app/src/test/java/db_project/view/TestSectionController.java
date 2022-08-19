@@ -30,7 +30,7 @@ public class TestSectionController {
 
     this.sectionController = new SectionController(dbGenerator);
     this.pathTable = (PathTable) dbGenerator.getTableByClass(PathTable.class);
-    final Optional<Path> routePath = this.pathTable.findByPrimaryKey("BI-BZ");
+    final Optional<Path> routePath = this.pathTable.findByPrimaryKey("CA-LA");
     if (routePath.isEmpty()) {
       fail("primary key not found");
     }

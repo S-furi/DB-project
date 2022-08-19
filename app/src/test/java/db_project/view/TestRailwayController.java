@@ -25,8 +25,8 @@ public class TestRailwayController {
 
     this.railwayController = new PathController(dbGenerator);
 
-    final String srcStation = "BOLOGNA C.LE";
-    final String dstStation = "BOLZANO";
+    final String srcStation = "CASERTA";
+    final String dstStation = "LAMEZIA";
     final var solution = this.railwayController.getTripSolution(srcStation, dstStation);
     assertTrue(solution.isPresent());
     System.out.println(solution.get());
