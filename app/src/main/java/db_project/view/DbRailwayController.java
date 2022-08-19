@@ -13,10 +13,12 @@ import db_project.utils.Utils;
 import db_project.view.adminPanelController.PathController;
 import db_project.view.adminPanelController.RouteInfoController;
 import db_project.view.adminPanelController.SectionController;
+import db_project.view.adminPanelController.SubsController;
 import db_project.view.adminPanelController.TrainController;
 import db_project.view.adminPanelController.PathController.TripSolution;
 import db_project.view.adminPanelController.RouteInfoController.DateTripSolution;
 import db_project.view.adminPanelController.SectionController.PathDetail;
+import db_project.view.adminPanelController.SubsController.Subscriber;
 import javafx.fxml.Initializable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -60,11 +62,19 @@ public class DbRailwayController implements Initializable {
   @FXML private ChoiceBox<String> driverChoiceBox;
   @FXML private Button refreshTrainTableViewButton;
 
+  // Fourth Tab
+  @FXML private ChoiceBox<String> subscribersChoiceBox;
+  @FXML private TableView<Subscriber> subscribersTableView;
+  @FXML private Button showAllSubscribersButton;
+  @FXML private Button findSubscriberButton;
+  
+
   private DBGenerator dbGenerator;
   private PathController pathController;
   private SectionController sectionController;
   private TrainController trainController;
   private RouteInfoController routeInfoController;
+  private SubsController subsController;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +90,7 @@ public class DbRailwayController implements Initializable {
     this.sectionController = new SectionController(dbGenerator);
     this.trainController = new TrainController(dbGenerator);
     this.routeInfoController = new RouteInfoController(dbGenerator);
+    this.subsController = new SubsController(dbGenerator);
   }
 
   private void initialButtonsSetup() {
@@ -115,6 +126,12 @@ public class DbRailwayController implements Initializable {
                 .isNull()
                 .or(this.pathChoiceBox.valueProperty().isNull())
                 .or(this.trainChoiceBox.valueProperty().isNull()));
+
+    this.findSubscriberButton
+        .disableProperty()
+        .bind(
+          this.subscribersChoiceBox.valueProperty().isNull()
+        );
   }
 
   private void fillTableViews() {
@@ -122,6 +139,7 @@ public class DbRailwayController implements Initializable {
     this.fillSectionTableView();
     this.fillTrainControllerView();
     this.fillResultTableView();
+    this.fillSubscribersTable();
   }
 
   private void fillPathTableView() {
@@ -157,6 +175,13 @@ public class DbRailwayController implements Initializable {
         this.routeInfoController.getRouteInfos());
   }
 
+  private void fillSubscribersTable() {
+    this.genericTableFill(
+        this.subscribersTableView, 
+        this.subsController.getSubscribersTableViewColumns(), 
+        this.subsController.getAllSubscribers());
+  }
+
   private <T> void genericTableFill(
       TableView<T> tableView, List<TableColumn<T, ?>> columns, ObservableList<T> elements) {
     tableView.setEditable(true);
@@ -183,6 +208,12 @@ public class DbRailwayController implements Initializable {
             this.trainController.getAllTrains().stream()
                 .map(t -> t.getTrainCode())
                 .collect(Collectors.toList()));
+    this.subscribersChoiceBox
+        .getItems()
+        .setAll(
+          this.subsController.getSubscribers().stream()
+              .map(t -> t.getPassengerCode())
+              .collect(Collectors.toList()));
   }
 
   @FXML
@@ -277,6 +308,23 @@ public class DbRailwayController implements Initializable {
             this.trainController.getAllTrains().stream()
                 .map(t -> t.getTrainCode())
                 .collect(Collectors.toList()));
+  }
+
+  @FXML
+  void showAllSubscribers(ActionEvent event) {
+    if (!this.subsController.findAllSubscribers()) {
+      this.showDialog("There aren't subscribers inside DB!");
+    }
+  }
+
+  @FXML
+  void findSubscriber(ActionEvent event) {
+    final var subscriber = this.subscribersChoiceBox.getValue();
+    this.subscribersChoiceBox.setValue(null);
+    if (!this.subsController.findSubscriber(subscriber)) {
+      this.showDialog("Cannot find Selected subscriber!");
+      return;
+    }
   }
 
   private void showDialog(String msg) {
