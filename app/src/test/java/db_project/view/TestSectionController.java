@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.tables.PathTable;
 import db_project.model.Path;
-import db_project.view.controller.SectionController;
+import db_project.view.adminPanelController.SectionController;
 
 public class TestSectionController {
   private static final DBGenerator dbGenerator = new DBGenerator();

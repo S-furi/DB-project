@@ -1,4 +1,4 @@
-package db_project.view.controller;
+package db_project.view.adminPanelController;
 
 import java.sql.Date;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.tables.RouteInfoTable;
 import db_project.model.RouteInfo;
-import db_project.view.controller.PathController.TripSolution;
+import db_project.view.adminPanelController.PathController.TripSolution;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

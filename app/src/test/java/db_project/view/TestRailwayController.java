@@ -6,7 +6,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.dbGenerator.DBGenerator;
-import db_project.view.controller.PathController;
+import db_project.view.adminPanelController.PathController;
 
 public class TestRailwayController {
   private static final DBGenerator dbGenerator = new DBGenerator();

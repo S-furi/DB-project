@@ -1,4 +1,4 @@
-package db_project.view.controller;
+package db_project.view.adminPanelController;
 
 import java.sql.Date;
 import java.util.ArrayList;
