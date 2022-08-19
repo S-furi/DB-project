@@ -9,10 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Subscription;
+import db_project.utils.AbstractJsonReader;
 
-public class SubscriptionTable extends AbstractTable<Subscription, String> {
+public class SubscriptionTable extends AbstractTable<Subscription, String> implements JsonReadeable<Subscription> {
   public static final String TABLE_NAME = "SOTTOSCRIZIONE";
   public static final String PRIMARY_KEY = "codPasseggero";
   private final Logger logger;
@@ -75,5 +77,25 @@ public class SubscriptionTable extends AbstractTable<Subscription, String> {
               subscriptions.add(new Subscription(passengerCode, cardCode, subscriptionDate));
             });
     return subscriptions;
+  }
+
+  @Override
+  public List<Subscription> readFromFile() {
+    return new AbstractJsonReader<Subscription>() {}.setFileName("DbSubscriptions.json")
+        .retreiveData(Subscription.class);
+  }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
   }
 }
