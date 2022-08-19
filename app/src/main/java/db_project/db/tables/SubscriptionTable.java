@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,6 +80,25 @@ public class SubscriptionTable extends AbstractTable<Subscription, String>
               subscriptions.add(new Subscription(passengerCode, cardCode, subscriptionDate));
             });
     return subscriptions;
+  }
+
+  public Map<String, Integer> getDiscountPassengersPercentages() {
+    final String query = 
+    "SELECT codPasseggero, percentualeSconto "
+      + "from loyalty_card l join sottoscrizione s on (l.codCarta = s.codCarta);";
+    super.parser.computeSqlQuery(query, null);
+
+    if (super.parser.getQueryResult().getResult().isEmpty()) {
+      return Collections.emptyMap();
+    }
+    final Map<String, Integer> result = new HashMap<>();
+    super.parser.getQueryResult().getResult().get()
+      .forEach(row -> {
+        final String passengerId = (String) row.get("codPasseggero");
+        final int discount = (int) row.get("percentualeSconto");
+        result.put(passengerId, discount);
+      });
+    return result;
   }
 
   @Override
