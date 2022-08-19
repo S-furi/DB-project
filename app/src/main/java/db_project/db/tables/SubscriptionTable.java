@@ -14,7 +14,8 @@ import db_project.db.queryUtils.QueryResult;
 import db_project.model.Subscription;
 import db_project.utils.AbstractJsonReader;
 
-public class SubscriptionTable extends AbstractTable<Subscription, String> implements JsonReadeable<Subscription> {
+public class SubscriptionTable extends AbstractTable<Subscription, String>
+    implements JsonReadeable<Subscription> {
   public static final String TABLE_NAME = "SOTTOSCRIZIONE";
   public static final String PRIMARY_KEY = "codPasseggero";
   private final Logger logger;

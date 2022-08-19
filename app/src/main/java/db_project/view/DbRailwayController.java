@@ -67,7 +67,6 @@ public class DbRailwayController implements Initializable {
   @FXML private TableView<Subscriber> subscribersTableView;
   @FXML private Button showAllSubscribersButton;
   @FXML private Button findSubscriberButton;
-  
 
   private DBGenerator dbGenerator;
   private PathController pathController;
@@ -129,9 +128,7 @@ public class DbRailwayController implements Initializable {
 
     this.findSubscriberButton
         .disableProperty()
-        .bind(
-          this.subscribersChoiceBox.valueProperty().isNull()
-        );
+        .bind(this.subscribersChoiceBox.valueProperty().isNull());
   }
 
   private void fillTableViews() {
@@ -177,8 +174,8 @@ public class DbRailwayController implements Initializable {
 
   private void fillSubscribersTable() {
     this.genericTableFill(
-        this.subscribersTableView, 
-        this.subsController.getSubscribersTableViewColumns(), 
+        this.subscribersTableView,
+        this.subsController.getSubscribersTableViewColumns(),
         this.subsController.getAllSubscribers());
   }
 
@@ -211,9 +208,9 @@ public class DbRailwayController implements Initializable {
     this.subscribersChoiceBox
         .getItems()
         .setAll(
-          this.subsController.getSubscribers().stream()
-              .map(t -> t.getPassengerCode())
-              .collect(Collectors.toList()));
+            this.subsController.getSubscribers().stream()
+                .map(t -> t.getPassengerCode())
+                .collect(Collectors.toList()));
   }
 
   @FXML
