@@ -4,9 +4,9 @@ import java.sql.Date;
 
 // Percorrenza
 public class RouteInfo {
-  public final String pathId;
-  public final String trainId;
-  public final Date date;
+  private final String pathId;
+  private final String trainId;
+  private final Date date;
 
   public RouteInfo(final String pathId, final String trainId, final Date date) {
     this.pathId = pathId;
