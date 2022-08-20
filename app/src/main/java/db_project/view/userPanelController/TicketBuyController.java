@@ -1,6 +1,8 @@
 package db_project.view.userPanelController;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -9,6 +11,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import db_project.db.dbGenerator.DBGenerator;
+import db_project.db.queryUtils.QueryResult;
 import db_project.db.tables.RouteInfoTable;
 import db_project.db.tables.SeatTable;
 import db_project.db.tables.SubscriptionTable;
@@ -76,7 +79,7 @@ public class TicketBuyController {
         new Ticket(this.getLastTicketId(), false, Optional.empty(), usrId, price, routeInfo.get());
 
     this.tickets.clear();
-    this.tickets.add(new TicketCheckout(ticket.getTicketId(), ticket.getIsRv(), pathId, date));
+    this.tickets.add(new TicketCheckout(ticket, ticket.getIsRv(), pathId, date));
     this.logger.info(ticket.toString());
     return this.ticketTable.save(ticket);
   }
@@ -108,6 +111,7 @@ public class TicketBuyController {
     this.tickets.add(
         new TicketCheckout(
             ticket.getTicketId(),
+            ticket.getPassengerId(),
             true,
             routeInfo.get().getPathId(),
             ticketDetail.get().getTrainClass(),
@@ -171,9 +175,10 @@ public class TicketBuyController {
   }
 
   public List<TableColumn<TicketCheckout, ?>> getTableViewColumns() {
-    final TableColumn<TicketCheckout, String> ticketIdColumn =
-        new TableColumn<>("Numero Biglietto");
+    final TableColumn<TicketCheckout, String> ticketIdColumn = new TableColumn<>("Biglietto");
     ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+    final TableColumn<TicketCheckout, String> passengerIdColumn = new TableColumn<>("Passeggero");
+    passengerIdColumn.setCellValueFactory(new PropertyValueFactory<>("passengerId"));
     final TableColumn<TicketCheckout, Boolean> isRvColumn = new TableColumn<>("RV");
     isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
     final TableColumn<TicketCheckout, String> pathIdColumn = new TableColumn<>("Percorso");
@@ -190,6 +195,7 @@ public class TicketBuyController {
     final List<TableColumn<TicketCheckout, ?>> lst =
         List.of(
             ticketIdColumn,
+            passengerIdColumn,
             isRvColumn,
             pathIdColumn,
             classNumberColumn,
@@ -218,8 +224,48 @@ public class TicketBuyController {
     }
   }
 
+  public boolean checkTrainRv(final String trainId) {
+    if (trainId == null) return false;
+    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
+        .findByPrimaryKey(trainId)
+        .get()
+        .getIsRv();
+  }
+
+  public ObservableList<TicketCheckout> getAllBoughtTicket() {
+    final var result = this.ticketTable.getAllBoughtTicketAsQueryResult();
+    this.logger.info(result.toString());
+    this.tickets.clear();
+    this.tickets.addAll(this.getTicketCheckoutsFromQueryResult(result));
+    return this.tickets;
+  }
+
+  private List<TicketCheckout> getTicketCheckoutsFromQueryResult(final QueryResult result) {
+    if (result.getResult().isEmpty()) {
+      return Collections.emptyList();
+    }
+    final List<TicketCheckout> tkts = new ArrayList<>();
+    result.getResult().get()
+      .forEach(row -> {
+        logger.info(row.toString());
+        final String passengerId = (String) row.get("codPasseggero");
+        final Date tripDate = (Date) row.get("data");
+        final int carNumber = row.get("numeroCarrozza") == null ? 0 : (int) row.get("numeroCarrozza");
+        final int seatNumber = row.get("numeroPosto") == null ? 0 : (int) row.get("numeroPosto");
+        final String pathId = (String) row.get("codPercorso");
+        final String ticketId = (String) row.get("codiceBiglietto");
+        final boolean isRv = row.get("regionaleVeloce").equals("1");
+        final String classNumber = row.get("numClasse") == null ? "null" : (String) row.get("numClasse");
+
+        tkts.add(new TicketCheckout(ticketId, passengerId, isRv, pathId, classNumber, carNumber, seatNumber, tripDate));
+        
+      });
+    return tkts;
+  }
+
   public class TicketCheckout {
     private String ticketId;
+    private String passengerId;
     private boolean isRv;
     private String pathId;
     private String classNumber;
@@ -229,6 +275,7 @@ public class TicketBuyController {
 
     public TicketCheckout(
         String ticketId,
+        String passengerId,
         boolean isRv,
         String pathId,
         String classNumber,
@@ -236,6 +283,7 @@ public class TicketBuyController {
         int seatNumber,
         Date tripDate) {
       this.ticketId = ticketId;
+      this.passengerId = passengerId;
       this.isRv = isRv;
       this.pathId = pathId;
       this.classNumber = classNumber;
@@ -244,8 +292,9 @@ public class TicketBuyController {
       this.tripDate = tripDate;
     }
 
-    public TicketCheckout(String ticketId, boolean isRv, String pathId, Date tripDate) {
-      this.ticketId = ticketId;
+    public TicketCheckout(Ticket ticket, boolean isRv, String pathId, Date tripDate) {
+      this.ticketId = ticket.getTicketId();
+      this.passengerId = ticket.getPassengerId();
       this.isRv = isRv;
       this.pathId = pathId;
       this.classNumber = "None";
@@ -256,6 +305,10 @@ public class TicketBuyController {
 
     public String getTicketId() {
       return ticketId;
+    }
+
+    public String getPassengerId() {
+      return passengerId;
     }
 
     public boolean getIsRv() {
@@ -284,21 +337,9 @@ public class TicketBuyController {
 
     @Override
     public String toString() {
-      return "TicketCheckout [carNumber="
-          + carNumber
-          + ", classNumber="
-          + classNumber
-          + ", isRv="
-          + isRv
-          + ", pathId="
-          + pathId
-          + ", seatNumber="
-          + seatNumber
-          + ", ticketId="
-          + ticketId
-          + ", tripDate="
-          + tripDate
-          + "]";
+      return "TicketCheckout [carNumber=" + carNumber + ", classNumber=" + classNumber + ", isRv=" + isRv
+          + ", passengerId=" + passengerId + ", pathId=" + pathId + ", seatNumber=" + seatNumber + ", ticketId="
+          + ticketId + ", tripDate=" + tripDate + "]";
     }
   }
 
@@ -308,13 +349,5 @@ public class TicketBuyController {
         ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
             .findAll().stream().map(t -> t.getPassengerCode()).collect(Collectors.toList());
     return lst.get(new Random().nextInt(lst.size() - 1));
-  }
-
-  public boolean checkTrainRv(final String trainId) {
-    if (trainId == null) return false;
-    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
-        .findByPrimaryKey(trainId)
-        .get()
-        .getIsRv();
   }
 }
