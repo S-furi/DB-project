@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import java.util.ArrayList;
 
 import db_project.db.AbstractCompositeKeyTable;
 import db_project.db.queryUtils.QueryResult;
+import db_project.model.RouteInfo;
 import db_project.model.TicketDetail;
 
 public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, Object> {
@@ -91,5 +94,20 @@ public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, O
                       ticketId, reservationDate, trainClass, trainId, carNumber, seatNumber));
             });
     return ticketDetails;
+  }
+
+  public List<TicketDetail> getTicketDetailFromRouteInfo(final RouteInfo routeInfo, final String carClass) {
+    final String query = "SELECT * from dettaglio_biglietto "
+        + "where numClasse = ? and codTreno = ? and dataViaggio = ?; ";
+    final Object[] params = {carClass, routeInfo.getTrainId(), routeInfo.getDate()};
+    this.parser.computeSqlQuery(query, params);
+    return this.getPrettyResultFromQueryResult(this.parser.getQueryResult());
+  }
+
+  public Optional<TicketDetail> getTicketDetailFromTicketId(final String ticketId) {
+    final String query = "SELECT * from dettaglio_biglietto where codiceBiglietto =?;";
+    final Object[] params = {ticketId};
+    super.parser.computeSqlQuery(query, params);
+    return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findAny();
   }
 }
