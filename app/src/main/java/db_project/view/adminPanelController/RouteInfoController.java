@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.tables.RouteInfoTable;
+import db_project.db.tables.TrainTable;
 import db_project.model.RouteInfo;
 import db_project.view.adminPanelController.PathController.TripSolution;
 import javafx.collections.FXCollections;
@@ -56,7 +57,7 @@ public class RouteInfoController {
   }
 
   private Optional<DateTripSolution> getDateTripSolutionsFromRouteInfo(final RouteInfo routeInfo) {
-    if (this.getTripSolution(routeInfo.pathId).isEmpty()) {
+    if (this.getTripSolution(routeInfo.getPathId()).isEmpty()) {
       return Optional.empty();
     }
 
@@ -64,8 +65,9 @@ public class RouteInfoController {
         new DateTripSolution(
             routeInfo.getPathId(),
             routeInfo.getDate(),
-            this.getTripSolution(routeInfo.pathId).get(),
-            routeInfo.trainId));
+            this.getTripSolution(routeInfo.getPathId()).get(),
+            routeInfo.getTrainId(),
+            ((TrainTable)this.dbGenerator.getTableByClass(TrainTable.class)).findByPrimaryKey(routeInfo.getTrainId()).get().getIsRv()));
   }
 
   /**
@@ -91,6 +93,8 @@ public class RouteInfoController {
     distance.setCellValueFactory(new PropertyValueFactory<>("distance"));
     TableColumn<DateTripSolution, String> trainIdColumn = new TableColumn<>("Codice Treno");
     trainIdColumn.setCellValueFactory(new PropertyValueFactory<>("trainId"));
+    TableColumn<DateTripSolution, String> isRvColumn = new TableColumn<>("RV");
+    isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
 
     final List<TableColumn<DateTripSolution, ?>> lst =
         List.of(
@@ -100,7 +104,8 @@ public class RouteInfoController {
             dstStationColumn,
             duration,
             distance,
-            trainIdColumn);
+            trainIdColumn,
+            isRvColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
     return lst;
@@ -125,12 +130,14 @@ public class RouteInfoController {
     private String duration;
     private int distance;
     private String trainId;
+    private boolean isRv;
 
     public DateTripSolution(
         final String pathId,
         final Date date,
         final TripSolution tripSolution,
-        final String trainId) {
+        final String trainId,
+        final boolean isRv) {
       this.pathId = pathId;
       this.date = date;
       this.trainId = trainId;
@@ -138,6 +145,7 @@ public class RouteInfoController {
       dstStation = tripSolution.getDstStation();
       duration = tripSolution.getDuration();
       distance = tripSolution.getDistance();
+      this.isRv = isRv;
     }
 
     public Date getDate() {
@@ -196,19 +204,20 @@ public class RouteInfoController {
       this.pathId = pathId;
     }
 
+    public boolean getIsRv() {
+      return isRv;
+    }
+
+    public void setRv(boolean isRv) {
+      this.isRv = isRv;
+    }
+
     @Override
     public String toString() {
-      return "DateTripSolution [date="
-          + date
-          + ", distance="
-          + distance
-          + ", dstStation="
-          + dstStation
-          + ", duration="
-          + duration
-          + ", srcStation="
-          + srcStation
+      return "DateTripSolution [date=" + date + ", distance=" + distance + ", dstStation=" + dstStation + ", duration="
+          + duration + ", isRv=" + isRv + ", pathId=" + pathId + ", srcStation=" + srcStation + ", trainId=" + trainId
           + "]";
     }
+
   }
 }
