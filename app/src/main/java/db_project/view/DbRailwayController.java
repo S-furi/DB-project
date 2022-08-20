@@ -19,6 +19,8 @@ import db_project.view.adminPanelController.PathController.TripSolution;
 import db_project.view.adminPanelController.RouteInfoController.DateTripSolution;
 import db_project.view.adminPanelController.SectionController.PathDetail;
 import db_project.view.adminPanelController.SubsController.Subscriber;
+import db_project.view.userPanelController.TicketBuyController;
+import db_project.view.userPanelController.TicketBuyController.TicketCheckout;
 import javafx.fxml.Initializable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -69,12 +71,16 @@ public class DbRailwayController implements Initializable {
   @FXML private Button showAllSubscribersButton;
   @FXML private Button findSubscriberButton;
 
+  // Fifth Tab
+  @FXML private TableView<TicketCheckout> ticketsTableView;
+
   private DBGenerator dbGenerator;
   private PathController pathController;
   private SectionController sectionController;
   private TrainController trainController;
   private RouteInfoController routeInfoController;
   private SubsController subsController;
+  private TicketBuyController ticketController;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -91,6 +97,7 @@ public class DbRailwayController implements Initializable {
     this.trainController = new TrainController(dbGenerator);
     this.routeInfoController = new RouteInfoController(dbGenerator);
     this.subsController = new SubsController(dbGenerator);
+    this.ticketController = new TicketBuyController(dbGenerator);
   }
 
   private void initialButtonsSetup() {
@@ -137,7 +144,8 @@ public class DbRailwayController implements Initializable {
     this.fillSectionTableView();
     this.fillTrainControllerView();
     this.fillResultTableView();
-    this.fillSubscribersTable();
+    this.fillSubscribersTableView();
+    this.fillTicketsTableView();
   }
 
   private void fillPathTableView() {
@@ -173,11 +181,18 @@ public class DbRailwayController implements Initializable {
         this.routeInfoController.getRouteInfos());
   }
 
-  private void fillSubscribersTable() {
+  private void fillSubscribersTableView() {
     this.genericTableFill(
         this.subscribersTableView,
         this.subsController.getSubscribersTableViewColumns(),
         this.subsController.getAllSubscribers());
+  }
+
+  private void fillTicketsTableView() {
+    this.genericTableFill(
+        this.ticketsTableView, 
+        this.ticketController.getTableViewColumns(), 
+        this.ticketController.getAllBoughtTicket());  
   }
 
   private <T> void genericTableFill(
