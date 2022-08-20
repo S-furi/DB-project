@@ -29,7 +29,6 @@ import javafx.scene.control.TableView;
 public class TestTicketBuy implements Initializable {
   @FXML private Button buyTicketButtton;
   @FXML private CheckBox firstClassCheckBox;
-  @FXML private CheckBox isRVCheckBox;
   @FXML private ChoiceBox<String> routeInfoTrainIdChoiceBox;
   @FXML private ChoiceBox<String> routeInfoPathIdChoiceBox;
   @FXML private TableView<DateTripSolution> routeInfoTableView;
@@ -121,11 +120,11 @@ public class TestTicketBuy implements Initializable {
     final Date date = this.getDateFromDatePicker();
     final String pathId = this.routeInfoPathIdChoiceBox.getValue();
     final String trainId = this.routeInfoTrainIdChoiceBox.getValue();
-    final boolean isRv = this.isRVCheckBox.isSelected();
     final boolean isFirstClass = this.firstClassCheckBox.isSelected();
 
-    if (!this.ticketController.registerTicketBought(date, pathId, trainId, isRv, isFirstClass)) {
-      this.showDialog("Impossibile acquistare il biglietto, reinserire i dati e riprovare...");
+    if (!this.ticketController.registerTicketBought(date, pathId, trainId, isFirstClass)) {
+      this.showDialog("Impossibile acquistare il biglietto, reinserire i dati e riprovare.");
+      this.ticketController.restoreLastOp();
     }
     this.restoreFxElements();
   }
@@ -134,7 +133,6 @@ public class TestTicketBuy implements Initializable {
     this.routeInfoDatePicker.setValue(null);
     this.routeInfoPathIdChoiceBox.setValue(null);
     this.routeInfoTrainIdChoiceBox.setValue(null);
-    this.isRVCheckBox.setSelected(false);
     this.firstClassCheckBox.setSelected(false);
   }
 
