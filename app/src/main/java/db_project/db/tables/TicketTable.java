@@ -110,11 +110,11 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   }
 
   public QueryResult getAllBoughtTicketAsQueryResult() {
-    final String query = 
-    "SELECT b.codiceBiglietto, b.codPasseggero, b.regionaleVeloce, b.codPercorso, "
-        + "db.numClasse, db.numeroCarrozza, db.numeroPosto, b.data "
-        + "from biglietto b left join dettaglio_biglietto db  "
-        + "on (b.codiceBiglietto = db.codiceBiglietto); ";
+    final String query =
+        "SELECT b.codiceBiglietto, b.codPasseggero, b.regionaleVeloce, b.codPercorso, "
+            + "db.numClasse, db.numeroCarrozza, db.numeroPosto, b.data "
+            + "from biglietto b left join dettaglio_biglietto db  "
+            + "on (b.codiceBiglietto = db.codiceBiglietto); ";
     super.parser.computeSqlQuery(query, null);
     return this.parser.getQueryResult();
   }

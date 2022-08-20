@@ -245,21 +245,35 @@ public class TicketBuyController {
       return Collections.emptyList();
     }
     final List<TicketCheckout> tkts = new ArrayList<>();
-    result.getResult().get()
-      .forEach(row -> {
-        logger.info(row.toString());
-        final String passengerId = (String) row.get("codPasseggero");
-        final Date tripDate = (Date) row.get("data");
-        final int carNumber = row.get("numeroCarrozza") == null ? 0 : (int) row.get("numeroCarrozza");
-        final int seatNumber = row.get("numeroPosto") == null ? 0 : (int) row.get("numeroPosto");
-        final String pathId = (String) row.get("codPercorso");
-        final String ticketId = (String) row.get("codiceBiglietto");
-        final boolean isRv = row.get("regionaleVeloce").equals("1");
-        final String classNumber = row.get("numClasse") == null ? "null" : (String) row.get("numClasse");
+    result
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              logger.info(row.toString());
+              final String passengerId = (String) row.get("codPasseggero");
+              final Date tripDate = (Date) row.get("data");
+              final int carNumber =
+                  row.get("numeroCarrozza") == null ? 0 : (int) row.get("numeroCarrozza");
+              final int seatNumber =
+                  row.get("numeroPosto") == null ? 0 : (int) row.get("numeroPosto");
+              final String pathId = (String) row.get("codPercorso");
+              final String ticketId = (String) row.get("codiceBiglietto");
+              final boolean isRv = row.get("regionaleVeloce").equals("1");
+              final String classNumber =
+                  row.get("numClasse") == null ? "null" : (String) row.get("numClasse");
 
-        tkts.add(new TicketCheckout(ticketId, passengerId, isRv, pathId, classNumber, carNumber, seatNumber, tripDate));
-        
-      });
+              tkts.add(
+                  new TicketCheckout(
+                      ticketId,
+                      passengerId,
+                      isRv,
+                      pathId,
+                      classNumber,
+                      carNumber,
+                      seatNumber,
+                      tripDate));
+            });
     return tkts;
   }
 
@@ -337,9 +351,23 @@ public class TicketBuyController {
 
     @Override
     public String toString() {
-      return "TicketCheckout [carNumber=" + carNumber + ", classNumber=" + classNumber + ", isRv=" + isRv
-          + ", passengerId=" + passengerId + ", pathId=" + pathId + ", seatNumber=" + seatNumber + ", ticketId="
-          + ticketId + ", tripDate=" + tripDate + "]";
+      return "TicketCheckout [carNumber="
+          + carNumber
+          + ", classNumber="
+          + classNumber
+          + ", isRv="
+          + isRv
+          + ", passengerId="
+          + passengerId
+          + ", pathId="
+          + pathId
+          + ", seatNumber="
+          + seatNumber
+          + ", ticketId="
+          + ticketId
+          + ", tripDate="
+          + tripDate
+          + "]";
     }
   }
 

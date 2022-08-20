@@ -190,9 +190,9 @@ public class DbRailwayController implements Initializable {
 
   private void fillTicketsTableView() {
     this.genericTableFill(
-        this.ticketsTableView, 
-        this.ticketController.getTableViewColumns(), 
-        this.ticketController.getAllBoughtTicket());  
+        this.ticketsTableView,
+        this.ticketController.getTableViewColumns(),
+        this.ticketController.getAllBoughtTicket());
   }
 
   private <T> void genericTableFill(
