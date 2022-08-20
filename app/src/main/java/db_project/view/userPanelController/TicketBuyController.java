@@ -46,19 +46,17 @@ public class TicketBuyController {
 
   private void initializeTables() {
     this.ticketTable = (TicketTable) this.dbGenerator.getTableByClass(TicketTable.class);
-    this.ticketDetailTable = (TicketDetailTable) this.dbGenerator.getTableByClass(TicketDetailTable.class);
+    this.ticketDetailTable =
+        (TicketDetailTable) this.dbGenerator.getTableByClass(TicketDetailTable.class);
     this.routeInfoTable = (RouteInfoTable) this.dbGenerator.getTableByClass(RouteInfoTable.class);
     this.seatTable = (SeatTable) this.dbGenerator.getTableByClass(SeatTable.class);
   }
 
   public boolean registerTicketBought(
-      final Date date,
-      final String pathId,
-      final String trainId,
-      final boolean isFirstClass) {
+      final Date date, final String pathId, final String trainId, final boolean isFirstClass) {
 
     final boolean isRv = this.checkTrainRv(trainId);
-      
+
     return isRv
         ? this.saveRvTicket(date, pathId, trainId, isFirstClass)
         : this.saveStdTicket(date, pathId, trainId);
@@ -85,21 +83,22 @@ public class TicketBuyController {
 
   private boolean saveRvTicket(
       final Date date, final String pathId, final String trainId, final boolean isFirstClass) {
-    
+
     final var routeInfo = this.getRouteInfo(pathId, trainId, date);
     if (routeInfo.isEmpty()) {
-        return false;
+      return false;
     }
-    //tmp
+    // tmp
     final var usrId = this.getRandomUserId();
     final Float price = this.computePrice(usrId, pathId) * 1.15f;
 
     final Ticket ticket =
         new Ticket(this.getLastTicketId(), true, Optional.empty(), usrId, price, routeInfo.get());
-    final Optional<TicketDetail> ticketDetail = this.buildTicketDetail(ticket, routeInfo.get(), isFirstClass);
+    final Optional<TicketDetail> ticketDetail =
+        this.buildTicketDetail(ticket, routeInfo.get(), isFirstClass);
 
     if (ticketDetail.isEmpty()) {
-        return false;
+      return false;
     }
 
     this.logger.info(ticket.toString());
@@ -107,18 +106,27 @@ public class TicketBuyController {
 
     this.tickets.clear();
     this.tickets.add(
-        new TicketCheckout(ticket.getTicketId(), true, routeInfo.get().getPathId(), ticketDetail.get().getTrainClass(),
-            ticketDetail.get().getCarNumber(), ticketDetail.get().getSeatNumber(), ticketDetail.get().getTripDate()));
+        new TicketCheckout(
+            ticket.getTicketId(),
+            true,
+            routeInfo.get().getPathId(),
+            ticketDetail.get().getTrainClass(),
+            ticketDetail.get().getCarNumber(),
+            ticketDetail.get().getSeatNumber(),
+            ticketDetail.get().getTripDate()));
 
     return this.ticketTable.save(ticket) && this.ticketDetailTable.save(ticketDetail.get());
   }
 
-  private Optional<TicketDetail> buildTicketDetail(final Ticket ticket, final RouteInfo routeInfo, final boolean isFirstClass) {
+  private Optional<TicketDetail> buildTicketDetail(
+      final Ticket ticket, final RouteInfo routeInfo, final boolean isFirstClass) {
     final var seat = this.getFirstAvailableSeat(routeInfo, isFirstClass ? "1" : "2");
     if (seat.isEmpty()) {
       return Optional.empty();
     }
-    return Optional.of(TicketDetail.getTicketDetailFromSeat(ticket.getTicketId(), routeInfo.getDate(), seat.get()));
+    return Optional.of(
+        TicketDetail.getTicketDetailFromSeat(
+            ticket.getTicketId(), routeInfo.getDate(), seat.get()));
   }
 
   private Optional<Seat> getFirstAvailableSeat(final RouteInfo routeInfo, final String carClass) {
@@ -129,12 +137,13 @@ public class TicketBuyController {
   }
 
   private Float computePrice(final String usrId, final String pathId) {
-    final int discount = ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
-        .getDiscountPassengersPercentages()
-        .get(usrId);
+    final int discount =
+        ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
+            .getDiscountPassengersPercentages()
+            .get(usrId);
 
-    final int totalDistance = new PathController(this.dbGenerator).getTripSolutionFromPathId(pathId).get()
-        .getDistance();
+    final int totalDistance =
+        new PathController(this.dbGenerator).getTripSolutionFromPathId(pathId).get().getDistance();
     return (totalDistance * KM_FEE) - ((totalDistance * KM_FEE) * discount) / 100;
   }
 
@@ -303,6 +312,9 @@ public class TicketBuyController {
 
   public boolean checkTrainRv(final String trainId) {
     if (trainId == null) return false;
-    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class)).findByPrimaryKey(trainId).get().getIsRv();
+    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
+        .findByPrimaryKey(trainId)
+        .get()
+        .getIsRv();
   }
 }

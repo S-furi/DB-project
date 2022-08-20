@@ -79,39 +79,39 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
             });
     return seats;
   }
-  
+
   /**
    * Used when there are reserved seats in the given routeInfo.
+   *
    * @param routeInfo
    * @param carClass
    * @return
    */
   public Optional<Seat> getFirstAvailableSeat(final RouteInfo routeInfo, final String carClass) {
-    final String query = 
-            "SELECT p.* from "
-                + "(select db2.numClasse, db2.codTreno, db2.numeroCarrozza, db2.numeroPosto  "
-                + "from dettaglio_biglietto db2 where db2.codTreno = ? and db2.numClasse = ? and db2.dataViaggio = ?) db, posto p "
-                + "where p.codTreno = db.codTreno "
-                + "and p.numClasse = db.numClasse "
-                + "and (p.numeroCarrozza <> db.numeroCarrozza or p.numeroPosto not in  (select db3.numeroPosto from dettaglio_biglietto db3)); ";
-    
+    final String query =
+        "SELECT p.* from (select db2.numClasse, db2.codTreno, db2.numeroCarrozza, db2.numeroPosto "
+            + " from dettaglio_biglietto db2 where db2.codTreno = ? and db2.numClasse = ? and"
+            + " db2.dataViaggio = ?) db, posto p where p.codTreno = db.codTreno and p.numClasse ="
+            + " db.numClasse and (p.numeroCarrozza <> db.numeroCarrozza or p.numeroPosto not in "
+            + " (select db3.numeroPosto from dettaglio_biglietto db3)); ";
+
     final Object[] params = {routeInfo.getTrainId(), carClass, routeInfo.getDate()};
     super.parser.computeSqlQuery(query, params);
 
-    return this.getPrettyResultFromQueryResult(super.parser.getQueryResult())
-        .stream().findFirst();
+    return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findFirst();
   }
 
   /**
    * Used when there are no seats reserved for given RouteInfo.
+   *
    * @return
    */
   public Optional<Seat> getFirstSeat(final RouteInfo routeInfo, final String carClass) {
-    final String query = 
+    final String query =
         "SELECT * from posto  "
-          + "where codTreno = ? "
-          + "and numClasse = ? "
-          + "order by numeroCarrozza, numeroPosto; ";
+            + "where codTreno = ? "
+            + "and numClasse = ? "
+            + "order by numeroCarrozza, numeroPosto; ";
     final Object[] params = {routeInfo.getTrainId(), carClass};
     super.parser.computeSqlQuery(query, params);
     return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findFirst();

@@ -67,7 +67,10 @@ public class RouteInfoController {
             routeInfo.getDate(),
             this.getTripSolution(routeInfo.getPathId()).get(),
             routeInfo.getTrainId(),
-            ((TrainTable)this.dbGenerator.getTableByClass(TrainTable.class)).findByPrimaryKey(routeInfo.getTrainId()).get().getIsRv()));
+            ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
+                .findByPrimaryKey(routeInfo.getTrainId())
+                .get()
+                .getIsRv()));
   }
 
   /**
@@ -214,10 +217,23 @@ public class RouteInfoController {
 
     @Override
     public String toString() {
-      return "DateTripSolution [date=" + date + ", distance=" + distance + ", dstStation=" + dstStation + ", duration="
-          + duration + ", isRv=" + isRv + ", pathId=" + pathId + ", srcStation=" + srcStation + ", trainId=" + trainId
+      return "DateTripSolution [date="
+          + date
+          + ", distance="
+          + distance
+          + ", dstStation="
+          + dstStation
+          + ", duration="
+          + duration
+          + ", isRv="
+          + isRv
+          + ", pathId="
+          + pathId
+          + ", srcStation="
+          + srcStation
+          + ", trainId="
+          + trainId
           + "]";
     }
-
   }
 }

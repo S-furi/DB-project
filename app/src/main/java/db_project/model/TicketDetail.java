@@ -98,8 +98,14 @@ public class TicketDetail {
     return true;
   }
 
-  public static TicketDetail getTicketDetailFromSeat(final String ticketId, final Date tripDate, final Seat seat) {
-    return new TicketDetail(ticketId, tripDate, seat.getClassType(), seat.getTrainCode(), seat.getCarNumber(),
+  public static TicketDetail getTicketDetailFromSeat(
+      final String ticketId, final Date tripDate, final Seat seat) {
+    return new TicketDetail(
+        ticketId,
+        tripDate,
+        seat.getClassType(),
+        seat.getTrainCode(),
+        seat.getCarNumber(),
         seat.getSeatNumber());
   }
 }

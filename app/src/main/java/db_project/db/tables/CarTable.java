@@ -87,12 +87,11 @@ public class CarTable extends AbstractCompositeKeyTable<Car, Object> {
   }
 
   public List<Car> getCarsFromTrainDetails(final String trainId, final String classNumber) {
-    final String query = 
-    "SELECT * FROM CARROZZA WHERE codTreno = ? AND numClasse = ?";
+    final String query = "SELECT * FROM CARROZZA WHERE codTreno = ? AND numClasse = ?";
     final Object[] params = {trainId, classNumber};
-    if (!super.parser.computeSqlQuery(query, params) 
+    if (!super.parser.computeSqlQuery(query, params)
         && super.parser.getQueryResult().getResult().isEmpty()) {
-        return Collections.emptyList();
+      return Collections.emptyList();
     }
     return this.getPrettyResultFromQueryResult(this.parser.getQueryResult());
   }
