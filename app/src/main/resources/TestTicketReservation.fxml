@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.TestTicketBuy">
    <children>
       <TabPane prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,10 +26,9 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
                                     <DatePicker fx:id="routeInfoDatePicker" layoutX="229.0" layoutY="20.0" prefHeight="26.0" prefWidth="150.0" />
-                                    <CheckBox fx:id="isRVCheckBox" layoutX="59.0" layoutY="187.0" mnemonicParsing="false" text="Regionale Veloce" />
                                     <ChoiceBox fx:id="routeInfoTrainIdChoiceBox" layoutX="229.0" layoutY="135.0" prefWidth="150.0" />
                                     <ChoiceBox fx:id="routeInfoPathIdChoiceBox" layoutX="228.0" layoutY="78.0" prefWidth="150.0" />
-                                    <CheckBox fx:id="firstClassCheckBox" layoutX="245.0" layoutY="187.0" mnemonicParsing="false" text="Prima Classe" />
+                                    <CheckBox fx:id="firstClassCheckBox" layoutX="157.0" layoutY="184.0" mnemonicParsing="false" text="Prima Classe" />
                                     <Button fx:id="buyTicketButtton" layoutX="174.0" layoutY="226.0" mnemonicParsing="false" onAction="#registerTicketBought" text="Acquista" />
                                     <Text layoutX="28.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare data Viaggio">
                                        <font>
