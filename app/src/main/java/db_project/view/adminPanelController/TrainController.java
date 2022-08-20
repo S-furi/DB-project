@@ -97,6 +97,7 @@ public class TrainController {
     final List<Car> cars = new ArrayList<>();
     carClasses.forEach(
         t -> cars.addAll(this.createCarDetails(trainId, t.getClassType(), capacity)));
+    this.lastCarNumber = 1;
     return cars;
   }
 
