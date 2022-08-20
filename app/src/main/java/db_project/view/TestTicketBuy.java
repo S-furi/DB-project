@@ -104,6 +104,7 @@ public class TestTicketBuy implements Initializable {
         this.ticketDetailTableView,
         this.ticketController.getTableViewColumns(),
         this.ticketController.getBoughtTicketDetails());
+    this.ticketDetailTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
   }
 
   private <T> void genericTableFill(
