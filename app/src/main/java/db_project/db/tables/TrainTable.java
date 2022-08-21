@@ -69,7 +69,7 @@ public class TrainTable extends AbstractTable<Train, String> {
         .get()
         .forEach(
             row -> {
-              System.out.println(row.toString());
+              this.logger.info(row.toString());
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
