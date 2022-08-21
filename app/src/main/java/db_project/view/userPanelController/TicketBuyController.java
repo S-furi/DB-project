@@ -83,7 +83,6 @@ public class TicketBuyController {
 
     this.updateLoyaltyCard(pathId, usrId);
     this.routeInfoTable.updateSeatsTicketBought(routeInfo.get());
-    
     this.tickets.clear();
     this.tickets.add(new TicketCheckout(ticket, ticket.getIsRv(), pathId, date));
     this.logger.info(ticket.toString());
