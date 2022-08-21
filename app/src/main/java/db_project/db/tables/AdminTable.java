@@ -110,7 +110,6 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
         .retreiveData(Admin.class);
   }
 
-
   @Override
   public boolean saveToDb() {
     for (final var elem : this.readFromFile()) {
