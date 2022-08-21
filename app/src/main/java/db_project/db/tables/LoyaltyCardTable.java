@@ -92,4 +92,27 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String>
     }
     return true;
   }
+
+  public boolean updateUserLoyaltyCardPoints(final String userId, final int distance) {
+    final String query = 
+        "SELECT l.codCarta, punti, percentualeSconto " 
+            + "from loyalty_card l, sottoscrizione s, passeggero p "
+            + "where p.codPasseggero = s.codPasseggero "
+            + "and p.codPasseggero = ? "
+            + "and s.codCarta = l.codCarta; ";
+    final Object[] params = {userId};
+
+    super.parser.computeSqlQuery(query, params);
+    final var card = this.getPrettyResultFromQueryResult(super.parser.getQueryResult())
+        .stream()
+        .findFirst();
+    
+    if (card.isEmpty()) {
+      return false;
+    }
+    final int points = card.get().getPoints() + (distance/5);
+
+    return super.update(
+      new LoyaltyCard(card.get().getCardId(), points, (int)Math.ceil(points/30)));
+  }
 }
