@@ -29,6 +29,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TestTicketBuy implements Initializable {
+  @FXML private ChoiceBox<String> dstStationChoiceBox;
+  @FXML private ChoiceBox<String> srcStationChoiceBox;
+  @FXML private TableView<DateTripSolution> searchSolutionsTableView;
+  @FXML private Button searchSolutionsButton;
+  
+  // Second Tab
   @FXML private Button buyTicketButtton;
   @FXML private CheckBox firstClassCheckBox;
   @FXML private ChoiceBox<String> routeInfoTrainIdChoiceBox;
@@ -41,6 +47,7 @@ public class TestTicketBuy implements Initializable {
   private TicketBuyController ticketController;
   private RouteInfoController routeInfoController;
   private TrainController trainController;
+  private PathController pathController;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -59,16 +66,18 @@ public class TestTicketBuy implements Initializable {
 
   private void initializeSubControllers() {
     this.ticketController = new TicketBuyController(dbGenerator);
+    this.pathController = new PathController(dbGenerator);
     this.routeInfoController =
         new RouteInfoController(
             dbGenerator,
-            new SectionController(dbGenerator, new PathController(dbGenerator))); // hihi
+            new SectionController(dbGenerator, pathController)); // hihi
 
     this.trainController = new TrainController(dbGenerator);
   }
 
   private void fillTableViews() {
     this.fillTicketBuyController();
+    this.fillSolutionsTableView();
   }
 
   private void disableButtons() {
@@ -84,6 +93,12 @@ public class TestTicketBuy implements Initializable {
     this.routeInfoTrainIdChoiceBox
         .disableProperty()
         .bind(this.routeInfoPathIdChoiceBox.valueProperty().isNull());
+    
+    this.searchSolutionsButton.disableProperty()
+        .bind(
+          this.srcStationChoiceBox.valueProperty().isNull()
+          .or(this.dstStationChoiceBox.valueProperty().isNull())
+        );
   }
 
   private void fillChoiceBoxes() {
@@ -99,6 +114,9 @@ public class TestTicketBuy implements Initializable {
             this.routeInfoController.getRouteInfos().stream()
                 .map(t -> t.getPathId())
                 .collect(Collectors.toList()));
+
+    this.srcStationChoiceBox.getItems().setAll(this.pathController.getStations());
+    this.dstStationChoiceBox.getItems().setAll(this.pathController.getStations());
   }
 
   private void fillTicketBuyController() {
@@ -111,6 +129,14 @@ public class TestTicketBuy implements Initializable {
         this.ticketController.getTableViewColumns(),
         this.ticketController.getBoughtTicketDetails());
     this.ticketDetailTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+  }
+
+
+  private void fillSolutionsTableView() {
+    this.genericTableFill(
+        this.searchSolutionsTableView, 
+        this.routeInfoController.getTableViewColumns(), 
+        this.routeInfoController.getSearchedSolutions());
   }
 
   private <T> void genericTableFill(
@@ -133,10 +159,22 @@ public class TestTicketBuy implements Initializable {
       this.showDialog("Impossibile acquistare il biglietto, reinserire i dati e riprovare.");
       this.ticketController.restoreLastOp();
     }
-    this.restoreFxElements();
+    this.restoreFxElementsTabOne();
   }
 
-  private void restoreFxElements() {
+  @FXML
+  void displaySolutions(ActionEvent event) {
+    final String srcStation = this.srcStationChoiceBox.getValue();
+    final String dstStation = this.dstStationChoiceBox.getValue();
+    this.srcStationChoiceBox.setValue(null);
+    this.dstStationChoiceBox.setValue(null);
+
+    if (!this.routeInfoController.findRouteInfosGivenStations(srcStation, dstStation)) {
+      this.showDialog("Nessuna percorrenza trovata per il percorso selezionato.");
+    }
+  }
+
+  private void restoreFxElementsTabOne() {
     this.routeInfoDatePicker.setValue(null);
     this.routeInfoPathIdChoiceBox.setValue(null);
     this.routeInfoTrainIdChoiceBox.setValue(null);

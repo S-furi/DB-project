@@ -24,6 +24,8 @@ public class RouteInfoController {
 
   private final Logger logger;
   private ObservableList<DateTripSolution> routeInfos;
+  // used when searching with src-to-dst solution.
+  private ObservableList<DateTripSolution> tripSolutions;
 
   public RouteInfoController(
       final DBGenerator dbGenerator, final SectionController sectionController) {
@@ -32,6 +34,7 @@ public class RouteInfoController {
     this.sectionController = sectionController;
 
     this.routeInfos = FXCollections.observableArrayList();
+    this.tripSolutions = FXCollections.observableArrayList();
     this.logger = Logger.getLogger("RouteInfoController");
     this.logger.setLevel(Level.WARNING);
   }
@@ -47,6 +50,21 @@ public class RouteInfoController {
             this.getAvailableSeats(trainId));
 
     return this.canRouteInfoBeAdded(routeInfo) && this.routeInfoTable.save(routeInfo);
+  }
+
+  public boolean findRouteInfosGivenStations(final String srcStation ,final String dstStation) {
+    final String pathId = new PathController(this.dbGenerator).getPathCodeFromStationNames(srcStation, dstStation);
+    this.tripSolutions.clear();
+    this.routeInfoTable.findAll().stream()
+        .filter(t -> t.getPathId().equals(pathId))
+        .map(t -> this.getDateTripSolutionsFromRouteInfo(t))
+        .forEach(t -> t.ifPresent(s -> tripSolutions.add(s)));
+    
+    return !this.tripSolutions.isEmpty();
+  }
+
+  public ObservableList<DateTripSolution> getSearchedSolutions() {
+    return this.tripSolutions;
   }
 
   private int getAvailableSeats(final String trainId) {

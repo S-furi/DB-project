@@ -17,6 +17,32 @@
    <children>
       <TabPane prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
+            <Tab text="Ricerca Percorrenze">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.263901147396293" layoutX="312.0" layoutY="161.0" orientation="VERTICAL" prefHeight="568.5" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Text layoutX="345.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stazione Partenza" />
+                                    <ChoiceBox fx:id="srcStationChoiceBox" layoutX="319.0" layoutY="54.0" prefWidth="150.0" />
+                                    <Text layoutX="564.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stazione Arrivo" />
+                                    <ChoiceBox fx:id="dstStationChoiceBox" layoutX="538.0" layoutY="54.0" prefWidth="150.0" />
+                                    <Button fx:id="searchSolutionsButton" layoutX="472.0" layoutY="105.0" mnemonicParsing="false" onAction="#displaySolutions" text="Ricerca" underline="true" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="searchSolutionsTableView" layoutX="253.0" layoutY="-10.0" prefHeight="279.5" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           <Tab text="Acquisto BIglietto">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
