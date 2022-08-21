@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Mon Aug 15 15:08:27 2022 
+-- * Generation date: Sun Aug 21 11:41:55 2022 
 -- * LUN file: Y:\DBproject\schemas\Railway.lun 
 -- * Schema: Ferrovia/5 
 -- ********************************************* 
@@ -64,6 +64,22 @@ create table COMITIVA (
      numPersone int not null,
      constraint ID_COMITIVA_ID primary key (codComitiva));
 
+create table DETTAGLIO_BIGLIETTO (
+     numClasse varchar(1) not null,
+     codTreno varchar(5) not null,
+     numeroCarrozza int not null,
+     numeroPosto int not null,
+     dataViaggio date not null,
+     codiceBiglietto varchar(5) not null,
+     constraint ID_Prenotazione_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio),
+     constraint FKRiseva_ID unique (codiceBiglietto));
+
+create table DETTAGLIO_PERCORSO (
+     codPercorso varchar(5) not null,
+     codTratta varchar(5) not null,
+     ordine varchar(10) not null,
+     constraint ID_Strutturazione_ID primary key (codPercorso, codTratta, ordine));
+
 create table LOYALTY_CARD (
      codCarta varchar(5) not null,
      punti int not null,
@@ -94,6 +110,8 @@ create table PERCORRENZA (
      codPercorso varchar(5) not null,
      codTreno varchar(5) not null,
      data date not null,
+     tempoEffettivo varchar(10) not null,
+     postiDisponibili int not null,
      constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data));
 
 create table PERCORSO (
@@ -109,16 +127,6 @@ create table POSTO (
      numeroCarrozza int not null,
      numeroPosto int not null,
      constraint ID_POSTO_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto));
-
-create table DETTAGLIO_BIGLIETTO (
-     numClasse varchar(1) not null,
-     codTreno varchar(5) not null,
-     numeroCarrozza int not null,
-     numeroPosto int not null,
-     dataViaggio date not null,
-     codiceBiglietto varchar(5) not null,
-     constraint ID_Prenotazione_ID primary key (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio),
-     constraint FKRiseva_ID unique (codiceBiglietto));
 
 create table RESPONSABILE_STAZIONE (
      codResponsabile varchar(5) not null,
@@ -144,12 +152,6 @@ create table STAZIONE (
      locazione varchar(40) not null,
      codResponsabile varchar(5) not null,
      constraint ID_STAZIONE_ID primary key (codStazione));
-
-create table DETTAGLIO_PERCORSO (
-     codPercorso varchar(5) not null,
-     codTratta varchar(5) not null,
-     ordine varchar(10) not null,
-     constraint ID_Strutturazione_ID primary key (codPercorso, codTratta, ordine));
 
 create table TRATTA (
      codTratta varchar(5) not null,
@@ -203,6 +205,22 @@ alter table CARROZZA add constraint FKAppartenenza
      foreign key (numClasse)
      references CLASSE (numClasse);
 
+alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK
+     foreign key (codiceBiglietto)
+     references BIGLIETTO (codiceBiglietto);
+
+alter table DETTAGLIO_BIGLIETTO add constraint FKPer
+     foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)
+     references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
+
+alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK
+     foreign key (codTratta)
+     references TRATTA (codTratta);
+
+alter table DETTAGLIO_PERCORSO add constraint FKStr_PER
+     foreign key (codPercorso)
+     references PERCORSO (codPercorso);
+
 -- Not implemented
 -- alter table LOYALTY_CARD add constraint ID_LOYALTY_CARD_CHK
 --     check(exists(select * from SOTTOSCRIZIONE
@@ -236,14 +254,6 @@ alter table POSTO add constraint FKSuddivisione
      foreign key (numClasse, codTreno, numeroCarrozza)
      references CARROZZA (numClasse, codTreno, numeroCarrozza);
 
-alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK
-     foreign key (codiceBiglietto)
-     references BIGLIETTO (codiceBiglietto);
-
-alter table DETTAGLIO_BIGLIETTO add constraint FKPer
-     foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)
-     references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
-
 -- Not implemented
 -- alter table RESPONSABILE_STAZIONE add constraint ID_RESPONSABILE_STAZIONE_CHK
 --     check(exists(select * from STAZIONE
@@ -268,14 +278,6 @@ alter table STAZIONE add constraint FKLocazione_FK
 alter table STAZIONE add constraint FKGestione_FK
      foreign key (codResponsabile)
      references RESPONSABILE_STAZIONE (codResponsabile);
-
-alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK
-     foreign key (codTratta)
-     references TRATTA (codTratta);
-
-alter table DETTAGLIO_PERCORSO add constraint FKStr_PER
-     foreign key (codPercorso)
-     references PERCORSO (codPercorso);
 
 alter table TRATTA add constraint FKPartenza_FK
      foreign key (codStazionePartenza)
@@ -326,6 +328,18 @@ create unique index ID_CLASSE_IND
 create unique index ID_COMITIVA_IND
      on COMITIVA (codComitiva);
 
+create unique index ID_Prenotazione_IND
+     on DETTAGLIO_BIGLIETTO (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio);
+
+create unique index FKRiseva_IND
+     on DETTAGLIO_BIGLIETTO (codiceBiglietto);
+
+create unique index ID_Strutturazione_IND
+     on DETTAGLIO_PERCORSO (codPercorso, codTratta, ordine);
+
+create index FKStr_TRA_IND
+     on DETTAGLIO_PERCORSO (codTratta);
+
 create unique index ID_LOYALTY_CARD_IND
      on LOYALTY_CARD (codCarta);
 
@@ -359,12 +373,6 @@ create index FKAmministrazione_IND
 create unique index ID_POSTO_IND
      on POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);
 
-create unique index ID_Prenotazione_IND
-     on DETTAGLIO_BIGLIETTO (numClasse, codTreno, numeroCarrozza, numeroPosto, dataViaggio);
-
-create unique index FKRiseva_IND
-     on DETTAGLIO_BIGLIETTO (codiceBiglietto);
-
 create unique index ID_RESPONSABILE_STAZIONE_IND
      on RESPONSABILE_STAZIONE (codResponsabile);
 
@@ -385,12 +393,6 @@ create index FKLocazione_IND
 
 create index FKGestione_IND
      on STAZIONE (codResponsabile);
-
-create unique index ID_Strutturazione_IND
-     on DETTAGLIO_PERCORSO (codPercorso, codTratta, ordine);
-
-create index FKStr_TRA_IND
-     on DETTAGLIO_PERCORSO (codTratta);
 
 create unique index ID_TRATTA_IND
      on TRATTA (codTratta);

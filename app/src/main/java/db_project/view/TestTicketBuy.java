@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.utils.Utils;
+import db_project.view.adminPanelController.PathController;
 import db_project.view.adminPanelController.RouteInfoController;
+import db_project.view.adminPanelController.SectionController;
 import db_project.view.adminPanelController.TrainController;
 import db_project.view.adminPanelController.RouteInfoController.DateTripSolution;
 import db_project.view.userPanelController.TicketBuyController;
@@ -57,7 +59,9 @@ public class TestTicketBuy implements Initializable {
 
   private void initializeSubControllers() {
     this.ticketController = new TicketBuyController(dbGenerator);
-    this.routeInfoController = new RouteInfoController(dbGenerator);
+    this.routeInfoController = new RouteInfoController(dbGenerator,
+        new SectionController(dbGenerator, new PathController(dbGenerator))); //hihi
+    
     this.trainController = new TrainController(dbGenerator);
   }
 
@@ -135,6 +139,8 @@ public class TestTicketBuy implements Initializable {
     this.routeInfoPathIdChoiceBox.setValue(null);
     this.routeInfoTrainIdChoiceBox.setValue(null);
     this.firstClassCheckBox.setSelected(false);
+    this.routeInfoController.refreshRouteInfos();
+    this.routeInfoTableView.refresh();
   }
 
   private Date getDateFromDatePicker() {

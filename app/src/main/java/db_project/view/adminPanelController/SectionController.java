@@ -27,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SectionController {
   private static final double AVG_STD_TRAIN_SPEED = 130.0;
+  private static final double AVG_RV_TRAIN_SPEED = 160.0;
 
   private final DBGenerator dbGenerator;
   private SectionTable sectionTable;
@@ -125,7 +126,7 @@ public class SectionController {
     this.computedPath =
         new Path(
             pathId,
-            this.getDurationFromDistance(totalDistance),
+            getStdDurationFromDistance(totalDistance),
             sectionIds.size(),
             this.getRandomAdminId());
 
@@ -155,12 +156,30 @@ public class SectionController {
         .getRandomAdminId();
   }
 
-  private String getDurationFromDistance(final int distance) {
-    return this.getDurationFromMinutes((int) ((distance / AVG_STD_TRAIN_SPEED) * 60));
+  public static String getStdDurationFromDistance(final int distance) {
+    return getDurationFromMinutes((int) ((distance / AVG_STD_TRAIN_SPEED) * 60));
+  }
+  
+  public static String getRVDurationFromDistance(final int distance) {
+    return getDurationFromMinutes((int) ((distance / AVG_RV_TRAIN_SPEED) * 60));
   }
 
-  private String getDurationFromMinutes(final long value) {
+  private static String getDurationFromMinutes(final long value) {
     return LocalTime.MIN.plus(Duration.ofMinutes(value)).toString();
+  }
+
+  public int getTotalDistanceFromPathId(final String pathId) {
+    final List<PathInfo> pathInfos = TripSolutionFinder.getPathInfosFromPathId(pathId);
+    if (pathInfos.isEmpty()) {
+      return 0;
+    }
+    final List<String> sectionIds =
+        pathInfos.stream().map(t -> t.getSectionId()).collect(Collectors.toList());
+    
+    return this.sectionTable.findAll().stream()
+            .filter(t -> sectionIds.contains(t.getSectionCode()))
+            .map(t -> t.getDistance())
+            .reduce(0, (t1, t2) -> t1 + t2);
   }
 
   private List<PathDetail> getPathDetailsFromQuery(final QueryResult result) {

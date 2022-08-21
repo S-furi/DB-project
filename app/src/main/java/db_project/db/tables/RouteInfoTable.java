@@ -20,14 +20,19 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
   public RouteInfoTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEYS);
-    super.setTableColumns(Collections.emptyList());
+    super.setTableColumns(List.of("tempoEffettivo", "postiDisponibili"));
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
 
   @Override
   protected Object[] getSaveQueryParameters(final RouteInfo routeInfo) {
-    return new Object[] {routeInfo.getPathId(), routeInfo.getTrainId(), routeInfo.getDate()};
+    return new Object[] {
+        routeInfo.getPathId(), 
+        routeInfo.getTrainId(), 
+        routeInfo.getDate(),
+        routeInfo.getActualDuration(),
+        routeInfo.getAvailableSeats()};
   }
 
   @Override
@@ -36,6 +41,8 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
       routeInfo.getPathId(),
       routeInfo.getTrainId(),
       routeInfo.getDate(),
+      routeInfo.getActualDuration(),
+      routeInfo.getAvailableSeats(),
       routeInfo.getPathId(),
       routeInfo.getTrainId(),
       routeInfo.getDate()
@@ -57,7 +64,9 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
               final String pathId = (String) row.get("codPercorso");
               final String trainId = (String) row.get("codTreno");
               final Date date = (Date) row.get("data");
-              routeInfos.add(new RouteInfo(pathId, trainId, date));
+              final String actualDuration = (String) row.get("tempoEffettivo");
+              final int availableSeats = (int) row.get("postiDisponibili");
+              routeInfos.add(new RouteInfo(pathId, trainId, date, actualDuration, availableSeats));
             });
     return routeInfos;
   }
@@ -65,18 +74,24 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
   @Override
   public boolean createTable() {
     final String query =
-        "create table PERCORRENZA ( "
-            + "codPercorso varchar(5) not null, "
-            + "codTreno varchar(5) not null, "
-            + "data date not null, "
-            + "constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data)); ";
+    "create table PERCORRENZA ( "
+      + "codPercorso varchar(5) not null, "
+      + "codTreno varchar(5) not null, "
+      + "data date not null, "
+      + "tempoEffettivo varchar(10) not null, "
+      + "postiDisponibili int not null, "
+      + "constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data)); ";
+
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
 
-  /** In this paricular table, updates aren't possible... :( */
-  @Override
-  public boolean update(RouteInfo updatedValue) {
-    return false;
+  public void updateSeatsTicketBought(final RouteInfo routeInfo) {
+    super.update(new RouteInfo(
+      routeInfo.getPathId(), 
+      routeInfo.getTrainId(), 
+      routeInfo.getDate(), 
+      routeInfo.getActualDuration(), 
+      routeInfo.getAvailableSeats() - 1));
   }
 }

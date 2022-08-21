@@ -95,7 +95,7 @@ public class DbRailwayController implements Initializable {
     this.pathController = new PathController(this.dbGenerator);
     this.sectionController = new SectionController(dbGenerator, this.pathController);
     this.trainController = new TrainController(dbGenerator);
-    this.routeInfoController = new RouteInfoController(dbGenerator);
+    this.routeInfoController = new RouteInfoController(dbGenerator, this.sectionController);
     this.subsController = new SubsController(dbGenerator);
     this.ticketController = new TicketBuyController(dbGenerator);
   }
