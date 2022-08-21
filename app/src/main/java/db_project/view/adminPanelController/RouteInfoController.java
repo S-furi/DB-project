@@ -30,7 +30,7 @@ public class RouteInfoController {
 
     this.routeInfos = FXCollections.observableArrayList();
     this.logger = Logger.getLogger("RouteInfoController");
-    this.logger.setLevel(Level.INFO);
+    this.logger.setLevel(Level.WARNING);
   }
 
   public boolean saveSelectedPathInfo(final Date date, final String pathId, final String trainId) {
