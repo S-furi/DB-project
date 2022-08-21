@@ -33,7 +33,7 @@ public class TestTicketBuy implements Initializable {
   @FXML private ChoiceBox<String> srcStationChoiceBox;
   @FXML private TableView<DateTripSolution> searchSolutionsTableView;
   @FXML private Button searchSolutionsButton;
-  
+
   // Second Tab
   @FXML private Button buyTicketButtton;
   @FXML private CheckBox firstClassCheckBox;
@@ -69,8 +69,7 @@ public class TestTicketBuy implements Initializable {
     this.pathController = new PathController(dbGenerator);
     this.routeInfoController =
         new RouteInfoController(
-            dbGenerator,
-            new SectionController(dbGenerator, pathController)); // hihi
+            dbGenerator, new SectionController(dbGenerator, pathController)); // hihi
 
     this.trainController = new TrainController(dbGenerator);
   }
@@ -93,12 +92,14 @@ public class TestTicketBuy implements Initializable {
     this.routeInfoTrainIdChoiceBox
         .disableProperty()
         .bind(this.routeInfoPathIdChoiceBox.valueProperty().isNull());
-    
-    this.searchSolutionsButton.disableProperty()
+
+    this.searchSolutionsButton
+        .disableProperty()
         .bind(
-          this.srcStationChoiceBox.valueProperty().isNull()
-          .or(this.dstStationChoiceBox.valueProperty().isNull())
-        );
+            this.srcStationChoiceBox
+                .valueProperty()
+                .isNull()
+                .or(this.dstStationChoiceBox.valueProperty().isNull()));
   }
 
   private void fillChoiceBoxes() {
@@ -131,11 +132,10 @@ public class TestTicketBuy implements Initializable {
     this.ticketDetailTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
   }
 
-
   private void fillSolutionsTableView() {
     this.genericTableFill(
-        this.searchSolutionsTableView, 
-        this.routeInfoController.getTableViewColumns(), 
+        this.searchSolutionsTableView,
+        this.routeInfoController.getTableViewColumns(),
         this.routeInfoController.getSearchedSolutions());
   }
 

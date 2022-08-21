@@ -52,14 +52,15 @@ public class RouteInfoController {
     return this.canRouteInfoBeAdded(routeInfo) && this.routeInfoTable.save(routeInfo);
   }
 
-  public boolean findRouteInfosGivenStations(final String srcStation ,final String dstStation) {
-    final String pathId = new PathController(this.dbGenerator).getPathCodeFromStationNames(srcStation, dstStation);
+  public boolean findRouteInfosGivenStations(final String srcStation, final String dstStation) {
+    final String pathId =
+        new PathController(this.dbGenerator).getPathCodeFromStationNames(srcStation, dstStation);
     this.tripSolutions.clear();
     this.routeInfoTable.findAll().stream()
         .filter(t -> t.getPathId().equals(pathId))
         .map(t -> this.getDateTripSolutionsFromRouteInfo(t))
         .forEach(t -> t.ifPresent(s -> tripSolutions.add(s)));
-    
+
     return !this.tripSolutions.isEmpty();
   }
 
