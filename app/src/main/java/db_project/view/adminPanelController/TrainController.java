@@ -62,7 +62,7 @@ public class TrainController {
     final Train train = new Train(this.getNewTrainId(), licenseNumber, capacity, isRv);
     this.logger.info(train.toString());
     return this.trainTable.save(train)
-        && this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity());
+        && isRv ? this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity()) : true;
   }
 
   private String getNewTrainId() {
