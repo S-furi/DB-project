@@ -1,11 +1,11 @@
 package db_project.db.tables;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 
 import db_project.db.AbstractTable;
 import db_project.db.queryUtils.QueryResult;
@@ -20,12 +20,12 @@ public class TrainTable extends AbstractTable<Train, String> {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(List.of("codMacchinista", "capienza", "regionaleVeloce"));
-    this.logger = Logger.getLogger("CityTable");
+    this.logger = Logger.getLogger("TrainTable");
     this.logger.setLevel(Level.WARNING);
   }
 
   @Override
-  protected Object[] getSaveQueryParameters(final Train train) {
+  protected Object[] getSaveQueryParameters(Train train) {
     return new Object[] {
       train.getTrainCode(),
       train.getLicenseNumber(),
@@ -35,7 +35,7 @@ public class TrainTable extends AbstractTable<Train, String> {
   }
 
   @Override
-  protected Object[] getUpdateQueryParameters(final Train train) {
+  protected Object[] getUpdateQueryParameters(Train train) {
     return new Object[] {
       train.getLicenseNumber(),
       train.getCapacity(),
@@ -69,12 +69,11 @@ public class TrainTable extends AbstractTable<Train, String> {
         .get()
         .forEach(
             row -> {
-              logger.info(row.toString());
+              System.out.println(row.toString());
               final String trainCode = (String) row.get("codTreno");
               final String licenseNumber = (String) row.get("codMacchinista");
               final int capacity = (int) row.get("capienza");
-              final boolean getIsRv =
-                  ((String) row.get("regionaleVeloce")).equals("0") ? false : true;
+              final boolean getIsRv = ((String) row.get("regionaleVeloce")).equals("1");
               trains.add(new Train(trainCode, licenseNumber, capacity, getIsRv));
             });
     return trains;

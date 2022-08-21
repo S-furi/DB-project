@@ -23,7 +23,7 @@ public class RegistrationController implements Initializable {
 
   @FXML private Button regUser;
 
-  @FXML private TextField cittReg;
+  @FXML private ChoiceBox<String> cittReg;
 
   @FXML private TextField surnameReg;
 
@@ -57,6 +57,8 @@ public class RegistrationController implements Initializable {
   private static final CityTable cityTable = new CityTable(connectionProvider.getMySQLConnection());
   private static final PassengerTable passengerTable =
       new PassengerTable(connectionProvider.getMySQLConnection());
+  // private static final AdminTable adminTable = new
+  // AdminTable(connectionProvider.getMySQLConnection());
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -93,6 +95,7 @@ public class RegistrationController implements Initializable {
   private void populateCountryData() {
     this.regReg.setValue("Regione");
     this.provReg.setValue("Provincia");
+    this.cittReg.setValue("Citta'");
   }
 
   @FXML
@@ -106,7 +109,7 @@ public class RegistrationController implements Initializable {
     this.data.add(emailReg.getText());
     this.data.add(regReg.getValue());
     this.data.add(provReg.getValue());
-    this.data.add(cittReg.getText());
+    this.data.add(cittReg.getValue());
 
     if (this.accountTypes.getValue() == "Utente") {
       if (this.cartArrowReg.isSelected()) {
@@ -124,7 +127,6 @@ public class RegistrationController implements Initializable {
       this.phoneNumReg.clear();
       this.emailReg.clear();
     }
-
     this.executeData(data);
   }
 
@@ -143,6 +145,9 @@ public class RegistrationController implements Initializable {
               Optional.of("1"));
       System.out.println(newUser.toString());
     }
+    if (userType == "Amministratore") {
+      // var newID = adminTable.getHighestID() + 1;
+    }
   }
 
   private boolean validateData() {
@@ -157,6 +162,7 @@ public class RegistrationController implements Initializable {
             t -> {
               this.regReg.getItems().add(t.getRegion());
               this.provReg.getItems().add(t.getProvince());
+              this.cittReg.getItems().add(t.getName());
             });
     System.out.println("ChoiceBox setup went fine");
   }
