@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.queryUtils.QueryResult;
+import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.RouteInfoTable;
 import db_project.db.tables.SeatTable;
 import db_project.db.tables.SubscriptionTable;
@@ -37,6 +38,7 @@ public class TicketBuyController {
   private TicketDetailTable ticketDetailTable;
   private RouteInfoTable routeInfoTable;
   private SeatTable seatTable;
+  private LoyaltyCardTable cardTable;
   private final Logger logger;
 
   public TicketBuyController(DBGenerator dbGenerator) {
@@ -44,7 +46,7 @@ public class TicketBuyController {
     this.initializeTables();
     this.tickets = FXCollections.observableArrayList();
     this.logger = Logger.getLogger("TicketController");
-    this.logger.setLevel(Level.WARNING);
+    this.logger.setLevel(Level.INFO);
   }
 
   private void initializeTables() {
@@ -53,6 +55,7 @@ public class TicketBuyController {
         (TicketDetailTable) this.dbGenerator.getTableByClass(TicketDetailTable.class);
     this.routeInfoTable = (RouteInfoTable) this.dbGenerator.getTableByClass(RouteInfoTable.class);
     this.seatTable = (SeatTable) this.dbGenerator.getTableByClass(SeatTable.class);
+    this.cardTable = (LoyaltyCardTable) this.dbGenerator.getTableByClass(LoyaltyCardTable.class);
   }
 
   public boolean registerTicketBought(
@@ -78,10 +81,18 @@ public class TicketBuyController {
     final Ticket ticket =
         new Ticket(this.getLastTicketId(), false, Optional.empty(), usrId, price, routeInfo.get());
 
+    this.updateLoyaltyCard(pathId, usrId);
+  
     this.tickets.clear();
     this.tickets.add(new TicketCheckout(ticket, ticket.getIsRv(), pathId, date));
     this.logger.info(ticket.toString());
     return this.ticketTable.save(ticket);
+  }
+
+  private void updateLoyaltyCard(final String pathId, final String usrId) {
+    final int tripDistance =
+        new PathController(this.dbGenerator).getTripSolutionFromPathId(pathId).get().getDistance();
+    this.cardTable.updateUserLoyaltyCardPoints(usrId, tripDistance);
   }
 
   private boolean saveRvTicket(
@@ -106,6 +117,8 @@ public class TicketBuyController {
 
     this.logger.info(ticket.toString());
     this.logger.info(ticketDetail.toString());
+
+    this.updateLoyaltyCard(pathId, usrId);
 
     this.tickets.clear();
     this.tickets.add(
