@@ -61,8 +61,9 @@ public class TrainController {
   public boolean addNewTrain(final String licenseNumber, final boolean isRv, final int capacity) {
     final Train train = new Train(this.getNewTrainId(), licenseNumber, capacity, isRv);
     this.logger.info(train.toString());
-    return this.trainTable.save(train)
-        && isRv ? this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity()) : true;
+    return this.trainTable.save(train) && isRv
+        ? this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity())
+        : true;
   }
 
   private String getNewTrainId() {

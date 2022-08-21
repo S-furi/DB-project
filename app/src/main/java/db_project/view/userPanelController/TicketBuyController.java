@@ -82,7 +82,7 @@ public class TicketBuyController {
         new Ticket(this.getLastTicketId(), false, Optional.empty(), usrId, price, routeInfo.get());
 
     this.updateLoyaltyCard(pathId, usrId);
-  
+
     this.tickets.clear();
     this.tickets.add(new TicketCheckout(ticket, ticket.getIsRv(), pathId, date));
     this.logger.info(ticket.toString());
