@@ -25,7 +25,8 @@ public class RouteInfoController {
   private final Logger logger;
   private ObservableList<DateTripSolution> routeInfos;
 
-  public RouteInfoController(final DBGenerator dbGenerator, final SectionController sectionController) {
+  public RouteInfoController(
+      final DBGenerator dbGenerator, final SectionController sectionController) {
     this.dbGenerator = dbGenerator;
     this.routeInfoTable = (RouteInfoTable) this.dbGenerator.getTableByClass(RouteInfoTable.class);
     this.sectionController = sectionController;
@@ -36,25 +37,36 @@ public class RouteInfoController {
   }
 
   public boolean saveSelectedPathInfo(final Date date, final String pathId, final String trainId) {
-    
-    final RouteInfo routeInfo = new RouteInfo(pathId, trainId, date, this.getDuration(pathId, this.isTrainRv(trainId)), this.getAvailableSeats(trainId));
+
+    final RouteInfo routeInfo =
+        new RouteInfo(
+            pathId,
+            trainId,
+            date,
+            this.getDuration(pathId, this.isTrainRv(trainId)),
+            this.getAvailableSeats(trainId));
 
     return this.canRouteInfoBeAdded(routeInfo) && this.routeInfoTable.save(routeInfo);
   }
 
   private int getAvailableSeats(final String trainId) {
-    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class)).findByPrimaryKey(trainId).get()
+    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
+        .findByPrimaryKey(trainId)
+        .get()
         .getCapacity();
   }
 
   private boolean isTrainRv(final String trainId) {
-    return ((TrainTable)this.dbGenerator.getTableByClass(TrainTable.class)).findByPrimaryKey(trainId).get().getIsRv();
+    return ((TrainTable) this.dbGenerator.getTableByClass(TrainTable.class))
+        .findByPrimaryKey(trainId)
+        .get()
+        .getIsRv();
   }
 
   private String getDuration(final String pathId, final boolean isRv) {
     final int distance = this.sectionController.getTotalDistanceFromPathId(pathId);
 
-    return isRv 
+    return isRv
         ? SectionController.getRVDurationFromDistance(distance)
         : SectionController.getStdDurationFromDistance(distance);
   }
@@ -116,7 +128,8 @@ public class RouteInfoController {
     trainIdColumn.setCellValueFactory(new PropertyValueFactory<>("trainId"));
     TableColumn<DateTripSolution, String> isRvColumn = new TableColumn<>("RV");
     isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
-    TableColumn<DateTripSolution, Integer> availableSeatsColumn = new TableColumn<>("Posti Disponibili");
+    TableColumn<DateTripSolution, Integer> availableSeatsColumn =
+        new TableColumn<>("Posti Disponibili");
     availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
 
     final List<TableColumn<DateTripSolution, ?>> lst =
@@ -158,19 +171,17 @@ public class RouteInfoController {
     private int availableSeats;
 
     public DateTripSolution(
-      final RouteInfo routeInfo,
-      final TripSolution tripSolution,
-      final boolean isRv) {
-        this.pathId = routeInfo.getPathId();
-        this.date = routeInfo.getDate();
-        this.srcStation = tripSolution.getSrcStation();
-        this.dstStation = tripSolution.getDstStation();
-        this.duration = routeInfo.getActualDuration();
-        this.distance = tripSolution.getDistance();
-        this.trainId = routeInfo.getTrainId();
-        this.isRv = isRv;
-        this.availableSeats = routeInfo.getAvailableSeats();
-      }
+        final RouteInfo routeInfo, final TripSolution tripSolution, final boolean isRv) {
+      this.pathId = routeInfo.getPathId();
+      this.date = routeInfo.getDate();
+      this.srcStation = tripSolution.getSrcStation();
+      this.dstStation = tripSolution.getDstStation();
+      this.duration = routeInfo.getActualDuration();
+      this.distance = tripSolution.getDistance();
+      this.trainId = routeInfo.getTrainId();
+      this.isRv = isRv;
+      this.availableSeats = routeInfo.getAvailableSeats();
+    }
 
     public Date getDate() {
       return date;
@@ -242,11 +253,25 @@ public class RouteInfoController {
 
     @Override
     public String toString() {
-      return "DateTripSolution [availableSeats=" + availableSeats + ", date=" + date + ", distance=" + distance + ", dstStation="
-          + dstStation + ", duration=" + duration + ", isRv=" + isRv + ", pathId=" + pathId + ", srcStation="
-          + srcStation + ", trainId=" + trainId + "]";
+      return "DateTripSolution [availableSeats="
+          + availableSeats
+          + ", date="
+          + date
+          + ", distance="
+          + distance
+          + ", dstStation="
+          + dstStation
+          + ", duration="
+          + duration
+          + ", isRv="
+          + isRv
+          + ", pathId="
+          + pathId
+          + ", srcStation="
+          + srcStation
+          + ", trainId="
+          + trainId
+          + "]";
     }
-
-    
   }
 }

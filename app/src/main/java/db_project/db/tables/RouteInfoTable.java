@@ -28,11 +28,12 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
   @Override
   protected Object[] getSaveQueryParameters(final RouteInfo routeInfo) {
     return new Object[] {
-        routeInfo.getPathId(), 
-        routeInfo.getTrainId(), 
-        routeInfo.getDate(),
-        routeInfo.getActualDuration(),
-        routeInfo.getAvailableSeats()};
+      routeInfo.getPathId(),
+      routeInfo.getTrainId(),
+      routeInfo.getDate(),
+      routeInfo.getActualDuration(),
+      routeInfo.getAvailableSeats()
+    };
   }
 
   @Override
@@ -74,24 +75,25 @@ public class RouteInfoTable extends AbstractCompositeKeyTable<RouteInfo, Object>
   @Override
   public boolean createTable() {
     final String query =
-    "create table PERCORRENZA ( "
-      + "codPercorso varchar(5) not null, "
-      + "codTreno varchar(5) not null, "
-      + "data date not null, "
-      + "tempoEffettivo varchar(10) not null, "
-      + "postiDisponibili int not null, "
-      + "constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data)); ";
+        "create table PERCORRENZA ( "
+            + "codPercorso varchar(5) not null, "
+            + "codTreno varchar(5) not null, "
+            + "data date not null, "
+            + "tempoEffettivo varchar(10) not null, "
+            + "postiDisponibili int not null, "
+            + "constraint ID_PERCORRENZA_ID primary key (codPercorso, codTreno, data)); ";
 
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();
   }
 
   public void updateSeatsTicketBought(final RouteInfo routeInfo) {
-    super.update(new RouteInfo(
-      routeInfo.getPathId(), 
-      routeInfo.getTrainId(), 
-      routeInfo.getDate(), 
-      routeInfo.getActualDuration(), 
-      routeInfo.getAvailableSeats() - 1));
+    super.update(
+        new RouteInfo(
+            routeInfo.getPathId(),
+            routeInfo.getTrainId(),
+            routeInfo.getDate(),
+            routeInfo.getActualDuration(),
+            routeInfo.getAvailableSeats() - 1));
   }
 }

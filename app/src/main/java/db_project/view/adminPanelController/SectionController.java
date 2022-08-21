@@ -159,7 +159,7 @@ public class SectionController {
   public static String getStdDurationFromDistance(final int distance) {
     return getDurationFromMinutes((int) ((distance / AVG_STD_TRAIN_SPEED) * 60));
   }
-  
+
   public static String getRVDurationFromDistance(final int distance) {
     return getDurationFromMinutes((int) ((distance / AVG_RV_TRAIN_SPEED) * 60));
   }
@@ -175,11 +175,11 @@ public class SectionController {
     }
     final List<String> sectionIds =
         pathInfos.stream().map(t -> t.getSectionId()).collect(Collectors.toList());
-    
+
     return this.sectionTable.findAll().stream()
-            .filter(t -> sectionIds.contains(t.getSectionCode()))
-            .map(t -> t.getDistance())
-            .reduce(0, (t1, t2) -> t1 + t2);
+        .filter(t -> sectionIds.contains(t.getSectionCode()))
+        .map(t -> t.getDistance())
+        .reduce(0, (t1, t2) -> t1 + t2);
   }
 
   private List<PathDetail> getPathDetailsFromQuery(final QueryResult result) {

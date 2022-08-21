@@ -24,7 +24,8 @@ public class RouteInfoTableTest {
       new RouteInfoTable(connectionProvider.getMySQLConnection());
 
   private final RouteInfo routeInfo =
-      new RouteInfo("1", "1", Utils.dateToSqlDate(Utils.buildDate(22, 11, 2011).get()), "10:11", 12);
+      new RouteInfo(
+          "1", "1", Utils.dateToSqlDate(Utils.buildDate(22, 11, 2011).get()), "10:11", 12);
 
   @BeforeAll
   public static void setUp() {
@@ -32,9 +33,11 @@ public class RouteInfoTableTest {
     TrainTableTest.setUp();
 
     final var routeInfo1 =
-        new RouteInfo("1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get()), "05:12", 402);
+        new RouteInfo(
+            "1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get()), "05:12", 402);
     final var routeInfo2 =
-        new RouteInfo("2", "1", Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()), "01:12", 402);
+        new RouteInfo(
+            "2", "1", Utils.dateToSqlDate(Utils.buildDate(11, 06, 2011).get()), "01:12", 402);
 
     routeInfoTable.save(routeInfo1);
     routeInfoTable.save(routeInfo2);
@@ -88,13 +91,25 @@ public class RouteInfoTableTest {
 
   @Test
   public void testUpdate() {
-    final var old = routeInfoTable.findByPrimaryKey(List.of("1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get()))).get();
+    final var old =
+        routeInfoTable
+            .findByPrimaryKey(
+                List.of("1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get())))
+            .get();
     routeInfoTable.update(
-        new RouteInfo(old.getPathId(), old.getTrainId(), old.getDate(),
-            old.getActualDuration(), old.getAvailableSeats() - 1));
-    
-    assertTrue((old.getAvailableSeats() - 1) == routeInfoTable
-        .findByPrimaryKey(List.of("1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get())))
-        .get().getAvailableSeats());
+        new RouteInfo(
+            old.getPathId(),
+            old.getTrainId(),
+            old.getDate(),
+            old.getActualDuration(),
+            old.getAvailableSeats() - 1));
+
+    assertTrue(
+        (old.getAvailableSeats() - 1)
+            == routeInfoTable
+                .findByPrimaryKey(
+                    List.of("1", "1", Utils.dateToSqlDate(Utils.buildDate(21, 11, 2011).get())))
+                .get()
+                .getAvailableSeats());
   }
 }

@@ -59,9 +59,11 @@ public class TestTicketBuy implements Initializable {
 
   private void initializeSubControllers() {
     this.ticketController = new TicketBuyController(dbGenerator);
-    this.routeInfoController = new RouteInfoController(dbGenerator,
-        new SectionController(dbGenerator, new PathController(dbGenerator))); //hihi
-    
+    this.routeInfoController =
+        new RouteInfoController(
+            dbGenerator,
+            new SectionController(dbGenerator, new PathController(dbGenerator))); // hihi
+
     this.trainController = new TrainController(dbGenerator);
   }
 
