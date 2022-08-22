@@ -39,9 +39,43 @@ tasks.test {
 	testLogging {
 		events("passed", "skipped", "failed")
 	}
+  filter {
+    includeTestsMatching("db_project.db.*")
+    includeTestsMatching("db_project.view.*")
+    includeTestsMatching("db_project.buildDb.*")
+  }
 }
 
 javafx {
     version = "17.0.2"
     modules("javafx.controls", "javafx.fxml")
 }
+
+/* task("buildDB", JavaExec::class) { */
+/*   group = "customTasks" */
+/*   main = "db_project.db.BuildDb" */
+/*   classpath = sourceSets["main"].runtimeClasspath */
+/* } */
+
+task<Test>("buildDb") {
+  group = "customTasks"
+  useJUnitPlatform()
+  testLogging {
+    events("passed", "skipped", "failed", "standardOut")
+  }
+  filter {
+    includeTestsMatching("db_project.buildDb.BuildDb.generateDB")
+  }
+}
+
+task<Test>("dropDB") {
+  group = "customTasks"
+  useJUnitPlatform()
+  testLogging {
+    events("passed", "skipped", "failed", "standardOut")
+  }
+  filter {
+    includeTestsMatching("db_project.buildDb.BuildDb.dropDB")
+  } 
+}
+

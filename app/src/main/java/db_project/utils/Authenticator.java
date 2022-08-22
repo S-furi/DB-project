@@ -2,28 +2,45 @@ package db_project.utils;
 
 import java.util.List;
 
+import db_project.utils.authentication.AuthResponses;
+
 public class Authenticator {
 
-  public static boolean authenticate(String email, String password) {
+  public static AuthResponses authenticate(String email, String password) {
 
     final List<Credentials> credentials =
         new AbstractJsonReader<Credentials>() {}.setFileName("DbAuth.json")
             .retreiveData(Credentials.class);
-    return credentials.stream()
-        .filter(t -> t.getEmail().equals(email))
-        .filter(t -> t.getPassword().equals(password))
-        .findAny()
-        .isPresent();
+    final var usr =
+        credentials.stream()
+            .filter(t -> t.getEmail().equals(email))
+            .filter(t -> t.getPassword().equals(password))
+            .findAny();
+    if (usr.isEmpty()) {
+      return AuthResponses.DENIED;
+    }
+
+    final var privileges = usr.get().getPrivileges();
+    System.out.println(privileges);
+    if (AuthResponses.ROOT.equals(privileges)) {
+      return AuthResponses.ROOT;
+    } else if (AuthResponses.USER.equals(privileges)) {
+      return AuthResponses.USER;
+    } else {
+      return AuthResponses.DENIED;
+    }
   }
 
-  private class Credentials {
+  public class Credentials {
 
     private final String email;
     private final String password;
+    private final String privileges;
 
-    public Credentials(String email, String password) {
+    public Credentials(final String email, final String password, final String privileges) {
       this.email = email;
       this.password = password;
+      this.privileges = privileges;
     }
 
     public String getEmail() {
@@ -32,6 +49,10 @@ public class Authenticator {
 
     public String getPassword() {
       return this.password;
+    }
+
+    public String getPrivileges() {
+      return this.privileges;
     }
   }
 }

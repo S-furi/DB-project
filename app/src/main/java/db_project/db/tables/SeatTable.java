@@ -3,12 +3,14 @@ package db_project.db.tables;
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
 import db_project.db.AbstractCompositeKeyTable;
 import db_project.db.queryUtils.QueryResult;
+import db_project.model.RouteInfo;
 import db_project.model.Seat;
 
 public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
@@ -76,5 +78,42 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
               seats.add(new Seat(classNum, trainCode, carNumber, seatNumber));
             });
     return seats;
+  }
+
+  /**
+   * Used when there are reserved seats in the given routeInfo.
+   *
+   * @param routeInfo
+   * @param carClass
+   * @return
+   */
+  public Optional<Seat> getFirstAvailableSeat(final RouteInfo routeInfo, final String carClass) {
+    final String query =
+        "SELECT p.* from (select db2.numClasse, db2.codTreno, db2.numeroCarrozza, db2.numeroPosto "
+            + " from DETTAGLIO_BIGLIETTO db2 where db2.codTreno = ? and db2.numClasse = ? and"
+            + " db2.dataViaggio = ?) db, POSTO p where p.codTreno = db.codTreno and p.numClasse ="
+            + " db.numClasse and (p.numeroCarrozza <> db.numeroCarrozza or p.numeroPosto not in "
+            + " (select db3.numeroPosto from DETTAGLIO_BIGLIETTO db3)); ";
+
+    final Object[] params = {routeInfo.getTrainId(), carClass, routeInfo.getDate()};
+    super.parser.computeSqlQuery(query, params);
+
+    return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findFirst();
+  }
+
+  /**
+   * Used when there are no seats reserved for given RouteInfo.
+   *
+   * @return
+   */
+  public Optional<Seat> getFirstSeat(final RouteInfo routeInfo, final String carClass) {
+    final String query =
+        "SELECT * from POSTO  "
+            + "where codTreno = ? "
+            + "and numClasse = ? "
+            + "order by numeroCarrozza, numeroPosto; ";
+    final Object[] params = {routeInfo.getTrainId(), carClass};
+    super.parser.computeSqlQuery(query, params);
+    return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findFirst();
   }
 }

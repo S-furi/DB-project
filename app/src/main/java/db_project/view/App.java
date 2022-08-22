@@ -11,10 +11,9 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/MainWindow.fxml"));
+    loader.setLocation(getClass().getResource("/Login.fxml"));
     Parent root = loader.load();
-    Scene scene = new Scene(root, 600, 400);
-    primaryStage.setTitle("FXML text");
+    Scene scene = new Scene(root, 1000, 600);
     primaryStage.setScene(scene);
     primaryStage.show();
   }

@@ -1,0 +1,102 @@
+[
+  {
+    "passengerCode": 17,
+    "cardNumber": 5065,
+    "subscriptionDate": "2021-05-05"
+  },
+  {
+    "passengerCode": 20,
+    "cardNumber": 3347,
+    "subscriptionDate": "2021-06-13"
+  },
+  {
+    "passengerCode": 4,
+    "cardNumber": 6324,
+    "subscriptionDate": "2018-12-01"
+  },
+  {
+    "passengerCode": 22,
+    "cardNumber": 4492,
+    "subscriptionDate": "2018-01-01"
+  },
+  {
+    "passengerCode": 5,
+    "cardNumber": 7131,
+    "subscriptionDate": "2020-06-18"
+  },
+  {
+    "passengerCode": 11,
+    "cardNumber": 1574,
+    "subscriptionDate": "2015-04-24"
+  },
+  {
+    "passengerCode": 7,
+    "cardNumber": 3759,
+    "subscriptionDate": "2015-12-06"
+  },
+  {
+    "passengerCode": 10,
+    "cardNumber": 3878,
+    "subscriptionDate": "2021-06-26"
+  },
+  {
+    "passengerCode": 3,
+    "cardNumber": 8599,
+    "subscriptionDate": "2017-06-24"
+  },
+  {
+    "passengerCode": 9,
+    "cardNumber": 5834,
+    "subscriptionDate": "2015-01-19"
+  },
+  {
+    "passengerCode": 16,
+    "cardNumber": 8650,
+    "subscriptionDate": "2016-08-22"
+  },
+  {
+    "passengerCode": 21,
+    "cardNumber": 4305,
+    "subscriptionDate": "2017-06-12"
+  },
+  {
+    "passengerCode": 12,
+    "cardNumber": 6956,
+    "subscriptionDate": "2016-02-08"
+  },
+  {
+    "passengerCode": 0,
+    "cardNumber": 9673,
+    "subscriptionDate": "2019-06-27"
+  },
+  {
+    "passengerCode": 23,
+    "cardNumber": 8662,
+    "subscriptionDate": "2016-03-13"
+  },
+  {
+    "passengerCode": 19,
+    "cardNumber": 3141,
+    "subscriptionDate": "2021-03-13"
+  },
+  {
+    "passengerCode": 8,
+    "cardNumber": 9960,
+    "subscriptionDate": "2017-07-22"
+  },
+  {
+    "passengerCode": 1,
+    "cardNumber": 8683,
+    "subscriptionDate": "2020-12-05"
+  },
+  {
+    "passengerCode": 18,
+    "cardNumber": 7331,
+    "subscriptionDate": "2021-11-02"
+  },
+  {
+    "passengerCode": 2,
+    "cardNumber": 6899,
+    "subscriptionDate": "2017-11-13"
+  }
+]

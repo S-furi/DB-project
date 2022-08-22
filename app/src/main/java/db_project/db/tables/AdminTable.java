@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,6 +99,11 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
     return admList;
   }
 
+  public String getRandomAdminId() {
+    final var admins = this.findAll();
+    return admins.get(new Random().nextInt(admins.size() - 1)).getId();
+  }
+
   @Override
   public List<Admin> readFromFile() {
     return new AbstractJsonReader<Admin>() {}.setFileName("DbAdmins.json")
@@ -109,5 +115,19 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
     super.parser.computeSqlQuery(query, null);
     var admin = this.getPrettyResultFromQueryResult(super.parser.getQueryResult());
     return admin.isEmpty() ? 0 : Integer.parseInt(admin.get(0).getId());
+  }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
   }
 }

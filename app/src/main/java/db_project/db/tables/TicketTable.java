@@ -37,7 +37,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   protected Object[] getSaveQueryParameters(final Ticket ticket) {
     return new Object[] {
       ticket.getTicketId(),
-      ticket.isRv() ? "1" : "0",
+      ticket.getIsRv() ? "1" : "0",
       ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
@@ -50,7 +50,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   @Override
   protected Object[] getUpdateQueryParameters(final Ticket ticket) {
     return new Object[] {
-      ticket.isRv() ? "1" : "0",
+      ticket.getIsRv() ? "1" : "0",
       ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
@@ -91,7 +91,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
             row -> {
               logger.info(row.toString());
               final String ticketId = (String) row.get("codiceBiglietto");
-              final boolean isRv = row.get("regionaleVeloce").equals("0") ? false : true;
+              final boolean getIsRv = row.get("regionaleVeloce").equals("0") ? false : true;
               final Optional<String> groupId =
                   row.get("codComitiva") == null
                       ? Optional.empty()
@@ -102,9 +102,20 @@ public class TicketTable extends AbstractTable<Ticket, String> {
               final Date date = (Date) row.get("data");
               final Float price = (Float) row.get("prezzo");
               tickets.add(
-                  new Ticket(ticketId, isRv, groupId, passengerId, pathId, trainId, date, price));
+                  new Ticket(
+                      ticketId, getIsRv, groupId, passengerId, pathId, trainId, date, price));
             });
 
     return tickets;
+  }
+
+  public QueryResult getAllBoughtTicketAsQueryResult() {
+    final String query =
+        "SELECT b.codiceBiglietto, b.codPasseggero, b.regionaleVeloce, b.codPercorso, "
+            + "db.numClasse, db.numeroCarrozza, db.numeroPosto, b.data "
+            + "from BIGLIETTO b left join DETTAGLIO_BIGLIETTO db  "
+            + "on (b.codiceBiglietto = db.codiceBiglietto); ";
+    super.parser.computeSqlQuery(query, null);
+    return this.parser.getQueryResult();
   }
 }

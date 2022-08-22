@@ -103,4 +103,18 @@ public class StationManagerTable extends AbstractTable<StationManager, String>
     return new AbstractJsonReader<StationManager>() {}.setFileName("DbManagers.json")
         .retreiveData(StationManager.class);
   }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

@@ -1,10 +1,17 @@
 [
     {
         "email": "root",
-        "password": "root"
+        "password": "root",
+        "privileges" : "root"
     }, 
     {
         "email": "alessia.valentini9@outlook.com", 
-        "password": "ale.valentini"
+        "password": "ale.valentini",
+        "privileges": "user"
+    },
+    {
+        "email": "a", 
+        "password": "a",
+        "privileges": "user"
     }
 ]

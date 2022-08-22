@@ -53,7 +53,7 @@ public class TicketDetail {
   @Override
   public String toString() {
     return String.format(
-        "(%s) ReservationDate: %s - %s Class Ticket - Train: %s - CarNo: %d - Seat: %d",
+        "(%s) Trip scheduled on: %s - %s Class Ticket - Train: %s - CarNo: %d - Seat: %d",
         this.ticketId,
         this.tripDate,
         this.trainClass,
@@ -96,5 +96,16 @@ public class TicketDetail {
       if (other.trainId != null) return false;
     } else if (!trainId.equals(other.trainId)) return false;
     return true;
+  }
+
+  public static TicketDetail getTicketDetailFromSeat(
+      final String ticketId, final Date tripDate, final Seat seat) {
+    return new TicketDetail(
+        ticketId,
+        tripDate,
+        seat.getClassType(),
+        seat.getTrainCode(),
+        seat.getCarNumber(),
+        seat.getSeatNumber());
   }
 }
