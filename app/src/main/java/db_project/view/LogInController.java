@@ -39,7 +39,7 @@ public class LogInController implements Initializable {
     System.out.println(response);
     switch (response) {
       case USER:
-        this.switchToUserLanding(event);
+        this.switchToUserLanding(event, email);
         break;
       case ROOT:
         this.switchToRootLanding(event);
@@ -66,9 +66,12 @@ public class LogInController implements Initializable {
     }
   }
 
-  private void switchToUserLanding(ActionEvent event) {
+  private void switchToUserLanding(ActionEvent event, String usrEmail) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/TestTicketReservation.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/TestTicketReservation.fxml"));
+      TestTicketBuy controller = loader.getController();
+      controller.setUsrEmail(usrEmail);
       var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       var scene = new Scene(root);
       stage.setScene(scene);
