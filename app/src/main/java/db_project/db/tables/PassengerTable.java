@@ -22,8 +22,7 @@ public class PassengerTable extends AbstractTable<Passenger, String>
   public PassengerTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(
-        List.of("nome", "cognome", "telefono", "email", "residenza"));
+    super.setTableColumns(List.of("nome", "cognome", "telefono", "email", "residenza"));
 
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
@@ -72,8 +71,7 @@ public class PassengerTable extends AbstractTable<Passenger, String>
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
               travelers.add(
-                  new Passenger(
-                      travelerCode, firstName, lastName, phone, email, residence));
+                  new Passenger(travelerCode, firstName, lastName, phone, email, residence));
             });
     return travelers;
   }

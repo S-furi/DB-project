@@ -30,8 +30,7 @@ public class PassengerTableTest {
   @BeforeAll
   static void setUp() {
     CityTableTest.setUp();
-    final Passenger traveler1 =
-        new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C");
+    final Passenger traveler1 = new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C");
     final Passenger traveler2 =
         new Passenger("2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C");
 
