@@ -2,8 +2,11 @@ package db_project.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import db_project.utils.Authenticator;
+import db_project.utils.authentication.AuthResponses;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,7 +34,23 @@ public class LogInController implements Initializable {
 
   @FXML
   void validateData(ActionEvent event) {
-    this.switchToUserLanding(event);
+    var email = this.usernameField.getText();
+    var password = this.passField.getText();
+    AuthResponses response = Authenticator.authenticate(email, password);
+    System.out.println(response);
+    switch (response) {
+      case USER:
+        this.switchToUserLanding(event);
+        break;
+      case ROOT:
+        this.switchToRootLanding(event);
+        break;
+      case DENIED:
+        this.showDialog("USERNAME O PASSWORD NON CORRETTI");
+        break;  
+      default:
+        break;
+    }
   }
 
   @FXML
@@ -42,7 +63,6 @@ public class LogInController implements Initializable {
       stage.show();
 
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -59,6 +79,29 @@ public class LogInController implements Initializable {
     }
   }
 
+  private void switchToRootLanding(ActionEvent event){
+    try{
+      Parent root = FXMLLoader.load(getClass().getResource("/TripSolutions.fxml"));
+      var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      var scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    }catch(IOException e){
+      e.printStackTrace();
+    }
+  }
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {}
+
+
+  private void showDialog(String msg) {
+    Dialog<String> dialog = new Dialog<>();
+    dialog.setTitle("DATI NON CORRETTI");
+    dialog.show();
+    dialog.setContentText(msg);
+    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+    dialog.setHeight(dialog.getHeight() + 30);
+  }
+
 }
