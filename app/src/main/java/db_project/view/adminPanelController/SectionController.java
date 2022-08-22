@@ -78,10 +78,10 @@ public class SectionController {
   private Optional<List<PathDetail>> retreiveSections(final Path path) {
     final String query =
         "SELECT p.codPercorso, dp.ordine, t.codTratta, Partenza.nome as StazionePartenza,"
-            + " Arrivo.nome as StazioneArrivo from ( select codTratta, nome from tratta, stazione"
+            + " Arrivo.nome as StazioneArrivo from ( select codTratta, nome from TRATTA, STAZIONE"
             + " where codStazioneArrivo = codStazione) as Arrivo, ( select codTratta, nome from"
-            + " tratta, stazione where codStazionePartenza = codStazione) as Partenza, percorso p,"
-            + " dettaglio_percorso dp, tratta t where t.codTratta = Arrivo.codTratta and"
+            + " TRATTA, STAZIONE where codStazionePartenza = codStazione) as Partenza, PERCORSO p,"
+            + " DETTAGLIO_PERCORSO dp, TRATTA t where t.codTratta = Arrivo.codTratta and"
             + " t.codTratta = Partenza.codTratta and t.codTratta = dp.codTratta and dp.codPercorso"
             + " = p.codPercorso and p.codPercorso = ? GROUP BY dp.ordine, p.codPercorso,"
             + " t.codTratta, StazionePartenza, StazioneArrivo order by dp.ordine; ";

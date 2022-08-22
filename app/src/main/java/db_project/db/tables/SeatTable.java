@@ -90,10 +90,10 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
   public Optional<Seat> getFirstAvailableSeat(final RouteInfo routeInfo, final String carClass) {
     final String query =
         "SELECT p.* from (select db2.numClasse, db2.codTreno, db2.numeroCarrozza, db2.numeroPosto "
-            + " from dettaglio_biglietto db2 where db2.codTreno = ? and db2.numClasse = ? and"
-            + " db2.dataViaggio = ?) db, posto p where p.codTreno = db.codTreno and p.numClasse ="
+            + " from DETTAGLIO_BIGLIETTO db2 where db2.codTreno = ? and db2.numClasse = ? and"
+            + " db2.dataViaggio = ?) db, POSTO p where p.codTreno = db.codTreno and p.numClasse ="
             + " db.numClasse and (p.numeroCarrozza <> db.numeroCarrozza or p.numeroPosto not in "
-            + " (select db3.numeroPosto from dettaglio_biglietto db3)); ";
+            + " (select db3.numeroPosto from DETTAGLIO_BIGLIETTO db3)); ";
 
     final Object[] params = {routeInfo.getTrainId(), carClass, routeInfo.getDate()};
     super.parser.computeSqlQuery(query, params);
@@ -108,7 +108,7 @@ public class SeatTable extends AbstractCompositeKeyTable<Seat, Object> {
    */
   public Optional<Seat> getFirstSeat(final RouteInfo routeInfo, final String carClass) {
     final String query =
-        "SELECT * from posto  "
+        "SELECT * from POSTO  "
             + "where codTreno = ? "
             + "and numClasse = ? "
             + "order by numeroCarrozza, numeroPosto; ";

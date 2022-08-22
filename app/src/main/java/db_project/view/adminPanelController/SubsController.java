@@ -44,8 +44,8 @@ public class SubsController {
   public boolean findAllSubscribers() {
     final String query =
         "SELECT p.codPasseggero, c.codCarta, p.nome, p.cognome, c.punti, c.percentualeSconto,"
-            + " p.email, p.residenza, s.dataSottoscrizione from loyalty_card c, passeggero p,"
-            + " sottoscrizione s where c.codCarta = s.codCarta and s.codPasseggero ="
+            + " p.email, p.residenza, s.dataSottoscrizione from LOYALTY_CARD c, PASSEGGERO p,"
+            + " SOTTOSCRIZIONE s where c.codCarta = s.codCarta and s.codPasseggero ="
             + " p.codPasseggero; ";
     this.parser.computeSqlQuery(query, null);
 

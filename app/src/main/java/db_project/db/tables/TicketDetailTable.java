@@ -107,7 +107,7 @@ public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, O
   }
 
   public Optional<TicketDetail> getTicketDetailFromTicketId(final String ticketId) {
-    final String query = "SELECT * from dettaglio_biglietto where codiceBiglietto =?;";
+    final String query = "SELECT * from DETTAGLIO_BIGLIETTO where codiceBiglietto =?;";
     final Object[] params = {ticketId};
     super.parser.computeSqlQuery(query, params);
     return this.getPrettyResultFromQueryResult(super.parser.getQueryResult()).stream().findAny();
