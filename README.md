@@ -18,11 +18,7 @@ Robe da far subito:
   - [x] Logically (Progettazione Logica, teoricamente)
   - [x] Pratically (Java Tables implementation)
   - [x] Check them into DB
-- [ ] **GUI**:
-  - [ ] Scratch a GUI design
-  - [ ] Decide which operation will be needed in the GUI and how to do/design them
-  - [ ] Generate *FXML* with *sceneBuilder*
-  - [ ] Implement a robust controller
+- [x] **GUI**:
 - [ ] **Queries** design:
   - Write their purpose down.
   - Check complexity
@@ -33,10 +29,10 @@ Robe da far subito:
 Tutto quello che è qui è da fare concorrentemente alla stesura del report
 - [x] Rifinire **ER** (specialmente i nomi)
   - [x] Check dei vincoli (dopo averli definiti)
-  - [ ] Check *1NF, 2NF, 3NF* (magari *3NF* anche no dai).
+  - [x] Check *1NF, 2NF, 3NF* (magari *3NF* anche no dai).
 - [ ] Progettazione logica:
   - [x] Verificare che la traduzione non faccia tralasciare dei vincoli espressi
-  - [ ] Rendere la progettazione di query più semplice possibile 
+  - [x] Rendere la progettazione di query più semplice possibile 
 
 ---
 ### **REPORT**
