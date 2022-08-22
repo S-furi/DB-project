@@ -40,6 +40,7 @@ public class TicketBuyController {
   private SeatTable seatTable;
   private LoyaltyCardTable cardTable;
   private final Logger logger;
+  private String usrEmail;
 
   public TicketBuyController(DBGenerator dbGenerator) {
     this.dbGenerator = dbGenerator;
@@ -57,6 +58,12 @@ public class TicketBuyController {
     this.seatTable = (SeatTable) this.dbGenerator.getTableByClass(SeatTable.class);
     this.cardTable = (LoyaltyCardTable) this.dbGenerator.getTableByClass(LoyaltyCardTable.class);
   }
+
+  public void setUsrEmail(final String usrEmail) {
+    this.usrEmail = usrEmail;
+  }
+
+  public void retreiveUserId(final String userEmail) {}
 
   public boolean registerTicketBought(
       final Date date, final String pathId, final String trainId, final boolean isFirstClass) {

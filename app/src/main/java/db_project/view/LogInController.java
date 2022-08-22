@@ -68,7 +68,7 @@ public class LogInController implements Initializable {
 
   private void switchToUserLanding(ActionEvent event) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/UserLanding.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/TestTicketReservation.fxml"));
       var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       var scene = new Scene(root);
       stage.setScene(scene);
