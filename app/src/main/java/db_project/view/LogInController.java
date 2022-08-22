@@ -69,6 +69,9 @@ public class LogInController implements Initializable {
   private void switchToUserLanding(ActionEvent event, String usrEmail) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/TestTicketReservation.fxml"));
+      final TestTicketBuy ticketBuyController = new TestTicketBuy();
+      ticketBuyController.setUsrEmail(usrEmail);
+      loader.setController(ticketBuyController);
       Parent root = (Parent) loader.load();
       TestTicketBuy testTickeBuy = (TestTicketBuy) loader.getController();
       testTickeBuy.setUsrEmail(usrEmail);

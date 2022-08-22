@@ -64,7 +64,11 @@ public class TicketBuyController {
 
   private String retreiveUserId(final String userEmail) {
     return ((PassengerTable) this.dbGenerator.getTableByClass(PassengerTable.class))
-        .findAll().stream().map(t -> t.getEmail()).filter(t -> t.equals(userEmail)).findAny().get();
+        .findAll().stream()
+            .filter(t -> t.getEmail().equals(userEmail))
+            .map(t -> t.getPassengerCode())
+            .findAny()
+            .get();
   }
 
   public boolean registerTicketBought(
