@@ -6,7 +6,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import db_project.db.dbGenerator.DBGenerator;
-import db_project.view.controller.PathController;
+import db_project.view.adminPanelController.PathController;
 
 public class TestRailwayController {
   private static final DBGenerator dbGenerator = new DBGenerator();
@@ -25,8 +25,8 @@ public class TestRailwayController {
 
     this.railwayController = new PathController(dbGenerator);
 
-    final String srcStation = "BOLOGNA C.LE";
-    final String dstStation = "BOLZANO";
+    final String srcStation = "CASERTA";
+    final String dstStation = "LAMEZIA";
     final var solution = this.railwayController.getTripSolution(srcStation, dstStation);
     assertTrue(solution.isPresent());
     System.out.println(solution.get());

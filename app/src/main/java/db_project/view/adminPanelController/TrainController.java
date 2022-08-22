@@ -1,4 +1,4 @@
-package db_project.view.controller;
+package db_project.view.adminPanelController;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -61,8 +61,9 @@ public class TrainController {
   public boolean addNewTrain(final String licenseNumber, final boolean isRv, final int capacity) {
     final Train train = new Train(this.getNewTrainId(), licenseNumber, capacity, isRv);
     this.logger.info(train.toString());
-    return this.trainTable.save(train)
-        && this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity());
+    return this.trainTable.save(train) && isRv
+        ? this.saveCarAndSeatsDetails(train.getTrainCode(), train.getCapacity())
+        : true;
   }
 
   private String getNewTrainId() {
@@ -97,6 +98,7 @@ public class TrainController {
     final List<Car> cars = new ArrayList<>();
     carClasses.forEach(
         t -> cars.addAll(this.createCarDetails(trainId, t.getClassType(), capacity)));
+    this.lastCarNumber = 1;
     return cars;
   }
 
@@ -194,7 +196,12 @@ public class TrainController {
     TableColumn<Train, String> isRvColumn = new TableColumn<>("Regionale Veloce");
     isRvColumn.setCellValueFactory(new PropertyValueFactory<>("isRv"));
 
-    return List.of(trainCodeColumn, licenceNumberColumn, capacityColumn, isRvColumn);
+    final List<TableColumn<Train, ?>> lst =
+        List.of(trainCodeColumn, licenceNumberColumn, capacityColumn, isRvColumn);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
+
+    return lst;
   }
 
   public List<TableColumn<Driver, ?>> getDriversTableViewColumns() {
@@ -212,6 +219,18 @@ public class TrainController {
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
     TableColumn<Driver, String> residenceColumn = new TableColumn<>("Residenza");
     residenceColumn.setCellValueFactory(new PropertyValueFactory<>("residence"));
+
+    final List<TableColumn<Driver, ?>> lst =
+        List.of(
+            licenceNumberColumn,
+            contractYearColumn,
+            firstNameColumn,
+            lastNameColumn,
+            telephoneColumn,
+            emailColumn,
+            residenceColumn);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
 
     return List.of(
         licenceNumberColumn,

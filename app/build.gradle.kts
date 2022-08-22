@@ -57,15 +57,25 @@ javafx {
 /*   classpath = sourceSets["main"].runtimeClasspath */
 /* } */
 
-task<Exec>("buildDb") {
+task<Test>("buildDb") {
   group = "customTasks"
-  args("build")
-  commandLine("sh", "../buildDb.sh")
+  useJUnitPlatform()
+  testLogging {
+    events("passed", "skipped", "failed", "standardOut")
+  }
+  filter {
+    includeTestsMatching("db_project.buildDb.BuildDb.generateDB")
+  }
 }
 
-task<Exec>("dropDB") {
+task<Test>("dropDB") {
   group = "customTasks"
-  args("drop")
-  commandLine("sh", "../dropDb.sh")
+  useJUnitPlatform()
+  testLogging {
+    events("passed", "skipped", "failed", "standardOut")
+  }
+  filter {
+    includeTestsMatching("db_project.buildDb.BuildDb.dropDB")
+  } 
 }
 

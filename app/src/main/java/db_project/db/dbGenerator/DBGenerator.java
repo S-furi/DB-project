@@ -305,6 +305,7 @@ public class DBGenerator {
     final JsonReadeable sectionTable = new SectionTable(connection);
     final JsonReadeable stationManagerTable = new StationManagerTable(connection);
     final JsonReadeable stationTable = new StationTable(connection);
+    final JsonReadeable subscritpionTable = new SubscriptionTable(connection);
 
     return List.of(
         adminTable,
@@ -318,7 +319,8 @@ public class DBGenerator {
         pathTable,
         sectionTable,
         stationManagerTable,
-        stationTable);
+        stationTable,
+        subscritpionTable);
   }
 
   public ConnectionProvider getConnectionProvider() {

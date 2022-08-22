@@ -1,5 +1,7 @@
-package db_project.view.controller;
+package db_project.view.adminPanelController;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,23 +14,37 @@ import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.queryUtils.ArrayQueryParser;
 import db_project.db.queryUtils.QueryParser;
 import db_project.db.queryUtils.QueryResult;
-// import db_project.db.tables.SectionTable;
+import db_project.db.tables.AdminTable;
+import db_project.db.tables.PathInfoTable;
+import db_project.db.tables.PathTable;
+import db_project.db.tables.SectionTable;
 import db_project.model.Path;
+import db_project.model.PathInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SectionController {
+  private static final double AVG_STD_TRAIN_SPEED = 130.0;
+  private static final double AVG_RV_TRAIN_SPEED = 160.0;
+
   private final DBGenerator dbGenerator;
-  // private SectionTable sectionTable;
+  private SectionTable sectionTable;
+  private PathTable pathTable;
+  private PathInfoTable pathInfoTable;
+  private final PathController pathController;
   private ObservableList<PathDetail> pathDetails;
   private final QueryParser parser;
   private final Logger logger;
 
-  public SectionController(final DBGenerator dbGenerator) {
+  private Path computedPath;
+  private List<PathInfo> pathInfosToBeSaved = new ArrayList<>();
+
+  public SectionController(final DBGenerator dbGenerator, final PathController pathController) {
     this.dbGenerator = dbGenerator;
-    // this.sectionTable = (SectionTable) this.dbGenerator.getTableByClass(SectionTable.class);
+    this.pathController = pathController;
+    this.initializeTables();
 
     this.parser =
         new ArrayQueryParser(this.dbGenerator.getConnectionProvider().getMySQLConnection());
@@ -39,6 +55,15 @@ public class SectionController {
     this.logger.setLevel(Level.WARNING);
   }
 
+  private void initializeTables() {
+    this.sectionTable = (SectionTable) this.dbGenerator.getTableByClass(SectionTable.class);
+    this.pathTable = (PathTable) this.dbGenerator.getTableByClass(PathTable.class);
+    this.pathInfoTable = (PathInfoTable) this.dbGenerator.getTableByClass(PathInfoTable.class);
+  }
+
+  /**
+   * @param path that already exists in DB!!!
+   */
   public void computeSectionsFromPath(final Path path) {
     final var details = this.retreiveSections(path);
     if (details.isEmpty()) {
@@ -62,6 +87,99 @@ public class SectionController {
             + " t.codTratta, StazionePartenza, StazioneArrivo order by dp.ordine; ";
     this.parser.computeSqlQuery(query, new Object[] {path.getPathCode()});
     return Optional.of(this.getPathDetailsFromQuery(this.parser.getQueryResult()));
+  }
+
+  /**
+   * @param pathId that isn't contained into the database
+   * @return
+   */
+  public boolean findSolution(final String pathId) {
+    if (this.isPathAlreadyInDb(pathId)) {
+      return false;
+    }
+
+    final List<PathInfo> pathInfos = TripSolutionFinder.getPathInfosFromPathId(pathId);
+    if (pathInfos.isEmpty()) {
+      return false;
+    }
+    this.pathInfosToBeSaved = pathInfos;
+
+    return this.buildPathDetailsFromPathInfos(pathInfos);
+  }
+
+  private boolean isPathAlreadyInDb(final String pathId) {
+    return this.pathTable.findByPrimaryKey(pathId).isPresent();
+  }
+
+  private boolean buildPathDetailsFromPathInfos(final List<PathInfo> pathInfos) {
+    final String pathId = pathInfos.get(0).getPathId();
+
+    final List<String> sectionIds =
+        pathInfos.stream().map(t -> t.getSectionId()).collect(Collectors.toList());
+
+    final int totalDistance =
+        this.sectionTable.findAll().stream()
+            .filter(t -> sectionIds.contains(t.getSectionCode()))
+            .map(t -> t.getDistance())
+            .reduce(0, (t1, t2) -> t1 + t2);
+
+    this.computedPath =
+        new Path(
+            pathId,
+            getStdDurationFromDistance(totalDistance),
+            sectionIds.size(),
+            this.getRandomAdminId());
+
+    this.buildNewPathDetail(pathId, pathInfos);
+
+    return !this.pathDetails.isEmpty();
+  }
+
+  private void buildNewPathDetail(String pathId, List<PathInfo> pathInfos) {
+    this.pathDetails.clear();
+    for (final var pathInfo : pathInfos) {
+      var stations = this.pathController.getStationsNameFromPathCode(pathInfo.getSectionId());
+      var srcStation = stations.getKey();
+      var dstStation = stations.getValue();
+      this.pathDetails.add(
+          new PathDetail(
+              pathId,
+              Integer.parseInt(pathInfo.getOrderNumber()),
+              pathInfo.getSectionId(),
+              srcStation,
+              dstStation));
+    }
+  }
+
+  private String getRandomAdminId() {
+    return new AdminTable(this.dbGenerator.getConnectionProvider().getMySQLConnection())
+        .getRandomAdminId();
+  }
+
+  public static String getStdDurationFromDistance(final int distance) {
+    return getDurationFromMinutes((int) ((distance / AVG_STD_TRAIN_SPEED) * 60));
+  }
+
+  public static String getRVDurationFromDistance(final int distance) {
+    return getDurationFromMinutes((int) ((distance / AVG_RV_TRAIN_SPEED) * 60));
+  }
+
+  private static String getDurationFromMinutes(final long value) {
+    return LocalTime.MIN.plus(Duration.ofMinutes(value)).toString();
+  }
+
+  public int getTotalDistanceFromPathId(final String pathId) {
+    final List<PathInfo> pathInfos = TripSolutionFinder.getPathInfosFromPathId(pathId);
+    if (pathInfos.isEmpty()) {
+      return 0;
+    }
+    final List<String> sectionIds =
+        pathInfos.stream().map(t -> t.getSectionId()).collect(Collectors.toList());
+
+    return this.sectionTable.findAll().stream()
+        .filter(t -> sectionIds.contains(t.getSectionCode()))
+        .map(t -> t.getDistance())
+        .reduce(0, (t1, t2) -> t1 + t2);
   }
 
   private List<PathDetail> getPathDetailsFromQuery(final QueryResult result) {
@@ -99,7 +217,12 @@ public class SectionController {
     TableColumn<PathDetail, String> dstStationColumn = new TableColumn<>("Arrivo");
     dstStationColumn.setCellValueFactory(new PropertyValueFactory<>("dstStationName"));
 
-    return List.of(pathIdColumn, orderColumn, sectionIdColumn, srcStationColumn, dstStationColumn);
+    final List<TableColumn<PathDetail, ?>> lst =
+        List.of(pathIdColumn, orderColumn, sectionIdColumn, srcStationColumn, dstStationColumn);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
+
+    return lst;
   }
 
   public ObservableList<PathDetail> getPathDetails() {
@@ -107,7 +230,23 @@ public class SectionController {
   }
 
   public void clearPathDetails() {
+    this.computedPath = null;
     this.pathDetails.clear();
+    this.pathInfosToBeSaved.clear();
+  }
+
+  public boolean savePathInfosToDb() {
+    for (final var pathInfo : this.pathInfosToBeSaved) {
+      if (!this.pathInfoTable.save(pathInfo)) {
+        return false;
+      }
+    }
+    this.pathInfosToBeSaved.clear();
+    return true;
+  }
+
+  public Path getComputedPath() {
+    return this.computedPath;
   }
 
   public class PathDetail {

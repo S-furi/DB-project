@@ -1,6 +1,7 @@
 package db_project.view;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -8,11 +9,18 @@ import java.util.stream.Collectors;
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.model.Driver;
 import db_project.model.Train;
-import db_project.view.controller.PathController;
-import db_project.view.controller.SectionController;
-import db_project.view.controller.TrainController;
-import db_project.view.controller.PathController.TripSolution;
-import db_project.view.controller.SectionController.PathDetail;
+import db_project.utils.Utils;
+import db_project.view.adminPanelController.PathController;
+import db_project.view.adminPanelController.RouteInfoController;
+import db_project.view.adminPanelController.SectionController;
+import db_project.view.adminPanelController.SubsController;
+import db_project.view.adminPanelController.TrainController;
+import db_project.view.adminPanelController.PathController.TripSolution;
+import db_project.view.adminPanelController.RouteInfoController.DateTripSolution;
+import db_project.view.adminPanelController.SectionController.PathDetail;
+import db_project.view.adminPanelController.SubsController.Subscriber;
+import db_project.view.userPanelController.TicketBuyController;
+import db_project.view.userPanelController.TicketBuyController.TicketCheckout;
 import javafx.fxml.Initializable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -35,8 +43,9 @@ public class DbRailwayController implements Initializable {
   @FXML private DatePicker datePicker;
   @FXML private ChoiceBox<String> pathChoiceBox;
   @FXML private ChoiceBox<String> trainChoiceBox;
-  @FXML private TableView<?> resultTableView;
+  @FXML private TableView<DateTripSolution> resultTableView;
   @FXML private Button routeConfirmationButton;
+  @FXML private Button routeRefreshButton;
 
   // Second Tab
   @FXML private ChoiceBox<String> srcStationChoiceBox;
@@ -45,6 +54,7 @@ public class DbRailwayController implements Initializable {
   @FXML private TableView<PathDetail> pathDetailTableView = new TableView<>();
   @FXML private TableView<TripSolution> tripSolutionsTableView = new TableView<>();
   @FXML private Button saveComputedPathButton;
+  @FXML private Button refreshPathTableButton;
 
   // Third Tab
   @FXML private TableView<Train> trainTableView;
@@ -55,10 +65,22 @@ public class DbRailwayController implements Initializable {
   @FXML private ChoiceBox<String> driverChoiceBox;
   @FXML private Button refreshTrainTableViewButton;
 
+  // Fourth Tab
+  @FXML private ChoiceBox<String> subscribersChoiceBox;
+  @FXML private TableView<Subscriber> subscribersTableView;
+  @FXML private Button showAllSubscribersButton;
+  @FXML private Button findSubscriberButton;
+
+  // Fifth Tab
+  @FXML private TableView<TicketCheckout> ticketsTableView;
+
   private DBGenerator dbGenerator;
   private PathController pathController;
   private SectionController sectionController;
   private TrainController trainController;
+  private RouteInfoController routeInfoController;
+  private SubsController subsController;
+  private TicketBuyController ticketController;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -71,8 +93,11 @@ public class DbRailwayController implements Initializable {
   private void initializeSubControllers() {
     this.dbGenerator = new DBGenerator();
     this.pathController = new PathController(this.dbGenerator);
-    this.sectionController = new SectionController(dbGenerator);
+    this.sectionController = new SectionController(dbGenerator, this.pathController);
     this.trainController = new TrainController(dbGenerator);
+    this.routeInfoController = new RouteInfoController(dbGenerator, this.sectionController);
+    this.subsController = new SubsController(dbGenerator);
+    this.ticketController = new TicketBuyController(dbGenerator);
   }
 
   private void initialButtonsSetup() {
@@ -100,12 +125,27 @@ public class DbRailwayController implements Initializable {
             });
 
     this.trainCreationButton.disableProperty().bind(this.driverChoiceBox.valueProperty().isNull());
+    this.routeConfirmationButton
+        .disableProperty()
+        .bind(
+            this.datePicker
+                .valueProperty()
+                .isNull()
+                .or(this.pathChoiceBox.valueProperty().isNull())
+                .or(this.trainChoiceBox.valueProperty().isNull()));
+
+    this.findSubscriberButton
+        .disableProperty()
+        .bind(this.subscribersChoiceBox.valueProperty().isNull());
   }
 
   private void fillTableViews() {
     this.fillPathTableView();
     this.fillSectionTableView();
     this.fillTrainControllerView();
+    this.fillResultTableView();
+    this.fillSubscribersTableView();
+    this.fillTicketsTableView();
   }
 
   private void fillPathTableView() {
@@ -134,6 +174,27 @@ public class DbRailwayController implements Initializable {
         this.trainController.getAllDrivers());
   }
 
+  private void fillResultTableView() {
+    this.genericTableFill(
+        this.resultTableView,
+        this.routeInfoController.getTableViewColumns(),
+        this.routeInfoController.getRouteInfos());
+  }
+
+  private void fillSubscribersTableView() {
+    this.genericTableFill(
+        this.subscribersTableView,
+        this.subsController.getSubscribersTableViewColumns(),
+        this.subsController.getAllSubscribers());
+  }
+
+  private void fillTicketsTableView() {
+    this.genericTableFill(
+        this.ticketsTableView,
+        this.ticketController.getTableViewColumns(),
+        this.ticketController.getAllBoughtTicket());
+  }
+
   private <T> void genericTableFill(
       TableView<T> tableView, List<TableColumn<T, ?>> columns, ObservableList<T> elements) {
     tableView.setEditable(true);
@@ -160,19 +221,46 @@ public class DbRailwayController implements Initializable {
             this.trainController.getAllTrains().stream()
                 .map(t -> t.getTrainCode())
                 .collect(Collectors.toList()));
+    this.subscribersChoiceBox
+        .getItems()
+        .setAll(
+            this.subsController.getSubscribers().stream()
+                .map(t -> t.getPassengerCode())
+                .collect(Collectors.toList()));
   }
 
-  // converting to sql date, date retreived from datePicker.
+  @FXML
+  void saveRouteInfo(ActionEvent event) {
+    final var date = this.getDateFromDatePicker();
+    final var pathId = this.pathChoiceBox.getValue();
+    final var trainId = this.trainChoiceBox.getValue();
 
-  // final var date =
-  //       Utils
-  //         .dateToSqlDate(
-  //             Utils.buildDate(this.datePicker.getValue().getDayOfMonth(),
-  //                             this.datePicker.getValue().getMonthValue(),
-  //                             this.datePicker.getValue().getYear()).get());
+    if (!this.routeInfoController.saveSelectedPathInfo(date, pathId, trainId)) {
+      this.showDialog("Impossibile creare la percorrenza selezionata!");
+    }
+    this.clearRouteInfoButtons();
+  }
+
+  public Date getDateFromDatePicker() {
+    return Utils.dateToSqlDate(
+        Utils.buildDate(
+                this.datePicker.getValue().getDayOfMonth(),
+                this.datePicker.getValue().getMonthValue(),
+                this.datePicker.getValue().getYear())
+            .get());
+  }
+
+  private void clearRouteInfoButtons() {
+    this.trainChoiceBox.setValue(null);
+    this.pathChoiceBox.setValue(null);
+    this.datePicker.setValue(null);
+  }
 
   @FXML
-  void saveRouteInfo(ActionEvent event) {}
+  void refreshRouteInfo(ActionEvent event) {
+    this.routeInfoController.refreshRouteInfos();
+    this.resultTableView.refresh();
+  }
 
   /**
    * Find the route from a to b, specifing all the paths (as in Controller.java)
@@ -180,7 +268,8 @@ public class DbRailwayController implements Initializable {
    * @param event
    */
   @FXML
-  void getSelectedPathSections(ActionEvent event) {
+  void showSelectedPathSections(ActionEvent event) {
+    // admin autoAssegnato
     final var src = this.srcStationChoiceBox.getValue();
     final var dst = this.dstStationChoiceBox.getValue();
 
@@ -193,12 +282,17 @@ public class DbRailwayController implements Initializable {
 
     this.sectionController.clearPathDetails();
     final var pathId =
-        this.pathController
-            .getPathFromStations(
-                this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue())
-            .get();
+        this.pathController.getPathCodeFromStationNames(
+            this.srcStationChoiceBox.getValue(), this.dstStationChoiceBox.getValue());
 
-    this.sectionController.computeSectionsFromPath(pathId);
+    if (!this.sectionController.findSolution(pathId)) {
+      showDialog("Le stazioni selezionate sono le medesime...");
+      this.srcStationChoiceBox.valueProperty().set(null);
+      this.dstStationChoiceBox.valueProperty().set(null);
+      return;
+    }
+
+    // this.sectionController.computeSectionsFromPath(pathId);
     this.pathDetailTableView.refresh();
     this.srcStationChoiceBox.valueProperty().set(null);
     this.dstStationChoiceBox.valueProperty().set(null);
@@ -206,7 +300,22 @@ public class DbRailwayController implements Initializable {
 
   // save computed route in the getSelectedPath to the database.
   @FXML
-  void saveComputedPathToDb(ActionEvent event) {}
+  void saveComputedPathToDb(ActionEvent event) {
+    if (!this.pathController.savePathToDb(this.sectionController.getComputedPath())
+        || !this.sectionController.savePathInfosToDb()) {
+      this.showDialog("Si è verificato un errore durante il salvataggio, riprovare.");
+      this.pathController.delete(this.sectionController.getComputedPath());
+      this.sectionController.clearPathDetails();
+      return;
+    }
+    this.sectionController.clearPathDetails();
+  }
+
+  @FXML
+  void refreshPathTableView(ActionEvent event) {
+    this.pathController.refreshSolutions();
+    this.tripSolutionsTableView.refresh();
+  }
 
   @FXML
   void saveTrainToDb(ActionEvent event) {
@@ -233,6 +342,23 @@ public class DbRailwayController implements Initializable {
             this.trainController.getAllTrains().stream()
                 .map(t -> t.getTrainCode())
                 .collect(Collectors.toList()));
+  }
+
+  @FXML
+  void showAllSubscribers(ActionEvent event) {
+    if (!this.subsController.findAllSubscribers()) {
+      this.showDialog("There aren't subscribers inside DB!");
+    }
+  }
+
+  @FXML
+  void findSubscriber(ActionEvent event) {
+    final var subscriber = this.subscribersChoiceBox.getValue();
+    this.subscribersChoiceBox.setValue(null);
+    if (!this.subsController.findSubscriber(subscriber)) {
+      this.showDialog("Cannot find Selected subscriber!");
+      return;
+    }
   }
 
   private void showDialog(String msg) {

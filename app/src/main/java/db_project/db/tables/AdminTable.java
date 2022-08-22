@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,6 +97,11 @@ public class AdminTable extends AbstractTable<Admin, String> implements JsonRead
             });
 
     return admList;
+  }
+
+  public String getRandomAdminId() {
+    final var admins = this.findAll();
+    return admins.get(new Random().nextInt(admins.size() - 1)).getId();
   }
 
   @Override

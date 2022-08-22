@@ -4,15 +4,20 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import db_project.db.AbstractTable;
+import db_project.db.JsonReadeable;
 import db_project.db.queryUtils.QueryResult;
 import db_project.model.Subscription;
+import db_project.utils.AbstractJsonReader;
 
-public class SubscriptionTable extends AbstractTable<Subscription, String> {
+public class SubscriptionTable extends AbstractTable<Subscription, String>
+    implements JsonReadeable<Subscription> {
   public static final String TABLE_NAME = "SOTTOSCRIZIONE";
   public static final String PRIMARY_KEY = "codPasseggero";
   private final Logger logger;
@@ -75,5 +80,48 @@ public class SubscriptionTable extends AbstractTable<Subscription, String> {
               subscriptions.add(new Subscription(passengerCode, cardCode, subscriptionDate));
             });
     return subscriptions;
+  }
+
+  public Map<String, Integer> getDiscountPassengersPercentages() {
+    final String query =
+        "SELECT codPasseggero, percentualeSconto "
+            + "from loyalty_card l join sottoscrizione s on (l.codCarta = s.codCarta);";
+    super.parser.computeSqlQuery(query, null);
+
+    if (super.parser.getQueryResult().getResult().isEmpty()) {
+      return Collections.emptyMap();
+    }
+    final Map<String, Integer> result = new HashMap<>();
+    super.parser
+        .getQueryResult()
+        .getResult()
+        .get()
+        .forEach(
+            row -> {
+              final String passengerId = (String) row.get("codPasseggero");
+              final int discount = (int) row.get("percentualeSconto");
+              result.put(passengerId, discount);
+            });
+    return result;
+  }
+
+  @Override
+  public List<Subscription> readFromFile() {
+    return new AbstractJsonReader<Subscription>() {}.setFileName("DbSubscriptions.json")
+        .retreiveData(Subscription.class);
+  }
+
+  @Override
+  public boolean saveToDb() {
+    for (final var elem : this.readFromFile()) {
+      try {
+        if (!this.save(elem)) {
+          return false;
+        }
+      } catch (final IllegalStateException e) {
+        return false;
+      }
+    }
+    return true;
   }
 }

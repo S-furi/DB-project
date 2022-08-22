@@ -1,4 +1,4 @@
-package db_project.view.controller;
+package db_project.view.adminPanelController;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class PathController {
     return this.getTripSolutionsFromQuery(parser.getQueryResult()).stream().findAny();
   }
 
-  private String getPathCodeFromStationNames(final String srcStation, final String dstStation) {
+  public String getPathCodeFromStationNames(final String srcStation, final String dstStation) {
     final var src =
         this.getCities().stream().filter(t -> t.getStationName().equals(srcStation)).findAny();
     final var dst =
@@ -148,7 +148,7 @@ public class PathController {
     return new TripSolution(srcStation, dstStation, duration, distance);
   }
 
-  private Pair<String, String> getStationsNameFromPathCode(final String pathCode) {
+  public Pair<String, String> getStationsNameFromPathCode(final String pathCode) {
     final String srcInitial = pathCode.split("-")[0];
     final String dstInitial = pathCode.split("-")[1];
 
@@ -169,6 +169,10 @@ public class PathController {
     return new Pair<String, String>(src.get(), dst.get());
   }
 
+  public boolean savePathToDb(final Path computedPath) {
+    return this.pathTable.save(computedPath);
+  }
+
   public List<TableColumn<TripSolution, ?>> getTableViewColumns() {
     TableColumn<TripSolution, String> srcStationColumn = new TableColumn<>("Partenza");
     srcStationColumn.setCellValueFactory(new PropertyValueFactory<>("srcStation"));
@@ -179,7 +183,12 @@ public class PathController {
     TableColumn<TripSolution, Integer> distance = new TableColumn<>("Distanza");
     distance.setCellValueFactory(new PropertyValueFactory<>("distance"));
 
-    return List.of(srcStationColumn, dstStationColumn, duration, distance);
+    final List<TableColumn<TripSolution, ?>> lst =
+        List.of(srcStationColumn, dstStationColumn, duration, distance);
+
+    lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
+
+    return lst;
   }
 
   public ObservableList<TripSolution> getTripSolutions() {
@@ -200,6 +209,10 @@ public class PathController {
 
   public List<String> getStations() {
     return this.getCities().stream().map(Cities::getStationName).collect(Collectors.toList());
+  }
+
+  public void delete(final Path computedPath) {
+    this.pathTable.delete(computedPath.getPathCode());
   }
 
   private List<Cities> getCities() {
@@ -299,5 +312,10 @@ public class PathController {
 
   public List<String> getAllPathCodes() {
     return this.pathTable.findAll().stream().map(t -> t.getPathCode()).collect(Collectors.toList());
+  }
+
+  public void refreshSolutions() {
+    this.tripSolutions.clear();
+    this.getTripSolutions();
   }
 }
