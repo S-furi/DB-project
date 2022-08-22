@@ -4,8 +4,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,16 +25,14 @@ public class PassengerTableTest {
   // private final Date date = Utils.buildDate(25, 5, 2005).get();
 
   private final Passenger traveler =
-      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "C", Optional.of("1"));
+      new Passenger("3", "Fabio", "DeLuigi", "34", "luigi@gmail.com", "C");
 
   @BeforeAll
   static void setUp() {
     CityTableTest.setUp();
-    GroupTableTest.setUp();
-    final Passenger traveler1 =
-        new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C", Optional.empty());
+    final Passenger traveler1 = new Passenger("1", "Gianni", "Gianni", "57", "ciao@gmail.com", "C");
     final Passenger traveler2 =
-        new Passenger("2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C", Optional.empty());
+        new Passenger("2", "Mimmo", "Baresi", "24", "mimmombare@gmail.com", "C");
 
     travelerTable.save(traveler1);
     travelerTable.save(traveler2);
@@ -45,7 +41,6 @@ public class PassengerTableTest {
   @AfterAll
   static void tearDown() {
     travelerTable.findAll().forEach(t -> travelerTable.delete(t.getPassengerCode()));
-    GroupTableTest.tearDown();
     CityTableTest.tearDown();
   }
 
@@ -83,8 +78,7 @@ public class PassengerTableTest {
                 this.traveler.getLastName(),
                 this.traveler.getPhone(),
                 this.traveler.getEmail(),
-                this.traveler.getResidence(),
-                this.traveler.isGroup())));
+                this.traveler.getResidence())));
     assertTrue(travelerTable.update(curTraveler.get()));
   }
 }

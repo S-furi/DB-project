@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db_project.db.ConnectionProvider;
@@ -123,8 +122,8 @@ public class RegistrationController implements Initializable {
             data.get(1),
             data.get(2),
             data.get(3),
-            data.get(6),
-            Optional.of("1"));
+            data.get(6)
+        );
     System.out.println(newUser.toString());
     System.out.println(Arrays.toString(data.toArray()));
   }

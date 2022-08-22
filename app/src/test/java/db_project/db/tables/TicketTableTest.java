@@ -2,8 +2,6 @@ package db_project.db.tables;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +25,6 @@ public class TicketTableTest {
       new Ticket(
           "3",
           true,
-          Optional.of("2"),
           "2",
           "2",
           "1",
@@ -36,7 +33,6 @@ public class TicketTableTest {
 
   @BeforeAll
   public static void setUp() {
-    GroupTableTest.setUp();
     PassengerTableTest.setUp();
     RouteInfoTableTest.setUp();
 
@@ -44,7 +40,6 @@ public class TicketTableTest {
         new Ticket(
             "1",
             false,
-            Optional.empty(),
             "1",
             "1",
             "1",
@@ -55,7 +50,6 @@ public class TicketTableTest {
         new Ticket(
             "2",
             true,
-            Optional.of("1"),
             "2",
             "2",
             "1",
@@ -72,7 +66,6 @@ public class TicketTableTest {
     TrainTableTest.tearDown();
     PathTableTest.tearDown();
     PassengerTableTest.tearDown();
-    GroupTableTest.tearDown();
   }
 
   @Test
@@ -105,7 +98,6 @@ public class TicketTableTest {
         new Ticket(
             "1",
             true,
-            this.ticket.getGroupId(),
             this.ticket.getPassengerId(),
             this.ticket.getPathId(),
             this.ticket.getTrainId(),

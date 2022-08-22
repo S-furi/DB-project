@@ -1,7 +1,4 @@
 package db_project.model;
-
-import java.util.Optional;
-
 // Viaggiatore
 public class Passenger {
 
@@ -11,7 +8,6 @@ public class Passenger {
   private final String phone;
   private final String email;
   private final String residence;
-  private final Optional<String> isGroup;
 
   public Passenger(
       String passengerCode,
@@ -19,14 +15,12 @@ public class Passenger {
       String lastName,
       String phone,
       String email,
-      String residence,
-      Optional<String> isGroup) {
+      String residence) {
     this.passengerCode = passengerCode;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
     this.residence = residence;
-    this.isGroup = isGroup;
     this.email = email;
   }
 
@@ -50,10 +44,6 @@ public class Passenger {
     return residence;
   }
 
-  public Optional<String> isGroup() {
-    return isGroup;
-  }
-
   public String getEmail() {
     return this.email;
   }
@@ -64,16 +54,14 @@ public class Passenger {
         + email
         + ", firstName="
         + firstName
-        + ", isGroup="
-        + isGroup
         + ", lastName="
         + lastName
+        + ", passengerCode="
+        + passengerCode
         + ", phone="
         + phone
         + ", residence="
         + residence
-        + ", passengerCode="
-        + passengerCode
         + "]";
   }
 
@@ -83,7 +71,6 @@ public class Passenger {
     int result = 1;
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-    result = prime * result + ((isGroup == null) ? 0 : isGroup.hashCode());
     result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
     result = prime * result + ((passengerCode == null) ? 0 : passengerCode.hashCode());
     result = prime * result + ((phone == null) ? 0 : phone.hashCode());
@@ -103,9 +90,6 @@ public class Passenger {
     if (firstName == null) {
       if (other.firstName != null) return false;
     } else if (!firstName.equals(other.firstName)) return false;
-    if (isGroup == null) {
-      if (other.isGroup != null) return false;
-    } else if (!isGroup.equals(other.isGroup)) return false;
     if (lastName == null) {
       if (other.lastName != null) return false;
     } else if (!lastName.equals(other.lastName)) return false;

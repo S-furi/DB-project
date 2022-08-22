@@ -13,7 +13,6 @@ import db_project.db.tables.CarClassTable;
 import db_project.db.tables.CarTable;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.DriverTable;
-import db_project.db.tables.GroupTable;
 import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.PassengerTable;
 import db_project.db.tables.PathInfoTable;
@@ -36,7 +35,6 @@ public class TestDBGenerator {
   private final CityTable cityTable = new CityTable(connection.getMySQLConnection());
   private final CarClassTable carClassTable = new CarClassTable(connection.getMySQLConnection());
   private final TicketTable ticketTable = new TicketTable(connection.getMySQLConnection());
-  private final GroupTable groupTable = new GroupTable(connection.getMySQLConnection());
   private final TicketDetailTable ticketDetailTable =
       new TicketDetailTable(connection.getMySQLConnection());
   private final PathInfoTable pathInfoTable = new PathInfoTable(connection.getMySQLConnection());
@@ -104,13 +102,6 @@ public class TestDBGenerator {
     assertTrue(ticketTable.createTable());
     assertTrue(ticketTable.isCreated());
     assertTrue(ticketTable.dropTable());
-  }
-
-  @Test
-  public void testGroupTable() {
-    assertTrue(groupTable.createTable());
-    assertTrue(groupTable.isCreated());
-    assertTrue(groupTable.dropTable());
   }
 
   @Test

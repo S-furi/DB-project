@@ -20,7 +20,6 @@ import db_project.db.tables.CarClassTable;
 import db_project.db.tables.CarTable;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.DriverTable;
-import db_project.db.tables.GroupTable;
 import db_project.db.tables.LoyaltyCardTable;
 import db_project.db.tables.PassengerTable;
 import db_project.db.tables.PathInfoTable;
@@ -131,78 +130,72 @@ public class DBGenerator {
             "alter table AMMINISTRATORE add constraint FKResidenza_Adm_FK "
                 + "foreign key (residenza) "
                 + "references CITTA (nome); ",
-            "alter table BIGLIETTO add constraint FKAcquistoComitiva_FK "
-                + "foreign key (codComitiva) "
-                + "references COMITIVA (codComitiva); ",
             "alter table BIGLIETTO add constraint FKAcquisto_FK "
                 + "foreign key (codPasseggero) "
                 + "references PASSEGGERO (codPasseggero); ",
             "alter table BIGLIETTO add constraint FKRiferimento_FK "
                 + "foreign key (codPercorso, codTreno, data) "
                 + "references PERCORRENZA (codPercorso, codTreno, data); ",
-            "alter table MACCHINISTA add constraint FKResidenza_Mac_FK "
-                + "foreign key (residenza) "
-                + "references CITTA (nome); ",
-            "alter table PASSEGGERO add constraint FKResidenza_Pas_FK "
-                + "foreign key (residenza) "
-                + "references CITTA (nome); ",
-            "alter table PASSEGGERO add constraint FKFormazione_FK "
-                + "foreign key (codComitiva) "
-                + "references COMITIVA (codComitiva); ",
-            "alter table PERCORRENZA add constraint FKServizio_FK "
-                + "foreign key (codTreno) "
-                + "references TRENO (codTreno); ",
-            "alter table PERCORRENZA add constraint FKAttivazione "
-                + "foreign key (codPercorso) "
-                + "references PERCORSO (codPercorso); ",
-            "alter table PERCORSO add constraint FKAmministrazione_FK "
-                + "foreign key (adminID) "
-                + "references AMMINISTRATORE (adminID); ",
-            "alter table RESPONSABILE_STAZIONE add constraint FKResidenza_Resp_FK "
-                + "foreign key (residenza) "
-                + "references CITTA (nome); ",
-            "alter table STAZIONE add constraint FKLocazione_FK "
-                + "foreign key (locazione) "
-                + "references CITTA (nome); ",
-            "alter table STAZIONE add constraint FKGestione_FK "
-                + "foreign key (codResponsabile) "
-                + "references RESPONSABILE_STAZIONE (codResponsabile); ",
-            "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_PERCO "
-                + "foreign key (codPercorso) "
-                + "references PERCORSO (codPercorso); ",
-            "alter table DETTAGLIO_PERCORSO add constraint REF_Strut_TRATT_FK "
-                + "foreign key (codTratta) "
-                + "references TRATTA (codTratta); ",
-            "alter table TRATTA add constraint FKPartenza_FK "
-                + "foreign key (codStazionePartenza) "
-                + "references STAZIONE (codStazione); ",
-            "alter table TRATTA add constraint FKArrivo_FK "
-                + "foreign key (codStazioneArrivo) "
-                + "references STAZIONE (codStazione); ",
-            "alter table TRENO add constraint FKPilota_FK "
-                + "foreign key (codMacchinista) "
-                + "references MACCHINISTA (numeroPatente); ",
             "alter table CARROZZA add constraint FKComposizione_FK "
                 + "foreign key (codTreno) "
                 + "references TRENO (codTreno); ",
             "alter table CARROZZA add constraint FKAppartenenza "
                 + "foreign key (numClasse) "
-                + "references CLASSE (numClasse); ",
+                + "references CLASSE (numClasse);  ",
+            "alter table MACCHINISTA add constraint FKResidenza_Mac_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome);  ",
+            "alter table PASSEGGERO add constraint FKResidenza_Pas_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome);  ",
+            "alter table PERCORRENZA add constraint FKServizio_FK "
+                + "foreign key (codTreno) "
+                + "references TRENO (codTreno);  ",
+            "alter table PERCORRENZA add constraint FKAttivazione "
+                + "foreign key (codPercorso) "
+                + "references PERCORSO (codPercorso);  ",
+            "alter table PERCORSO add constraint FKAmministrazione_FK "
+                + "foreign key (adminID) "
+                + "references AMMINISTRATORE (adminID);  ",
             "alter table POSTO add constraint FKSuddivisione "
                 + "foreign key (numClasse, codTreno, numeroCarrozza) "
-                + "references CARROZZA (numClasse, codTreno, numeroCarrozza); ",
-            "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Pas_FK "
-                + "foreign key (codPasseggero) "
-                + "references PASSEGGERO (codPasseggero); ",
-            "alter table SOTTOSCRIZIONE add constraint FKRiferimento_Card_FK "
-                + "foreign key (codCarta) "
-                + "references LOYALTY_CARD (codCarta); ",
+                + "references CARROZZA (numClasse, codTreno, numeroCarrozza);  ",
             "alter table DETTAGLIO_BIGLIETTO add constraint FKRiseva_FK "
                 + "foreign key (codiceBiglietto) "
-                + "references BIGLIETTO (codiceBiglietto); ",
+                + "references BIGLIETTO (codiceBiglietto);  ",
             "alter table DETTAGLIO_BIGLIETTO add constraint FKPer "
-                + "foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto)"
-                + "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto);");
+                + "foreign key (numClasse, codTreno, numeroCarrozza, numeroPosto) "
+                + "references POSTO (numClasse, codTreno, numeroCarrozza, numeroPosto); ",
+            "alter table RESPONSABILE_STAZIONE add constraint FKResidenza_Resp_FK "
+                + "foreign key (residenza) "
+                + "references CITTA (nome);  ",
+            "alter table Sottoscrizione add constraint FKRiferimento_Pas_FK "
+                + "foreign key (codPasseggero) "
+                + "references PASSEGGERO (codPasseggero);  ",
+            "alter table Sottoscrizione add constraint FKRiferimento_Card_FK "
+                + "foreign key (codCarta) "
+                + "references LOYALTY_CARD (codCarta);  ",
+            "alter table STAZIONE add constraint FKLocazione_FK "
+                + "foreign key (locazione) "
+                + "references CITTA (nome);  ",
+            "alter table STAZIONE add constraint FKGestione_FK "
+                + "foreign key (codResponsabile) "
+                + "references RESPONSABILE_STAZIONE (codResponsabile);  ",
+            "alter table DETTAGLIO_PERCORSO add constraint FKStr_TRA_FK "
+                + "foreign key (codTratta) "
+                + "references TRATTA (codTratta);  ",
+            "alter table DETTAGLIO_PERCORSO add constraint FKStr_PER "
+                + "foreign key (codPercorso) "
+                + "references PERCORSO (codPercorso);  ",
+            "alter table TRATTA add constraint FKPartenza_FK "
+                + "foreign key (codStazionePartenza) "
+                + "references STAZIONE (codStazione);  ",
+            "alter table TRATTA add constraint FKArrivo_FK "
+                + "foreign key (codStazioneArrivo) "
+                + "references STAZIONE (codStazione);  ",
+            "alter table TRENO add constraint FKPilota_FK "
+                + "foreign key (codMacchinista) "
+                + "references MACCHINISTA (numeroPatente); ");
 
     try (final var statement = connection.createStatement()) {
       for (final var query : queries) {
@@ -220,7 +213,6 @@ public class DBGenerator {
     final Table carTable = new CarTable(connection);
     final Table cityTable = new CityTable(connection);
     final Table driverTable = new DriverTable(connection);
-    final Table groupTable = new GroupTable(connection);
     final Table loyaltyCardTable = new LoyaltyCardTable(connection);
     final Table passengerTable = new PassengerTable(connection);
     final Table pathInfoTable = new PathInfoTable(connection);
@@ -241,7 +233,6 @@ public class DBGenerator {
         carTable,
         cityTable,
         driverTable,
-        groupTable,
         loyaltyCardTable,
         passengerTable,
         pathInfoTable,
@@ -297,7 +288,6 @@ public class DBGenerator {
     final JsonReadeable carClassTable = new CarClassTable(connection);
     final JsonReadeable cityTable = new CityTable(connection);
     final JsonReadeable driverTable = new DriverTable(connection);
-    final JsonReadeable groupTable = new GroupTable(connection);
     final JsonReadeable loyaltyCardTable = new LoyaltyCardTable(connection);
     final JsonReadeable passengerTable = new PassengerTable(connection);
     final JsonReadeable pathInfoTable = new PathInfoTable(connection);
@@ -312,7 +302,6 @@ public class DBGenerator {
         carClassTable,
         cityTable,
         driverTable,
-        groupTable,
         loyaltyCardTable,
         passengerTable,
         pathInfoTable,

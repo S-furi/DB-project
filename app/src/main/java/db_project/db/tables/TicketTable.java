@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -21,14 +20,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
     super.setTableColumns(
-        List.of(
-            "regionaleVeloce",
-            "codComitiva",
-            "codPasseggero",
-            "codPercorso",
-            "codTreno",
-            "data",
-            "prezzo"));
+        List.of("regionaleVeloce", "codPasseggero", "codPercorso", "codTreno", "data", "prezzo"));
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
   }
@@ -38,7 +30,6 @@ public class TicketTable extends AbstractTable<Ticket, String> {
     return new Object[] {
       ticket.getTicketId(),
       ticket.getIsRv() ? "1" : "0",
-      ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
       ticket.getTrainId(),
@@ -51,7 +42,6 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   protected Object[] getUpdateQueryParameters(final Ticket ticket) {
     return new Object[] {
       ticket.getIsRv() ? "1" : "0",
-      ticket.getGroupId(),
       ticket.getPassengerId(),
       ticket.getPathId(),
       ticket.getTrainId(),
@@ -67,7 +57,6 @@ public class TicketTable extends AbstractTable<Ticket, String> {
         "create table BIGLIETTO ( "
             + "codiceBiglietto varchar(5) not null, "
             + "regionaleVeloce char not null, "
-            + "codComitiva varchar(5), "
             + "codPasseggero varchar(5) not null, "
             + "codPercorso varchar(5) not null, "
             + "codTreno varchar(5) not null, "
@@ -92,18 +81,12 @@ public class TicketTable extends AbstractTable<Ticket, String> {
               logger.info(row.toString());
               final String ticketId = (String) row.get("codiceBiglietto");
               final boolean getIsRv = row.get("regionaleVeloce").equals("0") ? false : true;
-              final Optional<String> groupId =
-                  row.get("codComitiva") == null
-                      ? Optional.empty()
-                      : Optional.of((String) row.get("codComitiva"));
               final String passengerId = (String) row.get("codPasseggero");
               final String pathId = (String) row.get("codPercorso");
               final String trainId = (String) row.get("codTreno");
               final Date date = (Date) row.get("data");
               final Float price = (Float) row.get("prezzo");
-              tickets.add(
-                  new Ticket(
-                      ticketId, getIsRv, groupId, passengerId, pathId, trainId, date, price));
+              tickets.add(new Ticket(ticketId, getIsRv, passengerId, pathId, trainId, date, price));
             });
 
     return tickets;

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -23,8 +22,7 @@ public class PassengerTable extends AbstractTable<Passenger, String>
   public PassengerTable(final Connection connection) {
     super(TABLE_NAME, connection);
     super.setPrimaryKey(PRIMARY_KEY);
-    super.setTableColumns(
-        List.of("nome", "cognome", "telefono", "email", "residenza", "codComitiva"));
+    super.setTableColumns(List.of("nome", "cognome", "telefono", "email", "residenza"));
 
     this.logger = Logger.getLogger("CityTable");
     this.logger.setLevel(Level.WARNING);
@@ -38,8 +36,7 @@ public class PassengerTable extends AbstractTable<Passenger, String>
       passenger.getLastName(),
       passenger.getPhone(),
       passenger.getEmail(),
-      passenger.getResidence(),
-      passenger.isGroup()
+      passenger.getResidence()
     };
   }
 
@@ -51,7 +48,6 @@ public class PassengerTable extends AbstractTable<Passenger, String>
       passenger.getPhone(),
       passenger.getEmail(),
       passenger.getResidence(),
-      passenger.isGroup(),
       passenger.getPassengerCode()
     };
   }
@@ -74,10 +70,8 @@ public class PassengerTable extends AbstractTable<Passenger, String>
               final String phone = (String) row.get("telefono");
               final String email = (String) row.get("email");
               final String residence = (String) row.get("residenza");
-              final Optional<String> isGroup = Optional.ofNullable((String) row.get("codComitiva"));
               travelers.add(
-                  new Passenger(
-                      travelerCode, firstName, lastName, phone, email, residence, isGroup));
+                  new Passenger(travelerCode, firstName, lastName, phone, email, residence));
             });
     return travelers;
   }
@@ -92,7 +86,6 @@ public class PassengerTable extends AbstractTable<Passenger, String>
             + "telefono varchar(10) not null, "
             + "email varchar(50) not null, "
             + "residenza varchar(40) not null, "
-            + "codComitiva varchar(5), "
             + "constraint ID_PASSEGGERO_ID primary key (codPasseggero));";
     super.created = super.parser.computeSqlQuery(query, null);
     return super.isCreated();

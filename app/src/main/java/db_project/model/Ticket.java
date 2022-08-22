@@ -1,13 +1,11 @@
 package db_project.model;
 
 import java.sql.Date;
-import java.util.Optional;
 
 // Biglietto
 public class Ticket {
   private final String ticketId;
   private final boolean isRv;
-  private final Optional<String> groupId;
   private final String passengerId;
   private final String pathId;
   private final String trainId;
@@ -17,7 +15,6 @@ public class Ticket {
   public Ticket(
       final String ticketId,
       final boolean isRv,
-      final Optional<String> groupId,
       final String passengerId,
       final String pathId,
       final String trainId,
@@ -26,7 +23,6 @@ public class Ticket {
 
     this.ticketId = ticketId;
     this.isRv = isRv;
-    this.groupId = groupId;
     this.passengerId = passengerId;
     this.pathId = pathId;
     this.trainId = trainId;
@@ -37,14 +33,12 @@ public class Ticket {
   public Ticket(
       final String ticketId,
       final boolean isRv,
-      final Optional<String> groupId,
       final String passengerId,
       final Float price,
       final RouteInfo routeInfo) {
 
     this.ticketId = ticketId;
     this.isRv = isRv;
-    this.groupId = groupId;
     this.passengerId = passengerId;
     this.pathId = routeInfo.getPathId();
     this.trainId = routeInfo.getTrainId();
@@ -61,10 +55,6 @@ public class Ticket {
 
   public boolean getIsRv() {
     return isRv;
-  }
-
-  public Optional<String> getGroupId() {
-    return groupId;
   }
 
   public String getPassengerId() {
@@ -89,15 +79,21 @@ public class Ticket {
 
   @Override
   public String toString() {
-    return String.format(
-        "(%s) - RV: %s - Group: %s - Passenger: %s - Path: %s - Train: %s - Scheduled: %s",
-        this.ticketId,
-        this.isRv,
-        this.groupId.isEmpty() ? "None" : this.groupId.get(),
-        this.passengerId,
-        this.pathId,
-        this.trainId,
-        this.date);
+    return "Ticket [date="
+        + date
+        + ", isRv="
+        + isRv
+        + ", passengerId="
+        + passengerId
+        + ", pathId="
+        + pathId
+        + ", price="
+        + price
+        + ", ticketId="
+        + ticketId
+        + ", trainId="
+        + trainId
+        + "]";
   }
 
   @Override
@@ -105,7 +101,6 @@ public class Ticket {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((date == null) ? 0 : date.hashCode());
-    result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
     result = prime * result + (isRv ? 1231 : 1237);
     result = prime * result + ((passengerId == null) ? 0 : passengerId.hashCode());
     result = prime * result + ((pathId == null) ? 0 : pathId.hashCode());
@@ -124,9 +119,6 @@ public class Ticket {
     if (date == null) {
       if (other.date != null) return false;
     } else if (!date.equals(other.date)) return false;
-    if (groupId == null) {
-      if (other.groupId != null) return false;
-    } else if (!groupId.equals(other.groupId)) return false;
     if (isRv != other.isRv) return false;
     if (passengerId == null) {
       if (other.passengerId != null) return false;
