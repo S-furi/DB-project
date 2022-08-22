@@ -15,7 +15,6 @@ import db_project.view.adminPanelController.TrainController;
 import db_project.view.adminPanelController.RouteInfoController.DateTripSolution;
 import db_project.view.userPanelController.TicketBuyController;
 import db_project.view.userPanelController.TicketBuyController.TicketCheckout;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
