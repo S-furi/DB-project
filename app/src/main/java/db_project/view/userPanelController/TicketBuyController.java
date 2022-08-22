@@ -90,7 +90,7 @@ public class TicketBuyController {
     final Float price = this.computePrice(usrId, pathId);
 
     final Ticket ticket =
-        new Ticket(this.getLastTicketId(), false, Optional.empty(), usrId, price, routeInfo.get());
+        new Ticket(this.getLastTicketId(), false, usrId, price, routeInfo.get());
 
     this.updateLoyaltyCard(pathId, usrId);
     this.routeInfoTable.updateSeatsTicketBought(routeInfo.get());
@@ -117,7 +117,7 @@ public class TicketBuyController {
     final Float price = this.computePrice(usrId, pathId) * 1.15f;
 
     final Ticket ticket =
-        new Ticket(this.getLastTicketId(), true, Optional.empty(), usrId, price, routeInfo.get());
+        new Ticket(this.getLastTicketId(), true, usrId, price, routeInfo.get());
     final Optional<TicketDetail> ticketDetail =
         this.buildTicketDetail(ticket, routeInfo.get(), isFirstClass);
 

@@ -3,7 +3,6 @@ package db_project.view;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db_project.db.ConnectionProvider;
@@ -141,8 +140,7 @@ public class RegistrationController implements Initializable {
               data.get(2),
               data.get(3),
               data.get(4),
-              "Residenza",
-              Optional.of("1"));
+              "Residenza");
       System.out.println(newUser.toString());
     }
     if (userType == "Amministratore") {

@@ -5,8 +5,7 @@
     "lastName": "Valentini",
     "phone": "3968119235",
     "email": "alessia.valentini9@outlook.com",
-    "residence": "Peschiera del Garda",
-    "codComitiva": null
+    "residence": "Peschiera del Garda"
   },
   {
     "passengerCode": 1,
@@ -14,8 +13,7 @@
     "lastName": "Sartori",
     "phone": "3815225605",
     "email": "mattia.sartori1@outlook.com",
-    "residence": "Trieste",
-    "codComitiva": null
+    "residence": "Trieste"
   },
   {
     "passengerCode": 2,
@@ -23,8 +21,7 @@
     "lastName": "Martino",
     "phone": "3767335931",
     "email": "maddalena.martino7@icloud.com",
-    "residence": "Trieste",
-    "codComitiva": null
+    "residence": "Trieste"
   },
   {
     "passengerCode": 3,
@@ -32,8 +29,7 @@
     "lastName": "Rossetti",
     "phone": "3527917399",
     "email": "federica.rossetti2@gmail.com",
-    "residence": "Ferrara",
-    "codComitiva": null
+    "residence": "Ferrara"
   },
   {
     "passengerCode": 4,
@@ -41,8 +37,7 @@
     "lastName": "De Angelis",
     "phone": "3754612991",
     "email": "gabriele.deangelis7@alice.it",
-    "residence": "Reggio Calabria",
-    "codComitiva": null
+    "residence": "Reggio Calabria"
   },
   {
     "passengerCode": 5,
@@ -50,8 +45,7 @@
     "lastName": "Russo",
     "phone": "3567041417",
     "email": "gaia.russo9@alice.it",
-    "residence": "Venezia",
-    "codComitiva": null
+    "residence": "Venezia"
   },
   {
     "passengerCode": 6,
@@ -59,8 +53,7 @@
     "lastName": "Coppola",
     "phone": "3496926965",
     "email": "miryam.coppola1@virgilio.it",
-    "residence": "Desenzano del Garda",
-    "codComitiva": null
+    "residence": "Desenzano del Garda"
   },
   {
     "passengerCode": 7,
@@ -68,8 +61,7 @@
     "lastName": "Parisi",
     "phone": "3281499368",
     "email": "daniele.parisi3@aruba.com",
-    "residence": "Barletta",
-    "codComitiva": null
+    "residence": "Barletta"
   },
   {
     "passengerCode": 8,
@@ -77,8 +69,7 @@
     "lastName": "Bianchi",
     "phone": "3110262109",
     "email": "maddalena.bianchi5@yahoo.com",
-    "residence": "Foggia",
-    "codComitiva": null
+    "residence": "Foggia"
   },
   {
     "passengerCode": 9,
@@ -86,8 +77,7 @@
     "lastName": "Romano",
     "phone": "3473610169",
     "email": "alessia.romano4@live.it",
-    "residence": "Peschiera del Garda",
-    "codComitiva": null
+    "residence": "Peschiera del Garda"
   },
   {
     "passengerCode": 10,
@@ -95,8 +85,7 @@
     "lastName": "Longo",
     "phone": "3832908896",
     "email": "lorenzo.longo6@icloud.com",
-    "residence": "Trieste",
-    "codComitiva": null
+    "residence": "Trieste"
   },
   {
     "passengerCode": 11,
@@ -104,8 +93,7 @@
     "lastName": "Orlando",
     "phone": "3906662010",
     "email": "melissa.orlando2@virgilio.it",
-    "residence": "Vicenza",
-    "codComitiva": null
+    "residence": "Vicenza"
   },
   {
     "passengerCode": 12,
@@ -113,8 +101,7 @@
     "lastName": "Sala",
     "phone": "3718191239",
     "email": "arianna.sala2@outlook.com",
-    "residence": "Brescia",
-    "codComitiva": null
+    "residence": "Brescia"
   },
   {
     "passengerCode": 13,
@@ -122,8 +109,7 @@
     "lastName": "Vitali",
     "phone": "3790392003",
     "email": "paolo.vitali1@yahoo.com",
-    "residence": "Roma",
-    "codComitiva": null
+    "residence": "Roma"
   },
   {
     "passengerCode": 14,
@@ -131,8 +117,7 @@
     "lastName": "Lombardo",
     "phone": "3422658410",
     "email": "gaia.lombardo7@yahoo.com",
-    "residence": "Peschiera del Garda",
-    "codComitiva": null
+    "residence": "Peschiera del Garda"
   },
   {
     "passengerCode": 15,
@@ -140,8 +125,7 @@
     "lastName": "Grasso",
     "phone": "3340126536",
     "email": "alessandra.grasso2@libero.it",
-    "residence": "Reggio Emilia",
-    "codComitiva": null
+    "residence": "Reggio Emilia"
   },
   {
     "passengerCode": 16,
@@ -149,8 +133,7 @@
     "lastName": "Sanna",
     "phone": "3906193933",
     "email": "caterina.sanna6@virgilio.it",
-    "residence": "Bologna",
-    "codComitiva": null
+    "residence": "Bologna"
   },
   {
     "passengerCode": 17,
@@ -158,8 +141,7 @@
     "lastName": "Giuliani",
     "phone": "3693534909",
     "email": "daniele.giuliani7@gmail.com",
-    "residence": "Benevento",
-    "codComitiva": null
+    "residence": "Benevento"
   },
   {
     "passengerCode": 18,
@@ -167,8 +149,7 @@
     "lastName": "Basile",
     "phone": "3365962934",
     "email": "monica.basile4@live.it",
-    "residence": "Bolzano",
-    "codComitiva": null
+    "residence": "Bolzano"
   },
   {
     "passengerCode": 19,
@@ -176,8 +157,7 @@
     "lastName": "Marini",
     "phone": "3148110278",
     "email": "jacopo.marini8@alice.it",
-    "residence": "Roma",
-    "codComitiva": null
+    "residence": "Roma"
   },
   {
     "passengerCode": 20,
@@ -185,8 +165,7 @@
     "lastName": "Testa",
     "phone": "3478012839",
     "email": "davide.testa2@alice.it",
-    "residence": "Treviso",
-    "codComitiva": null
+    "residence": "Treviso"
   },
   {
     "passengerCode": 21,
@@ -194,8 +173,7 @@
     "lastName": "Valentini",
     "phone": "3831137080",
     "email": "marco.valentini9@yahoo.com",
-    "residence": "Torino",
-    "codComitiva": null
+    "residence": "Torino"
   },
   {
     "passengerCode": 22,
@@ -203,8 +181,7 @@
     "lastName": "Bernardi",
     "phone": "3230188520",
     "email": "simona.bernardi6@yahoo.com",
-    "residence": "Reggio Emilia",
-    "codComitiva": null
+    "residence": "Reggio Emilia"
   },
   {
     "passengerCode": 23,
@@ -212,8 +189,7 @@
     "lastName": "Villa",
     "phone": "3447096392",
     "email": "alessia.villa9@aruba.com",
-    "residence": "Udine",
-    "codComitiva": null
+    "residence": "Udine"
   },
   {
     "passengerCode": 24,
@@ -221,7 +197,6 @@
     "lastName": "Fontana",
     "phone": "3486276382",
     "email": "ambra.fontana8@alice.it",
-    "residence": "Trieste",
-    "codComitiva": null
+    "residence": "Trieste"
   }
 ]
