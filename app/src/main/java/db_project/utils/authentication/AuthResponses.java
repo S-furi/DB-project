@@ -6,6 +6,7 @@ public enum AuthResponses {
   DENIED("denied");
 
   private final String strFormat;
+
   private AuthResponses(final String value) {
     this.strFormat = value;
   }
