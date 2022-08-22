@@ -165,11 +165,6 @@ public class TicketBuyController {
   }
 
   private Float computePrice(final String usrId, final String pathId) {
-    System.out.println("USR ID " + this.usrId);
-    System.out.println(
-        ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
-            .getDiscountPassengersPercentages()
-            .toString());
     final int discount =
         ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
             .getDiscountPassengersPercentages()
