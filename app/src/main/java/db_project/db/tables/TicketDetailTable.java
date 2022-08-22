@@ -99,7 +99,7 @@ public class TicketDetailTable extends AbstractCompositeKeyTable<TicketDetail, O
   public List<TicketDetail> getTicketDetailFromRouteInfo(
       final RouteInfo routeInfo, final String carClass) {
     final String query =
-        "SELECT * from dettaglio_biglietto "
+        "SELECT * from DETTAGLIO_BIGLIETTO "
             + "where numClasse = ? and codTreno = ? and dataViaggio = ?; ";
     final Object[] params = {carClass, routeInfo.getTrainId(), routeInfo.getDate()};
     this.parser.computeSqlQuery(query, params);
