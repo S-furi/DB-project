@@ -67,17 +67,19 @@ public class LogInController implements Initializable {
   }
 
   private void switchToUserLanding(ActionEvent event, String usrEmail) {
-    try{
+    try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/TestTicketReservation.fxml"));
       final TestTicketBuy ticketBuyController = new TestTicketBuy();
       ticketBuyController.setUsrEmail(usrEmail);
       loader.setController(ticketBuyController);
       Parent root = (Parent) loader.load();
-      var stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+      TestTicketBuy testTickeBuy = (TestTicketBuy) loader.getController();
+      testTickeBuy.setUsrEmail(usrEmail);
+      var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       var scene = new Scene(root);
       stage.setScene(scene);
       stage.show();
-    }catch(Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
