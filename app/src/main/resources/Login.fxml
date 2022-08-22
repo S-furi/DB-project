@@ -5,23 +5,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.LogInController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db_project.view.LogInController">
    <left>
-      <AnchorPane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="600.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <AnchorPane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="434.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="113.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In" textAlignment="CENTER">
+            <Text layoutX="169.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" alignment="CENTER" layoutX="76.0" layoutY="120.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #8c00ff; -fx-border-width: 0px 0px 2px 0px;" />
-            <PasswordField fx:id="passField" alignment="CENTER" layoutX="76.0" layoutY="175.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #8c00ff; -fx-border-width: 0px 0px 2px 0px;" />
-            <Button fx:id="logInButton" layoutX="124.0" layoutY="233.0" mnemonicParsing="false" onAction="#validateData" style="-fx-background-color: #19E065; -fx-border-color: #FFFFFF;" text="LOGIN" textAlignment="CENTER" />
-            <Button fx:id="regUser" layoutX="115.0" layoutY="339.0" mnemonicParsing="false" onAction="#switchToRegister" style="-fx-background-color: #19E065; -fx-border-color: #FFFFFF;" text="Registrati" textAlignment="CENTER" />
+            <TextField fx:id="usernameField" alignment="CENTER" layoutX="132.0" layoutY="190.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #8c00ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="passField" alignment="CENTER" layoutX="132.0" layoutY="245.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #8c00ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button fx:id="logInButton" layoutX="180.0" layoutY="303.0" mnemonicParsing="false" onAction="#validateData" style="-fx-background-color: #19E065; -fx-border-color: #FFFFFF;" text="LOGIN" textAlignment="CENTER" />
+            <Button fx:id="regUser" layoutX="171.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToRegister" style="-fx-background-color: #19E065; -fx-border-color: #FFFFFF;" text="Registrati" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </right>
