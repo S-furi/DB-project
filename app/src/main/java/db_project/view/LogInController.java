@@ -25,7 +25,7 @@ public class LogInController implements Initializable {
 
   @FXML private TextField usernameField;
 
-  @FXML private PasswordField passField;  
+  @FXML private PasswordField passField;
 
   @FXML private Button logInButton;
 
@@ -46,7 +46,7 @@ public class LogInController implements Initializable {
         break;
       case DENIED:
         this.showDialog("USERNAME O PASSWORD NON CORRETTI");
-        break;  
+        break;
       default:
         break;
     }
@@ -81,21 +81,20 @@ public class LogInController implements Initializable {
     }
   }
 
-  private void switchToRootLanding(ActionEvent event){
-    try{
+  private void switchToRootLanding(ActionEvent event) {
+    try {
       Parent root = FXMLLoader.load(getClass().getResource("/TripSolutions.fxml"));
       var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       var scene = new Scene(root);
       stage.setScene(scene);
       stage.show();
-    }catch(IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {}
-
 
   private void showDialog(String msg) {
     Dialog<String> dialog = new Dialog<>();
@@ -105,5 +104,4 @@ public class LogInController implements Initializable {
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
     dialog.setHeight(dialog.getHeight() + 30);
   }
-
 }
