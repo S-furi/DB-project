@@ -64,7 +64,11 @@ public class TicketBuyController {
 
   private String retreiveUserId(final String userEmail) {
     return ((PassengerTable) this.dbGenerator.getTableByClass(PassengerTable.class))
-        .findAll().stream().filter(t -> t.getEmail().equals(userEmail)).map(t -> t.getPassengerCode()).findAny().get();
+        .findAll().stream()
+            .filter(t -> t.getEmail().equals(userEmail))
+            .map(t -> t.getPassengerCode())
+            .findAny()
+            .get();
   }
 
   public boolean registerTicketBought(
@@ -162,8 +166,10 @@ public class TicketBuyController {
 
   private Float computePrice(final String usrId, final String pathId) {
     System.out.println("USR ID " + this.usrId);
-    System.out.println(((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
-    .getDiscountPassengersPercentages().toString());
+    System.out.println(
+        ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
+            .getDiscountPassengersPercentages()
+            .toString());
     final int discount =
         ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
             .getDiscountPassengersPercentages()
