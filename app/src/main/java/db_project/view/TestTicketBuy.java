@@ -48,6 +48,11 @@ public class TestTicketBuy implements Initializable {
   private RouteInfoController routeInfoController;
   private TrainController trainController;
   private PathController pathController;
+  private String usrEmail;
+
+  public void setUsrEmail(final String usrEmail) {
+    this.usrEmail = usrEmail;
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +71,7 @@ public class TestTicketBuy implements Initializable {
 
   private void initializeSubControllers() {
     this.ticketController = new TicketBuyController(dbGenerator);
+    this.ticketController.setUsrEmail(usrEmail);
     this.pathController = new PathController(dbGenerator);
     this.routeInfoController =
         new RouteInfoController(
