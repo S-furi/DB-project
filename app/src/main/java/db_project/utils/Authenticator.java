@@ -52,8 +52,5 @@ public class Authenticator {
     public String getPrivileges() {
       return this.privileges;
     }
-
-    // public boolean equals(final Credentials credentials) {
-    // }
   }
 }
