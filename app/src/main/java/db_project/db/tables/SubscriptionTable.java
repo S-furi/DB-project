@@ -85,7 +85,7 @@ public class SubscriptionTable extends AbstractTable<Subscription, String>
   public Map<String, Integer> getDiscountPassengersPercentages() {
     final String query =
         "SELECT codPasseggero, percentualeSconto "
-            + "from loyalty_card l join sottoscrizione s on (l.codCarta = s.codCarta);";
+            + "from LOYALTY_CARD l join SOTTOSCRIZIONE s on (l.codCarta = s.codCarta);";
     super.parser.computeSqlQuery(query, null);
 
     if (super.parser.getQueryResult().getResult().isEmpty()) {

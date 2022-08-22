@@ -96,7 +96,7 @@ public class LoyaltyCardTable extends AbstractTable<LoyaltyCard, String>
   public boolean updateUserLoyaltyCardPoints(final String userId, final int distance) {
     final String query =
         "SELECT l.codCarta, punti, percentualeSconto "
-            + "from loyalty_card l, sottoscrizione s, passeggero p "
+            + "from LOYALTY_CARD l, SOTTOSCRIZIONE s, PASSEGGERO p "
             + "where p.codPasseggero = s.codPasseggero "
             + "and p.codPasseggero = ? "
             + "and s.codCarta = l.codCarta; ";
