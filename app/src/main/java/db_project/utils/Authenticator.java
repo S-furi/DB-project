@@ -16,7 +16,7 @@ public class Authenticator {
         .isPresent();
   }
 
-  private class Credentials {
+  public class Credentials {
 
     private final String email;
     private final String password;
