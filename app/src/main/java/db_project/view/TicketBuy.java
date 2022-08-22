@@ -28,7 +28,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class TestTicketBuy implements Initializable {
+public class TicketBuy implements Initializable {
   @FXML private ChoiceBox<String> dstStationChoiceBox;
   @FXML private ChoiceBox<String> srcStationChoiceBox;
   @FXML private TableView<DateTripSolution> searchSolutionsTableView;
