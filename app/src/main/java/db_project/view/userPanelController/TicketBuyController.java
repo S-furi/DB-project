@@ -63,9 +63,7 @@ public class TicketBuyController {
     this.usrEmail = usrEmail;
   }
 
-  public void retreiveUserId(final String userEmail) {
-
-  }
+  public void retreiveUserId(final String userEmail) {}
 
   public boolean registerTicketBought(
       final Date date, final String pathId, final String trainId, final boolean isFirstClass) {
