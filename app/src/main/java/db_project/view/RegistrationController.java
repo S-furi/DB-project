@@ -2,6 +2,7 @@ package db_project.view;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -10,7 +11,6 @@ import db_project.db.ConnectionProvider;
 import db_project.db.tables.CityTable;
 import db_project.db.tables.PassengerTable;
 import db_project.model.Passenger;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,34 +18,44 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class RegistrationController implements Initializable {
 
-  @FXML private Button regUser;
 
-  @FXML private ChoiceBox<String> cittReg;
+  @FXML
+  private ChoiceBox<String> cittReg;
 
-  @FXML private TextField surnameReg;
+  @FXML
+  private TextField licId;
 
-  @FXML private TextField emailReg;
+  @FXML
+  private Button submitButton;
 
-  @FXML private ChoiceBox<String> regReg;
+  @FXML
+  private TextField surnameReg;
 
-  @FXML private TextField phoneNumReg;
+  @FXML
+  private AnchorPane alert;
 
-  @FXML private ChoiceBox<String> accountTypes;
+  @FXML
+  private TextField emailReg;
 
-  @FXML private TextField nameReg;
+  @FXML
+  private ChoiceBox<String> regReg;
 
-  @FXML private ChoiceBox<String> provReg;
+  @FXML
+  private TextField phoneNumReg;
 
-  @FXML private TextField licId;
+  @FXML
+  private TextField nameReg;
 
-  @FXML private CheckBox cartArrowReg;
+  @FXML
+  private CheckBox cartArrowReg;
 
-  @FXML private Button submitButton;
+  @FXML
+  private ChoiceBox<String> provReg;
 
-  private List<String> accounts;
   private List<String> data;
 
   private static String username = "root";
@@ -62,34 +72,9 @@ public class RegistrationController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.populateAccountTypes();
     this.populateCountryData();
 
     this.populateBoxes();
-    this.accountTypes
-        .getSelectionModel()
-        .selectedIndexProperty()
-        .addListener(
-            (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-              if (this.accounts.get(new_val.intValue()) == "Macchinista") {
-                this.licId.setVisible(true);
-              } else {
-                this.licId.setVisible(false);
-              }
-              if (this.accounts.get(new_val.intValue()) != "Utente") {
-                this.cartArrowReg.setVisible(false);
-              } else {
-                this.cartArrowReg.setVisible(true);
-              }
-            });
-  }
-
-  private void populateAccountTypes() {
-    this.accounts = new ArrayList<>();
-    this.accounts.addAll(
-        List.of("Utente", "Amministratore", "Responsabile Stazione", "Macchinista"));
-    this.accountTypes.getItems().setAll(this.accounts);
-    this.accountTypes.setValue("Utente");
   }
 
   private void populateCountryData() {
@@ -102,7 +87,6 @@ public class RegistrationController implements Initializable {
   private void retrieveData(ActionEvent event) {
     this.data = new ArrayList<>();
 
-    this.data.add(accountTypes.getValue());
     this.data.add(nameReg.getText());
     this.data.add(surnameReg.getText());
     this.data.add(phoneNumReg.getText());
@@ -111,13 +95,13 @@ public class RegistrationController implements Initializable {
     this.data.add(provReg.getValue());
     this.data.add(cittReg.getValue());
 
-    if (this.accountTypes.getValue() == "Utente") {
-      if (this.cartArrowReg.isSelected()) {
-        this.data.add("true");
-      } else {
-        this.data.add("false");
-      }
+
+    if (this.cartArrowReg.isSelected()) {
+      this.data.add("true");
+    } else {
+      this.data.add("false");
     }
+    
 
     // System.out.println(nameReg.getText().isEmpty());
     if (!this.validateData()) {
@@ -131,23 +115,18 @@ public class RegistrationController implements Initializable {
   }
 
   private void executeData(List<String> data) {
-    var userType = data.get(0);
-    if (userType == "Utente") {
-      var newID = passengerTable.getHighestID() + 1;
-      var newUser =
-          new Passenger(
-              Integer.toString(newID),
-              data.get(1),
-              data.get(2),
-              data.get(3),
-              data.get(4),
-              "Residenza",
-              Optional.of("1"));
-      System.out.println(newUser.toString());
-    }
-    if (userType == "Amministratore") {
-      // var newID = adminTable.getHighestID() + 1;
-    }
+    var newID = passengerTable.getHighestID() + 1;
+    var newUser =
+        new Passenger(
+            Integer.toString(newID),
+            data.get(0),
+            data.get(1),
+            data.get(2),
+            data.get(3),
+            data.get(6),
+            Optional.of("1"));
+    System.out.println(newUser.toString());
+    System.out.println(Arrays.toString(data.toArray()));
   }
 
   private boolean validateData() {
