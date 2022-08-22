@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import db_project.db.dbGenerator.DBGenerator;
 import db_project.db.queryUtils.QueryResult;
 import db_project.db.tables.LoyaltyCardTable;
+import db_project.db.tables.PassengerTable;
 import db_project.db.tables.RouteInfoTable;
 import db_project.db.tables.SeatTable;
 import db_project.db.tables.SubscriptionTable;
@@ -40,7 +39,7 @@ public class TicketBuyController {
   private SeatTable seatTable;
   private LoyaltyCardTable cardTable;
   private final Logger logger;
-  private String usrEmail;
+  private String usrId;
 
   public TicketBuyController(DBGenerator dbGenerator) {
     this.dbGenerator = dbGenerator;
@@ -60,10 +59,13 @@ public class TicketBuyController {
   }
 
   public void setUsrEmail(final String usrEmail) {
-    this.usrEmail = usrEmail;
+    this.usrId = this.retreiveUserId(usrEmail);
   }
 
-  public void retreiveUserId(final String userEmail) {}
+  private String retreiveUserId(final String userEmail) {
+    return ((PassengerTable) this.dbGenerator.getTableByClass(PassengerTable.class))
+        .findAll().stream().map(t -> t.getEmail()).filter(t -> t.equals(userEmail)).findAny().get();
+  }
 
   public boolean registerTicketBought(
       final Date date, final String pathId, final String trainId, final boolean isFirstClass) {
@@ -81,8 +83,6 @@ public class TicketBuyController {
       return false;
     }
 
-    // temporary;
-    final var usrId = this.getRandomUserId();
     final Float price = this.computePrice(usrId, pathId);
 
     final Ticket ticket =
@@ -109,8 +109,7 @@ public class TicketBuyController {
     if (routeInfo.isEmpty()) {
       return false;
     }
-    // tmp
-    final var usrId = this.getRandomUserId();
+
     final Float price = this.computePrice(usrId, pathId) * 1.15f;
 
     final Ticket ticket =
@@ -390,13 +389,5 @@ public class TicketBuyController {
           + tripDate
           + "]";
     }
-  }
-
-  // super temp
-  private String getRandomUserId() {
-    final var lst =
-        ((SubscriptionTable) this.dbGenerator.getTableByClass(SubscriptionTable.class))
-            .findAll().stream().map(t -> t.getPassengerCode()).collect(Collectors.toList());
-    return lst.get(new Random().nextInt(lst.size() - 1));
   }
 }
