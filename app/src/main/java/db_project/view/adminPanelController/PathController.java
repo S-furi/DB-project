@@ -94,7 +94,7 @@ public class PathController {
   private Optional<TripSolution> getTripSolutionForGivenPath(final Path path) {
     final String query =
         "SELECT p.codPercorso, p.tempoTotale, SUM(t.distanza) AS Distanza "
-            + "FROM PERCORSO p, DETTAGLIO_PERCORSO dp, tratta t "
+            + "FROM PERCORSO p, DETTAGLIO_PERCORSO dp, TRATTA t "
             + "WHERE p.codPercorso = ? "
             + "AND p.codPercorso = dp.codPercorso "
             + "AND dp.codTratta = t.codTratta "
