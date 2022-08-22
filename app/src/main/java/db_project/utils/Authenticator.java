@@ -11,15 +11,16 @@ public class Authenticator {
     final List<Credentials> credentials =
         new AbstractJsonReader<Credentials>() {}.setFileName("DbAuth.json")
             .retreiveData(Credentials.class);
-    if (credentials.stream()
+    final var usr = credentials.stream()
         .filter(t -> t.getEmail().equals(email))
         .filter(t -> t.getPassword().equals(password))
-        .findAny()
-        .isEmpty()) {
+        .findAny();
+    if (usr.isEmpty()) {
       return AuthResponses.DENIED;
     }
 
-    final var privileges = credentials.stream().findFirst().get().getPrivileges();
+    final var privileges = usr.get().getPrivileges();
+    System.out.println(privileges);
     if (AuthResponses.ROOT.equals(privileges)) {
       return AuthResponses.ROOT;
     } else if (AuthResponses.USER.equals(privileges)) {
