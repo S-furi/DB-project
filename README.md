@@ -2,6 +2,7 @@
 Database Project for Database course, University of Bologna
 - [DB-project](#db-project)
     - [**CODING**](#coding)
+  - [- [x] Implement a JDBC handler for reducing Boilerplate code, and make queries simpler to compute](#--x-implement-a-jdbc-handler-for-reducing-boilerplate-code-and-make-queries-simpler-to-compute)
     - [**SCHEMA**](#schema)
     - [**REPORT**](#report)
   - [**Istruzioni**](#istruzioni)
@@ -45,9 +46,9 @@ Take **daily** notes for **REPORT** (at least two or three times a week work on 
 - [ ] Raffinamenti proposti
 - [ ] Schema conettuale finale (Solo dopo aver finito tutti i punti di [Schema](#schema))
 **Progettazione logica**
-- [ ] Stima dei volumi dei dati
-- [ ] Descrizione delle operazioni principali e stima della loro frequenza
-- [ ] Schemi di navigazione e tabelle degli acessi (DECIDERE CON COSA FARLE)
+- [x] Stima dei volumi dei dati
+- [x] Descrizione delle operazioni principali e stima della loro frequenza
+- [x] Schemi di navigazione e tabelle degli acessi (DECIDERE CON COSA FARLE)
 - [ ] Raffinamento dello schema (eliminazione di identificatori esterni, attributi composti e gerarchie, **scelta delle chiavi**)
 - [ ] Analisi delle ridondanze 
 - [ ] Traduzione di entità e associazioni in relazioni
