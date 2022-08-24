@@ -139,7 +139,8 @@ public class TicketBuyController {
             ticketDetail.get().getTrainClass(),
             ticketDetail.get().getCarNumber(),
             ticketDetail.get().getSeatNumber(),
-            ticketDetail.get().getTripDate()));
+            ticketDetail.get().getTripDate(),
+            ticket.getPrice()));
 
     return this.ticketTable.save(ticket) && this.ticketDetailTable.save(ticketDetail.get());
   }
@@ -213,6 +214,8 @@ public class TicketBuyController {
     seatNumberColumn.setCellValueFactory(new PropertyValueFactory<>("seatNumber"));
     final TableColumn<TicketCheckout, Date> tripDateColumn = new TableColumn<>("Data Viaggio");
     tripDateColumn.setCellValueFactory(new PropertyValueFactory<>("tripDate"));
+    final TableColumn<TicketCheckout, Double> priceColumn = new TableColumn<>("Prezzo");
+    priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     final List<TableColumn<TicketCheckout, ?>> lst =
         List.of(
@@ -223,7 +226,8 @@ public class TicketBuyController {
             classNumberColumn,
             carNumberColumn,
             seatNumberColumn,
-            tripDateColumn);
+            tripDateColumn,
+            priceColumn);
 
     lst.forEach(t -> t.setStyle("-fx-alignment: CENTER;"));
 
@@ -284,6 +288,7 @@ public class TicketBuyController {
               final boolean isRv = row.get("regionaleVeloce").equals("1");
               final String classNumber =
                   row.get("numClasse") == null ? "null" : (String) row.get("numClasse");
+              final Float price = (Float) row.get("prezzo");
 
               tkts.add(
                   new TicketCheckout(
@@ -294,7 +299,8 @@ public class TicketBuyController {
                       classNumber,
                       carNumber,
                       seatNumber,
-                      tripDate));
+                      tripDate,
+                      price));
             });
     return tkts;
   }
@@ -308,16 +314,18 @@ public class TicketBuyController {
     private int carNumber;
     private int seatNumber;
     private Date tripDate;
+    private double price;
 
     public TicketCheckout(
-        String ticketId,
-        String passengerId,
-        boolean isRv,
-        String pathId,
-        String classNumber,
-        int carNumber,
-        int seatNumber,
-        Date tripDate) {
+        final String ticketId,
+        final String passengerId,
+        final boolean isRv,
+        final String pathId,
+        final String classNumber,
+        final int carNumber,
+        final int seatNumber,
+        final Date tripDate,
+        final double price) {
       this.ticketId = ticketId;
       this.passengerId = passengerId;
       this.isRv = isRv;
@@ -326,9 +334,10 @@ public class TicketBuyController {
       this.carNumber = carNumber;
       this.seatNumber = seatNumber;
       this.tripDate = tripDate;
+      this.price = java.lang.Math.floor(price);
     }
 
-    public TicketCheckout(Ticket ticket, boolean isRv, String pathId, Date tripDate) {
+    public TicketCheckout(final Ticket ticket, final boolean isRv, final  String pathId, final Date tripDate) {
       this.ticketId = ticket.getTicketId();
       this.passengerId = ticket.getPassengerId();
       this.isRv = isRv;
@@ -337,6 +346,7 @@ public class TicketBuyController {
       this.carNumber = 0;
       this.seatNumber = 0;
       this.tripDate = tripDate;
+      this.price = java.lang.Math.floor(ticket.getPrice());
     }
 
     public String getTicketId() {
@@ -370,26 +380,16 @@ public class TicketBuyController {
     public Date getTripDate() {
       return tripDate;
     }
+    
+    public double getPrice() {
+      return price;
+    }
 
     @Override
     public String toString() {
-      return "TicketCheckout [carNumber="
-          + carNumber
-          + ", classNumber="
-          + classNumber
-          + ", isRv="
-          + isRv
-          + ", passengerId="
-          + passengerId
-          + ", pathId="
-          + pathId
-          + ", seatNumber="
-          + seatNumber
-          + ", ticketId="
-          + ticketId
-          + ", tripDate="
-          + tripDate
-          + "]";
+      return "TicketCheckout [carNumber=" + carNumber + ", classNumber=" + classNumber + ", isRv=" + isRv
+          + ", passengerId=" + passengerId + ", pathId=" + pathId + ", price=" + price + ", seatNumber=" + seatNumber
+          + ", ticketId=" + ticketId + ", tripDate=" + tripDate + "]";
     }
   }
 }
