@@ -409,4 +409,8 @@ public class TicketBuyController {
           + "]";
     }
   }
+
+  public int getSoldTicketByMonth(final int month) {
+    return this.ticketTable.getTicketsSoldByMonth(month);
+  }
 }
