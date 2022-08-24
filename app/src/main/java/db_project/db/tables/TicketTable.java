@@ -103,10 +103,8 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   }
 
   public int getTicketsSoldByMonth(final int month) {
-    final String query = 
-        "SELECT COUNT(prezzo) as Prezzo "
-          + "FROM BIGLIETTO "
-          + "WHERE MONTH(data) = ?; ";
+    final String query =
+        "SELECT COUNT(prezzo) as Prezzo " + "FROM BIGLIETTO " + "WHERE MONTH(data) = ?; ";
     final Object[] params = {month};
     super.parser.computeSqlQuery(query, params);
     final var res = super.parser.getQueryResult().getResult().get().stream().findFirst();

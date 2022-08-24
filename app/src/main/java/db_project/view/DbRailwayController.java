@@ -372,7 +372,11 @@ public class DbRailwayController implements Initializable {
   private void fillTicketsBarChart() {
     XYChart.Series<String, Integer> dataSet = new XYChart.Series<>();
     for (int i = 1; i <= 12; i++) {
-      dataSet.getData().add(new XYChart.Data<String, Integer>(String.valueOf(i), this.ticketController.getSoldTicketByMonth(i)));
+      dataSet
+          .getData()
+          .add(
+              new XYChart.Data<String, Integer>(
+                  String.valueOf(i), this.ticketController.getSoldTicketByMonth(i)));
     }
     this.monthBarChart.getData().add(dataSet);
   }
