@@ -337,7 +337,8 @@ public class TicketBuyController {
       this.price = java.lang.Math.floor(price);
     }
 
-    public TicketCheckout(final Ticket ticket, final boolean isRv, final  String pathId, final Date tripDate) {
+    public TicketCheckout(
+        final Ticket ticket, final boolean isRv, final String pathId, final Date tripDate) {
       this.ticketId = ticket.getTicketId();
       this.passengerId = ticket.getPassengerId();
       this.isRv = isRv;
@@ -380,16 +381,32 @@ public class TicketBuyController {
     public Date getTripDate() {
       return tripDate;
     }
-    
+
     public double getPrice() {
       return price;
     }
 
     @Override
     public String toString() {
-      return "TicketCheckout [carNumber=" + carNumber + ", classNumber=" + classNumber + ", isRv=" + isRv
-          + ", passengerId=" + passengerId + ", pathId=" + pathId + ", price=" + price + ", seatNumber=" + seatNumber
-          + ", ticketId=" + ticketId + ", tripDate=" + tripDate + "]";
+      return "TicketCheckout [carNumber="
+          + carNumber
+          + ", classNumber="
+          + classNumber
+          + ", isRv="
+          + isRv
+          + ", passengerId="
+          + passengerId
+          + ", pathId="
+          + pathId
+          + ", price="
+          + price
+          + ", seatNumber="
+          + seatNumber
+          + ", ticketId="
+          + ticketId
+          + ", tripDate="
+          + tripDate
+          + "]";
     }
   }
 }
