@@ -5,6 +5,81 @@
         "privileges": "root"
     },
     {
+        "email": "alessandra.rossetti7@libero.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "camilla.barbieri1@icloud.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "gaia.palmieri5@libero.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "sofia.rizzi4@hotmail.it",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "maddalena.mancini6@aruba.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "federica.deangelis7@icloud.com",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "desolino.mariani8@live.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "riccardo.caruso2@hotmail.it",
+        "password": "Reggio root",
+        "privileges": "root"
+    },
+    {
+        "email": "adele.morelli7@alice.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "anita.milani8@aruba.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "maria.martino9@icloud.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "nicola.pellegrini8@yahoo.com",
+        "password": "Desenzano del root",
+        "privileges": "root"
+    },
+    {
+        "email": "dario.deangelis6@hotmail.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "vanessa.farina7@alice.it",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "pietro.gallo1@hotmail.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
         "email": "alessia.valentini9@outlook.com",
         "password": "user",
         "privileges": "user"
