@@ -95,7 +95,7 @@ public class TicketTable extends AbstractTable<Ticket, String> {
   public QueryResult getAllBoughtTicketAsQueryResult() {
     final String query =
         "SELECT b.codiceBiglietto, b.codPasseggero, b.regionaleVeloce, b.codPercorso, "
-            + "db.numClasse, db.numeroCarrozza, db.numeroPosto, b.data, b.prezzo"
+            + "db.numClasse, db.numeroCarrozza, db.numeroPosto, b.data, b.prezzo "
             + "from BIGLIETTO b left join DETTAGLIO_BIGLIETTO db  "
             + "on (b.codiceBiglietto = db.codiceBiglietto); ";
     super.parser.computeSqlQuery(query, null);
