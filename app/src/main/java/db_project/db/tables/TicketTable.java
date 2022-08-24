@@ -101,4 +101,15 @@ public class TicketTable extends AbstractTable<Ticket, String> {
     super.parser.computeSqlQuery(query, null);
     return this.parser.getQueryResult();
   }
+
+  public int getTicketsSoldByMonth(final int month) {
+    final String query = 
+        "SELECT COUNT(prezzo) as Prezzo "
+          + "FROM BIGLIETTO "
+          + "WHERE MONTH(data) = ?; ";
+    final Object[] params = {month};
+    super.parser.computeSqlQuery(query, params);
+    final var res = super.parser.getQueryResult().getResult().get().stream().findFirst();
+    return ((Long) res.get().get("Prezzo")).intValue();
+  }
 }
