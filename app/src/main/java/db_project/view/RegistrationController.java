@@ -118,7 +118,6 @@ public class RegistrationController implements Initializable {
       }
     }
 
-    // System.out.println(nameReg.getText().isEmpty());
     if (!this.validateData()) {
       System.out.println("DATI NON CORRETTI");
       this.nameReg.clear();
@@ -162,6 +161,5 @@ public class RegistrationController implements Initializable {
               this.provReg.getItems().add(t.getProvince());
               this.cittReg.getItems().add(t.getName());
             });
-    System.out.println("ChoiceBox setup went fine");
   }
 }

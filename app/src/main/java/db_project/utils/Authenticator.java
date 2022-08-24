@@ -21,7 +21,6 @@ public class Authenticator {
     }
 
     final var privileges = usr.get().getPrivileges();
-    System.out.println(privileges);
     if (AuthResponses.ROOT.equals(privileges)) {
       return AuthResponses.ROOT;
     } else if (AuthResponses.USER.equals(privileges)) {
