@@ -67,7 +67,7 @@ public class RegistrationController implements Initializable {
 
   private static String username = "root";
   private static String password = "123Test123";
-  private static String db_name = "Ferrovia";
+  private static String db_name = "Railway";
 
   private static final ConnectionProvider connectionProvider =
       new ConnectionProvider(username, password, db_name);
@@ -121,10 +121,11 @@ public class RegistrationController implements Initializable {
   }
 
   private void executeData(List<String> data, ActionEvent event) {
-    var newID = passengerTable.getHighestID() + 1;
+    var newID = passengerTable.findAll().stream().map(t -> t.getPassengerCode()).sorted((t1, t2) -> 
+      Integer.compare(Integer.parseInt(t2), Integer.parseInt(t1))).findFirst().get();
     var newUser =
         new Passenger(
-            Integer.toString(newID),
+            Integer.toString(Integer.parseInt(newID) + 1),
             data.get(0),
             data.get(1),
             data.get(2),

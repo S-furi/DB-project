@@ -29,7 +29,7 @@
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <CheckBox fx:id="cartArrowReg" alignment="CENTER" layoutX="395.0" layoutY="443.0" mnemonicParsing="false" text="Voglio aderire alla cartArrow" />
+            <CheckBox fx:id="cartArrowReg" alignment="CENTER" layoutX="395.0" layoutY="443.0" mnemonicParsing="false" opacity="0.0" text="Voglio aderire alla cartArrow" />
             <ChoiceBox fx:id="regReg" layoutX="233.0" layoutY="377.0" prefHeight="30.0" prefWidth="170.0" />
             <ChoiceBox fx:id="provReg" layoutX="415.0" layoutY="377.0" prefHeight="30.0" prefWidth="170.0" />
             <TextField fx:id="licId" layoutX="418.0" layoutY="340.0" promptText="Numero Patente" visible="false" />
