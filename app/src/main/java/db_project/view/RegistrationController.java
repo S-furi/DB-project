@@ -3,11 +3,8 @@ package db_project.view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.Action;
 
 import db_project.db.ConnectionProvider;
 import db_project.db.tables.CityTable;
