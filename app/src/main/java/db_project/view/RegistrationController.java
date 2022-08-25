@@ -26,39 +26,27 @@ import javafx.scene.Node;
 
 public class RegistrationController implements Initializable {
 
+  @FXML private ChoiceBox<String> cittReg;
 
-  @FXML
-  private ChoiceBox<String> cittReg;
+  @FXML private TextField licId;
 
-  @FXML
-  private TextField licId;
+  @FXML private Button submitButton;
 
-  @FXML
-  private Button submitButton;
+  @FXML private TextField surnameReg;
 
-  @FXML
-  private TextField surnameReg;
+  @FXML private AnchorPane alert;
 
-  @FXML
-  private AnchorPane alert;
+  @FXML private TextField emailReg;
 
-  @FXML
-  private TextField emailReg;
+  @FXML private ChoiceBox<String> regReg;
 
-  @FXML
-  private ChoiceBox<String> regReg;
+  @FXML private TextField phoneNumReg;
 
-  @FXML
-  private TextField phoneNumReg;
+  @FXML private TextField nameReg;
 
-  @FXML
-  private TextField nameReg;
+  @FXML private CheckBox cartArrowReg;
 
-  @FXML
-  private CheckBox cartArrowReg;
-
-  @FXML
-  private ChoiceBox<String> provReg;
+  @FXML private ChoiceBox<String> provReg;
 
   private List<String> data;
 
@@ -99,13 +87,11 @@ public class RegistrationController implements Initializable {
     this.data.add(provReg.getValue());
     this.data.add(cittReg.getValue());
 
-
     if (this.cartArrowReg.isSelected()) {
       this.data.add("true");
     } else {
       this.data.add("false");
     }
-    
 
     if (!this.validateData()) {
       System.out.println("DATI NON CORRETTI");
@@ -118,8 +104,12 @@ public class RegistrationController implements Initializable {
   }
 
   private void executeData(List<String> data, ActionEvent event) {
-    var newID = passengerTable.findAll().stream().map(t -> t.getPassengerCode()).sorted((t1, t2) -> 
-      Integer.compare(Integer.parseInt(t2), Integer.parseInt(t1))).findFirst().get();
+    var newID =
+        passengerTable.findAll().stream()
+            .map(t -> t.getPassengerCode())
+            .sorted((t1, t2) -> Integer.compare(Integer.parseInt(t2), Integer.parseInt(t1)))
+            .findFirst()
+            .get();
     var newUser =
         new Passenger(
             Integer.toString(Integer.parseInt(newID) + 1),
@@ -127,8 +117,7 @@ public class RegistrationController implements Initializable {
             data.get(1),
             data.get(2),
             data.get(3),
-            data.get(6)
-        );
+            data.get(6));
     passengerTable.save(newUser);
     this.switchToLogIn(event);
   }
@@ -149,7 +138,7 @@ public class RegistrationController implements Initializable {
             });
   }
 
-  private void switchToLogIn(ActionEvent event){
+  private void switchToLogIn(ActionEvent event) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
       var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
