@@ -36,7 +36,6 @@ public class LogInController implements Initializable {
     var email = this.usernameField.getText();
     var password = this.passField.getText();
     AuthResponses response = Authenticator.authenticate(email, password);
-    System.out.println(response);
     switch (response) {
       case USER:
         this.switchToUserLanding(event, email);

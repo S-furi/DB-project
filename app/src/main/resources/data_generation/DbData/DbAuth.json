@@ -2,16 +2,211 @@
     {
         "email": "root",
         "password": "root",
-        "privileges" : "root"
-    }, 
+        "privileges": "root"
+    },
     {
-        "email": "alessia.valentini9@outlook.com", 
-        "password": "ale.valentini",
+        "email": "alessandra.rossetti7@libero.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "camilla.barbieri1@icloud.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "gaia.palmieri5@libero.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "sofia.rizzi4@hotmail.it",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "maddalena.mancini6@aruba.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "federica.deangelis7@icloud.com",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "desolino.mariani8@live.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "riccardo.caruso2@hotmail.it",
+        "password": "Reggio root",
+        "privileges": "root"
+    },
+    {
+        "email": "adele.morelli7@alice.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "anita.milani8@aruba.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "maria.martino9@icloud.com",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "nicola.pellegrini8@yahoo.com",
+        "password": "Desenzano del root",
+        "privileges": "root"
+    },
+    {
+        "email": "dario.deangelis6@hotmail.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "vanessa.farina7@alice.it",
+        "password": "Peschiera del root",
+        "privileges": "root"
+    },
+    {
+        "email": "pietro.gallo1@hotmail.it",
+        "password": "root",
+        "privileges": "root"
+    },
+    {
+        "email": "alessia.valentini9@outlook.com",
+        "password": "user",
         "privileges": "user"
     },
     {
-        "email": "a", 
-        "password": "a",
+        "email": "alessia.valentini9@outlook.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "mattia.sartori1@outlook.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "maddalena.martino7@icloud.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "federica.rossetti2@gmail.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "gabriele.deangelis7@alice.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "gaia.russo9@alice.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "miryam.coppola1@virgilio.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "daniele.parisi3@aruba.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "maddalena.bianchi5@yahoo.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "alessia.romano4@live.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "lorenzo.longo6@icloud.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "melissa.orlando2@virgilio.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "arianna.sala2@outlook.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "paolo.vitali1@yahoo.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "gaia.lombardo7@yahoo.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "alessandra.grasso2@libero.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "caterina.sanna6@virgilio.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "daniele.giuliani7@gmail.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "monica.basile4@live.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "jacopo.marini8@alice.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "davide.testa2@alice.it",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "marco.valentini9@yahoo.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "simona.bernardi6@yahoo.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "alessia.villa9@aruba.com",
+        "password": "user",
+        "privileges": "user"
+    },
+    {
+        "email": "ambra.fontana8@alice.it",
+        "password": "user",
         "privileges": "user"
     }
 ]

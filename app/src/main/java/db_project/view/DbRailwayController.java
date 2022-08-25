@@ -28,6 +28,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -73,6 +77,9 @@ public class DbRailwayController implements Initializable {
 
   // Fifth Tab
   @FXML private TableView<TicketCheckout> ticketsTableView;
+  @FXML private BarChart<String, Integer> monthBarChart;
+  @FXML private CategoryAxis monthsAxis;
+  @FXML private NumberAxis ticketsAxis;
 
   private DBGenerator dbGenerator;
   private PathController pathController;
@@ -88,6 +95,7 @@ public class DbRailwayController implements Initializable {
     this.fillTableViews();
     this.fillChoiceBoxes();
     this.initialButtonsSetup();
+    this.fillTicketsBarChart();
   }
 
   private void initializeSubControllers() {
@@ -359,6 +367,18 @@ public class DbRailwayController implements Initializable {
       this.showDialog("Cannot find Selected subscriber!");
       return;
     }
+  }
+
+  private void fillTicketsBarChart() {
+    XYChart.Series<String, Integer> dataSet = new XYChart.Series<>();
+    for (int i = 1; i <= 12; i++) {
+      dataSet
+          .getData()
+          .add(
+              new XYChart.Data<String, Integer>(
+                  String.valueOf(i), this.ticketController.getSoldTicketByMonth(i)));
+    }
+    this.monthBarChart.getData().add(dataSet);
   }
 
   private void showDialog(String msg) {
