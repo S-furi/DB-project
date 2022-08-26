@@ -1,5 +1,11 @@
 # Progetto corso *Basi di Dati*
 ## **Istruzioni**
+Prima di effettuare qualunque operazione, ispezionare le classi che
+DbGenerator e RegistrationController e modificare 
+i campi statici *username* e *password* in base alle proprie credenziali
+locali di MySQL.
+
+
 Per generare il database, nella home del progetto digitare:
 ```bash
 ./gradlew createDB
